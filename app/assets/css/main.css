@@ -7,7 +7,7 @@
   --font-sans: 'Poppins', system-ui, sans-serif;
   --font-arabic: 'Tajawal', system-ui, sans-serif;
 
-  --color-brand-primary: #1B3861;
+  --color-brand-primary: #1E3A8A;
   --color-brand-primary-hover: #142d4f;
   --color-brand-primary-soft: #edf3fa;
   --color-brand-accent: #D4AF37;
@@ -132,6 +132,7 @@
   --motion-view: 500ms;
   --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --page-blur: 1rem;
+  --anchor-offset: 5.75rem;
 }
 
 ::view-transition-old(root),
@@ -144,6 +145,8 @@ html {
   color: var(--color-ink);
   color-scheme: light;
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset);
   transition:
     background-color var(--motion-standard) ease,
     color var(--motion-standard) ease;
@@ -184,11 +187,39 @@ body:not([data-aos-easing]) [data-aos] {
   transition: none !important;
 }
 
+section[id] {
+  scroll-margin-top: var(--anchor-offset);
+}
+
+section[id]:target {
+  animation: section-anchor-settle 700ms var(--motion-ease-out);
+}
+
+@keyframes section-anchor-settle {
+  from {
+    outline: 1px solid color-mix(in oklab, var(--color-brand-accent) 40%, transparent);
+    outline-offset: -1px;
+  }
+
+  to {
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   [data-aos] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+
+  section[id]:target {
+    animation: none;
   }
 }
 
@@ -233,11 +264,32 @@ body[data-aos-easing] [data-aos] {
   }
 
   .site-nav-link {
-    @apply hover:text-brand-primary dark:hover:text-brand-accent transition-colors;
+    @apply relative py-2 hover:text-brand-primary dark:hover:text-brand-accent transition-colors duration-300;
+  }
+
+  .site-nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background: var(--color-brand-accent);
+    opacity: 0;
+    transform: scaleX(0.25);
+    transition:
+      opacity var(--motion-standard) var(--motion-ease-out),
+      transform var(--motion-standard) var(--motion-ease-out);
+  }
+
+  .site-nav-link:hover::after,
+  .site-nav-link-active::after {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
   .site-nav-link-active {
-    @apply text-ink dark:text-dark-ink;
+    @apply text-brand-primary dark:text-brand-accent;
   }
 
   .site-action-group {

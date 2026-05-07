@@ -10,6 +10,7 @@
         :key="item.labelKey"
         :to="sectionPath(item.hash)"
         class="site-nav-link"
+        :class="{ 'site-nav-link-active': isActiveNavItem(item.hash) }"
         data-aos="fade-down"
         :data-aos-delay="index * 100"
       >
@@ -85,6 +86,7 @@
               :key="item.labelKey"
               :to="sectionPath(item.hash)"
               class="sidebar-nav-link group flex items-center gap-3 px-4 py-3.5 rounded-xl text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-transparent hover:border-brand-primary/15 dark:hover:border-brand-accent/20 transition-all duration-200"
+              :class="{ 'sidebar-nav-link-active': isActiveNavItem(item.hash) }"
               :style="{ transitionDelay: `${index * 35}ms` }"
               @click="isMobileMenuOpen = false"
             >
@@ -123,7 +125,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import logoImage from '~/assets/images/logo.png'
 import {
   BookOpenIcon,
@@ -142,6 +144,7 @@ import {
 const { locale, setLocale } = useI18n()
 const colorMode = useColorMode()
 const localePath = useLocalePath()
+const route = useRoute()
 
 const isMobileMenuOpen = ref(false)
 
@@ -155,6 +158,16 @@ const navItems = [
 ]
 
 const sectionPath = (hash: string) => `${localePath('/')}${hash}`
+const normalizePath = (path: string) => path.replace(/\/$/, '') || '/'
+const homePath = computed(() => normalizePath(localePath('/')))
+
+const isActiveNavItem = (hash: string) => {
+  if (normalizePath(route.path) !== homePath.value) {
+    return false
+  }
+
+  return hash ? route.hash === hash : !route.hash
+}
 
 const toggleTheme = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
@@ -195,5 +208,17 @@ const toggleLanguage = () => {
 .slide-right-leave-to {
   transform: translateX(100%);
   opacity: 0;
+}
+
+.sidebar-nav-link-active {
+  background: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
+  border-color: color-mix(in oklab, var(--color-brand-primary) 18%, transparent);
+  color: var(--color-brand-primary);
+}
+
+:global(.dark) .sidebar-nav-link-active {
+  background: var(--color-dark-surface-glow);
+  border-color: color-mix(in oklab, var(--color-brand-accent) 24%, transparent);
+  color: var(--color-brand-accent);
 }
 </style>

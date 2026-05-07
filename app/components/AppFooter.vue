@@ -32,7 +32,7 @@
               v-for="(link, index) in footerLinks"
               :key="link.labelKey"
               data-aos="fade-up"
-              :data-aos-delay="index * 55"
+              :data-aos-delay="index * 100"
             >
               <NuxtLink :to="sectionPath(link.hash)" class="footer-link group">
                 <span class="w-1.5 h-1.5 rounded-full bg-brand-primary dark:bg-brand-accent mr-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"></span>
@@ -51,13 +51,13 @@
               </div>
               <span class="footer-text whitespace-pre-line pt-2">{{ $t('footer.contact.address') }}</span>
             </div>
-            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="55">
+            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="100">
               <div class="w-10 h-10 rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
                 <PhoneIcon class="footer-icon group-hover:text-current transition-colors" />
               </div>
               <span class="footer-text pt-2">{{ $t('footer.contact.phone') }}</span>
             </div>
-            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="110">
+            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="200">
               <div class="w-10 h-10 rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
                 <MailIcon class="footer-icon group-hover:text-current transition-colors" />
               </div>
