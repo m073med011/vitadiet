@@ -79,6 +79,9 @@ export default <RouterConfig>{
       };
     }
 
-    return false;
+    return {
+      top: 0,
+      behavior: getMotionBehavior(),
+    };
   },
 };
