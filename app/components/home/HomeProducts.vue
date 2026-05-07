@@ -31,41 +31,7 @@
         </NuxtLink>
       </div>
 
-      <div class="trust-download-grid">
-        <article class="trust-box-panel" data-aos="fade-right">
-          <h3 class="section-heading-display mb-4">{{ $t('homePage.trustBox.heading') }}</h3>
-          <p class="section-copy mb-8">{{ $t('homePage.trustBox.description') }}</p>
-          <ul class="soft-check-list">
-            <li
-              v-for="(point, index) in trustBoxPoints"
-              :key="point"
-              data-aos="fade-up"
-              :data-aos-delay="index * 100"
-            >
-              <PackageCheckIcon />
-              <span>{{ $t(point) }}</span>
-            </li>
-          </ul>
-        </article>
-
-        <article class="download-panel" data-aos="fade-left" data-aos-delay="150">
-          <h3 class="section-heading-display mb-4">{{ $t('homePage.downloads.heading') }}</h3>
-          <p class="section-copy mb-8">{{ $t('homePage.downloads.description') }}</p>
-          <div class="download-grid">
-            <button
-              v-for="(item, index) in downloadItems"
-              :key="item"
-              type="button"
-              class="download-tile"
-              data-aos="fade-up"
-              :data-aos-delay="index * 100"
-            >
-              <FileDownIcon />
-              <span>{{ $t(item) }}</span>
-            </button>
-          </div>
-        </article>
-      </div>
+      
     </div>
   </section>
 </template>

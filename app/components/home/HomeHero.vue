@@ -29,14 +29,7 @@
         {{ $t('homePage.hero.subheading') }}
       </p>
 
-      <div class="hero-actions-vitadiet" data-aos="fade-up" data-aos-delay="350">
-        <BaseButton href="mailto:partners@Vitadiet.sa" variant="primary">
-          {{ $t('homePage.hero.primary') }}
-        </BaseButton>
-        <BaseButton :to="sectionPath('#about')" variant="secondary">
-          {{ $t('homePage.hero.secondary') }}
-        </BaseButton>
-      </div>
+
     </div>
   </section>
 </template>

@@ -21,30 +21,7 @@
         </article>
       </div>
 
-      <div class="story-route-grid">
-        <article class="story-panel" data-aos="fade-right">
-          <span class="lotus-mark small" aria-hidden="true"></span>
-          <h3 class="section-heading-display mb-4">{{ $t('homePage.nameStory.heading') }}</h3>
-          <p class="section-copy">{{ $t('homePage.nameStory.description') }}</p>
-        </article>
-
-        <article class="route-panel" data-aos="fade-left" data-aos-delay="150">
-          <h3 class="text-title font-bold text-ink dark:text-dark-ink mb-3">{{ $t('homePage.route.heading') }}</h3>
-          <p class="text-ink-soft dark:text-dark-ink-soft mb-8">{{ $t('homePage.route.description') }}</p>
-          <div class="route-steps">
-            <div
-              v-for="(step, index) in routeSteps"
-              :key="step"
-              class="route-step"
-              data-aos="fade-up"
-              :data-aos-delay="index * 100"
-            >
-              <span>{{ index + 1 }}</span>
-              <p>{{ $t(step) }}</p>
-            </div>
-          </div>
-        </article>
-      </div>
+      
 
       <article class="silent-lab-panel" data-aos="fade-up">
         <div>
