@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 
-  css: ["~/assets/css/main.css"],
+  css: ["aos/dist/aos.css", "~/assets/css/main.css"],
 
   vite: {
     plugins: [tailwindcss()],
@@ -14,7 +14,8 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/color-mode", "@nuxtjs/i18n"],
 
   colorMode: {
-    classSuffix: "", // This is important for Tailwind dark mode, it will just add 'dark' instead of 'dark-mode'
+    classSuffix: "",
+    preference: "light",
   },
 
   i18n: {

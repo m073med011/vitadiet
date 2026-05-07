@@ -130,6 +130,7 @@
   --motion-standard: 300ms;
   --motion-page: 400ms;
   --motion-view: 500ms;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --page-blur: 1rem;
 }
 
@@ -175,6 +176,24 @@ html.dark ::selection {
 a,
 button {
   -webkit-tap-highlight-color: transparent;
+}
+
+body:not([data-aos-easing]) [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+body[data-aos-easing] [data-aos] {
+  transition-timing-function: var(--motion-ease-out) !important;
 }
 
 .page-enter-active,

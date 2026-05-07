@@ -1,15 +1,17 @@
 <template>
-  <header class="site-header sticky top-0 z-50">
+  <header class="site-header sticky top-0 z-50" data-aos="fade-down" data-aos-duration="500">
     <NuxtLink :to="localePath('/')" class="flex items-center relative z-10 group shrink-0" aria-label="Vitadiet home">
       <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="site-logo group-hover:scale-105 transition-transform duration-300" />
     </NuxtLink>
 
     <nav class="site-nav">
       <NuxtLink
-        v-for="item in navItems"
+        v-for="(item, index) in navItems"
         :key="item.labelKey"
         :to="sectionPath(item.hash)"
         class="site-nav-link"
+        data-aos="fade-down"
+        :data-aos-delay="index * 100"
       >
         {{ $t(item.labelKey) }}
       </NuxtLink>

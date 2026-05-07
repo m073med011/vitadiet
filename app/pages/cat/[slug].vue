@@ -1,14 +1,17 @@
 <template>
   <div class="pt-24 pb-12 min-h-screen">
     <div class="content-wrap">
-      <p class="text-caption font-bold tracking-label uppercase text-brand-primary dark:text-brand-accent text-center mb-4">
+      <p
+        class="text-caption font-bold tracking-label uppercase text-brand-primary dark:text-brand-accent text-center mb-4"
+        data-aos="fade-up"
+      >
         {{ $t('categoryPage.eyebrow') }}
       </p>
-      <h1 class="text-4xl font-bold text-center mb-8">{{ categoryName }}</h1>
-      <p class="section-copy text-center max-w-copy mx-auto mb-8">
+      <h1 class="text-4xl font-bold text-center mb-8" data-aos="fade-up" data-aos-delay="100">{{ categoryName }}</h1>
+      <p class="section-copy text-center max-w-copy mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">
         {{ $t('categoryPage.description') }}
       </p>
-      <div class="text-center">
+      <div class="text-center" data-aos="fade-up" data-aos-delay="300">
         <BaseButton href="mailto:b2b@Vitadiet.sa" variant="primary">
           {{ $t('categoryPage.cta') }}
         </BaseButton>

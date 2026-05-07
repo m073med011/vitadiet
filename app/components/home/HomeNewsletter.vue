@@ -2,17 +2,22 @@
   <section id="contact" class="section-solid section-loose overflow-hidden">
     <div class="content-wrap">
       <div class="start-contact-grid">
-        <article class="start-panel">
+        <article class="start-panel" data-aos="fade-right">
           <h2 class="section-heading mb-8">{{ $t('homePage.steps.heading') }}</h2>
           <div class="start-steps">
-            <div v-for="(step, index) in partnerSteps" :key="step">
+            <div
+              v-for="(step, index) in partnerSteps"
+              :key="step"
+              data-aos="fade-up"
+              :data-aos-delay="index * 100"
+            >
               <span>{{ index + 1 }}</span>
               <p>{{ $t(step) }}</p>
             </div>
           </div>
         </article>
 
-        <article class="contact-panel">
+        <article class="contact-panel" data-aos="fade-left" data-aos-delay="150">
           <h2 class="section-heading-display mb-4">{{ $t('homePage.contactSection.heading') }}</h2>
           <p class="section-copy mb-10">{{ $t('homePage.contactSection.description') }}</p>
 
@@ -40,9 +45,15 @@
         </article>
       </div>
 
-      <div class="faq-panel">
+      <div class="faq-panel" data-aos="fade-up">
         <h2 class="section-heading mb-8">{{ $t('homePage.faq.heading') }}</h2>
-        <details v-for="faq in faqItems" :key="faq.questionKey" class="faq-item">
+        <details
+          v-for="(faq, index) in faqItems"
+          :key="faq.questionKey"
+          class="faq-item"
+          data-aos="fade-up"
+          :data-aos-delay="index * 100"
+        >
           <summary>{{ $t(faq.questionKey) }}</summary>
           <p>{{ $t(faq.answerKey) }}</p>
         </details>
