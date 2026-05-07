@@ -30,8 +30,6 @@
           <h3>{{ $t(product.titleKey) }}</h3>
         </NuxtLink>
       </div>
-
-      
     </div>
   </section>
 </template>
