@@ -29,25 +29,39 @@
           </ul>
 
           <div class="mt-gutter flex flex-col sm:flex-row gap-page">
-            <BaseButton href="mailto:b2b@vitadiet.sa" variant="primary">
+            <BaseButton :href="product.buyLink || 'mailto:b2b@vitadiet.sa'" :target="product.buyLink ? '_blank' : undefined" variant="primary">
               {{ $t('categoryPage.cta') }}
               <ArrowRightIcon class="h-icon-md w-icon-md rtl:rotate-180" aria-hidden="true" />
             </BaseButton>
-            <BaseButton :to="sectionPath('#products')" variant="secondary">
+            <BaseButton href="https://www.noon.com/saudi-ar/femavit-plus-30-capsules/Z3058C2F313DDA75557DCZ/p/?o=f82fddebb7fe0f4c" target="_blank" variant="secondary">
               {{ $t('products') }}
             </BaseButton>
           </div>
         </div>
 
-        <div class="rounded-card border border-line dark:border-dark-line bg-surface-raised dark:bg-dark-surface-raised p-page shadow-float" data-aos="fade-up" data-aos-delay="150">
-          <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-surface-muted dark:bg-dark-surface-muted">
-            <BaseImage :src="product.image" :alt="$t(product.titleKey)" fill />
-            <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur dark:border-dark-line dark:bg-dark-surface-raised/95">
-              <span class="text-small font-bold text-ink-soft dark:text-dark-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
-              <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink">
-                {{ $t(product.priceKey) }}
-              </span>
+        <div class="flex flex-col gap-page" data-aos="fade-up" data-aos-delay="150">
+          <div class="rounded-card border border-line dark:border-dark-line bg-surface-raised dark:bg-dark-surface-raised p-page shadow-float">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-surface-muted dark:bg-dark-surface-muted">
+              <BaseImage :src="activeImage" :alt="$t(product.titleKey)" fill class="object-cover" />
+              <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur dark:border-dark-line dark:bg-dark-surface-raised/95">
+                <span class="text-small font-bold text-ink-soft dark:text-dark-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
+                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink">
+                  {{ $t(product.priceKey) }}
+                </span>
+              </div>
             </div>
+          </div>
+          
+          <div v-if="product.gallery?.length" class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+            <button
+              v-for="(img, index) in [product.image, ...product.gallery]"
+              :key="index"
+              @click="activeImage = img"
+              class="relative h-20 w-20 shrink-0 overflow-hidden rounded-card border-2 transition-colors focus:outline-none"
+              :class="activeImage === img ? 'border-brand-primary' : 'border-transparent hover:border-brand-primary/50'"
+            >
+              <BaseImage :src="img" :alt="$t(product.titleKey)" fill class="object-cover" />
+            </button>
           </div>
         </div>
       </div>
@@ -82,6 +96,12 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const { sectionPath } = useSectionPath()
+
+const activeImage = ref(props.product.image)
+
+watch(() => props.product, (newProduct) => {
+  activeImage.value = newProduct.image
+})
 
 const description = computed(() => (
   props.product.descriptionKey ? t(props.product.descriptionKey) : t('categoryPage.description')

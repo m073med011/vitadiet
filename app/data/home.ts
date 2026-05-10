@@ -4,19 +4,22 @@ import banner3 from '~/assets/images/Banners/photo_6046619856448196174_y.jpg';
 import banner4 from '~/assets/images/Banners/photo_6046619856448196193_y.jpg';
 import banner5 from '~/assets/images/Banners/photo_6046619856448196200_y.jpg';
 
-import prodBecalme from '~/assets/images/Products/Becalme/photo_6046619856448196202_y.jpg';
+import prodBecalme from '~/assets/images/Products/Becalme/main.jpg';
 import prodBestrong from '~/assets/images/Products/Bestrong/main.jpg';
 import prodDplus from '~/assets/images/Products/Dplus/main.jpg';
 import prodFemavit from '~/assets/images/Products/Femavit/main.jpg';
 import prodGreen from '~/assets/images/Products/Green/main.jpg';
 import prodSpasmail from '~/assets/images/Products/spasmail/main.jpg';
 import prodVitagen from '~/assets/images/Products/vitagen/main.jpg';
+import prodDplusSubMain from '~/assets/images/Products/Dplus/SubMain.jpg';
 
 export type HomeProduct = {
   titleKey: string;
   priceKey: string;
   slug: string;
   image: string;
+  gallery?: string[];
+  buyLink?: string;
   descriptionKey?: string;
   highlights?: string[];
 };
@@ -73,36 +76,42 @@ export const products: HomeProduct[] = [
     priceKey: 'homePage.products.items.bestrong.price',
     slug: 'bestrong',
     image: prodBestrong,
+    buyLink: 'https://www.noon.com/saudi-ar/bestrong-30-capsules/Z0A78CE20D0670E8247E8Z/p/?o=b085f0baf8350ccc&shareId=55cbcdbc-fd96-4405-b8b4-a9e080dcd82b',
   },
   {
     titleKey: 'homePage.products.items.becalme.title',
     priceKey: 'homePage.products.items.becalme.price',
     slug: 'becalme',
     image: prodBecalme,
+    buyLink: 'https://www.noon.com/saudi-ar/becalme-30-capsules/Z452A1BEE5A19A8DA4747Z/p/?utm_source=C1000094L&utm_medium=referral&o=d460e066583a294c&shareId=2d3fedf9-3d8a-42d5-bb15-f75a87f3f67f',
   },
   {
     titleKey: 'homePage.products.items.vitagen.title',
     priceKey: 'homePage.products.items.vitagen.price',
     slug: 'vitagen',
     image: prodVitagen,
+    buyLink: 'https://www.noon.com/saudi-ar/vitagen-30-capsules/Z22305437D29BF099F2E6Z/p/?utm_source=C1000094L&utm_medium=referral&o=c1d5a9304d019fac&shareId=69113b68-bce3-4c81-bd28-e3513e2d14ac',
   },
   {
     titleKey: 'homePage.products.items.femavit.title',
     priceKey: 'homePage.products.items.femavit.price',
     slug: 'femavit',
     image: prodFemavit,
+    buyLink: 'https://www.noon.com/saudi-ar/femavit-plus-30-capsules/Z3058C2F313DDA75557DCZ/p/?o=f82fddebb7fe0f4c',
   },
   {
     titleKey: 'homePage.products.items.floradit.title',
     priceKey: 'homePage.products.items.floradit.price',
     slug: 'floradit',
     image: prodSpasmail,
+    buyLink: 'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?o=c2ffb29d5ff1618a',
   },
   {
     titleKey: 'homePage.products.items.greenPharmacy.title',
     priceKey: 'homePage.products.items.greenPharmacy.price',
     slug: 'green-pharmacy',
     image: prodGreen,
+    buyLink: 'https://www.noon.com/saudi-ar/green-pharmacy-herbal-cleansing-gel/ZE1F26AF85CD2E72E8C09Z/p/?o=afbf327c818b3cdf&shareId=cdc8f2ed-b201-4dd6-a4b2-2e52558114e3',
   },
   {
     titleKey: 'homePage.products.items.dplus.title',
@@ -115,5 +124,7 @@ export const products: HomeProduct[] = [
     ],
     slug: 'dplus',
     image: prodDplus,
+    gallery: [prodDplusSubMain],
+    buyLink: 'https://www.noon.com/saudi-ar/d-plus-60-tablets/Z3435D02D8C058A6CC517Z/p/?o=dbef8bf85bc52a1b',
   },
 ];

@@ -326,7 +326,7 @@
   "categoryPage": {
     "eyebrow": "European Supplement Portfolio",
     "description": "This category belongs to Vita Diet's B2B portfolio. Product details, documentation, and availability are shared with qualified partners.",
-    "cta": "Contact Vita Diet"
+    "cta": "Buy Now"
   },
   "productDetails": {
     "dplus": {
@@ -358,7 +358,8 @@
       "join": "Request",
       "joinedMessage": "Request received from:"
     },
-    "copyright": "Vita Diet. All rights reserved.",
+    "copyright": "All rights reserved to Digital Order",
+    "developedBy": "Implementation and development by",
     "privacyPolicy": "Privacy Notice",
     "termsOfService": "Partner Terms"
   }

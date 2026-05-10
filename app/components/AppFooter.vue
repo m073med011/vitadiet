@@ -63,20 +63,6 @@
         <!-- Newsletter column -->
         <div data-aos="fade-up" data-aos-delay="300">
           <h3 class="text-copy-lg font-bold text-ink dark:text-dark-ink tracking-wide mb-gutter uppercase">{{ $t('newsletter') || 'Stay Updated' }}</h3>
-          <p class="text-ink dark:text-dark-ink leading-copy mb-gutter">{{ $t('footer.newsletter.text') }}</p>
-          <form @submit.prevent="submitFooterInquiry" class="flex items-center p-dot bg-surface dark:bg-dark-surface-raised border border-line dark:border-dark-line rounded-pill focus-within:border-brand-primary dark:focus-within:border-brand-accent focus-within:ring-2 focus-within:ring-brand-primary/20 dark:focus-within:ring-brand-accent/20 transition-all shadow-card">
-            <input
-              type="email"
-              v-model="footerEmail"
-              :placeholder="$t('footer.newsletter.placeholder')"
-              required
-              class="flex-1 bg-transparent border-none px-page text-small text-ink dark:text-dark-ink placeholder:text-ink-subtle outline-none w-full"
-            />
-            <button type="submit" class="rounded-pill px-gutter py-bullet text-small font-bold shrink-0 bg-brand-primary hover:bg-brand-primary-hover text-on-primary dark:bg-brand-accent dark:hover:bg-brand-accent-hover dark:text-on-accent transition-colors flex items-center gap-control-y-sm">
-              {{ $t('footer.newsletter.join') }}
-              <ArrowRightIcon class="w-icon-sm h-icon-sm" />
-            </button>
-          </form>
            <div class="flex items-center gap-page pt-card">
             <a href="#" class="w-icon-2xl h-icon-2xl rounded-pill border border-line dark:border-dark-line bg-surface dark:bg-dark-surface-raised flex items-center justify-center text-ink-soft dark:text-dark-ink-soft hover:bg-brand-primary hover:text-on-primary dark:hover:bg-brand-accent dark:hover:text-on-accent hover:-translate-y-1 hover:shadow-card dark:hover:shadow-glow-accent transition-all duration-300" aria-label="LinkedIn">
               <LinkedinIcon class="w-icon-sm h-icon-sm" />
@@ -94,16 +80,17 @@
 
       <!-- Bottom bar -->
       <div
-        class="pt-card border-t border-line dark:border-dark-line text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-page"
+        class="pt-card border-t border-line dark:border-dark-line flex justify-center items-center"
         data-aos="fade-up"
       >
-        <p class="text-ink-soft dark:text-dark-ink-soft text-small">
-          &copy; {{ new Date().getFullYear() }} {{ $t('footer.copyright') }}
-        </p>
-        <div class="flex gap-page text-small text-ink-soft dark:text-dark-ink-soft">
-          <a href="#" class="hover:text-brand-accent transition-colors">{{ $t('footer.privacyPolicy') }}</a>
-          <a href="#" class="hover:text-brand-accent transition-colors">{{ $t('footer.termsOfService') }}</a>
-        </div>
+        <a href="https://do.com.sa/" target="_blank" rel="noopener noreferrer" class="text-ink-soft dark:text-dark-ink-soft text-small flex flex-wrap items-center justify-center gap-1 hover:text-brand-primary dark:hover:text-brand-accent transition-colors">
+          <span>{{ $t('footer.copyright') }}</span>
+          <span>&copy;</span>
+          <span>{{ new Date().getFullYear() }}</span>
+          <span class="mx-1">—</span>
+          <span>{{ $t('footer.developedBy') }}</span>
+          <img :src="doGif" alt="Digital Order" class="h-4 w-auto inline-block ml-1" />
+        </a>
       </div>
     </div>
   </footer>
@@ -111,12 +98,12 @@
 
 <script setup lang="ts">
 import logoImage from '~/assets/images/logo.svg'
+import doGif from '~/assets/images/footer/blackDo.gif'
 import { MailIcon, MapPinIcon, PhoneIcon, LinkedinIcon, TwitterIcon, InstagramIcon, ArrowRightIcon } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const { sectionPath } = useSectionPath()
-const footerEmail = ref('')
 
 const footerLinks = [
   { labelKey: 'footer.links.bestSeller', hash: '#about' },
@@ -125,11 +112,4 @@ const footerLinks = [
   { labelKey: 'footer.links.trackOrder', hash: '#products' },
   { labelKey: 'footer.links.aboutUs', hash: '#contact' },
 ]
-
-const submitFooterInquiry = () => {
-  if (footerEmail.value) {
-    alert(`${t('footer.newsletter.joinedMessage')} ${footerEmail.value}`)
-    footerEmail.value = ''
-  }
-}
 </script>

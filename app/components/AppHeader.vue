@@ -1,140 +1,140 @@
 <template>
   <div 
     class="sticky top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
-    :class="isScrolled ? 'pt-4 md:pt-6 px-4 md:px-6' : 'pt-0 px-0'"
+    :class="isScrolled ? 'md:pt-6 md:px-6' : ''"
   >
     <header
       class="backdrop-blur transition-all duration-500 ease-in-out text-ink dark:text-dark-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
       :class="[
         isScrolled 
-          ? 'max-w-7xl bg-surface/95 dark:bg-dark-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] dark:shadow-[0_22px_58px_rgb(2,3,12,0.64)] rounded-2xl md:rounded-3xl py-3 px-6 border border-line/30 dark:border-dark-line/30' 
-          : 'max-w-full bg-surface/95 dark:bg-dark-surface/95 border-b border-line dark:border-dark-line py-control-y-sm md:py-control-y px-gutter md:px-gutter-lg rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent'
+          ? 'max-w-7xl bg-surface/95 dark:bg-dark-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] dark:shadow-[0_22px_58px_rgb(2,3,12,0.64)] rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30 dark:border-dark-line/30' 
+          : 'max-w-full bg-surface/95 dark:bg-dark-surface/95 border-b border-line dark:border-dark-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent'
       ]"
     >
-    <NuxtLink :to="localePath('/')" class="flex items-center relative z-10 group shrink-0" aria-label="Vitadiet home">
-      <BaseImage
-        :src="logoImage"
-        alt="Vitadiet Logo"
-        loading="eager"
-        class="h-page-lg sm:h-icon-2xl md:h-section-sm w-auto max-w-full object-contain transition-all duration-300  group-hover:scale-105"
-      />
-    </NuxtLink>
+      <NuxtLink :to="localePath('/')" class="flex items-center relative z-10 group shrink-0" aria-label="Vitadiet home">
+        <BaseImage
+          :src="logoImage"
+          alt="Vitadiet Logo"
+          loading="eager"
+          class="h-8 md:h-12 w-auto max-w-full object-contain transition-all duration-300 group-hover:scale-105"
+        />
+      </NuxtLink>
 
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft dark:text-dark-ink-soft uppercase">
-      <div
-        v-for="(item, index) in navItems"
-        :key="item.labelKey"
-        class="animate-fade-in"
-        :style="{ animationDelay: `${index * 100}ms` }"
-      >
-        <NuxtLink
-          :to="sectionPath(item.hash)"
-          class="nav-link relative py-control-y-sm hover:text-brand-primary dark:hover:text-brand-accent transition-colors duration-300"
-          :class="{ 'nav-link-active text-brand-primary dark:text-brand-accent': isActiveNavItem(item.hash) }"
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft dark:text-dark-ink-soft uppercase">
+        <div
+          v-for="(item, index) in navItems"
+          :key="item.labelKey"
+          class="animate-fade-in"
+          :style="{ animationDelay: `${index * 100}ms` }"
         >
-          {{ $t(item.labelKey) }}
-        </NuxtLink>
-      </div>
-    </nav>
-
-    <!-- Action group -->
-    <div class="flex items-center gap-control-y-sm sm:gap-page">
-      <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft dark:text-dark-ink-soft hidden md:flex">
-        <BaseButton variant="icon" @click="toggleLanguage" :title="$t('switch_lang')" aria-label="Switch Language">
-          <LanguagesIcon class="w-icon-xl h-icon-xl" />
-          <span class="ms-control-y-sm text-small font-bold uppercase tracking-wide">{{ locale === 'en' ? 'عربي' : 'EN' }}</span>
-        </BaseButton>
-
-        <BaseButton variant="icon" @click="toggleTheme" :title="$t('toggle_theme')" aria-label="Toggle Theme">
-          <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-icon-xl h-icon-xl" />
-        </BaseButton>
-      </div>
-
-      <button
-        class="md:hidden text-ink dark:text-dark-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative group"
-        aria-label="Open menu"
-        @click="isMobileMenuOpen = true"
-      >
-        <span class="absolute inset-0 rounded-xl bg-brand-primary-soft dark:bg-dark-surface-glow opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-        <MenuIcon class="w-icon-2xl h-icon-2xl relative z-10" />
-      </button>
-    </div>
-
-    <!-- Mobile overlay -->
-    <Transition name="fade-overlay">
-      <div
-        v-if="isMobileMenuOpen"
-        class="fixed inset-0 bg-ink/60 dark:bg-black/75 z-40 md:hidden backdrop-blur-sm"
-        @click="isMobileMenuOpen = false"
-      ></div>
-    </Transition>
-
-    <!-- Mobile sidebar -->
-    <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
-      <aside
-        v-if="isMobileMenuOpen"
-        class="fixed top-0 bottom-0 z-50 w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface dark:bg-dark-surface-raised shadow-[4px_0_60px_rgba(27,56,97,0.18)] dark:shadow-[4px_0_80px_rgba(2,3,12,0.75)] border-e border-line dark:border-dark-line"
-        :class="locale === 'ar' ? 'right-0' : 'left-0'"
-      >
-        <!-- Sidebar header -->
-        <div class="relative z-10 flex items-center justify-between px-page sm:px-icon-md py-page border-b border-line dark:border-dark-line">
-          <NuxtLink :to="localePath('/')" class="flex items-center gap-page shrink-0 max-w-[70%]" @click="isMobileMenuOpen = false">
-            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-product sm:h-product-lg w-auto object-contain invert dark:invert-0" />
-          </NuxtLink>
-          <button
-            @click="isMobileMenuOpen = false"
-            class="w-9 h-9 flex items-center justify-center rounded-xl text-ink-soft dark:text-dark-ink-soft bg-surface-muted dark:bg-dark-surface-muted hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-line dark:border-dark-line transition-all duration-200"
-            aria-label="Close menu"
+          <NuxtLink
+            :to="sectionPath(item.hash)"
+            class="nav-link relative py-2 hover:text-brand-primary dark:hover:text-brand-accent transition-colors duration-300"
+            :class="{ 'nav-link-active text-brand-primary dark:text-brand-accent': isActiveNavItem(item.hash) }"
           >
-            <XIcon class="w-icon-md h-icon-md" />
-          </button>
+            {{ $t(item.labelKey) }}
+          </NuxtLink>
+        </div>
+      </nav>
+
+      <!-- Action group -->
+      <div class="flex items-center gap-3 sm:gap-6">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft dark:text-dark-ink-soft hidden md:flex">
+          <BaseButton variant="icon" @click="toggleLanguage" :title="$t('switch_lang')" aria-label="Switch Language">
+            <LanguagesIcon class="w-6 h-6" />
+            <span class="ms-2 text-small font-bold uppercase tracking-wide">{{ locale === 'en' ? 'عربي' : 'EN' }}</span>
+          </BaseButton>
+
+          <BaseButton variant="icon" @click="toggleTheme" :title="$t('toggle_theme')" aria-label="Toggle Theme">
+            <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-6 h-6" />
+          </BaseButton>
         </div>
 
-        <!-- Sidebar nav links -->
-        <nav class="flex-1 overflow-y-auto px-page sm:px-icon-md pt-page pb-gutter">
-          <div class="flex flex-col gap-rule">
-            <NuxtLink
-              v-for="(item, index) in navItems"
-              :key="item.labelKey"
-              :to="sectionPath(item.hash)"
-              class="sidebar-nav-link group flex items-center gap-page px-page py-3.5 rounded-xl text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-transparent hover:border-brand-primary/15 dark:hover:border-brand-accent/20 transition-all duration-200"
-              :class="{ 'sidebar-nav-link-active': isActiveNavItem(item.hash) }"
-              :style="{ transitionDelay: `${index * 35}ms` }"
-              @click="isMobileMenuOpen = false"
-            >
-              <component :is="item.icon" class="w-icon-lg h-icon-lg shrink-0" />
-              <span class="font-semibold text-copy">{{ $t(item.labelKey) }}</span>
-              <ChevronRightIcon class="w-icon-sm h-icon-sm ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5" />
-            </NuxtLink>
-          </div>
-        </nav>
-
-        <!-- Sidebar footer actions -->
-        <div class="relative z-10 px-page sm:px-icon-md py-icon-md border-t border-line dark:border-dark-line">
-          <p class="text-caption font-bold tracking-label uppercase text-ink-subtle dark:text-dark-ink-subtle mb-page">{{ $t('preferences') }}</p>
-          <div class="grid grid-cols-2 gap-page">
-            <button
-              @click="toggleLanguage"
-              class="flex flex-col items-center gap-control-y-sm py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
-            >
-              <LanguagesIcon class="w-icon-lg h-icon-lg text-brand-primary dark:text-brand-accent" />
-              <span class="text-small font-bold">{{ locale === 'en' ? 'عربي' : 'English' }}</span>
-            </button>
-
-            <button
-              @click="toggleTheme"
-              class="flex flex-col items-center gap-control-y-sm py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
-            >
-              <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-icon-lg h-icon-lg text-brand-primary dark:text-brand-accent" />
-              <span class="text-small font-bold">{{ colorMode.value === 'dark' ? $t('light_mode') : $t('dark_mode') }}</span>
-            </button>
-          </div>
-        </div>
-      </aside>
-    </Transition>
+        <button
+          class="md:hidden p-1 -mr-1 rtl:-ml-1 text-ink dark:text-dark-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative group pointer-events-auto"
+          aria-label="Open menu"
+          @click="isMobileMenuOpen = true"
+        >
+          <span class="absolute inset-0 rounded-xl bg-brand-primary-soft dark:bg-dark-surface-glow opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+          <MenuIcon class="w-8 h-8 relative z-10" />
+        </button>
+      </div>
     </header>
   </div>
+
+  <!-- Mobile overlay -->
+  <Transition name="fade-overlay">
+    <div
+      v-if="isMobileMenuOpen"
+      class="fixed inset-0 bg-ink/60 dark:bg-black/75 z-[60] md:hidden backdrop-blur-sm pointer-events-auto"
+      @click="isMobileMenuOpen = false"
+    ></div>
+  </Transition>
+
+  <!-- Mobile sidebar -->
+  <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
+    <aside
+      v-if="isMobileMenuOpen"
+      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface dark:bg-dark-surface-raised shadow-[4px_0_60px_rgba(27,56,97,0.18)] dark:shadow-[4px_0_80px_rgba(2,3,12,0.75)] border-e border-line dark:border-dark-line pointer-events-auto"
+      :class="locale === 'ar' ? 'right-0' : 'left-0'"
+    >
+      <!-- Sidebar header -->
+      <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line dark:border-dark-line">
+        <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="isMobileMenuOpen = false">
+          <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-8 sm:h-10 w-auto object-contain invert dark:invert-0" />
+        </NuxtLink>
+        <button
+          @click="isMobileMenuOpen = false"
+          class="w-10 h-10 flex items-center justify-center rounded-xl text-ink-soft dark:text-dark-ink-soft bg-surface-muted dark:bg-dark-surface-muted hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-line dark:border-dark-line transition-all duration-200"
+          aria-label="Close menu"
+        >
+          <XIcon class="w-6 h-6" />
+        </button>
+      </div>
+
+      <!-- Sidebar nav links -->
+      <nav class="flex-1 overflow-y-auto px-4 sm:px-6 pt-6 pb-6">
+        <div class="flex flex-col gap-2">
+          <NuxtLink
+            v-for="(item, index) in navItems"
+            :key="item.labelKey"
+            :to="sectionPath(item.hash)"
+            class="sidebar-nav-link group flex items-center gap-4 px-4 py-3.5 rounded-xl text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-transparent hover:border-brand-primary/15 dark:hover:border-brand-accent/20 transition-all duration-200"
+            :class="{ 'sidebar-nav-link-active': isActiveNavItem(item.hash) }"
+            :style="{ transitionDelay: `${index * 35}ms` }"
+            @click="isMobileMenuOpen = false"
+          >
+            <component :is="item.icon" class="w-6 h-6 shrink-0" />
+            <span class="font-semibold text-copy">{{ $t(item.labelKey) }}</span>
+            <ChevronRightIcon class="w-5 h-5 ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5" />
+          </NuxtLink>
+        </div>
+      </nav>
+
+      <!-- Sidebar footer actions -->
+      <div class="relative z-10 px-6 py-6 border-t border-line dark:border-dark-line">
+        <p class="text-caption font-bold tracking-label uppercase text-ink-subtle dark:text-dark-ink-subtle mb-4">{{ $t('preferences') }}</p>
+        <div class="grid grid-cols-2 gap-4">
+          <button
+            @click="toggleLanguage"
+            class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
+          >
+            <LanguagesIcon class="w-6 h-6 text-brand-primary dark:text-brand-accent" />
+            <span class="text-small font-bold">{{ locale === 'en' ? 'عربي' : 'English' }}</span>
+          </button>
+
+          <button
+            @click="toggleTheme"
+            class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
+          >
+            <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-6 h-6 text-brand-primary dark:text-brand-accent" />
+            <span class="text-small font-bold">{{ colorMode.value === 'dark' ? $t('light_mode') : $t('dark_mode') }}</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+  </Transition>
 </template>
 
 <script setup lang="ts">
