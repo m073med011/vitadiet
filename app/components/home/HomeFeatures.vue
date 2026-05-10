@@ -137,7 +137,7 @@ const qualitySteps = [
 /* ── Petal grid ─────────────────────────────────────────── */
 .petal-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -339,6 +339,28 @@ const qualitySteps = [
   color: var(--color-ink-soft);
   font-size: var(--text-copy);
   line-height: var(--leading-copy);
+}
+
+@media (min-width: 640px) {
+  .petal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .petal-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .petal-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .petal-card:nth-last-child(2):nth-child(4n + 1) {
+    grid-column-start: 2;
+  }
 }
 
 /* ── Responsive ─────────────────────────────────────────── */
