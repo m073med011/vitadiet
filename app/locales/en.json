@@ -138,39 +138,39 @@
       "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
       "items": {
         "bestrong": {
-          "title": "White Flower Bestrong Dietary Supplement 30 Capsules",
-          "price": "58 SAR"
+          "title": "BeStrong Dietary Supplement 30 Capsules",
+          "price": "58.00"
         },
         "becalme": {
-          "title": "White Flower BeCalm Dietary Supplement",
-          "price": "78 SAR"
+          "title": "BeCalm Dietary Supplement 30 Capsules",
+          "price": "78.00"
         },
         "vitagen": {
-          "title": "White Flower Vitagen Dietary Supplement",
-          "price": "98 SAR"
+          "title": "Vitagen Dietary Supplement 30 Capsules",
+          "price": "98.00"
         },
         "femavit": {
-          "title": "White Flower Femavit Plus 30 Capsules",
-          "price": "110 SAR"
+          "title": "Femavit Plus 30 Capsules",
+          "price": "110.00"
         },
         "floradit": {
-          "title": "White Flower Floradit Dietary Supplement",
-          "price": "78 SAR"
+          "title": "Floradiet Dietary Supplement 20 Capsules",
+          "price": "78.00"
         },
         "greenPharmacy": {
-          "title": "WHITE FLOWER Green Pharmacy Herbal Cleansing Gel",
-          "price": "50 SAR"
+          "title": "Green Pharmacy Herbal Cleansing Gel",
+          "price": "50.00"
         },
         "dplus": {
-          "title": "White Flower D-Plus Zinc, D3, B6, C 60 Tablets",
-          "price": "48 SAR"
+          "title": "D-Plus Zinc, D3, B6, C 60 Tablets",
+          "price": "48.00"
         },
         "soluro": {
-          "title": "White Flower Soluro Dietary Supplement",
+          "title": "Soluro Dietary Supplement",
           "price": "Coming Soon"
         },
         "flowadite": {
-          "title": "White Flower Flowadite Dietary Supplement",
+          "title": "Flowadite Dietary Supplement",
           "price": "Coming Soon"
         }
       }
@@ -356,9 +356,10 @@
       "aboutUs": "Start a Partnership"
     },
     "contact": {
-      "address": "King Fahd Road, Al Olaya\nRiyadh 12212, Saudi Arabia",
-      "phone": "+966 11 000 0000",
-      "email": "partners{'@'}vitadiet.sa"
+      "address": "Saudi Arabia - Jeddah - Palestine Street - Al Hamra District - Palestine Commercial Center - First Floor - Office No. 12",
+      "phone": "+966 56 662 6646\n+966 92 001 0751",
+      "email": "info{'@'}vde.sa",
+      "vat": "VAT# : 302135132900003"
     },
     "newsletter": {
       "text": "Use your business email to request product files or start a partnership discussion.",

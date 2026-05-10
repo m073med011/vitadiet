@@ -5,10 +5,10 @@ import banner4 from '~/assets/images/Banners/photo_6046619856448196193_y.jpg';
 import banner5 from '~/assets/images/Banners/photo_6046619856448196200_y.jpg';
 
 import prodBecalme from '~/assets/images/Products/Becalme/main.jpg';
-import prodBestrong from '~/assets/images/Products/Bestrong/main.jpg';
+import prodBestrong from '~/assets/images/Products/Bestrong/main.png';
 import prodDplus from '~/assets/images/Products/Dplus/main.jpg';
 import prodFemavit from '~/assets/images/Products/Femavit/main.jpg';
-import prodGreen from '~/assets/images/Products/Green/main.jpg';
+import prodGreen from '~/assets/images/Products/Green/Main.jpg';
 import prodSpasmail from '~/assets/images/Products/spasmail/main.jpg';
 import prodVitagen from '~/assets/images/Products/vitagen/main.jpg';
 import prodDplusSubMain from '~/assets/images/Products/Dplus/SubMain.jpg';
@@ -148,5 +148,6 @@ export const products: HomeProduct[] = [
     priceKey: 'homePage.products.items.flowadite.price',
     slug: 'flowadite',
     image: prodFlowadite,
+    buyLink: 'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?utm_source=C1000094L&utm_medium=referral&o=c2ffb29d5ff1618a&shareId=f61d6b13-2afe-4b0b-a0a8-3645f497f3a5',
   },
 ];

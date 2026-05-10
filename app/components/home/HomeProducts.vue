@@ -62,8 +62,9 @@
               <div class="flex flex-1 flex-col gap-page p-page">
                 <div class="flex items-start justify-between gap-page">
                   <h3 class="product-title text-copy font-bold leading-heading text-ink dark:text-dark-ink">{{ $t(product.titleKey) }}</h3>
-                  <span class="shrink-0 rounded-pill bg-brand-primary-soft dark:bg-dark-surface-glow px-page py-control-y-sm text-small font-bold text-brand-primary dark:text-brand-accent">
-                    {{ $t(product.priceKey) }}
+                  <span class="shrink-0 rounded-pill bg-brand-primary-soft dark:bg-dark-surface-glow px-page py-control-y-sm text-small font-bold text-brand-primary dark:text-brand-accent flex items-center justify-center gap-1">
+                    <span>{{ $t(product.priceKey) }}</span>
+                    <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
                   </span>
                 </div>
 
@@ -87,7 +88,7 @@
 
 <script setup lang="ts">
 import { products } from '~/data/home'
-import { ArrowUpRightIcon } from 'lucide-vue-next'
+import { ArrowUpRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -95,6 +96,12 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 const localePath = useLocalePath()
+const { t } = useI18n()
+
+/** Returns true when the translated price string contains at least one digit */
+function isNumericPrice(priceKey: string): boolean {
+  return /\d/.test(t(priceKey))
+}
 </script>
 
 <style scoped>

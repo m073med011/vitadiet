@@ -57,8 +57,9 @@
               <BaseImage :src="activeImage" :alt="$t(product.titleKey)" fill class="object-cover" />
               <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur dark:border-dark-line dark:bg-dark-surface-raised/95">
                 <span class="text-small font-bold text-ink-soft dark:text-dark-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
-                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink">
-                  {{ $t(product.priceKey) }}
+                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink flex items-center justify-center gap-1">
+                  <span>{{ $t(product.priceKey) }}</span>
+                  <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
                 </span>
               </div>
             </div>
@@ -87,6 +88,7 @@ import {
   FileCheckIcon,
   HandshakeIcon,
   ShieldCheckIcon,
+  SaudiRiyalIcon,
 } from 'lucide-vue-next'
 import type { HomeProduct } from '~/data/home'
 
@@ -96,6 +98,11 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const { sectionPath } = useSectionPath()
+
+/** Returns true when the translated price string contains at least one digit */
+function isNumericPrice(priceKey: string): boolean {
+  return /\d/.test(t(priceKey))
+}
 
 const activeImage = ref(props.product.image)
 
