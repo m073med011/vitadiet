@@ -256,7 +256,8 @@
       }
     },
     "quality": {
-      "heading": "Quality Stages",
+      "heading": "Quality Control",
+      "imageAlt": "Quality control review inside a supplement manufacturing facility",
       "items": {
         "safety": {
           "title": "Safety Testing",
