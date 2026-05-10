@@ -8,7 +8,7 @@ import prodBecalme from '~/assets/images/Products/Becalme/main.jpg';
 import prodBestrong from '~/assets/images/Products/Bestrong/main.png';
 import prodDplus from '~/assets/images/Products/Dplus/main.jpg';
 import prodFemavit from '~/assets/images/Products/Femavit/main.jpg';
-import prodGreen from '~/assets/images/Products/Green/Main.jpg';
+import prodGreen from '~/assets/images/Products/Green/main.jpg';
 import prodSpasmail from '~/assets/images/Products/spasmail/main.jpg';
 import prodVitagen from '~/assets/images/Products/vitagen/main.jpg';
 import prodDplusSubMain from '~/assets/images/Products/Dplus/SubMain.jpg';
