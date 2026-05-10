@@ -39,11 +39,24 @@
             class="!h-auto"
           >
             <NuxtLink
-              :to="localePath(`/cat/${product.slug}`)"
+              :to="localePath(`/product/${product.slug}`)"
               class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 dark:border-dark-line bg-surface dark:bg-dark-surface-raised shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
             >
-              <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted dark:bg-dark-surface-muted">
-                <BaseImage :src="product.image" :alt="$t(product.titleKey)" fill class="object-cover transition-transform duration-500 group-hover/card:scale-105" />
+              <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted dark:bg-dark-surface-muted group/image">
+                <BaseImage 
+                  :src="product.image" 
+                  :alt="$t(product.titleKey)" 
+                  fill 
+                  class="object-cover transition-all duration-500 group-hover/card:scale-105"
+                  :class="{ 'group-hover/card:opacity-0': product.gallery && product.gallery[0] }"
+                />
+                <BaseImage 
+                  v-if="product.gallery && product.gallery[0]"
+                  :src="product.gallery[0]" 
+                  :alt="$t(product.titleKey)" 
+                  fill 
+                  class="absolute inset-0 object-cover opacity-0 transition-all duration-500 group-hover/card:scale-105 group-hover/card:opacity-100" 
+                />
               </div>
 
               <div class="flex flex-1 flex-col gap-page p-page">

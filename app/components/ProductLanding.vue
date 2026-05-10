@@ -39,20 +39,8 @@
           </div>
         </div>
 
-        <div class="flex flex-col gap-page" data-aos="fade-up" data-aos-delay="150">
-          <div class="rounded-card border border-line dark:border-dark-line bg-surface-raised dark:bg-dark-surface-raised p-page shadow-float">
-            <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-surface-muted dark:bg-dark-surface-muted">
-              <BaseImage :src="activeImage" :alt="$t(product.titleKey)" fill class="object-cover" />
-              <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur dark:border-dark-line dark:bg-dark-surface-raised/95">
-                <span class="text-small font-bold text-ink-soft dark:text-dark-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
-                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink">
-                  {{ $t(product.priceKey) }}
-                </span>
-              </div>
-            </div>
-          </div>
-          
-          <div v-if="product.gallery?.length" class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+        <div class="flex flex-col md:flex-row gap-page" data-aos="fade-up" data-aos-delay="150">
+          <div v-if="product.gallery?.length" class="flex md:flex-col gap-4 overflow-x-auto md:overflow-y-auto pb-2 md:pb-0 scrollbar-hide shrink-0 md:w-20">
             <button
               v-for="(img, index) in [product.image, ...product.gallery]"
               :key="index"
@@ -62,6 +50,18 @@
             >
               <BaseImage :src="img" :alt="$t(product.titleKey)" fill class="object-cover" />
             </button>
+          </div>
+
+          <div class="flex-1 rounded-card border border-line dark:border-dark-line bg-surface-raised dark:bg-dark-surface-raised p-page shadow-float">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-surface-muted dark:bg-dark-surface-muted">
+              <BaseImage :src="activeImage" :alt="$t(product.titleKey)" fill class="object-cover" />
+              <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur dark:border-dark-line dark:bg-dark-surface-raised/95">
+                <span class="text-small font-bold text-ink-soft dark:text-dark-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
+                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink">
+                  {{ $t(product.priceKey) }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
