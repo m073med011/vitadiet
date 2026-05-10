@@ -12,6 +12,14 @@ import prodGreen from '~/assets/images/Products/Green/main.jpg';
 import prodSpasmail from '~/assets/images/Products/spasmail/main.jpg';
 import prodVitagen from '~/assets/images/Products/vitagen/main.jpg';
 
+export type HomeProduct = {
+  titleKey: string;
+  priceKey: string;
+  slug: string;
+  image: string;
+  descriptionKey?: string;
+  highlights?: string[];
+};
 
 export const heroImages = [
   { src: banner1, class: 'top-[12%] left-[4%] w-[10%] aspect-[3/4] hidden 2xl:block' },
@@ -59,7 +67,7 @@ export const whyPetals = [
   },
 ];
 
-export const products = [
+export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.bestrong.title',
     priceKey: 'homePage.products.items.bestrong.price',
@@ -99,6 +107,12 @@ export const products = [
   {
     titleKey: 'homePage.products.items.dplus.title',
     priceKey: 'homePage.products.items.dplus.price',
+    descriptionKey: 'productDetails.dplus.description',
+    highlights: [
+      'productDetails.dplus.highlights.zinc',
+      'productDetails.dplus.highlights.vitaminD',
+      'productDetails.dplus.highlights.bComplex',
+    ],
     slug: 'dplus',
     image: prodDplus,
   },

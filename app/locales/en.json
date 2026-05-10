@@ -328,6 +328,16 @@
     "description": "This category belongs to Vita Diet's B2B portfolio. Product details, documentation, and availability are shared with qualified partners.",
     "cta": "Contact Vita Diet"
   },
+  "productDetails": {
+    "dplus": {
+      "description": "D-Plus combines zinc with vitamins D3, B6, and C in a simple tablet format for professional pharmacy and distributor portfolios.",
+      "highlights": {
+        "zinc": "Zinc support",
+        "vitaminD": "Vitamin D3 formula",
+        "bComplex": "With B6 and C"
+      }
+    }
+  },
   "footer": {
     "quote": "European quality for a healthier life, delivered through trusted B2B partnerships in Saudi Arabia.",
     "links": {

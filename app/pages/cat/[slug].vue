@@ -1,5 +1,7 @@
 <template>
-  <div class="pt-24 pb-12 min-h-screen">
+  <ProductLanding v-if="product" :product="product" />
+
+  <div v-else class="pt-24 pb-12 min-h-screen">
     <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
       <p
         class="text-caption font-bold tracking-label uppercase text-brand-primary dark:text-brand-accent text-center mb-4"
@@ -21,10 +23,20 @@
 </template>
 
 <script setup lang="ts">
+import ProductLanding from '~/components/ProductLanding.vue'
+import { products } from '~/data/home'
+
 const route = useRoute()
 const slug = computed(() => route.params.slug)
 
 const { t } = useI18n()
+
+const slugValue = computed(() => {
+  const value = slug.value
+  return Array.isArray(value) ? value[0] : String(value)
+})
+
+const product = computed(() => products.find((item) => item.slug === slugValue.value))
 
 const categoryKeyBySlug: Record<string, string> = {
   'european-supplements': 'homePage.products.items.europeanSupplements.title',
@@ -35,7 +47,6 @@ const categoryKeyBySlug: Record<string, string> = {
 }
 
 const categoryName = computed(() => {
-  const slugValue = Array.isArray(slug.value) ? slug.value[0] : String(slug.value)
-  return categoryKeyBySlug[slugValue] ? t(categoryKeyBySlug[slugValue]) : slugValue
+  return categoryKeyBySlug[slugValue.value] ? t(categoryKeyBySlug[slugValue.value]) : slugValue.value
 })
 </script>
