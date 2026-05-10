@@ -1,19 +1,19 @@
 <template>
-  <section class="relative overflow-hidden bg-surface dark:bg-dark-surface pt-section-sm pb-section-lg">
+  <section class="relative overflow-hidden bg-surface pt-section-sm pb-section-lg">
     <div class="product-backdrop" aria-hidden="true"></div>
 
     <div class="relative z-10 max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
       <div class="grid items-center gap-gutter-lg lg:grid-cols-[1.05fr_0.95fr]">
         <div data-aos="fade-up">
-          <p class="mb-page text-caption font-bold tracking-label uppercase text-brand-primary dark:text-brand-accent">
+          <p class="mb-page text-caption font-bold tracking-label uppercase text-brand-primary">
             {{ $t('categoryPage.eyebrow') }}
           </p>
 
-          <h1 class="max-w-[42rem] text-heading md:text-display font-bold leading-heading text-ink dark:text-dark-ink">
+          <h1 class="max-w-[42rem] text-heading md:text-display font-bold leading-heading text-ink">
             {{ $t(product.titleKey) }}
           </h1>
 
-          <p class="mt-gutter max-w-copy text-copy-lg leading-copy text-ink-soft dark:text-dark-ink-soft">
+          <p class="mt-gutter max-w-copy text-copy-lg leading-copy text-ink-soft">
             {{ description }}
           </p>
 
@@ -21,9 +21,9 @@
             <li
               v-for="highlight in product.highlights"
               :key="highlight"
-              class="flex items-start gap-control-y-sm rounded-card border border-line/80 dark:border-dark-line bg-surface-raised dark:bg-dark-surface-raised p-page text-small font-semibold leading-copy text-ink dark:text-dark-ink"
+              class="flex items-start gap-control-y-sm rounded-card border border-line/80 bg-surface-raised p-page text-small font-semibold leading-copy text-ink"
             >
-              <CheckCircleIcon class="mt-1 h-icon-sm w-icon-sm shrink-0 text-brand-primary dark:text-brand-accent" aria-hidden="true" />
+              <CheckCircleIcon class="mt-1 h-icon-sm w-icon-sm shrink-0 text-brand-primary" aria-hidden="true" />
               <span>{{ $t(highlight) }}</span>
             </li>
           </ul>
@@ -52,12 +52,12 @@
             </button>
           </div>
 
-          <div class="flex-1 rounded-card border border-line dark:border-dark-line bg-surface-raised dark:bg-dark-surface-raised p-page shadow-float">
-            <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-surface-muted dark:bg-dark-surface-muted">
+          <div class="flex-1 rounded-card border border-line bg-surface-raised p-page shadow-float">
+            <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-surface-muted">
               <BaseImage :src="activeImage" :alt="$t(product.titleKey)" fill class="object-cover" />
-              <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur dark:border-dark-line dark:bg-dark-surface-raised/95">
-                <span class="text-small font-bold text-ink-soft dark:text-dark-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
-                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface dark:text-dark-ink flex items-center justify-center gap-1">
+              <div class="absolute inset-x-page bottom-page flex items-center justify-between gap-page rounded-card border border-line/70 bg-surface/95 p-page shadow-card backdrop-blur">
+                <span class="text-small font-bold text-ink-soft">{{ $t('homePage.stats.b2bOnly') }}</span>
+                <span class="rounded-pill bg-brand-primary px-page py-control-y-sm text-small font-bold text-surface flex items-center justify-center gap-1">
                   <span>{{ $t(product.priceKey) }}</span>
                   <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
                 </span>
@@ -71,10 +71,10 @@
         <article
           v-for="item in trustItems"
           :key="item.labelKey"
-          class="rounded-card border border-line/80 dark:border-dark-line bg-surface dark:bg-dark-surface-raised p-page shadow-card"
+          class="rounded-card border border-line/80 bg-surface p-page shadow-card"
         >
-          <component :is="item.icon" class="mb-page h-icon-xl w-icon-xl text-brand-primary dark:text-brand-accent" aria-hidden="true" />
-          <h2 class="text-copy font-bold text-ink dark:text-dark-ink">{{ $t(item.labelKey) }}</h2>
+          <component :is="item.icon" class="mb-page h-icon-xl w-icon-xl text-brand-primary" aria-hidden="true" />
+          <h2 class="text-copy font-bold text-ink">{{ $t(item.labelKey) }}</h2>
         </article>
       </div>
     </div>

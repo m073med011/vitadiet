@@ -102,7 +102,6 @@
 
   /* ── Shadows ── */
   --shadow-shell: 0 25px 70px rgb(29 43 91 / 0.12);
-  --shadow-shell-dark: 0 30px 90px rgb(2 2 8 / 0.80);
   --shadow-card: 0 12px 32px rgb(29 43 91 / 0.08);
   --shadow-card-hover: 0 18px 42px rgb(29 43 91 / 0.12);
   --shadow-float: 0 16px 40px rgb(29 43 91 / 0.16);

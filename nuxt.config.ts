@@ -18,12 +18,8 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/color-mode", "@nuxtjs/i18n"],
+  modules: ["@nuxtjs/i18n"],
 
-  colorMode: {
-    classSuffix: "",
-    preference: "light",
-  },
 
   i18n: {
     locales: [

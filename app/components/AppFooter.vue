@@ -70,28 +70,28 @@
           <div class="space-y-icon-md">
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
+              <div class="contact-icon-wrap group-hover:bg-brand-primary">
                 <MapPinIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
               <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm">{{ $t('footer.contact.address') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
+              <div class="contact-icon-wrap group-hover:bg-brand-primary">
                 <PhoneIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
               <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm" dir="ltr">{{ $t('footer.contact.phone') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
+              <div class="contact-icon-wrap group-hover:bg-brand-primary">
                 <MailIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
               <span class="text-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.email') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
+              <div class="contact-icon-wrap group-hover:bg-brand-primary">
                 <ReceiptIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
               <span class="text-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.vat') }}</span>
