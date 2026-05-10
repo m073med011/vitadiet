@@ -1,13 +1,13 @@
 <template>
-  <section id="why" class="w-full py-section bg-surface-raised/50 dark:bg-dark-surface transition-colors section-decor overflow-hidden">
+  <section id="why" class="w-full py-section bg-surface-raised/50 section-decor overflow-hidden">
     <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
 
       <!-- Section header -->
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
-        <p class="mb-page text-caption font-bold tracking-label uppercase text-brand-primary dark:text-brand-accent">
+        <p class="mb-page text-caption font-bold tracking-label uppercase text-brand-primary">
           {{ $t('homePage.why.heading') }}
         </p>
-        <p class="text-copy-lg leading-copy text-ink-soft dark:text-dark-ink-soft">
+        <p class="text-copy-lg leading-copy text-ink-soft">
           {{ $t('homePage.why.description') }}
         </p>
       </div>
@@ -27,14 +27,14 @@
               {{ String(index + 1).padStart(2, '0') }}
             </span>
             <span class="petal-icon-wrap">
-              <component :is="iconMap[petal.icon]" class="w-icon-xl h-icon-xl text-brand-primary dark:text-brand-accent" />
+              <component :is="iconMap[petal.icon]" class="w-icon-xl h-icon-xl text-brand-primary" />
             </span>
           </div>
 
-          <h3 class="text-title font-bold text-ink dark:text-dark-ink mb-page leading-heading">
+          <h3 class="text-title font-bold text-ink mb-page leading-heading">
             {{ $t(petal.titleKey) }}
           </h3>
-          <p class="text-copy leading-copy text-ink-soft dark:text-dark-ink-soft">
+          <p class="text-copy leading-copy text-ink-soft">
             {{ $t(petal.descriptionKey) }}
           </p>
 
@@ -158,15 +158,7 @@ const qualitySteps = [
   border-color: color-mix(in oklab, var(--color-brand-primary) 22%, var(--color-line));
 }
 
-/* Dark mode card */
-:global(.dark) .petal-card {
-  background: var(--color-dark-surface-raised);
-  border-color: var(--color-dark-line);
-  box-shadow: var(--shadow-dark-subtle);
-}
-:global(.dark) .petal-card:hover {
-  border-color: color-mix(in oklab, var(--color-brand-accent) 30%, var(--color-dark-line));
-}
+
 
 /* Number badge */
 .petal-badge {
@@ -184,11 +176,7 @@ const qualitySteps = [
   letter-spacing: var(--tracking-label);
 }
 
-:global(.dark) .petal-badge {
-  background: var(--color-dark-surface-glow);
-  border-color: color-mix(in oklab, var(--color-brand-accent) 22%, var(--color-dark-line));
-  color: var(--color-brand-accent);
-}
+
 
 /* Icon wrapper */
 .petal-icon-wrap {
@@ -203,11 +191,7 @@ const qualitySteps = [
   box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-surface) 80%, transparent);
 }
 
-:global(.dark) .petal-icon-wrap {
-  border-color: var(--color-dark-line);
-  background: var(--color-dark-surface-muted);
-  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-dark-ink) 8%, transparent);
-}
+
 
 /* Decorative glow blob on hover */
 .petal-glow {
@@ -230,9 +214,7 @@ const qualitySteps = [
   transform: scale(1.1);
 }
 
-:global(.dark) .petal-glow {
-  background: color-mix(in oklab, var(--color-brand-accent) 9%, transparent);
-}
+
 
 /* ── Quality panel ──────────────────────────────────────── */
 .quality-panel {
@@ -247,10 +229,7 @@ const qualitySteps = [
   isolation: isolate;
 }
 
-:global(.dark) .quality-panel {
-  border-color: var(--color-dark-line);
-  box-shadow: var(--shadow-dark-soft);
-}
+
 
 /* Image overlay gradient */
 .panel-overlay {

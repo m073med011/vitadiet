@@ -39,7 +39,7 @@ export const heroImages = [
   { src: banner1, class: 'top-[19%] left-[55%] w-[12%] aspect-[3/4] max-sm:left-[10%] max-sm:top-[5%] max-sm:w-[35%]' },
   { src: banner2, class: 'top-[4%] left-[69%] w-[10%] aspect-[4/5] max-sm:left-[55%] max-sm:top-[20%] max-sm:w-[35%]' },
   { src: banner3, class: 'top-[31%] left-[80%] w-[10%] aspect-[4/5] hidden md:block' },
-  { src: banner4, class: 'top-[51%] left-[88%] w-[8%] aspect-[4/5] hidden xl:block -rotate-6 shadow-2xl scale-110 z-10 border-[6px] border-white dark:border-gray-900 rounded-xl' },
+  { src: banner4, class: 'top-[51%] left-[88%] w-[8%] aspect-[4/5] hidden xl:block -rotate-6 shadow-2xl scale-110 z-10 border-[6px] border-white rounded-xl' },
 ];
 
 

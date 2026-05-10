@@ -4,11 +4,11 @@
     :class="isScrolled ? 'md:pt-6 md:px-6' : ''"
   >
     <header
-      class="backdrop-blur transition-all duration-500 ease-in-out text-ink dark:text-dark-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
+      class="backdrop-blur transition-all duration-500 ease-in-out text-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
       :class="[
         isScrolled 
-          ? 'max-w-7xl bg-surface/95 dark:bg-dark-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] dark:shadow-[0_22px_58px_rgb(2,3,12,0.64)] rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30 dark:border-dark-line/30' 
-          : 'max-w-full bg-surface/95 dark:bg-dark-surface/95 border-b border-line dark:border-dark-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent'
+          ? 'max-w-7xl bg-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30' 
+          : 'max-w-full bg-surface/95 border-b border-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent'
       ]"
     >
       <NuxtLink :to="localePath('/')" class="flex items-center relative z-10 group shrink-0" aria-label="Vitadiet home">
@@ -21,7 +21,7 @@
       </NuxtLink>
 
       <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft dark:text-dark-ink-soft uppercase">
+      <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft uppercase">
         <div
           v-for="(item, index) in navItems"
           :key="item.labelKey"
@@ -30,8 +30,8 @@
         >
           <NuxtLink
             :to="sectionPath(item.hash)"
-            class="nav-link relative py-2 hover:text-brand-primary dark:hover:text-brand-accent transition-colors duration-300"
-            :class="{ 'nav-link-active text-brand-primary dark:text-brand-accent': isActiveNavItem(item.hash) }"
+            class="nav-link relative py-2 hover:text-brand-primary transition-colors duration-300"
+            :class="{ 'nav-link-active text-brand-primary': isActiveNavItem(item.hash) }"
           >
             {{ $t(item.labelKey) }}
           </NuxtLink>
@@ -40,23 +40,19 @@
 
       <!-- Action group -->
       <div class="flex items-center gap-3 sm:gap-6">
-        <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft dark:text-dark-ink-soft hidden md:flex">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft hidden md:flex">
           <BaseButton variant="icon" @click="toggleLanguage" :title="$t('switch_lang')" aria-label="Switch Language">
             <LanguagesIcon class="w-6 h-6" />
             <span class="ms-2 text-small font-bold uppercase tracking-wide">{{ locale === 'en' ? 'عربي' : 'EN' }}</span>
           </BaseButton>
-
-          <BaseButton variant="icon" @click="toggleTheme" :title="$t('toggle_theme')" aria-label="Toggle Theme">
-            <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-6 h-6" />
-          </BaseButton>
         </div>
 
         <button
-          class="md:hidden p-1 -mr-1 rtl:-ml-1 text-ink dark:text-dark-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative group pointer-events-auto"
+          class="md:hidden p-1 -mr-1 rtl:-ml-1 text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary transition-colors relative group pointer-events-auto"
           aria-label="Open menu"
           @click="isMobileMenuOpen = true"
         >
-          <span class="absolute inset-0 rounded-xl bg-brand-primary-soft dark:bg-dark-surface-glow opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+          <span class="absolute inset-0 rounded-xl bg-brand-primary-soft opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
           <MenuIcon class="w-8 h-8 relative z-10" />
         </button>
       </div>
@@ -67,7 +63,7 @@
   <Transition name="fade-overlay">
     <div
       v-if="isMobileMenuOpen"
-      class="fixed inset-0 bg-ink/60 dark:bg-black/75 z-[60] md:hidden backdrop-blur-sm pointer-events-auto"
+      class="fixed inset-0 bg-ink/60 z-[60] md:hidden backdrop-blur-sm pointer-events-auto"
       @click="isMobileMenuOpen = false"
     ></div>
   </Transition>
@@ -76,17 +72,17 @@
   <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
     <aside
       v-if="isMobileMenuOpen"
-      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface dark:bg-dark-surface-raised shadow-[4px_0_60px_rgba(27,56,97,0.18)] dark:shadow-[4px_0_80px_rgba(2,3,12,0.75)] border-e border-line dark:border-dark-line pointer-events-auto"
+      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface shadow-[4px_0_60px_rgba(27,56,97,0.18)] border-e border-line pointer-events-auto"
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
       <!-- Sidebar header -->
-      <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line dark:border-dark-line">
+      <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="isMobileMenuOpen = false">
-          <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-8 sm:h-10 w-auto object-contain invert dark:invert-0" />
+          <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-8 sm:h-10 w-auto object-contain" />
         </NuxtLink>
         <button
           @click="isMobileMenuOpen = false"
-          class="w-10 h-10 flex items-center justify-center rounded-xl text-ink-soft dark:text-dark-ink-soft bg-surface-muted dark:bg-dark-surface-muted hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-line dark:border-dark-line transition-all duration-200"
+          class="w-10 h-10 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200"
           aria-label="Close menu"
         >
           <XIcon class="w-6 h-6" />
@@ -100,7 +96,7 @@
             v-for="(item, index) in navItems"
             :key="item.labelKey"
             :to="sectionPath(item.hash)"
-            class="sidebar-nav-link group flex items-center gap-4 px-4 py-3.5 rounded-xl text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-transparent hover:border-brand-primary/15 dark:hover:border-brand-accent/20 transition-all duration-200"
+            class="sidebar-nav-link group flex items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200"
             :class="{ 'sidebar-nav-link-active': isActiveNavItem(item.hash) }"
             :style="{ transitionDelay: `${index * 35}ms` }"
             @click="isMobileMenuOpen = false"
@@ -113,23 +109,15 @@
       </nav>
 
       <!-- Sidebar footer actions -->
-      <div class="relative z-10 px-6 py-6 border-t border-line dark:border-dark-line">
-        <p class="text-caption font-bold tracking-label uppercase text-ink-subtle dark:text-dark-ink-subtle mb-4">{{ $t('preferences') }}</p>
+      <div class="relative z-10 px-6 py-6 border-t border-line">
+        <p class="text-caption font-bold tracking-label uppercase text-ink-subtle mb-4">{{ $t('preferences') }}</p>
         <div class="grid grid-cols-2 gap-4">
           <button
             @click="toggleLanguage"
-            class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
+            class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted border border-line text-ink hover:bg-brand-primary-soft hover:text-brand-primary transition-all duration-200"
           >
-            <LanguagesIcon class="w-6 h-6 text-brand-primary dark:text-brand-accent" />
+            <LanguagesIcon class="w-6 h-6 text-brand-primary" />
             <span class="text-small font-bold">{{ locale === 'en' ? 'عربي' : 'English' }}</span>
-          </button>
-
-          <button
-            @click="toggleTheme"
-            class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
-          >
-            <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-6 h-6 text-brand-primary dark:text-brand-accent" />
-            <span class="text-small font-bold">{{ colorMode.value === 'dark' ? $t('light_mode') : $t('dark_mode') }}</span>
           </button>
         </div>
       </div>
@@ -147,16 +135,13 @@ import {
   InfoIcon,
   LanguagesIcon,
   MenuIcon,
-  MoonIcon,
   PackageIcon,
   SparklesIcon,
-  SunIcon,
   XIcon,
   PhoneIcon,
 } from 'lucide-vue-next'
 
 const { locale, setLocale } = useI18n()
-const colorMode = useColorMode()
 const localePath = useLocalePath()
 const route = useRoute()
 const { sectionPath } = useSectionPath()
@@ -232,10 +217,6 @@ const isActiveNavItem = (hash: string) => {
   return hash === activeHash.value
 }
 
-const toggleTheme = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
-
 const toggleLanguage = () => {
   setLocale(locale.value === 'en' ? 'ar' : 'en')
 }
@@ -271,11 +252,7 @@ const toggleLanguage = () => {
   color: var(--color-brand-primary);
 }
 
-:global(.dark) .sidebar-nav-link-active {
-  background: var(--color-dark-surface-glow);
-  border-color: color-mix(in oklab, var(--color-brand-accent) 24%, transparent);
-  color: var(--color-brand-accent);
-}
+
 
 /* Slide transitions */
 .fade-overlay-enter-active,

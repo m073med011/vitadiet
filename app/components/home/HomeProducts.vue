@@ -1,12 +1,12 @@
 <template>
-  <section id="products" class="w-full py-section md:py-section-lg bg-surface dark:bg-dark-surface transition-colors">
+  <section id="products" class="w-full py-section md:py-section-lg bg-surface">
     <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
 
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
-        <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-ink dark:text-dark-ink uppercase tracking-label mb-page">
+        <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page">
           {{ $t('homePage.products.heading') }}
         </h2>
-        <p class="text-copy-lg leading-copy text-ink-soft dark:text-dark-ink-soft">
+        <p class="text-copy-lg leading-copy text-ink-soft">
           {{ $t('homePage.products.description') }}
         </p>
       </div>
@@ -40,9 +40,9 @@
           >
             <NuxtLink
               :to="localePath(`/product/${product.slug}`)"
-              class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 dark:border-dark-line bg-surface dark:bg-dark-surface-raised shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+              class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
             >
-              <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted dark:bg-dark-surface-muted group/image">
+              <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
                 <BaseImage 
                   :src="product.image" 
                   :alt="$t(product.titleKey)" 
@@ -61,18 +61,18 @@
 
               <div class="flex flex-1 flex-col gap-page p-page">
                 <div class="flex items-start justify-between gap-page">
-                  <h3 class="product-title text-copy font-bold leading-heading text-ink dark:text-dark-ink">{{ $t(product.titleKey) }}</h3>
-                  <span class="shrink-0 rounded-pill bg-brand-primary-soft dark:bg-dark-surface-glow px-page py-control-y-sm text-small font-bold text-brand-primary dark:text-brand-accent flex items-center justify-center gap-1">
+                  <h3 class="product-title text-copy font-bold leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
+                  <span class="shrink-0 rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-small font-bold text-brand-primary flex items-center justify-center gap-1">
                     <span>{{ $t(product.priceKey) }}</span>
                     <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
                   </span>
                 </div>
 
-                <div class="mt-auto flex items-center justify-between gap-page border-t border-line dark:border-dark-line pt-page">
-                  <span class="text-caption font-bold tracking-label uppercase text-ink-subtle dark:text-dark-ink-subtle">
+                <div class="mt-auto flex items-center justify-between gap-page border-t border-line pt-page">
+                  <span class="text-caption font-bold tracking-label uppercase text-ink-subtle">
                     {{ $t('homePage.stats.b2bOnly') }}
                   </span>
-                  <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface dark:text-dark-ink transition-transform duration-300">
+                  <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
                     <ArrowUpRightIcon class="h-icon-sm w-icon-sm rtl:-rotate-90" aria-hidden="true" />
                   </span>
                 </div>
@@ -191,29 +191,5 @@ html[dir="rtl"] .product-card:hover .product-arrow {
   border-radius: var(--radius-pill);
 }
 
-:global(.dark) :deep(.swiper-button-next),
-:global(.dark) :deep(.swiper-button-prev) {
-  background-color: color-mix(in oklab, var(--color-dark-surface-raised) 88%, transparent);
-  border-color: var(--color-dark-line);
-  color: var(--color-brand-accent);
-}
 
-:global(.dark) :deep(.swiper-button-next:hover),
-:global(.dark) :deep(.swiper-button-prev:hover) {
-  background-color: var(--color-brand-primary);
-  color: var(--color-dark-ink);
-}
-
-:global(.dark) :deep(.swiper-pagination) {
-  background-color: color-mix(in oklab, var(--color-dark-surface-raised) 88%, transparent);
-  border-color: var(--color-dark-line);
-}
-
-:global(.dark) :deep(.swiper-pagination-bullet) {
-  background-color: var(--color-dark-ink-subtle);
-}
-
-:global(.dark) :deep(.swiper-pagination-bullet-active) {
-  background-color: var(--color-brand-accent);
-}
 </style>

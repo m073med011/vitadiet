@@ -29,18 +29,7 @@
   --color-on-primary: #d3d3d3;
   --color-on-accent: #10243f;
 
-  /* ── Dark surfaces ── */
-  --color-dark-surface: #07080f;
-  --color-dark-surface-raised: #0e1020;
-  --color-dark-surface-muted: #161928;
-  --color-dark-surface-glow: #1e2440;
-  --color-dark-line: #232b4a;
-  --color-dark-line-strong: #32406e;
-  --color-dark-ink: #eef1ff;
-  --color-dark-ink-soft: #9aa3cc;
-  --color-dark-ink-subtle: #565f88;
-  --color-dark-accent-soft: #18243a;
-  --color-dark-accent-ink: #1a7039;
+
 
   /* ── Containers ── */
   --container-shell: 120rem;
@@ -120,9 +109,6 @@
   --shadow-button: 0 10px 28px rgb(29 43 91 / 0.14);
   --shadow-button-hover: 0 16px 34px rgb(29 43 91 / 0.18);
   --shadow-glow-accent: 0 0 24px rgb(212 178 100 / 0.22);
-  --shadow-dark-soft: 0 22px 58px rgb(2 3 12 / 0.64);
-  --shadow-dark-subtle: 0 14px 32px rgb(2 3 12 / 0.44);
-  --shadow-dark-gold: 0 12px 30px rgb(212 178 100 / 0.18);
 }
 
 /* Motion & layout tokens that live outside @theme */

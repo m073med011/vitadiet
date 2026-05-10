@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col max-w-shell mx-auto w-full shadow-shell dark:shadow-shell-dark relative bg-surface dark:bg-dark-surface text-ink dark:text-dark-ink transition-colors duration-300">
+  <div class="min-h-screen flex flex-col max-w-shell mx-auto w-full shadow-shell relative bg-surface text-ink">
     <AppHeader />
 
     <main class="flex-grow">

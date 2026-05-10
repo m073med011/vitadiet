@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full overflow-hidden bg-surface dark:bg-dark-surface pt-rule-sm pb-product-lg">
+  <section class="relative w-full overflow-hidden bg-surface pt-rule-sm pb-product-lg">
     <!-- Lotus grid backdrop -->
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
@@ -8,7 +8,7 @@
       <div
         v-for="(img, index) in heroImages"
         :key="index"
-        class="absolute overflow-hidden rounded-card shadow-card transition-all duration-700 hover:scale-105 hover:shadow-card-hover hover:z-20 pointer-events-auto bg-surface-muted dark:bg-dark-surface-muted ring-1 ring-line dark:ring-dark-line"
+        class="absolute overflow-hidden rounded-card shadow-card transition-all duration-700 hover:scale-105 hover:shadow-card-hover hover:z-20 pointer-events-auto bg-surface-muted ring-1 ring-line"
         :class="img.class"
         data-aos="zoom-in"
         data-aos-duration="700"
@@ -22,7 +22,7 @@
     <div class="relative z-20 px-page max-w-content mx-auto -mt-rule-sm sm:-mt-section-lg md:-mt-product-lg">
       <div class=" mx-auto max-w-[60rem] px-page py-gutter sm:px-card sm:py-card text-center ">
         <span
-          class="inline-flex items-center gap-control-y-sm py-control-y-sm px-icon-md rounded-pill bg-brand-primary-soft dark:bg-dark-surface-glow text-small font-semibold text-brand-primary dark:text-brand-accent mb-gutter border border-line dark:border-dark-line"
+          class="inline-flex items-center gap-control-y-sm py-control-y-sm px-icon-md rounded-pill bg-brand-primary-soft text-small font-semibold text-brand-primary mb-gutter border border-line"
           data-aos="fade-up"
           data-aos-delay="150"
         >
@@ -31,7 +31,7 @@
         </span>
 
         <h1
-          class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal text-ink dark:text-dark-ink mb-gutter leading-heading"
+          class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal text-ink mb-gutter leading-heading"
           data-aos="fade-up"
           data-aos-delay="200"
         >
@@ -39,7 +39,7 @@
         </h1>
 
         <p
-          class="mt-gutter text-copy sm:text-copy-lg text-ink-soft dark:text-dark-ink-soft max-w-copy mx-auto font-medium leading-copy"
+          class="mt-gutter text-copy sm:text-copy-lg text-ink-soft max-w-copy mx-auto font-medium leading-copy"
           data-aos="fade-up"
           data-aos-delay="300"
         >
@@ -61,16 +61,16 @@
         </div>
 
         <ul
-          class="mt-gutter flex flex-wrap items-center justify-center gap-control-y-sm text-small text-ink-soft dark:text-dark-ink-soft"
+          class="mt-gutter flex flex-wrap items-center justify-center gap-control-y-sm text-small text-ink-soft"
           data-aos="fade-up"
           data-aos-delay="500"
         >
           <li
             v-for="item in trustItems"
             :key="item.labelKey"
-            class="inline-flex items-center gap-control-y-sm rounded-pill border border-line dark:border-dark-line bg-surface-raised dark:bg-dark-surface-muted px-page py-control-y-sm font-semibold"
+            class="inline-flex items-center gap-control-y-sm rounded-pill border border-line bg-surface-raised px-page py-control-y-sm font-semibold"
           >
-            <component :is="item.icon" class="h-icon-sm w-icon-sm text-brand-primary dark:text-brand-accent" aria-hidden="true" />
+            <component :is="item.icon" class="h-icon-sm w-icon-sm text-brand-primary" aria-hidden="true" />
             {{ $t(item.labelKey) }}
           </li>
         </ul>

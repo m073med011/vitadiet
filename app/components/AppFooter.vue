@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer" class="relative bg-surface dark:bg-dark-surface pt-section pb-page-lg border-t border-line dark:border-dark-line overflow-hidden transition-colors duration-500">
+  <footer id="footer" class="relative bg-surface pt-section pb-page-lg border-t border-line overflow-hidden">
     <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg relative z-10">
 
       <!-- Main grid: 1 col mobile → 2 col tablet → 4 col desktop -->
@@ -10,7 +10,7 @@
           <NuxtLink :to="localePath('/')">
             <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" class="h-page-lg sm:h-product-lg w-auto object-contain" />
           </NuxtLink>
-          <p class="text-ink dark:text-dark-ink leading-copy">{{ $t('footer.quote') }}</p>
+          <p class="text-ink leading-copy">{{ $t('footer.quote') }}</p>
           <div class="flex items-center gap-control-y-sm pt-control-y-sm">
             <a
               href="https://www.linkedin.com/company/vitadiet"
@@ -41,7 +41,7 @@
 
         <!-- Col 2 — Quick Links -->
         <nav data-aos="fade-up" data-aos-delay="100">
-          <h3 class="text-copy-lg font-bold text-ink dark:text-dark-ink tracking-wide mb-gutter uppercase">
+          <h3 class="text-copy-lg font-bold text-ink tracking-wide mb-gutter uppercase">
             {{ $t('navigation') || 'Quick Links' }}
           </h3>
           <ul class="space-y-page mt-control-y-sm">
@@ -53,9 +53,9 @@
             >
               <NuxtLink
                 :to="sectionPath(link.hash)"
-                class="inline-flex items-center gap-2 text-ink dark:text-dark-ink hover:text-brand-primary dark:hover:text-brand-accent hover:translate-x-1 transition-all duration-300 group"
+                class="inline-flex items-center gap-2 text-ink hover:text-brand-primary hover:translate-x-1 transition-all duration-300 group"
               >
-                <span class="w-dot h-dot shrink-0 rounded-full bg-brand-primary dark:bg-brand-accent opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></span>
+                <span class="w-dot h-dot shrink-0 rounded-full bg-brand-primary opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></span>
                 {{ $t(link.labelKey) }}
               </NuxtLink>
             </li>
@@ -64,37 +64,37 @@
 
         <!-- Cols 3-4 — Contact (spans 2 cols on lg, full width on md) -->
         <div class="footer-contact-col" data-aos="fade-up" data-aos-delay="200">
-          <h3 class="text-copy-lg font-bold text-ink dark:text-dark-ink tracking-wide mb-gutter uppercase">
+          <h3 class="text-copy-lg font-bold text-ink tracking-wide mb-gutter uppercase">
             {{ $t('contact') || 'Contact Us' }}
           </h3>
           <div class="space-y-icon-md">
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
-                <MapPinIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent group-hover:text-on-primary dark:group-hover:text-on-accent transition-colors" />
+                <MapPinIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
-              <span class="text-ink dark:text-dark-ink leading-copy whitespace-pre-line pt-control-y-sm">{{ $t('footer.contact.address') }}</span>
+              <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm">{{ $t('footer.contact.address') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
-                <PhoneIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent group-hover:text-on-primary dark:group-hover:text-on-accent transition-colors" />
+                <PhoneIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
-              <span class="text-ink dark:text-dark-ink leading-copy whitespace-pre-line pt-control-y-sm" dir="ltr">{{ $t('footer.contact.phone') }}</span>
+              <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm" dir="ltr">{{ $t('footer.contact.phone') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
-                <MailIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent group-hover:text-on-primary dark:group-hover:text-on-accent transition-colors" />
+                <MailIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
-              <span class="text-ink dark:text-dark-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.email') }}</span>
+              <span class="text-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.email') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap group-hover:bg-brand-primary dark:group-hover:bg-brand-accent">
-                <ReceiptIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent group-hover:text-on-primary dark:group-hover:text-on-accent transition-colors" />
+                <ReceiptIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
-              <span class="text-ink dark:text-dark-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.vat') }}</span>
+              <span class="text-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.vat') }}</span>
             </div>
 
           </div>
@@ -104,13 +104,13 @@
 
       <!-- Bottom bar -->
       <div
-        class="pt-card border-t border-line dark:border-dark-line flex flex-wrap justify-center items-center gap-1 text-center"
+        class="pt-card border-t border-line flex flex-wrap justify-center items-center gap-1 text-center"
         data-aos="fade-up"
       >
         <a
           href="https://do.com.sa/"
           target="_blank" rel="noopener noreferrer"
-          class="text-ink-soft dark:text-dark-ink-soft text-small flex flex-wrap items-center justify-center gap-1 hover:text-brand-primary dark:hover:text-brand-accent transition-colors"
+          class="text-ink-soft text-small flex flex-wrap items-center justify-center gap-1 hover:text-brand-primary transition-colors"
         >
           <span>{{ $t('footer.copyright') }}</span>
           <span>&copy;</span>
@@ -205,17 +205,7 @@ const footerLinks = [
   box-shadow: var(--shadow-card);
 }
 
-:global(.dark) .social-btn {
-  border-color: var(--color-dark-line);
-  background: var(--color-dark-surface-raised);
-  color: var(--color-dark-ink-soft);
-}
 
-:global(.dark) .social-btn:hover {
-  background: var(--color-brand-accent);
-  color: var(--color-on-accent);
-  box-shadow: var(--shadow-glow-accent);
-}
 
 /* ─── Contact icon wrapper ──────────────────────────────────── */
 .contact-icon-wrap {
@@ -230,7 +220,5 @@ const footerLinks = [
   transition: background-color 0.3s;
 }
 
-:global(.dark) .contact-icon-wrap {
-  background: color-mix(in oklab, var(--color-brand-accent) 10%, transparent);
-}
+
 </style>
