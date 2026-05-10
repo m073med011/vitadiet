@@ -21,38 +21,29 @@ const props = defineProps({
     default: 'primary',
     validator: (value: string) => ['primary', 'secondary', 'icon', 'none'].includes(value),
   },
-  to: {
-    type: [String, Object],
-    default: undefined,
-  },
-  href: {
-    type: String,
-    default: undefined,
-  },
-  nativeType: {
-    type: String,
-    default: 'button',
-  },
+  to: { type: [String, Object], default: undefined },
+  href: { type: String, default: undefined },
+  nativeType: { type: String, default: 'button' },
 });
 
 const componentType = computed(() => {
-  if (props.to) {
-    return NuxtLink;
-  }
-  if (props.href) {
-    return 'a';
-  }
+  if (props.to) return NuxtLink;
+  if (props.href) return 'a';
   return 'button';
 });
 
-const isNativeButton = computed(() => {
-  return componentType.value === 'button';
-});
+const isNativeButton = computed(() => componentType.value === 'button');
 
 const computedClasses = computed(() => {
-  if (props.variant === 'primary') return 'primary-button';
-  if (props.variant === 'secondary') return 'secondary-button';
-  if (props.variant === 'icon') return 'icon-action';
+  if (props.variant === 'primary') {
+    return 'inline-flex items-center justify-center gap-control-y-sm px-control-x py-control-y bg-brand-primary hover:bg-brand-dark text-surface dark:text-dark-ink font-semibold rounded-control transition-all duration-300 shadow-button hover:shadow-button-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent uppercase tracking-label whitespace-nowrap disabled:pointer-events-none disabled:opacity-60';
+  }
+  if (props.variant === 'secondary') {
+    return 'inline-flex items-center justify-center gap-control-y-sm px-control-x py-control-y bg-surface-raised hover:bg-brand-primary-soft text-ink hover:text-brand-primary border border-line hover:border-brand-primary/40 dark:bg-dark-surface-raised dark:hover:bg-dark-surface-muted dark:text-dark-ink dark:hover:text-brand-accent dark:border-dark-line dark:hover:border-brand-accent/50 text-copy font-semibold rounded-control transition-all duration-300 shadow-card hover:shadow-card-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent whitespace-nowrap disabled:pointer-events-none disabled:opacity-60';
+  }
+  if (props.variant === 'icon') {
+    return 'flex items-center justify-center p-3 rounded-pill hover:bg-brand-primary-soft hover:text-brand-primary dark:hover:bg-dark-surface-muted dark:hover:text-brand-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent transition-colors disabled:pointer-events-none disabled:opacity-60';
+  }
   return '';
 });
 </script>

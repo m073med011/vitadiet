@@ -1,9 +1,9 @@
 {
-  "appName": "Vitadiet",
-  "companyArabic": "فيتادايت ",
-  "welcome": "Vitadiet Saudi B2B Medical Distribution",
-  "description": "Vitadiet is a Saudi B2B medical distribution company for exclusive European dietary supplement agencies, serving pharmacies, authorized distributors, suppliers, and European brand principals.",
-  "toggle_theme": "Toggle Dark Mode",
+  "appName": "Vita Diet",
+  "companyArabic": "فيتا دايت",
+  "welcome": "Vita Diet: European Quality for a Healthier Life",
+  "description": "Vita Diet provides scientifically approved, carefully selected European dietary supplements for trusted B2B partnerships in the Saudi market.",
+  "toggle_theme": "Toggle dark mode",
   "switch_lang": "Arabic",
   "navigation": "Navigation",
   "preferences": "Preferences",
@@ -11,130 +11,174 @@
   "dark_mode": "Dark",
   "home": "Home",
   "about": "About",
-  "services": "Why Us",
+  "services": "Why Vita Diet",
   "products": "Products",
-  "blog": "Science",
+  "blog": "Quality",
   "contact": "Contact",
+  "newsletter": "Partner Inquiry",
   "homePage": {
     "hero": {
-      "badge": "Saudi B2B Medical Distribution",
-      "heading": "Pure European supplement agencies, responsibly represented in Saudi Arabia",
-      "subheading": "Vitadiet connects certified European dietary supplements with pharmacies, authorized distributors, and suppliers through a scientific, transparent, and SFDA-aware B2B model.",
-      "primary": "Start a Partnership",
+      "badge": "European supplements for the Saudi market",
+      "heading": "Vita Diet: European Quality for a Healthier Life",
+      "subheading": "We provide scientifically approved and carefully selected dietary supplements, giving our partners trusted products in the Saudi market.",
+      "primary": "Start Your Partnership",
       "secondary": "View Company Profile"
     },
     "stats": {
       "b2bOnly": "B2B Only",
       "scientificReview": "Scientific Review",
-      "sfdaFocus": "SFDA-Led Compliance",
-      "europeanAgencies": "European Agencies"
+      "sfdaFocus": "SFDA Approved",
+      "europeanAgencies": "European Agencies",
+      "heading": "Our Numbers",
+      "items": {
+        "partners": {
+          "value": "+100",
+          "label": "Partners"
+        },
+        "products": {
+          "value": "10",
+          "label": "Products"
+        },
+        "certificates": {
+          "value": "4",
+          "label": "Certificates"
+        },
+        "regions": {
+          "value": "8",
+          "label": "Distribution Regions"
+        },
+        "sources": {
+          "value": "3",
+          "label": "European Sources"
+        }
+      }
     },
     "about": {
-      "heading": "About Vitadiet",
-      "description": "Vitadiet is a Saudi company specialized in medical distribution. It operates exclusively on a B2B basis and provides exclusive agencies for high-quality European dietary supplements certified by local and international regulatory bodies, primarily the Saudi Food and Drug Authority (SFDA). The company does not sell directly to consumers. It deals only with pharmacies, authorized distributors, and suppliers within the Kingdom.",
-      "responsibility": "For Vitadiet, importing supplements is not only a commercial activity. It is a scientific and ethical responsibility built on clinical evidence, safety review, transparent documentation, quality, and purity.",
+      "heading": "About Us",
+      "description": "Vita Diet is a Saudi company specialized in exclusive European dietary supplement agencies. We operate through a B2B model to serve pharmacies and distributors across the Kingdom.",
+      "responsibility": "We select every product according to strict scientific standards and make sure it is officially registered and approved before entering the market.",
       "cta": "Request Company Credentials"
     },
-    "why": {
-      "heading": "Why Vitadiet?",
-      "description": "Six petals shape our promise to local partners and global principals.",
+    "whoWeAre": {
+      "heading": "Vita Diet Up Close - Who We Are and What Sets Us Apart",
+      "description": "Vita Diet is a Saudi company providing exclusive agencies for high-quality European dietary supplements.",
       "petals": {
+        "science": "Precise Scientific Selection",
+        "sfda": "Official Registration (SFDA)",
+        "distribution": "Professional Distribution Chain",
+        "quality": "Trusted European Products",
+        "safety": "Long-Term Partnerships",
+        "transparency": "Full Transparency"
+      },
+      "footerText": "All our products are officially licensed by the Saudi Food and Drug Authority (SFDA) and undergo strict scientific reviews before being added to our portfolio.\nWe do not deal directly with consumers, but rather serve approved pharmacies, distributors, and suppliers within the Kingdom."
+    },
+    "why": {
+      "heading": "Why Choose Vita Diet",
+      "description": "A focused model built for partners who value scientific selection, official approval, and reliable distribution.",
+      "petals": {
+        "science": {
+          "title": "Precise Scientific Selection",
+          "description": "Products are chosen through evidence review, ingredient assessment, and clear suitability for the Saudi market."
+        },
         "quality": {
-          "title": "Certified European Quality",
-          "description": "Products are sourced from licensed European manufacturers with serious documentation standards."
+          "title": "Trusted European Products",
+          "description": "We work with carefully selected European sources and manufacturers with dependable quality systems."
         },
         "sfda": {
-          "title": "SFDA Registration Focus",
-          "description": "Every product path is handled with regulatory review and Saudi market requirements in mind."
-        },
-        "science": {
-          "title": "Scientific Selection",
-          "description": "Products are considered only after evidence review, safety considerations, and ingredient assessment."
-        },
-        "safety": {
-          "title": "Side-Effect Awareness",
-          "description": "We analyze safety, contraindications, and ingredient profiles before adding products to the portfolio."
-        },
-        "distribution": {
-          "title": "Professional Distribution",
-          "description": "From premium packaging and controlled storage to efficient delivery into pharmacy channels."
+          "title": "Approved by the Saudi Food and Drug Authority",
+          "description": "Products go through official registration and approval requirements before market launch."
         },
         "transparency": {
-          "title": "Transparent Files",
-          "description": "Brochures, certificates, and product dossiers are prepared for qualified B2B partners."
+          "title": "Full Transparency",
+          "description": "Partners receive clear product information, documentation, certificates, and commercial details."
+        },
+        "distribution": {
+          "title": "Strong Distribution Network",
+          "description": "Our network is built to support pharmacies and distributors across key regions in the Kingdom."
+        },
+        "safety": {
+          "title": "Long-Term Partnerships",
+          "description": "We build sustainable relationships based on trust, commitment, and shared growth."
+        },
+        "partnership": {
+          "title": "Long-Term Partnerships",
+          "description": "We build sustainable relationships based on trust, commitment, and shared growth."
         }
       }
     },
     "nameStory": {
-      "heading": "The Story Behind the Name",
-      "description": "The Vitadiet symbolizes purity, silent strength, and growth. It reflects a simple promise: every product should arrive to the market with clean documentation, clear purpose, and responsible representation."
+      "heading": "The Story Behind the Name: Why Vita Diet",
+      "description": "The name Vita Diet combines two words: Vita means life, and Diet means nutritional system. Together, they reflect our commitment to products that support a healthy, balanced lifestyle built on quality and science."
     },
     "route": {
       "heading": "From Europe to Saudi Arabia",
-      "description": "A controlled journey from European principals to Saudi B2B channels.",
+      "description": "We select products from approved European manufacturers, then move through careful inspection and registration stages until they reach the Saudi market with trusted quality.",
       "steps": {
-        "source": "Licensed European source",
-        "review": "Scientific and regulatory review",
-        "register": "Saudi compliance pathway",
-        "distribute": "Pharmacy and distributor channels"
+        "source": "Approved European manufacturers",
+        "review": "Scientific inspection and documentation review",
+        "register": "Official registration and approval",
+        "distribute": "Trusted distribution in Saudi Arabia"
       }
     },
     "lab": {
-      "heading": "The Silent Laboratory",
-      "description": "Behind every portfolio decision is quiet scientific work: clinical evidence review, safety screening, ingredient analysis, and documentation checks before any product is introduced."
+      "heading": "Quality Stages",
+      "description": "Every product passes through safety testing, purity testing, and microscopic examination to support dependable effectiveness."
     },
     "certificates": {
-      "heading": "Trust and Certification",
-      "description": "Regulatory trust is part of the product experience, not an afterthought.",
+      "heading": "Certificates and Trust",
+      "description": "Certificates are part of the product file and help qualified partners review quality with confidence.",
       "items": {
-        "sfda": "SFDA-Oriented Product Files",
-        "eu": "European Manufacturer Documentation",
-        "safety": "Safety and Ingredient Review"
+        "sfda": "Saudi Food and Drug Authority approval files",
+        "eu": "European manufacturer documentation",
+        "safety": "Safety, purity, and effectiveness review"
       }
     },
     "products": {
-      "heading": "B2B Product Portfolio",
-      "description": "Product information is shown for professional review only. Vitadiet does not sell directly to consumers.",
+      "heading": "Products",
+      "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
       "items": {
-        "europeanSupplements": {
-          "title": "European Dietary Supplements",
-          "ingredients": "Ingredient profile and product file available for qualified partners.",
-          "warnings": "Warnings, contraindications, and certifications reviewed before listing."
+        "bestrong": {
+          "title": "White Flower Bestrong Dietary Supplement 30 Capsules",
+          "price": "58 SAR"
         },
-        "vitaminsMinerals": {
-          "title": "Vitamins and Minerals",
-          "ingredients": "Targeted formulations for pharmacy and supplier channels.",
-          "warnings": "Safety and dosage information shared through the B2B dossier."
+        "becalme": {
+          "title": "White Flower BeCalm Dietary Supplement",
+          "price": "78 SAR"
         },
-        "herbalFormulas": {
-          "title": "Herbal and Natural Formulas",
-          "ingredients": "Selected formulas with traceable source documentation.",
-          "warnings": "Botanical interactions and use considerations are reviewed."
+        "vitagen": {
+          "title": "White Flower Vitagen Dietary Supplement",
+          "price": "98 SAR"
         },
-        "specialtyNutrition": {
-          "title": "Specialty Nutrition",
-          "ingredients": "Professional nutrition products for regulated market access.",
-          "warnings": "Claims and usage language are reviewed for responsible communication."
+        "femavit": {
+          "title": "White Flower Femavit Plus 30 Capsules",
+          "price": "110 SAR"
         },
-        "pharmacySkus": {
-          "title": "Pharmacy-Ready SKUs",
-          "ingredients": "Packaging and product assets prepared for pharmacy shelves.",
-          "warnings": "Storage, handling, and partner documentation are included."
+        "floradit": {
+          "title": "White Flower Floradit Dietary Supplement",
+          "price": "78 SAR"
+        },
+        "greenPharmacy": {
+          "title": "WHITE FLOWER Green Pharmacy Herbal Cleansing Gel",
+          "price": "50 SAR"
+        },
+        "dplus": {
+          "title": "White Flower D-Plus Zinc, D3, B6, C 60 Tablets",
+          "price": "48 SAR"
         }
       }
     },
     "trustBox": {
       "heading": "The Trust Box",
-      "description": "Packaging, storage, and delivery are treated as part of the promise. Each step protects the product's professional presentation and partner confidence.",
+      "description": "Packaging, storage, and delivery are treated as part of the product promise.",
       "points": {
-        "packaging": "Premium packaging review",
+        "packaging": "Packaging review",
         "storage": "Controlled storage principles",
         "delivery": "Efficient pharmacy-channel delivery"
       }
     },
     "downloads": {
       "heading": "Download Center",
-      "description": "Qualified partners can request brochures, certificates, and product files for verification and procurement review.",
+      "description": "Qualified partners can request brochures, certificates, and product files for procurement review.",
       "items": {
         "profile": "Company Profile",
         "brochures": "Product Brochures",
@@ -144,7 +188,7 @@
     },
     "coverage": {
       "heading": "Saudi Distribution Coverage",
-      "description": "Vitadiet is built to support pharmacy, distributor, and supplier relationships across key Saudi commercial regions.",
+      "description": "Vita Diet supports pharmacy and distributor relationships across the Kingdom.",
       "regions": {
         "central": "Central Region",
         "western": "Western Region",
@@ -155,124 +199,156 @@
     },
     "partners": {
       "heading": "Partner Network",
-      "description": "Partner logos and pharmacy names can be added once officially approved. Until then, the site keeps trust honest and avoids invented social proof.",
+      "description": "Our B2B network is built for pharmacies and distributors seeking trusted European supplement products.",
       "items": {
         "pharmacies": "Pharmacy Partners",
         "distributors": "Authorized Distributors",
-        "suppliers": "Medical Suppliers"
+        "suppliers": "Supply Partners"
       }
     },
     "steps": {
       "heading": "How to Start With Us",
       "items": {
-        "contact": "Contact our B2B team",
-        "request": "Request company and product files",
-        "delivery": "Review logistics and distribution needs",
+        "contact": "Contact the Vita Diet team",
+        "request": "Request product and company files",
+        "delivery": "Review distribution requirements",
         "partnership": "Build a long-term partnership"
       }
     },
     "vision": {
-      "heading": "Vision and Mission",
+      "heading": "Our Vision",
       "visionTitle": "Vision",
-      "visionText": "To become a trusted Saudi gateway for responsible European supplement brands.",
-      "missionTitle": "Mission",
-      "missionText": "To represent high-quality products with scientific care, regulatory discipline, and ethical commercial conduct."
+      "visionText": "To be the first choice for trusted dietary supplements in the Saudi market through quality and scientific approval.",
+      "missionTitle": "Our Commitment",
+      "missionText": "To provide partners with selected products, clear documentation, official approval, and reliable long-term cooperation."
     },
     "values": {
       "heading": "Our Values",
       "items": {
-        "purity": "Purity",
-        "commitment": "Commitment",
-        "reliability": "Reliability",
-        "transparency": "Transparency",
-        "growth": "Growth"
+        "reliability": {
+          "title": "Reliability",
+          "description": "Our products are built on clinical studies."
+        },
+        "commitment": {
+          "title": "Commitment",
+          "description": "We follow the highest scientific and ethical standards."
+        },
+        "transparency": {
+          "title": "Transparency",
+          "description": "Every detail is clear and accessible to partners."
+        },
+        "partnership": {
+          "title": "Partnership",
+          "description": "Sustainable relationships built on trust."
+        },
+        "development": {
+          "title": "Development",
+          "description": "Continuous improvement of the product portfolio."
+        }
+      }
+    },
+    "quality": {
+      "heading": "Quality Stages",
+      "items": {
+        "safety": {
+          "title": "Safety Testing",
+          "description": "Ensuring safe use."
+        },
+        "purity": {
+          "title": "Purity Testing",
+          "description": "Confirming the product is free from impurities."
+        },
+        "microscopic": {
+          "title": "Microscopic Examination",
+          "description": "Detailed analysis of effectiveness."
+        }
       }
     },
     "insight": {
-      "heading": "A Glimpse of Purity",
-      "description": "A supplement is only as trusted as the evidence, safety review, documentation, and handling behind it. Vitadiet makes that hidden work visible to professional partners."
+      "heading": "Built on Trust",
+      "description": "A trusted supplement is shaped by evidence, safety review, official approval, and clear handling before it reaches partners."
     },
     "future": {
       "heading": "Growing With Our Partners",
-      "description": "Vitadiet continues to expand its portfolio, improve its documentation process, and develop stronger distribution relationships across the Saudi market."
+      "description": "Vita Diet continues to improve its product portfolio and strengthen distribution relationships across the Saudi market."
     },
     "local": {
-      "heading": "For Local Pharmacies and Distributors",
-      "description": "Choose Vitadiet when you need certified European quality, clear product files, regulatory discipline, premium presentation, and a serious B2B team.",
+      "heading": "For Pharmacies and Distributors Inside the Kingdom",
+      "description": "Choose Vita Diet when you need European quality, official approval, transparent files, and a serious B2B partnership.",
       "points": {
-        "quality": "Certified European quality",
-        "sfda": "SFDA-oriented product registration",
-        "files": "Downloadable files and brochures",
-        "delivery": "Professional distribution chain"
+        "quality": "Trusted European quality",
+        "sfda": "Saudi Food and Drug Authority approval",
+        "files": "Clear product files",
+        "delivery": "Strong distribution network"
       }
     },
     "global": {
       "heading": "For European Manufacturers",
-      "description": "Vitadiet gives European brands a professional Saudi face: market understanding, regulatory awareness, long-term partnership thinking, and ethical brand representation.",
+      "description": "Vita Diet gives European products a trusted Saudi B2B path through scientific review, registration, and distribution.",
       "points": {
-        "market": "Saudi market knowledge",
-        "brand": "Professional brand presentation",
-        "coverage": "Wide distribution relationships",
-        "ethics": "Sustainable, ethical representation"
+        "market": "Saudi market understanding",
+        "brand": "Professional brand representation",
+        "coverage": "Distribution relationships",
+        "ethics": "Long-term partnership"
       }
     },
     "faq": {
       "heading": "Frequently Asked Questions",
       "items": {
         "consumer": {
-          "question": "Does Vitadiet sell directly to consumers?",
-          "answer": "No. Vitadiet operates exclusively on a B2B basis with pharmacies, authorized distributors, suppliers, and brand principals."
+          "question": "Does Vita Diet sell directly to consumers?",
+          "answer": "No. Vita Diet operates as a B2B company serving pharmacies and distributors."
         },
         "sfda": {
-          "question": "Are products reviewed for SFDA requirements?",
-          "answer": "Yes. Regulatory review and Saudi market requirements are central to the portfolio process."
+          "question": "Are products officially approved?",
+          "answer": "Products are registered and approved through the required official process before they are introduced to the market."
         },
         "files": {
-          "question": "Can partners access certificates and brochures?",
-          "answer": "Qualified partners can request brochures, certificates, and product dossiers through the B2B team."
+          "question": "Can partners access product files?",
+          "answer": "Qualified partners can request product files, certificates, and supporting documentation through the Vita Diet team."
         }
       }
     },
     "contactSection": {
-      "heading": "Contact Vitadiet",
-      "description": "Use your business email to request company credentials, product dossiers, or a partnership discussion.",
+      "heading": "Start Your Partnership With Vita Diet Today",
+      "description": "Join our partner network and benefit from trusted products with European quality.",
       "placeholder": "Business email",
-      "submit": "Send B2B Inquiry",
-      "privacy": "For pharmacies, authorized distributors, suppliers, and European manufacturers only.",
-      "submittedMessage": "B2B inquiry received from:"
+      "submit": "Send Partnership Request",
+      "privacy": "For pharmacies, distributors, and qualified B2B partners.",
+      "submittedMessage": "Partnership request received from:"
     }
   },
   "productPage": {
-    "heading": "B2B Product Portfolio",
-    "description": "Vitadiet's product files are available to qualified B2B partners. Details, certificates, warnings, and brochures are shared after partner qualification.",
-    "cta": "Request Portfolio Access"
+    "heading": "Products",
+    "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
+    "cta": "Request Product Portfolio"
   },
   "categoryPage": {
-    "eyebrow": "B2B Portfolio Category",
-    "description": "This category belongs to Vitadiet's professional distribution portfolio. Full specifications, certificates, warnings, and availability are shared with qualified partners.",
-    "cta": "Contact B2B Team"
+    "eyebrow": "European Supplement Portfolio",
+    "description": "This category belongs to Vita Diet's B2B portfolio. Product details, documentation, and availability are shared with qualified partners.",
+    "cta": "Contact Vita Diet"
   },
   "footer": {
-    "quote": "Pure representation for certified European supplement brands in Saudi Arabia.",
+    "quote": "European quality for a healthier life, delivered through trusted B2B partnerships in Saudi Arabia.",
     "links": {
-      "bestSeller": "Company Profile",
-      "skinProducts": "Scientific Review",
-      "beautyProducts": "Saudi Distribution",
-      "trackOrder": "Download Center",
-      "aboutUs": "B2B Contact"
+      "bestSeller": "About Vita Diet",
+      "skinProducts": "Quality Stages",
+      "beautyProducts": "Products",
+      "trackOrder": "Our Numbers",
+      "aboutUs": "Start a Partnership"
     },
     "contact": {
-      "address": "Vitadiet Medical Distribution\nKing Fahd Road, Al Olaya\nRiyadh 12212, Saudi Arabia",
+      "address": "King Fahd Road, Al Olaya\nRiyadh 12212, Saudi Arabia",
       "phone": "+966 11 000 0000",
-      "email": "partners{'@'}Vitadiet.sa"
+      "email": "partners{'@'}vitadiet.sa"
     },
     "newsletter": {
-      "text": "Use your business email to request credentials and portfolio access.",
+      "text": "Use your business email to request product files or start a partnership discussion.",
       "placeholder": "Business email",
       "join": "Request",
       "joinedMessage": "Request received from:"
     },
-    "copyright": "Vitadiet. All rights reserved.",
+    "copyright": "Vita Diet. All rights reserved.",
     "privacyPolicy": "Privacy Notice",
     "termsOfService": "Partner Terms"
   }

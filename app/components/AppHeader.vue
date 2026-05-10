@@ -1,56 +1,67 @@
 <template>
-  <header class="site-header sticky top-0 z-50" data-aos="fade-down" data-aos-duration="500">
+  <div 
+    class="sticky top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
+    :class="isScrolled ? 'pt-4 md:pt-6 px-4 md:px-6' : 'pt-0 px-0'"
+  >
+    <header
+      class="backdrop-blur transition-all duration-500 ease-in-out text-ink dark:text-dark-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
+      :class="[
+        isScrolled 
+          ? 'max-w-7xl bg-surface/95 dark:bg-dark-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] dark:shadow-[0_22px_58px_rgb(2,3,12,0.64)] rounded-2xl md:rounded-3xl py-3 px-6 border border-line/30 dark:border-dark-line/30' 
+          : 'max-w-full bg-surface/95 dark:bg-dark-surface/95 border-b border-line dark:border-dark-line py-control-y-sm md:py-control-y px-gutter md:px-gutter-lg rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent'
+      ]"
+    >
     <NuxtLink :to="localePath('/')" class="flex items-center relative z-10 group shrink-0" aria-label="Vitadiet home">
-      <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="site-logo group-hover:scale-105 transition-transform duration-300" />
+      <BaseImage
+        :src="logoImage"
+        alt="Vitadiet Logo"
+        loading="eager"
+        class="h-page-lg sm:h-icon-2xl md:h-section-sm w-auto max-w-full object-contain transition-all duration-300  group-hover:scale-105"
+      />
     </NuxtLink>
 
-    <nav class="site-nav">
-      <NuxtLink
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft dark:text-dark-ink-soft uppercase">
+      <div
         v-for="(item, index) in navItems"
         :key="item.labelKey"
-        :to="sectionPath(item.hash)"
-        class="site-nav-link"
-        :class="{ 'site-nav-link-active': isActiveNavItem(item.hash) }"
-        data-aos="fade-down"
-        :data-aos-delay="index * 100"
+        class="animate-fade-in"
+        :style="{ animationDelay: `${index * 100}ms` }"
       >
-        {{ $t(item.labelKey) }}
-      </NuxtLink>
+        <NuxtLink
+          :to="sectionPath(item.hash)"
+          class="nav-link relative py-control-y-sm hover:text-brand-primary dark:hover:text-brand-accent transition-colors duration-300"
+          :class="{ 'nav-link-active text-brand-primary dark:text-brand-accent': isActiveNavItem(item.hash) }"
+        >
+          {{ $t(item.labelKey) }}
+        </NuxtLink>
+      </div>
     </nav>
 
-    <div class="flex items-center gap-2 sm:gap-4">
-      <div class="site-action-group hidden md:flex">
-        <BaseButton
-          variant="icon"
-          @click="toggleLanguage"
-          :title="$t('switch_lang')"
-          aria-label="Switch Language"
-        >
-          <LanguagesIcon class="icon-action-symbol" />
-          <span class="ms-2 text-small font-bold uppercase tracking-wide">{{ locale === 'en' ? 'عربي' : 'EN' }}</span>
+    <!-- Action group -->
+    <div class="flex items-center gap-control-y-sm sm:gap-page">
+      <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft dark:text-dark-ink-soft hidden md:flex">
+        <BaseButton variant="icon" @click="toggleLanguage" :title="$t('switch_lang')" aria-label="Switch Language">
+          <LanguagesIcon class="w-icon-xl h-icon-xl" />
+          <span class="ms-control-y-sm text-small font-bold uppercase tracking-wide">{{ locale === 'en' ? 'عربي' : 'EN' }}</span>
         </BaseButton>
 
-        <BaseButton
-          variant="icon"
-          @click="toggleTheme"
-          :title="$t('toggle_theme')"
-          aria-label="Toggle Theme"
-        >
-          <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="icon-action-symbol" />
+        <BaseButton variant="icon" @click="toggleTheme" :title="$t('toggle_theme')" aria-label="Toggle Theme">
+          <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-icon-xl h-icon-xl" />
         </BaseButton>
       </div>
 
-      <BaseButton
-        variant="none"
-        class="mobile-menu-button relative group"
+      <button
+        class="md:hidden text-ink dark:text-dark-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary dark:hover:text-brand-accent transition-colors relative group"
         aria-label="Open menu"
         @click="isMobileMenuOpen = true"
       >
         <span class="absolute inset-0 rounded-xl bg-brand-primary-soft dark:bg-dark-surface-glow opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
         <MenuIcon class="w-icon-2xl h-icon-2xl relative z-10" />
-      </BaseButton>
+      </button>
     </div>
 
+    <!-- Mobile overlay -->
     <Transition name="fade-overlay">
       <div
         v-if="isMobileMenuOpen"
@@ -59,74 +70,76 @@
       ></div>
     </Transition>
 
+    <!-- Mobile sidebar -->
     <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
       <aside
         v-if="isMobileMenuOpen"
-        class="sidebar-panel fixed top-0 bottom-0 z-50 w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface dark:bg-dark-surface-raised shadow-[4px_0_60px_rgba(27,56,97,0.18)] dark:shadow-[4px_0_80px_rgba(2,3,12,0.75)] border-e border-line dark:border-dark-line"
+        class="fixed top-0 bottom-0 z-50 w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface dark:bg-dark-surface-raised shadow-[4px_0_60px_rgba(27,56,97,0.18)] dark:shadow-[4px_0_80px_rgba(2,3,12,0.75)] border-e border-line dark:border-dark-line"
         :class="locale === 'ar' ? 'right-0' : 'left-0'"
       >
-        <div class="sidebar-header relative z-10 flex items-center justify-between px-4 sm:px-5 py-4 border-b border-line dark:border-dark-line">
-          <NuxtLink :to="localePath('/')" class="flex items-center gap-3 shrink-0 max-w-[70%]" @click="isMobileMenuOpen = false">
-            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-24 sm:h-30 w-auto object-contain invert dark:invert-0" />
+        <!-- Sidebar header -->
+        <div class="relative z-10 flex items-center justify-between px-page sm:px-icon-md py-page border-b border-line dark:border-dark-line">
+          <NuxtLink :to="localePath('/')" class="flex items-center gap-page shrink-0 max-w-[70%]" @click="isMobileMenuOpen = false">
+            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-product sm:h-product-lg w-auto object-contain invert dark:invert-0" />
           </NuxtLink>
-          <BaseButton
-            variant="none"
+          <button
             @click="isMobileMenuOpen = false"
-            class="sidebar-close-btn w-9 h-9 flex items-center justify-center rounded-xl text-ink-soft dark:text-dark-ink-soft bg-surface-muted dark:bg-dark-surface-muted hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-line dark:border-dark-line transition-all duration-200"
+            class="w-9 h-9 flex items-center justify-center rounded-xl text-ink-soft dark:text-dark-ink-soft bg-surface-muted dark:bg-dark-surface-muted hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-line dark:border-dark-line transition-all duration-200"
             aria-label="Close menu"
           >
-            <XIcon class="w-5 h-5" />
-          </BaseButton>
+            <XIcon class="w-icon-md h-icon-md" />
+          </button>
         </div>
 
-        <nav class="flex-1 overflow-y-auto px-4 sm:px-5 pt-4 pb-6">
-          <div class="flex flex-col gap-1">
+        <!-- Sidebar nav links -->
+        <nav class="flex-1 overflow-y-auto px-page sm:px-icon-md pt-page pb-gutter">
+          <div class="flex flex-col gap-rule">
             <NuxtLink
               v-for="(item, index) in navItems"
               :key="item.labelKey"
               :to="sectionPath(item.hash)"
-              class="sidebar-nav-link group flex items-center gap-3 px-4 py-3.5 rounded-xl text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-transparent hover:border-brand-primary/15 dark:hover:border-brand-accent/20 transition-all duration-200"
+              class="sidebar-nav-link group flex items-center gap-page px-page py-3.5 rounded-xl text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent border border-transparent hover:border-brand-primary/15 dark:hover:border-brand-accent/20 transition-all duration-200"
               :class="{ 'sidebar-nav-link-active': isActiveNavItem(item.hash) }"
               :style="{ transitionDelay: `${index * 35}ms` }"
               @click="isMobileMenuOpen = false"
             >
               <component :is="item.icon" class="w-icon-lg h-icon-lg shrink-0" />
               <span class="font-semibold text-copy">{{ $t(item.labelKey) }}</span>
-              <ChevronRightIcon class="w-4 h-4 ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5" />
+              <ChevronRightIcon class="w-icon-sm h-icon-sm ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5" />
             </NuxtLink>
           </div>
         </nav>
 
-        <div class="sidebar-footer relative z-10 px-4 sm:px-5 py-5 border-t border-line dark:border-dark-line">
-          <p class="text-caption font-bold tracking-label uppercase text-ink-subtle dark:text-dark-ink-subtle mb-3">{{ $t('preferences') }}</p>
-          <div class="grid grid-cols-2 gap-3">
-            <BaseButton
-              variant="none"
+        <!-- Sidebar footer actions -->
+        <div class="relative z-10 px-page sm:px-icon-md py-icon-md border-t border-line dark:border-dark-line">
+          <p class="text-caption font-bold tracking-label uppercase text-ink-subtle dark:text-dark-ink-subtle mb-page">{{ $t('preferences') }}</p>
+          <div class="grid grid-cols-2 gap-page">
+            <button
               @click="toggleLanguage"
-              class="sidebar-action-btn flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
+              class="flex flex-col items-center gap-control-y-sm py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
             >
               <LanguagesIcon class="w-icon-lg h-icon-lg text-brand-primary dark:text-brand-accent" />
               <span class="text-small font-bold">{{ locale === 'en' ? 'عربي' : 'English' }}</span>
-            </BaseButton>
+            </button>
 
-            <BaseButton
-              variant="none"
+            <button
               @click="toggleTheme"
-              class="sidebar-action-btn flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
+              class="flex flex-col items-center gap-control-y-sm py-3.5 px-3 rounded-xl bg-surface-muted dark:bg-dark-surface-muted border border-line dark:border-dark-line text-ink dark:text-dark-ink hover:bg-brand-primary-soft dark:hover:bg-dark-surface-glow hover:text-brand-primary dark:hover:text-brand-accent transition-all duration-200"
             >
               <component :is="colorMode.value === 'dark' ? SunIcon : MoonIcon" class="w-icon-lg h-icon-lg text-brand-primary dark:text-brand-accent" />
               <span class="text-small font-bold">{{ colorMode.value === 'dark' ? $t('light_mode') : $t('dark_mode') }}</span>
-            </BaseButton>
+            </button>
           </div>
         </div>
       </aside>
     </Transition>
-  </header>
+    </header>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import logoImage from '~/assets/images/logo.png'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import logoImage from '~/assets/images/logo.svg'
 import {
   BookOpenIcon,
   ChevronRightIcon,
@@ -139,34 +152,84 @@ import {
   SparklesIcon,
   SunIcon,
   XIcon,
+  PhoneIcon,
 } from 'lucide-vue-next'
 
 const { locale, setLocale } = useI18n()
 const colorMode = useColorMode()
 const localePath = useLocalePath()
 const route = useRoute()
+const { sectionPath } = useSectionPath()
 
 const isMobileMenuOpen = ref(false)
+const isScrolled = ref(false)
+const activeHash = ref(route.hash || '')
+
+watch(() => route.hash, (newHash) => {
+  activeHash.value = newHash || ''
+})
+
+const handleScroll = () => {
+  const currentScroll = window.scrollY
+  isScrolled.value = currentScroll > 20
+
+  if (normalizePath(route.path) === homePath.value) {
+    let current = '' // Default to home
+
+    // Check if we're at the absolute bottom of the page
+    const isAtBottom = Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50
+
+    // Check sections from bottom to top
+    const sections = [...navItems].filter(item => item.hash).reverse()
+    
+    if (isAtBottom && sections.length > 0) {
+      current = sections[0].hash
+    } else {
+      for (const item of sections) {
+        try {
+          const el = document.querySelector(item.hash)
+          if (el) {
+            const rect = el.getBoundingClientRect()
+            // offset to activate section slightly before it hits the top
+            if (rect.top <= 250) {
+              current = item.hash
+              break
+            }
+          }
+        } catch (e) {
+          // Ignore invalid selectors
+        }
+      }
+    }
+    
+    if (activeHash.value !== current) {
+      activeHash.value = current
+    }
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  handleScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 
 const navItems = [
   { labelKey: 'home', hash: '', icon: HomeIcon },
-  { labelKey: 'about', hash: '#about', icon: InfoIcon },
   { labelKey: 'services', hash: '#why', icon: SparklesIcon },
   { labelKey: 'products', hash: '#products', icon: PackageIcon },
-  { labelKey: 'blog', hash: '#science', icon: BookOpenIcon },
-  { labelKey: 'contact', hash: '#contact', icon: ChevronRightIcon },
+  { labelKey: 'contact', hash: '#footer', icon: PhoneIcon },
 ]
 
-const sectionPath = (hash: string) => `${localePath('/')}${hash}`
 const normalizePath = (path: string) => path.replace(/\/$/, '') || '/'
 const homePath = computed(() => normalizePath(localePath('/')))
 
 const isActiveNavItem = (hash: string) => {
-  if (normalizePath(route.path) !== homePath.value) {
-    return false
-  }
-
-  return hash ? route.hash === hash : !route.hash
+  if (normalizePath(route.path) !== homePath.value) return false
+  return hash === activeHash.value
 }
 
 const toggleTheme = () => {
@@ -179,11 +242,46 @@ const toggleLanguage = () => {
 </script>
 
 <style scoped>
+/* Desktop nav underline indicator */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-accent);
+  opacity: 0;
+  transform: scaleX(0.25);
+  transition:
+    opacity var(--motion-standard) var(--motion-ease-out),
+    transform var(--motion-standard) var(--motion-ease-out);
+}
+
+.nav-link:hover::after,
+.nav-link-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* Mobile sidebar active state */
+.sidebar-nav-link-active {
+  background: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
+  border-color: color-mix(in oklab, var(--color-brand-primary) 18%, transparent);
+  color: var(--color-brand-primary);
+}
+
+:global(.dark) .sidebar-nav-link-active {
+  background: var(--color-dark-surface-glow);
+  border-color: color-mix(in oklab, var(--color-brand-accent) 24%, transparent);
+  color: var(--color-brand-accent);
+}
+
+/* Slide transitions */
 .fade-overlay-enter-active,
 .fade-overlay-leave-active {
   transition: opacity 280ms ease;
 }
-
 .fade-overlay-enter-from,
 .fade-overlay-leave-to {
   opacity: 0;
@@ -197,28 +295,14 @@ const toggleLanguage = () => {
     transform 320ms cubic-bezier(0.4, 0, 0.2, 1),
     opacity 320ms ease;
 }
-
 .slide-left-enter-from,
 .slide-left-leave-to {
   transform: translateX(-100%);
   opacity: 0;
 }
-
 .slide-right-enter-from,
 .slide-right-leave-to {
   transform: translateX(100%);
   opacity: 0;
-}
-
-.sidebar-nav-link-active {
-  background: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
-  border-color: color-mix(in oklab, var(--color-brand-primary) 18%, transparent);
-  color: var(--color-brand-primary);
-}
-
-:global(.dark) .sidebar-nav-link-active {
-  background: var(--color-dark-surface-glow);
-  border-color: color-mix(in oklab, var(--color-brand-accent) 24%, transparent);
-  color: var(--color-brand-accent);
 }
 </style>

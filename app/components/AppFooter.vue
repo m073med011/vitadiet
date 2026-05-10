@@ -1,97 +1,106 @@
 <template>
-  <footer class="footer-shell footer-vitadiet">
-    <div class="content-wrap relative z-10">
-      <div class="footer-grid-vitadiet">
-        <div class="space-y-6" data-aos="fade-up">
-          <NuxtLink :to="localePath('/')" class="">
-            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" class="h-8 sm:h-32 w-auto object-contain invert dark:invert-0 " />
+  <footer id="footer" class="relative bg-surface dark:bg-dark-surface pt-section pb-page-lg border-t border-line dark:border-dark-line overflow-hidden transition-colors duration-500">
+    <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter-lg mb-rule-sm">
+
+        <!-- Brand column -->
+        <div class="space-y-gutter" data-aos="fade-up">
+          <NuxtLink :to="localePath('/')">
+            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" class="h-page-lg sm:h-product-lg w-auto object-contain " />
           </NuxtLink>
-          <p class="footer-text">{{ $t('footer.quote') }}</p>
-          <div class="footer-badges">
-            <span>B2B</span>
-            <span>SFDA</span>
-            <span>EU</span>
+          <p class="text-ink dark:text-dark-ink leading-copy">{{ $t('footer.quote') }}</p>
+          <div class="flex flex-wrap gap-control-y-sm">
+            <span class="rounded-pill border border-line dark:border-dark-line px-page py-control-y-sm text-small font-semibold text-brand-primary dark:text-brand-accent bg-surface-raised dark:bg-dark-surface-raised">B2B</span>
+            <span class="rounded-pill border border-line dark:border-dark-line px-page py-control-y-sm text-small font-semibold text-brand-primary dark:text-brand-accent bg-surface-raised dark:bg-dark-surface-raised">SFDA</span>
+            <span class="rounded-pill border border-line dark:border-dark-line px-page py-control-y-sm text-small font-semibold text-brand-primary dark:text-brand-accent bg-surface-raised dark:bg-dark-surface-raised">EU</span>
           </div>
-          <div class="flex items-center gap-3 pt-4">
-            <a href="#" class="social-icon-btn" aria-label="LinkedIn">
-              <LinkedinIcon class="w-5 h-5" />
-            </a>
-            <a href="#" class="social-icon-btn" aria-label="Twitter">
-              <TwitterIcon class="w-5 h-5" />
-            </a>
-            <a href="#" class="social-icon-btn" aria-label="Instagram">
-              <InstagramIcon class="w-5 h-5" />
-            </a>
-          </div>
+         
         </div>
 
+        <!-- Quick Links column -->
         <nav data-aos="fade-up" data-aos-delay="100">
-          <h3 class="footer-heading">{{ $t('navigation') || 'Quick Links' }}</h3>
-          <ul class="space-y-4 mt-2">
+          <h3 class="text-copy-lg font-bold text-ink dark:text-dark-ink tracking-wide mb-gutter uppercase">{{ $t('navigation') || 'Quick Links' }}</h3>
+          <ul class="space-y-page mt-control-y-sm">
             <li
               v-for="(link, index) in footerLinks"
               :key="link.labelKey"
               data-aos="fade-up"
               :data-aos-delay="index * 100"
             >
-              <NuxtLink :to="sectionPath(link.hash)" class="footer-link group">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-primary dark:bg-brand-accent mr-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"></span>
+              <NuxtLink :to="sectionPath(link.hash)" class="inline-flex items-center text-ink dark:text-dark-ink hover:text-brand-primary dark:hover:text-brand-accent hover:translate-x-1 transition-all duration-300 group">
+                <span class="w-dot h-dot rounded-full bg-brand-primary dark:bg-brand-accent mr-3 opacity-0 -ml-page group-hover:opacity-100 group-hover:ml-0 transition-all duration-300"></span>
                 {{ $t(link.labelKey) }}
               </NuxtLink>
             </li>
           </ul>
         </nav>
 
+        <!-- Contact column -->
         <div data-aos="fade-up" data-aos-delay="200">
-          <h3 class="footer-heading">{{ $t('contact') || 'Contact Us' }}</h3>
-          <div class="space-y-5">
-            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="0">
-              <div class="w-10 h-10 rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
-                <MapPinIcon class="footer-icon group-hover:text-current transition-colors" />
+          <h3 class="text-copy-lg font-bold text-ink dark:text-dark-ink tracking-wide mb-gutter uppercase">{{ $t('contact') || 'Contact Us' }}</h3>
+          <div class="space-y-icon-md">
+            <div class="flex items-start gap-page group" data-aos="fade-up" data-aos-delay="0">
+              <div class="w-icon-2xl h-icon-2xl rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
+                <MapPinIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent shrink-0 group-hover:text-current transition-colors" />
               </div>
-              <span class="footer-text whitespace-pre-line pt-2">{{ $t('footer.contact.address') }}</span>
+              <span class="text-ink dark:text-dark-ink leading-copy whitespace-pre-line pt-control-y-sm">{{ $t('footer.contact.address') }}</span>
             </div>
-            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="100">
-              <div class="w-10 h-10 rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
-                <PhoneIcon class="footer-icon group-hover:text-current transition-colors" />
+            <div class="flex items-start gap-page group" data-aos="fade-up" data-aos-delay="100">
+              <div class="w-icon-2xl h-icon-2xl rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
+                <PhoneIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent shrink-0 group-hover:text-current transition-colors" />
               </div>
-              <span class="footer-text pt-2">{{ $t('footer.contact.phone') }}</span>
+              <span class="text-ink dark:text-dark-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.phone') }}</span>
             </div>
-            <div class="footer-contact-row group" data-aos="fade-up" data-aos-delay="200">
-              <div class="w-10 h-10 rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
-                <MailIcon class="footer-icon group-hover:text-current transition-colors" />
+            <div class="flex items-start gap-page group" data-aos="fade-up" data-aos-delay="200">
+              <div class="w-icon-2xl h-icon-2xl rounded-full bg-brand-primary/10 dark:bg-brand-accent/10 flex items-center justify-center shrink-0 group-hover:bg-brand-primary group-hover:text-on-primary dark:group-hover:bg-brand-accent dark:group-hover:text-on-accent transition-colors duration-300">
+                <MailIcon class="w-icon-md h-icon-md text-brand-primary dark:text-brand-accent shrink-0 group-hover:text-current transition-colors" />
               </div>
-              <span class="footer-text pt-2">{{ $t('footer.contact.email') }}</span>
+              <span class="text-ink dark:text-dark-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.email') }}</span>
             </div>
           </div>
         </div>
 
+        <!-- Newsletter column -->
         <div data-aos="fade-up" data-aos-delay="300">
-          <h3 class="footer-heading">{{ $t('newsletter') || 'Stay Updated' }}</h3>
-          <p class="footer-text mb-6">{{ $t('footer.newsletter.text') }}</p>
-          <form @submit.prevent="submitFooterInquiry" class="newsletter-input-group">
+          <h3 class="text-copy-lg font-bold text-ink dark:text-dark-ink tracking-wide mb-gutter uppercase">{{ $t('newsletter') || 'Stay Updated' }}</h3>
+          <p class="text-ink dark:text-dark-ink leading-copy mb-gutter">{{ $t('footer.newsletter.text') }}</p>
+          <form @submit.prevent="submitFooterInquiry" class="flex items-center p-dot bg-surface dark:bg-dark-surface-raised border border-line dark:border-dark-line rounded-pill focus-within:border-brand-primary dark:focus-within:border-brand-accent focus-within:ring-2 focus-within:ring-brand-primary/20 dark:focus-within:ring-brand-accent/20 transition-all shadow-card">
             <input
               type="email"
               v-model="footerEmail"
               :placeholder="$t('footer.newsletter.placeholder')"
               required
+              class="flex-1 bg-transparent border-none px-page text-small text-ink dark:text-dark-ink placeholder:text-ink-subtle outline-none w-full"
             />
-            <button type="submit" class="bg-brand-primary hover:bg-brand-primary-hover text-on-primary dark:bg-brand-accent dark:hover:bg-brand-accent-hover dark:text-on-accent transition-colors flex items-center gap-2">
+            <button type="submit" class="rounded-pill px-gutter py-bullet text-small font-bold shrink-0 bg-brand-primary hover:bg-brand-primary-hover text-on-primary dark:bg-brand-accent dark:hover:bg-brand-accent-hover dark:text-on-accent transition-colors flex items-center gap-control-y-sm">
               {{ $t('footer.newsletter.join') }}
-              <ArrowRightIcon class="w-4 h-4" />
+              <ArrowRightIcon class="w-icon-sm h-icon-sm" />
             </button>
           </form>
+           <div class="flex items-center gap-page pt-card">
+            <a href="#" class="w-icon-2xl h-icon-2xl rounded-pill border border-line dark:border-dark-line bg-surface dark:bg-dark-surface-raised flex items-center justify-center text-ink-soft dark:text-dark-ink-soft hover:bg-brand-primary hover:text-on-primary dark:hover:bg-brand-accent dark:hover:text-on-accent hover:-translate-y-1 hover:shadow-card dark:hover:shadow-glow-accent transition-all duration-300" aria-label="LinkedIn">
+              <LinkedinIcon class="w-icon-sm h-icon-sm" />
+            </a>
+            <a href="#" class="w-icon-2xl h-icon-2xl rounded-pill border border-line dark:border-dark-line bg-surface dark:bg-dark-surface-raised flex items-center justify-center text-ink-soft dark:text-dark-ink-soft hover:bg-brand-primary hover:text-on-primary dark:hover:bg-brand-accent dark:hover:text-on-accent hover:-translate-y-1 hover:shadow-card dark:hover:shadow-glow-accent transition-all duration-300" aria-label="Twitter">
+              <TwitterIcon class="w-icon-sm h-icon-sm" />
+            </a>
+            <a href="#" class="w-icon-2xl h-icon-2xl rounded-pill border border-line dark:border-dark-line bg-surface dark:bg-dark-surface-raised flex items-center justify-center text-ink-soft dark:text-dark-ink-soft hover:bg-brand-primary hover:text-on-primary dark:hover:bg-brand-accent dark:hover:text-on-accent hover:-translate-y-1 hover:shadow-card dark:hover:shadow-glow-accent transition-all duration-300" aria-label="Instagram">
+              <InstagramIcon class="w-icon-sm h-icon-sm" />
+            </a>
+          </div>
         </div>
+
       </div>
 
+      <!-- Bottom bar -->
       <div
-        class="pt-card border-t border-line dark:border-dark-line text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4"
+        class="pt-card border-t border-line dark:border-dark-line text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-page"
         data-aos="fade-up"
       >
         <p class="text-ink-soft dark:text-dark-ink-soft text-small">
           &copy; {{ new Date().getFullYear() }} {{ $t('footer.copyright') }}
         </p>
-        <div class="flex gap-4 text-small text-ink-soft dark:text-dark-ink-soft">
+        <div class="flex gap-page text-small text-ink-soft dark:text-dark-ink-soft">
           <a href="#" class="hover:text-brand-accent transition-colors">{{ $t('footer.privacyPolicy') }}</a>
           <a href="#" class="hover:text-brand-accent transition-colors">{{ $t('footer.termsOfService') }}</a>
         </div>
@@ -101,12 +110,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import logoImage from '~/assets/images/logo.png'
+import logoImage from '~/assets/images/logo.svg'
 import { MailIcon, MapPinIcon, PhoneIcon, LinkedinIcon, TwitterIcon, InstagramIcon, ArrowRightIcon } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const { sectionPath } = useSectionPath()
 const footerEmail = ref('')
 
 const footerLinks = [
@@ -116,8 +125,6 @@ const footerLinks = [
   { labelKey: 'footer.links.trackOrder', hash: '#products' },
   { labelKey: 'footer.links.aboutUs', hash: '#contact' },
 ]
-
-const sectionPath = (hash: string) => `${localePath('/')}${hash}`
 
 const submitFooterInquiry = () => {
   if (footerEmail.value) {

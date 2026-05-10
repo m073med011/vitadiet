@@ -9,6 +9,13 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    vue: {
+      template: {
+        transformAssetUrls: {
+          BaseImage: ['src'],
+        },
+      },
+    },
   },
 
   modules: ["@nuxtjs/color-mode", "@nuxtjs/i18n"],
@@ -33,8 +40,8 @@ export default defineNuxtConfig({
         file: "ar.json",
       },
     ],
-    lazy: true,
-    langDir: "locales",
+    restructureDir: ".",
+    langDir: "app/locales",
     defaultLocale: "en",
     strategy: "prefix_except_default",
   },
