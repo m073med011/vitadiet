@@ -81,12 +81,12 @@
               <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm">{{ $t('footer.contact.address') }}</span>
             </div>
 
-            <div class="flex items-start gap-page group">
+            <a href="https://wa.me/966508178161" target="_blank" rel="noopener noreferrer" class="flex items-start gap-page group">
               <div class="contact-icon-wrap group-hover:bg-brand-primary">
                 <PhoneIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
               </div>
-              <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm" dir="ltr">{{ $t('footer.contact.phone') }}</span>
-            </div>
+              <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm transition-colors group-hover:text-brand-primary" dir="ltr">{{ $t('footer.contact.phone') }}</span>
+            </a>
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap group-hover:bg-brand-primary">

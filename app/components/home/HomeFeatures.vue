@@ -301,9 +301,6 @@ const qualitySteps = [
   box-shadow: var(--shadow-card-hover);
 }
 
-/* Removed step number badge */
-
-/* Step icon */
 .step-icon {
   display: block;
   width: 2rem;
