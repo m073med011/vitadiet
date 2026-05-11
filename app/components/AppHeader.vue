@@ -1,7 +1,10 @@
 <template>
   <div 
-    class="sticky top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
-    :class="isScrolled ? 'md:pt-6 md:px-6' : ''"
+    class="top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
+    :class="[
+      route.meta.headerSticky !== false ? 'sticky' : 'relative',
+      isScrolled && route.meta.headerSticky !== false ? 'md:pt-6 md:px-6' : ''
+    ]"
   >
     <header
       class="backdrop-blur transition-all duration-500 ease-in-out text-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"

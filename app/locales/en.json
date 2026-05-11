@@ -338,13 +338,37 @@
     "cta": "Buy Now"
   },
   "productDetails": {
+    "bestrong": {
+      "description": "Provides natural energy that lasts throughout the day.\nHelps improve focus, memory, mood, and cellular health.\nSupports skin radiance and stronger hair and nails.\nReduces fatigue, nervous stress, and muscle strain.\nSuitable for men and women."
+    },
+    "becalme": {
+      "description": "An integrated formula that helps you fall asleep faster and naturally improve sleep quality.\nHelps reduce stress and calm the nerves for peaceful, deep sleep.\nSupports muscle relaxation for comfortable, refreshed sleep."
+    },
+    "vitagen": {
+      "description": "Improves physical and mental performance.\nAn integrated formula for men and women.\nBoosts energy and vitality throughout the day.\nStrengthens immunity and fights tiredness and fatigue.\nMaintains heart and brain health."
+    },
+    "femavit": {
+      "description": "Supports women's health during pregnancy and breastfeeding.\nBoosts immunity and daily energy.\nMaintains healthy bones and teeth.\nImproves iron absorption and helps prevent anemia.\nHelps the development of the fetus's brain and nervous system.\nA complete blend that supports your health."
+    },
+    "floradit": {
+      "description": "Helps soothe the stomach and reduce cramps and bloating.\nSupports digestive comfort and helps improve digestion after meals.\nA mint and fennel formula that helps reduce gas and provides a feeling of comfort and freshness."
+    },
+    "greenPharmacy": {
+      "description": "Helps deeply cleanse the skin and remove impurities and excess oil.\nHelps soothe and moisturize the skin, giving it a healthy, refreshed appearance.\nA gentle herbal formula that supports skin softness and daily care."
+    },
     "dplus": {
-      "description": "D-Plus combines zinc with vitamins D3, B6, and C in a simple tablet format for professional pharmacy and distributor portfolios.",
+      "description": "Complete daily immune and energy support, suitable for a healthy lifestyle with a scientifically balanced formula.\nPromotes healthy bones, teeth, and skin, and supports effective calcium absorption.\nA balanced formula with zinc and vitamins D3, C, and B6 to reduce fatigue and support overall health.",
       "highlights": {
         "zinc": "Zinc support",
         "vitaminD": "Vitamin D3 formula",
         "bComplex": "With B6 and C"
       }
+    },
+    "flowadite": {
+      "description": "Restores the healthy balance of beneficial bacteria in the intestines, improves digestion, and relieves bloating and gas."
+    },
+    "soluro": {
+      "description": "Strengthens immunity and protects the body from fatigue and weakness.\nReplenishes vitamin and mineral deficiencies and provides energy.\nBeneficial for hair, skin, and nails and improves overall activity."
     }
   },
   "footer": {

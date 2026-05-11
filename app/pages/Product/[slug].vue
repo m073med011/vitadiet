@@ -26,6 +26,10 @@
 import ProductLanding from '~/components/ProductLanding.vue'
 import { products } from '~/data/home'
 
+definePageMeta({
+  headerSticky: false
+})
+
 const route = useRoute()
 const slug = computed(() => route.params.slug)
 

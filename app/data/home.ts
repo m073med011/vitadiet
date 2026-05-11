@@ -80,6 +80,7 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.bestrong.title',
     priceKey: 'homePage.products.items.bestrong.price',
+    descriptionKey: 'productDetails.bestrong.description',
     slug: 'bestrong',
     image: prodBestrong,
     gallery: [prodBestrongSubMain],
@@ -88,6 +89,7 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.becalme.title',
     priceKey: 'homePage.products.items.becalme.price',
+    descriptionKey: 'productDetails.becalme.description',
     slug: 'becalme',
     image: prodBecalme,
     gallery: [prodBecalmeSubMain],
@@ -96,6 +98,7 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.vitagen.title',
     priceKey: 'homePage.products.items.vitagen.price',
+    descriptionKey: 'productDetails.vitagen.description',
     slug: 'vitagen',
     image: prodVitagen,
     gallery: [prodVitagenSubMain],
@@ -104,6 +107,7 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.femavit.title',
     priceKey: 'homePage.products.items.femavit.price',
+    descriptionKey: 'productDetails.femavit.description',
     slug: 'femavit',
     image: prodFemavit,
     gallery: [prodFemavitSubMain],
@@ -112,6 +116,7 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.floradit.title',
     priceKey: 'homePage.products.items.floradit.price',
+    descriptionKey: 'productDetails.floradit.description',
     slug: 'floradit',
     image: prodSpasmail,
     buyLink: 'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?o=c2ffb29d5ff1618a',
@@ -119,6 +124,7 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.greenPharmacy.title',
     priceKey: 'homePage.products.items.greenPharmacy.price',
+    descriptionKey: 'productDetails.greenPharmacy.description',
     slug: 'green-pharmacy',
     image: prodGreen,
     buyLink: 'https://www.noon.com/saudi-ar/green-pharmacy-herbal-cleansing-gel/ZE1F26AF85CD2E72E8C09Z/p/?o=afbf327c818b3cdf&shareId=cdc8f2ed-b201-4dd6-a4b2-2e52558114e3',
@@ -140,12 +146,14 @@ export const products: HomeProduct[] = [
   {
     titleKey: 'homePage.products.items.soluro.title',
     priceKey: 'homePage.products.items.soluro.price',
+    descriptionKey: 'productDetails.soluro.description',
     slug: 'soluro',
     image: prodSoluro,
   },
   {
     titleKey: 'homePage.products.items.flowadite.title',
     priceKey: 'homePage.products.items.flowadite.price',
+    descriptionKey: 'productDetails.flowadite.description',
     slug: 'flowadite',
     image: prodFlowadite,
     buyLink: 'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?utm_source=C1000094L&utm_medium=referral&o=c2ffb29d5ff1618a&shareId=f61d6b13-2afe-4b0b-a0a8-3645f497f3a5',
