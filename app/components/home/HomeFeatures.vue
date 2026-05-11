@@ -21,16 +21,7 @@
           data-aos="fade-up"
           :data-aos-delay="index * 80"
         >
-          <!-- Top row: number badge + icon -->
-          <div class="flex items-start justify-between gap-page mb-gutter">
-            <span class="petal-badge">
-              {{ String(index + 1).padStart(2, '0') }}
-            </span>
-            <span class="petal-icon-wrap">
-              <component :is="iconMap[petal.icon]" class="w-icon-xl h-icon-xl text-brand-primary" />
-            </span>
-          </div>
-
+          <component :is="iconMap[petal.icon]" class="petal-icon" aria-hidden="true" />
           <h3 class="text-title font-bold text-ink mb-page leading-heading">
             {{ $t(petal.titleKey) }}
           </h3>
@@ -148,8 +139,13 @@ const qualitySteps = [
   min-height: 17rem;
   border-radius: var(--radius-card);
   border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
-  background: var(--color-surface);
+  background: color-mix(in oklab, var(--color-surface-raised) 74%, var(--color-surface));
   padding: var(--spacing-card);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   box-shadow: var(--shadow-card);
   transition:
     transform var(--motion-standard) var(--motion-ease-out),
@@ -165,35 +161,13 @@ const qualitySteps = [
 
 
 
-/* Number badge */
-.petal-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 1.75rem;
-  padding: 0 0.75rem;
-  border-radius: var(--radius-pill);
-  background: color-mix(in oklab, var(--color-brand-primary) 10%, var(--color-surface-raised));
-  border: 1px solid color-mix(in oklab, var(--color-brand-primary) 16%, var(--color-line));
+/* Petal icon */
+.petal-icon {
+  display: block;
+  width: 2rem;
+  height: 2rem;
   color: var(--color-brand-primary);
-  font-size: var(--text-caption);
-  font-weight: 700;
-  letter-spacing: var(--tracking-label);
-}
-
-
-
-/* Icon wrapper */
-.petal-icon-wrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--spacing-feature-icon);
-  height: var(--spacing-feature-icon);
-  border-radius: var(--radius-card);
-  border: 1px solid color-mix(in oklab, var(--color-line) 88%, transparent);
-  background: var(--color-surface-raised);
-  box-shadow: inset 0 1px 0 color-mix(in oklab, var(--color-surface) 80%, transparent);
+  margin-bottom: 1.25rem;
 }
 
 
