@@ -24,7 +24,16 @@
         <div class="w-full lg:w-6/12 relative flex justify-center items-center py-12 lg:py-0" data-aos="fade-left" data-aos-delay="200">
           
           <div class="relative w-[85%] sm:w-[75%] lg:w-[70%] max-w-[480px] aspect-square mx-auto">
-            <div class="absolute inset-0 rounded-full border border-dashed border-line"></div>
+            <div class="absolute inset-0" data-aos="draw-line">
+              <svg class="w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100" overflow="visible">
+                <defs>
+                  <mask id="circle-mask">
+                    <circle cx="50" cy="50" r="49.5" fill="none" stroke="white" stroke-width="2" stroke-dasharray="312" class="progress-circle" />
+                  </mask>
+                </defs>
+                <circle cx="50" cy="50" r="49.5" fill="none" class="stroke-line" stroke-width="0.3" stroke-dasharray="1 1.5" mask="url(#circle-mask)" />
+              </svg>
+            </div>
 
             <div class="absolute inset-0 m-auto w-[52%] h-[52%] rounded-full bg-brand-accent flex flex-col items-center justify-center text-surface shadow-shell z-30 p-4 lg:p-6 text-center transition-transform hover:scale-105 duration-500">
               <span class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide mb-2 sm:mb-3">{{ $t('appName') }}</span>
@@ -81,6 +90,16 @@ const featuresData = [
 </script>
 
 <style scoped>
+[data-aos="draw-line"] .progress-circle {
+  stroke-dashoffset: 312;
+  transition: stroke-dashoffset 4.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 200ms;
+}
+
+[data-aos="draw-line"].aos-animate .progress-circle {
+  stroke-dashoffset: 0;
+}
+
 .orbit-container {
   transform: translate(-50%, -50%) rotate(var(--angle));
 }

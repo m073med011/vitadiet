@@ -149,6 +149,7 @@ const { sectionPath } = useSectionPath()
 
 const footerLinks = [
   { labelKey: 'home',     hash: '' },
+  { labelKey: 'about',    hash: '#who-we-are' },
   { labelKey: 'services', hash: '#why' },
   { labelKey: 'products', hash: '#products' },
   { labelKey: 'contact',  hash: '#footer' },

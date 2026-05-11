@@ -204,6 +204,7 @@ onUnmounted(() => {
 
 const navItems = [
   { labelKey: 'home', hash: '', icon: HomeIcon },
+  { labelKey: 'about', hash: '#who-we-are', icon: InfoIcon },
   { labelKey: 'services', hash: '#why', icon: SparklesIcon },
   { labelKey: 'products', hash: '#products', icon: PackageIcon },
   { labelKey: 'contact', hash: '#footer', icon: PhoneIcon },
