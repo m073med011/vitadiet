@@ -4,9 +4,9 @@
 
       <!-- Section header -->
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
-        <p class="mb-page text-caption font-bold tracking-label uppercase text-brand-primary">
+        <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-brand-primary uppercase tracking-label mb-page">
           {{ $t('homePage.why.heading') }}
-        </p>
+        </h2>
         <p class="text-copy-lg leading-copy text-ink-soft">
           {{ $t('homePage.why.description') }}
         </p>
@@ -64,7 +64,6 @@
               :key="step.titleKey"
               class="panel-step"
             >
-              <span class="step-num">{{ String(i + 1).padStart(2, '0') }}</span>
               <component :is="step.icon" class="step-icon" aria-hidden="true" />
               <h4 class="step-title">{{ $t(step.titleKey) }}</h4>
               <p class="step-desc">{{ $t(step.descriptionKey) }}</p>
@@ -283,8 +282,12 @@ const qualitySteps = [
   min-height: 13rem;
   border: 1px solid color-mix(in oklab, var(--color-line) 86%, transparent);
   background: color-mix(in oklab, var(--color-surface-raised) 74%, var(--color-surface));
-  padding: clamp(1rem, 2.4vw, 1.35rem);
-  text-align: start;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   box-shadow: var(--shadow-card);
   transition:
     transform var(--motion-standard) var(--motion-ease-out),
@@ -298,31 +301,15 @@ const qualitySteps = [
   box-shadow: var(--shadow-card-hover);
 }
 
-/* Step number badge */
-.step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2rem;
-  height: 2rem;
-  padding: 0 0.5rem;
-  margin-bottom: 0.75rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid color-mix(in oklab, var(--color-brand-primary) 16%, var(--color-line));
-  background: color-mix(in oklab, var(--color-brand-primary) 10%, var(--color-surface));
-  color: var(--color-brand-primary);
-  font-size: var(--text-caption);
-  font-weight: 700;
-  letter-spacing: var(--tracking-label);
-}
+/* Removed step number badge */
 
 /* Step icon */
 .step-icon {
   display: block;
-  width: var(--spacing-icon-xl);
-  height: var(--spacing-icon-xl);
+  width: 2rem;
+  height: 2rem;
   color: var(--color-brand-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
 /* Step title */

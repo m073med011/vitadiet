@@ -21,7 +21,7 @@
       </NuxtLink>
 
       <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft uppercase">
+      <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft uppercase font-heading">
         <div
           v-for="(item, index) in navItems"
           :key="item.labelKey"
@@ -102,7 +102,7 @@
             @click="isMobileMenuOpen = false"
           >
             <component :is="item.icon" class="w-6 h-6 shrink-0" />
-            <span class="font-semibold text-copy">{{ $t(item.labelKey) }}</span>
+            <span class="font-semibold text-copy font-heading">{{ $t(item.labelKey) }}</span>
             <ChevronRightIcon class="w-5 h-5 ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5" />
           </NuxtLink>
         </div>

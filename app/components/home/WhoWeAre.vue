@@ -4,7 +4,6 @@
       
       <div class="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
         
-        <!-- Left Content -->
         <div class="w-full lg:w-5/12 space-y-8" data-aos="fade-right">
           <h2 class="text-5xl md:text-6xl lg:text-7xl font-medium text-brand-accent tracking-tight">
             {{ $t('appName') }}
@@ -22,15 +21,11 @@
           </div>
         </div>
 
-        <!-- Right Diagram -->
         <div class="w-full lg:w-6/12 relative flex justify-center items-center py-12 lg:py-0" data-aos="fade-left" data-aos-delay="200">
           
-          <!-- Orbit Container -->
           <div class="relative w-[85%] sm:w-[75%] lg:w-[70%] max-w-[480px] aspect-square mx-auto">
-            <!-- Dashed Orbit -->
             <div class="absolute inset-0 rounded-full border border-dashed border-line"></div>
 
-            <!-- Center Circle -->
             <div class="absolute inset-0 m-auto w-[52%] h-[52%] rounded-full bg-brand-accent flex flex-col items-center justify-center text-surface shadow-shell z-10 p-4 lg:p-6 text-center transition-transform hover:scale-105 duration-500">
               <span class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide mb-2 sm:mb-3">{{ $t('appName') }}</span>
               <span class="text-[9px] sm:text-[10px] lg:text-xs opacity-90 uppercase tracking-widest font-semibold px-2 leading-relaxed">
@@ -38,7 +33,6 @@
               </span>
             </div>
 
-            <!-- Outer Circles -->
             <div 
               v-for="feature in featuresData" 
               :key="feature.key"
@@ -64,8 +58,7 @@
 
       </div>
 
-      <!-- Footer Text -->
-      <div class="mt-20 text-center max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+      <div class="mt-26 text-center max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="400">
         <p class="text-ink-subtle text-sm md:text-base font-medium leading-relaxed whitespace-pre-line">
           {{ $t('homePage.whoWeAre.footerText') }}
         </p>
@@ -76,13 +69,12 @@
 </template>
 
 <script setup lang="ts">
-// Angles mapping for the orbital layout (evenly spaced)
 const featuresData = [
-  { key: 'science', angle: -90 }, // Top
-  { key: 'sfda', angle: -30 }, // Top Right
-  { key: 'distribution', angle: 30 }, // Bottom Right
-  { key: 'quality', angle: 90 }, // Bottom
-  { key: 'safety', angle: 150 }, // Bottom Left
-  { key: 'transparency', angle: -150 }, // Top Left
+  { key: 'science', angle: -90 }, 
+  { key: 'sfda', angle: -30 }, 
+  { key: 'distribution', angle: 30 }, 
+  { key: 'quality', angle: 90 }, 
+  { key: 'safety', angle: 150 }, 
+  { key: 'transparency', angle: -150 }, 
 ];
 </script>

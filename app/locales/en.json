@@ -1,8 +1,8 @@
 {
-  "appName": "Vita Diet",
-  "companyArabic": "فيتا دايت",
-  "welcome": "Vita Diet: European Quality for a Healthier Life",
-  "description": "Vita Diet provides scientifically approved, carefully selected European dietary supplements for trusted B2B partnerships in the Saudi market.",
+  "appName": "Vitadiet",
+  "companyArabic": "فيتادايت ",
+  "welcome": "Vitadiet: European Quality for a Healthier Life",
+  "description": "Vitadiet provides scientifically approved, carefully selected European dietary supplements for trusted B2B partnerships in the Saudi market.",
   "toggle_theme": "Toggle dark mode",
   "switch_lang": "Arabic",
   "navigation": "Navigation",
@@ -11,7 +11,7 @@
   "dark_mode": "Dark",
   "home": "Home",
   "about": "About",
-  "services": "Why Vita Diet",
+  "services": "Why Vitadiet",
   "products": "Products",
   "blog": "Quality",
   "contact": "Contact",
@@ -19,7 +19,7 @@
   "homePage": {
     "hero": {
       "badge": "European supplements for the Saudi market",
-      "heading": "Vita Diet: European Quality for a Healthier Life",
+      "heading": "Vitadiet: European Quality for a Healthier Life",
       "subheading": "We provide scientifically approved and carefully selected dietary supplements, giving our partners trusted products in the Saudi market.",
       "primary": "Start Your Partnership",
       "secondary": "View Company Profile"
@@ -55,13 +55,13 @@
     },
     "about": {
       "heading": "About Us",
-      "description": "Vita Diet is a Saudi company specialized in exclusive European dietary supplement agencies. We operate through a B2B model to serve pharmacies and distributors across the Kingdom.",
+      "description": "Vitadiet is a Saudi company specialized in exclusive European dietary supplement agencies. We operate through a B2B model to serve pharmacies and distributors across the Kingdom.",
       "responsibility": "We select every product according to strict scientific standards and make sure it is officially registered and approved before entering the market.",
       "cta": "Request Company Credentials"
     },
     "whoWeAre": {
-      "heading": "Vita Diet Up Close - Who We Are and What Sets Us Apart",
-      "description": "Vita Diet is a Saudi company providing exclusive agencies for high-quality European dietary supplements.",
+      "heading": "Vitadiet Up Close - Who We Are and What Sets Us Apart",
+      "description": "Vitadiet is a Saudi company providing exclusive agencies for high-quality European dietary supplements.",
       "petals": {
         "science": "Precise Scientific Selection",
         "sfda": "Official Registration (SFDA)",
@@ -73,7 +73,7 @@
       "footerText": "All our products are officially licensed by the Saudi Food and Drug Authority (SFDA) and undergo strict scientific reviews before being added to our portfolio.\nWe do not deal directly with consumers, but rather serve approved pharmacies, distributors, and suppliers within the Kingdom."
     },
     "why": {
-      "heading": "Why Choose Vita Diet",
+      "heading": "Why Choose Vitadiet",
       "description": "A focused model built for partners who value scientific selection, official approval, and reliable distribution.",
       "petals": {
         "science": {
@@ -107,8 +107,8 @@
       }
     },
     "nameStory": {
-      "heading": "The Story Behind the Name: Why Vita Diet",
-      "description": "The name Vita Diet combines two words: Vita means life, and Diet means nutritional system. Together, they reflect our commitment to products that support a healthy, balanced lifestyle built on quality and science."
+      "heading": "The Story Behind the Name: Why Vitadiet",
+      "description": "The name Vitadiet combines two words: Vita means life, and Diet means nutritional system. Together, they reflect our commitment to products that support a healthy, balanced lifestyle built on quality and science."
     },
     "route": {
       "heading": "From Europe to Saudi Arabia",
@@ -196,7 +196,7 @@
     },
     "coverage": {
       "heading": "Saudi Distribution Coverage",
-      "description": "Vita Diet supports pharmacy and distributor relationships across the Kingdom.",
+      "description": "Vitadiet supports pharmacy and distributor relationships across the Kingdom.",
       "regions": {
         "central": "Central Region",
         "western": "Western Region",
@@ -217,7 +217,7 @@
     "steps": {
       "heading": "How to Start With Us",
       "items": {
-        "contact": "Contact the Vita Diet team",
+        "contact": "Contact the Vitadiet team",
         "request": "Request product and company files",
         "delivery": "Review distribution requirements",
         "partnership": "Build a long-term partnership"
@@ -279,11 +279,11 @@
     },
     "future": {
       "heading": "Growing With Our Partners",
-      "description": "Vita Diet continues to improve its product portfolio and strengthen distribution relationships across the Saudi market."
+      "description": "Vitadiet continues to improve its product portfolio and strengthen distribution relationships across the Saudi market."
     },
     "local": {
       "heading": "For Pharmacies and Distributors Inside the Kingdom",
-      "description": "Choose Vita Diet when you need European quality, official approval, transparent files, and a serious B2B partnership.",
+      "description": "Choose Vitadiet when you need European quality, official approval, transparent files, and a serious B2B partnership.",
       "points": {
         "quality": "Trusted European quality",
         "sfda": "Saudi Food and Drug Authority approval",
@@ -293,7 +293,7 @@
     },
     "global": {
       "heading": "For European Manufacturers",
-      "description": "Vita Diet gives European products a trusted Saudi B2B path through scientific review, registration, and distribution.",
+      "description": "Vitadiet gives European products a trusted Saudi B2B path through scientific review, registration, and distribution.",
       "points": {
         "market": "Saudi market understanding",
         "brand": "Professional brand representation",
@@ -305,8 +305,8 @@
       "heading": "Frequently Asked Questions",
       "items": {
         "consumer": {
-          "question": "Does Vita Diet sell directly to consumers?",
-          "answer": "No. Vita Diet operates as a B2B company serving pharmacies and distributors."
+          "question": "Does Vitadiet sell directly to consumers?",
+          "answer": "No. Vitadiet operates as a B2B company serving pharmacies and distributors."
         },
         "sfda": {
           "question": "Are products officially approved?",
@@ -314,12 +314,12 @@
         },
         "files": {
           "question": "Can partners access product files?",
-          "answer": "Qualified partners can request product files, certificates, and supporting documentation through the Vita Diet team."
+          "answer": "Qualified partners can request product files, certificates, and supporting documentation through the Vitadiet team."
         }
       }
     },
     "contactSection": {
-      "heading": "Start Your Partnership With Vita Diet Today",
+      "heading": "Start Your Partnership With Vitadiet Today",
       "description": "Join our partner network and benefit from trusted products with European quality.",
       "placeholder": "Business email",
       "submit": "Send Partnership Request",
@@ -334,7 +334,7 @@
   },
   "categoryPage": {
     "eyebrow": "European Supplement Portfolio",
-    "description": "This category belongs to Vita Diet's B2B portfolio. Product details, documentation, and availability are shared with qualified partners.",
+    "description": "This category belongs to Vitadiet's B2B portfolio. Product details, documentation, and availability are shared with qualified partners.",
     "cta": "Buy Now"
   },
   "productDetails": {
@@ -350,7 +350,7 @@
   "footer": {
     "quote": "European quality for a healthier life, delivered through trusted B2B partnerships in Saudi Arabia.",
     "links": {
-      "bestSeller": "About Vita Diet",
+      "bestSeller": "About Vitadiet",
       "skinProducts": "Quality Stages",
       "beautyProducts": "Products",
       "trackOrder": "Our Numbers",
@@ -359,7 +359,7 @@
     "contact": {
       "address": "Saudi Arabia - Jeddah - Palestine Street - Al Hamra District - Palestine Commercial Center - First Floor - Office No. 12",
       "phone": "+966 56 662 6646\n+966 92 001 0751",
-      "email": "info{'@'}vde.sa",
+      "email": "acc{'@'}vitadiet.sa",
       "vat": "VAT# : 302135132900003"
     },
     "newsletter": {

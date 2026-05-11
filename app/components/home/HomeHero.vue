@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full overflow-hidden bg-surface pt-rule-sm pb-product-lg">
+  <section class="relative w-full overflow-hidden bg-surface pt-5 ">
     <!-- Lotus grid backdrop -->
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
@@ -8,18 +8,24 @@
       <div
         v-for="(img, index) in heroImages"
         :key="index"
-        class="absolute overflow-hidden rounded-card shadow-card transition-all duration-700 hover:scale-105 hover:shadow-card-hover hover:z-20 pointer-events-auto bg-surface-muted ring-1 ring-line"
+        class="hero-gallery-item absolute pointer-events-auto"
         :class="img.class"
         data-aos="zoom-in"
         data-aos-duration="700"
         :data-aos-delay="index * 100"
       >
-        <BaseImage :src="img.src" alt="Certified supplement portfolio for B2B distribution" fill />
+        <div class="hero-gallery-card h-full w-full overflow-hidden rounded-card bg-surface-muted shadow-card ring-1 ring-line">
+          <BaseImage
+            :src="img.src"
+            alt="Certified supplement portfolio for B2B distribution"
+            fill
+          />
+        </div>
       </div>
     </div>
 
     <!-- Hero copy block -->
-    <div class="relative z-20 px-page max-w-content mx-auto -mt-rule-sm sm:-mt-section-lg md:-mt-product-lg">
+    <div class="relative z-20 px-page max-w-content mx-auto -mt-rule-sm sm:-mt-section-lg ">
       <div class=" mx-auto max-w-[60rem] px-page py-gutter sm:px-card sm:py-card text-center ">
         <span
           class="inline-flex items-center gap-control-y-sm py-control-y-sm px-icon-md rounded-pill bg-brand-primary-soft text-small font-semibold text-brand-primary mb-gutter border border-line"
@@ -113,5 +119,44 @@ const trustItems = [
 
 .hero-panel {
   backdrop-filter: blur(14px);
+}
+
+.hero-gallery-item:hover {
+  z-index: 20;
+}
+
+.hero-gallery-card {
+  transform: translate3d(0, 0, 0) scale(1);
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform;
+  transition:
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-gallery-item:hover .hero-gallery-card {
+  transform: translate3d(0, -0.4rem, 0) scale(1.045);
+  box-shadow: var(--shadow-card-hover);
+  filter: saturate(1.03) contrast(1.02);
+}
+
+.hero-gallery-card :deep(img) {
+  transform: translate3d(0, 0, 0) scale(1.01);
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-gallery-item:hover .hero-gallery-card :deep(img) {
+  transform: translate3d(0, 0, 0) scale(1.055);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gallery-card,
+  .hero-gallery-card :deep(img) {
+    transition-duration: 1ms;
+  }
 }
 </style>
