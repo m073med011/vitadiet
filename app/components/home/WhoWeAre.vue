@@ -26,7 +26,7 @@
           <div class="relative w-[85%] sm:w-[75%] lg:w-[70%] max-w-[480px] aspect-square mx-auto">
             <div class="absolute inset-0 rounded-full border border-dashed border-line"></div>
 
-            <div class="absolute inset-0 m-auto w-[52%] h-[52%] rounded-full bg-brand-accent flex flex-col items-center justify-center text-surface shadow-shell z-10 p-4 lg:p-6 text-center transition-transform hover:scale-105 duration-500">
+            <div class="absolute inset-0 m-auto w-[52%] h-[52%] rounded-full bg-brand-accent flex flex-col items-center justify-center text-surface shadow-shell z-30 p-4 lg:p-6 text-center transition-transform hover:scale-105 duration-500">
               <span class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-wide mb-2 sm:mb-3">{{ $t('appName') }}</span>
               <span class="text-[9px] sm:text-[10px] lg:text-xs opacity-90 uppercase tracking-widest font-semibold px-2 leading-relaxed">
                 {{ $t('homePage.whoWeAre.heading') }}
@@ -34,22 +34,23 @@
             </div>
 
             <div 
-              v-for="feature in featuresData" 
+              v-for="(feature, index) in featuresData" 
               :key="feature.key"
-              class="absolute top-1/2 left-1/2 w-full h-0 pointer-events-none"
-              :style="{
-                transform: `translate(-50%, -50%) rotate(${feature.angle}deg)`
-              }"
+              class="absolute top-1/2 left-1/2 w-full h-0 pointer-events-none orbit-container"
+              :style="{ '--angle': `${feature.angle}deg` }"
             >
               <div 
-                class="absolute top-1/2 right-0 w-[36%] sm:w-[32%] lg:w-[30%] aspect-square rounded-full bg-surface-raised border border-brand-accent shadow-float flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 transition-all duration-500 hover:scale-110 hover:border-brand-primary pointer-events-auto z-20 group"
-                :style="{
-                  transform: `translate(50%, -50%) rotate(${-feature.angle}deg)`
-                }"
+                class="absolute top-1/2 orbit-positioner w-[36%] sm:w-[32%] lg:w-[30%] aspect-square z-20"
+                data-aos="orbit-pop"
+                :data-aos-delay="400 + (index * 100)"
+                data-aos-duration="700"
+                :style="{ '--reverse-angle': `${-feature.angle}deg` }"
               >
-                <span class="text-center text-[10px] sm:text-[11px] lg:text-sm font-semibold text-brand-accent leading-tight group-hover:text-brand-primary transition-colors w-full break-words">
-                  {{ $t(`homePage.whoWeAre.petals.${feature.key}`) }}
-                </span>
+                <div class="w-full h-full rounded-full bg-surface-raised border border-brand-accent shadow-float flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 transition-all duration-500 hover:scale-110 hover:border-brand-primary pointer-events-auto group">
+                  <span class="text-center text-[10px] sm:text-[11px] lg:text-sm font-semibold text-brand-accent leading-tight group-hover:text-brand-primary transition-colors w-full break-words">
+                    {{ $t(`homePage.whoWeAre.petals.${feature.key}`) }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -78,3 +79,23 @@ const featuresData = [
   { key: 'transparency', angle: -150 }, 
 ];
 </script>
+
+<style scoped>
+.orbit-container {
+  transform: translate(-50%, -50%) rotate(var(--angle));
+}
+
+[data-aos="orbit-pop"] {
+  right: 50%;
+  opacity: 0;
+  transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(0.2);
+  transition-property: right, opacity, transform !important;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+[data-aos="orbit-pop"].aos-animate {
+  right: 0;
+  opacity: 1;
+  transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(1);
+}
+</style>
