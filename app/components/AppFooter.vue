@@ -97,7 +97,7 @@
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap">
-                <ReceiptIcon class="w-icon-sm h-icon-sm transition-colors" />
+                <BarcodeIcon class="w-icon-sm h-icon-sm transition-colors" />
               </div>
               <span class="text-ink leading-copy pt-control-y-sm group-hover:text-brand-primary transition-colors">{{ $t('footer.contact.vat') }}</span>
             </div>
@@ -140,7 +140,7 @@ import {
   PhoneIcon,
   LinkedinIcon,
   InstagramIcon,
-  ReceiptIcon,
+  BarcodeIcon,
 } from 'lucide-vue-next'
 
 const { t } = useI18n()
