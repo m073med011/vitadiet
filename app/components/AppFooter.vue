@@ -75,31 +75,31 @@
           <div class="space-y-icon-md">
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary">
-                <MapPinIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
+              <div class="contact-icon-wrap">
+                <MapPinIcon class="w-icon-sm h-icon-sm transition-colors" />
               </div>
-              <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm">{{ $t('footer.contact.address') }}</span>
+              <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm group-hover:text-brand-primary transition-colors">{{ $t('footer.contact.address') }}</span>
             </div>
 
             <a href="https://wa.me/966508178161" target="_blank" rel="noopener noreferrer" class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary">
-                <PhoneIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
+              <div class="contact-icon-wrap">
+                <PhoneIcon class="w-icon-sm h-icon-sm transition-colors" />
               </div>
               <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm transition-colors group-hover:text-brand-primary" dir="ltr">{{ $t('footer.contact.phone') }}</span>
             </a>
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary">
-                <MailIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
+              <div class="contact-icon-wrap">
+                <MailIcon class="w-icon-sm h-icon-sm transition-colors" />
               </div>
-              <span class="text-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.email') }}</span>
+              <span class="text-ink leading-copy pt-control-y-sm group-hover:text-brand-primary transition-colors">{{ $t('footer.contact.email') }}</span>
             </div>
 
             <div class="flex items-start gap-page group">
-              <div class="contact-icon-wrap group-hover:bg-brand-primary">
-                <ReceiptIcon class="w-icon-md h-icon-md text-brand-primary group-hover:text-on-primary transition-colors" />
+              <div class="contact-icon-wrap">
+                <ReceiptIcon class="w-icon-sm h-icon-sm transition-colors" />
               </div>
-              <span class="text-ink leading-copy pt-control-y-sm">{{ $t('footer.contact.vat') }}</span>
+              <span class="text-ink leading-copy pt-control-y-sm group-hover:text-brand-primary transition-colors">{{ $t('footer.contact.vat') }}</span>
             </div>
 
           </div>
@@ -262,10 +262,19 @@ const socialLinks: SocialLink[] = [
   justify-content: center;
   width: var(--size-icon-2xl, 2.5rem);
   height: var(--size-icon-2xl, 2.5rem);
-  border-radius: 9999px;
-  background: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
+  border-radius: var(--radius-pill, 9999px);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink-soft);
   flex-shrink: 0;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+}
+
+.group:hover .contact-icon-wrap {
+  background: var(--color-brand-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-card);
 }
 
 
