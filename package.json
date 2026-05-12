@@ -1,5 +1,5 @@
 {
-  "name": "Vitadiet ",
+  "name": "vitadiet",
   "type": "module",
   "private": true,
   "scripts": {
@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/fonts": "^0.14.0",
+    "@nuxt/image": "^2.0.0",
     "@nuxtjs/color-mode": "^4.0.0",
     "@nuxtjs/i18n": "^10.3.0",
     "@tailwindcss/vite": "^4.2.4",

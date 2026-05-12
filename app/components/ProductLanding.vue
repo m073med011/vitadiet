@@ -7,16 +7,16 @@
         data-aos="fade-up"
         data-aos-delay="150"
       >
-        <div class="flex w-full max-w-[38rem] flex-col items-start justify-center text-start">
+        <div class="flex w-full max-w-152 flex-col items-start justify-center text-start">
           <p class="mb-page inline-flex w-fit items-center rounded-pill border border-brand-primary/20 bg-brand-primary-soft px-page py-control-y-sm text-caption font-bold tracking-label uppercase text-brand-primary">
             {{ $t('categoryPage.eyebrow') }}
           </p>
 
-          <h1 class="max-w-[34rem] text-heading font-bold leading-heading text-ink md:text-heading-lg lg:text-display">
+          <h1 class="max-w-136 text-heading font-bold leading-heading text-ink md:text-heading-lg lg:text-display">
             {{ $t(product.titleKey) }}
           </h1>
 
-          <p class="mt-gutter max-w-[38rem] whitespace-pre-line text-copy-lg font-medium leading-copy text-ink-soft">
+          <p class="mt-gutter max-w-152 whitespace-pre-line text-copy-lg font-medium leading-copy text-ink-soft">
             {{ description }}
           </p>
 

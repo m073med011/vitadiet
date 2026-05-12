@@ -18,7 +18,15 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/i18n"],
+  modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts"],
+
+  nitro: {
+    compressPublicAssets: true,
+  },
+
+  routeRules: {
+    '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+  },
 
 
   i18n: {
