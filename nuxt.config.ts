@@ -20,11 +20,18 @@ export default defineNuxtConfig({
 
   modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts"],
 
+  image: {
+    format: ['webp'],
+    quality: 80,
+  },
+
   nitro: {
     compressPublicAssets: true,
   },
 
   routeRules: {
+    '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    '/_fonts/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
   },
 

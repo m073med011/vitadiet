@@ -1,8 +1,12 @@
-import banner1 from '~/assets/images/Banners/photo_6046619856448196151_y.jpg';
-import banner2 from '~/assets/images/Banners/photo_6046619856448196157_y.jpg';
-import banner3 from '~/assets/images/Banners/photo_6046619856448196174_y.jpg';
-import banner4 from '~/assets/images/Banners/photo_6046619856448196193_y.jpg';
-import banner5 from '~/assets/images/Banners/photo_6046619856448196200_y.jpg';
+import banner1  from '~/assets/images/Banners/001.png';
+import banner2  from '~/assets/images/Banners/010.jpeg';
+import banner3 from '~/assets/images/Banners/003.png';
+import banner6 from '~/assets/images/Banners/004.jpeg';
+import banner4 from '~/assets/images/Banners/005.png';
+import banner9 from '~/assets/images/Banners/006.png';
+import banner7 from '~/assets/images/Banners/007.jpeg';
+import banner5 from '~/assets/images/Banners/008.png';
+import banner8 from '~/assets/images/Banners/009.png';
 
 import prodBecalme from '~/assets/images/Products/Becalme/main.jpg';
 import prodBestrong from '~/assets/images/Products/Bestrong/main.png';
@@ -30,17 +34,19 @@ export type HomeProduct = {
   highlights?: string[];
 };
 
-export const heroImages = [
-  { src: banner1, class: 'top-[12%] left-[4%] w-[10%] aspect-[3/4] hidden 2xl:block' },
-  { src: banner2, class: 'top-[48%] left-[7%] w-[9%] aspect-square hidden xl:block' },
-  { src: banner3, class: 'top-[8%] left-[18%] w-[11%] aspect-[4/5] hidden lg:block' },
-  { src: banner4, class: 'top-[42%] left-[24%] w-[10%] aspect-square hidden md:block' },
-  { src: banner5, class: 'top-[5%] left-[40%] w-[11%] aspect-[4/5] hidden sm:block' },
-  { src: banner1, class: 'top-[19%] left-[55%] w-[12%] aspect-[3/4] max-sm:left-[10%] max-sm:top-[5%] max-sm:w-[35%]' },
-  { src: banner2, class: 'top-[4%] left-[69%] w-[10%] aspect-[4/5] max-sm:left-[55%] max-sm:top-[20%] max-sm:w-[35%]' },
-  { src: banner3, class: 'top-[31%] left-[80%] w-[10%] aspect-[4/5] hidden md:block' },
-  { src: banner4, class: 'top-[51%] left-[88%] w-[8%] aspect-[4/5] hidden xl:block -rotate-6 shadow-2xl scale-110 z-10 border-[6px] border-white rounded-xl' },
-];
+export const heroSection = {
+  images: [
+    { src: banner1, class: 'top-[12%] left-[4%] w-[10%] aspect-[3/4] hidden 2xl:block' },
+    { src: banner2, class: 'top-[48%] left-[7%] w-[9%] aspect-square hidden xl:block' },
+    { src: banner3, class: 'top-[8%] left-[18%] w-[11%] aspect-[4/5] hidden lg:block' },
+    { src: banner4, class: 'top-[42%] left-[24%] w-[10%] aspect-square hidden md:block' },
+    { src: banner5, class: 'top-[5%] left-[40%] w-[11%] aspect-[4/5] hidden sm:block' },
+    { src: banner6, class: 'top-[19%] left-[55%] w-[12%] aspect-[3/4] max-sm:left-[10%] max-sm:top-[5%] max-sm:w-[35%]' },
+    { src: banner7, class: 'top-[4%] left-[69%] w-[10%] aspect-[4/5] max-sm:left-[55%] max-sm:top-[20%] max-sm:w-[35%]' },
+    { src: banner8, class: 'top-[31%] left-[80%] w-[10%] aspect-[4/5] hidden md:block' },
+    { src: banner9, class: 'top-[51%] left-[88%] w-[8%] aspect-[4/5] hidden xl:block -rotate-6 shadow-2xl scale-110 z-10 border-[6px] border-white rounded-xl' },
+  ],
+};
 
 
 export const whyPetals = [
