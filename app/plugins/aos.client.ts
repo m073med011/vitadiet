@@ -2,14 +2,20 @@ import AOS from "aos";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let refreshFrame: number | undefined
 
   const refreshAos = () => {
     if (prefersReducedMotion.matches) {
       return;
     }
 
-    window.requestAnimationFrame(() => {
-      AOS.refreshHard();
+    if (refreshFrame) {
+      window.cancelAnimationFrame(refreshFrame);
+    }
+
+    refreshFrame = window.requestAnimationFrame(() => {
+      AOS.refresh();
+      refreshFrame = undefined;
     });
   };
 

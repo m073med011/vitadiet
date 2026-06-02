@@ -4,7 +4,7 @@
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
     <!-- Mobile and tablet hero image gallery -->
-    <div class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden lg:hidden" aria-hidden="true" dir="ltr">
+    <div v-if="!isDesktop" class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden" aria-hidden="true" dir="ltr">
       <div class="hero-mobile-marquee">
         <div
           v-for="setIndex in 2"
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Hero image gallery -->
-    <div class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] lg:block pointer-events-none">
+    <div v-else class="relative z-10 w-full max-w-shell mx-auto h-[500px] pointer-events-none">
       <div
         v-for="(img, index) in heroSection.images"
         :key="index"
@@ -125,6 +125,22 @@ import { heroSection } from '~/data/home'
 const { sectionPath } = useSectionPath()
 
 const showHeroImageNumbers = import.meta.dev
+const isDesktop = ref(false)
+let desktopQuery: MediaQueryList | undefined
+
+function syncDesktopLayout(event?: MediaQueryListEvent) {
+  isDesktop.value = event ? event.matches : Boolean(desktopQuery?.matches)
+}
+
+onMounted(() => {
+  desktopQuery = window.matchMedia('(min-width: 1024px)')
+  syncDesktopLayout()
+  desktopQuery.addEventListener('change', syncDesktopLayout)
+})
+
+onBeforeUnmount(() => {
+  desktopQuery?.removeEventListener('change', syncDesktopLayout)
+})
 
 const trustItems = [
   { labelKey: 'homePage.stats.b2bOnly', icon: HandshakeIcon },

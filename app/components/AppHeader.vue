@@ -129,7 +129,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import logoImage from '~/assets/images/vitadiet-official-logo.svg'
 import {
   BookOpenIcon,
@@ -152,57 +152,26 @@ const { sectionPath } = useSectionPath()
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
 const activeHash = ref(route.hash || '')
+const sectionRatios = ref<Record<string, number>>({})
+let sectionObserver: IntersectionObserver | undefined
 
 watch(() => route.hash, (newHash) => {
   activeHash.value = newHash || ''
 })
 
 const handleScroll = () => {
-  const currentScroll = window.scrollY
-  isScrolled.value = currentScroll > 20
-
-  if (normalizePath(route.path) === homePath.value) {
-    let current = '' // Default to home
-
-    // Check if we're at the absolute bottom of the page
-    const isAtBottom = Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50
-
-    // Check sections from bottom to top
-    const sections = [...navItems].filter(item => item.hash).reverse()
-    
-    if (isAtBottom && sections.length > 0) {
-      current = sections[0].hash
-    } else {
-      for (const item of sections) {
-        try {
-          const el = document.querySelector(item.hash)
-          if (el) {
-            const rect = el.getBoundingClientRect()
-            // offset to activate section slightly before it hits the top
-            if (rect.top <= 250) {
-              current = item.hash
-              break
-            }
-          }
-        } catch (e) {
-          // Ignore invalid selectors
-        }
-      }
-    }
-    
-    if (activeHash.value !== current) {
-      activeHash.value = current
-    }
-  }
+  isScrolled.value = window.scrollY > 20
 }
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
   handleScroll()
+  setupSectionObserver()
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  sectionObserver?.disconnect()
 })
 
 const navItems = [
@@ -215,6 +184,86 @@ const navItems = [
 
 const normalizePath = (path: string) => path.replace(/\/$/, '') || '/'
 const homePath = computed(() => normalizePath(localePath('/')))
+
+function updateActiveSection() {
+  if (normalizePath(route.path) !== homePath.value) {
+    activeHash.value = ''
+    return
+  }
+
+  const sectionHashes = navItems.filter(item => item.hash).map(item => item.hash)
+  if (sectionHashes.length === 0) {
+    activeHash.value = ''
+    return
+  }
+
+  if (window.scrollY < 120) {
+    activeHash.value = ''
+    return
+  }
+
+  const isAtBottom = Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50
+  if (isAtBottom) {
+    activeHash.value = sectionHashes[sectionHashes.length - 1]
+    return
+  }
+
+  const visibleSections = sectionHashes
+    .map((hash) => ({ hash, ratio: sectionRatios.value[hash] ?? 0 }))
+    .filter((item) => item.ratio > 0)
+    .sort((a, b) => b.ratio - a.ratio)
+
+  activeHash.value = visibleSections[0]?.hash ?? ''
+}
+
+function setupSectionObserver() {
+  sectionObserver?.disconnect()
+  sectionObserver = undefined
+  sectionRatios.value = {}
+
+  if (normalizePath(route.path) !== homePath.value) {
+    activeHash.value = ''
+    return
+  }
+
+  const sectionHashes = navItems.filter(item => item.hash).map(item => item.hash)
+  if (sectionHashes.length === 0) return
+
+  const elements = sectionHashes
+    .map((hash) => document.querySelector<HTMLElement>(hash))
+    .filter((el): el is HTMLElement => Boolean(el))
+
+  if (elements.length === 0) return
+
+  sectionObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      const id = entry.target.id
+      if (!id) continue
+      sectionRatios.value[`#${id}`] = entry.isIntersecting ? entry.intersectionRatio : 0
+    }
+    updateActiveSection()
+  }, {
+    root: null,
+    rootMargin: '-18% 0px -58% 0px',
+    threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+  })
+
+  for (const el of elements) {
+    sectionObserver.observe(el)
+  }
+
+  updateActiveSection()
+}
+
+watch(() => route.path, async () => {
+  await nextTick()
+  setupSectionObserver()
+  handleScroll()
+})
+
+watch(() => route.fullPath, () => {
+  updateActiveSection()
+})
 
 const isActiveNavItem = (hash: string) => {
   if (normalizePath(route.path) !== homePath.value) return false

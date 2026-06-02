@@ -6,7 +6,6 @@
     :loading="loading"
     :decoding="decoding"
     :fetchpriority="fetchPriority"
-    :srcset="srcset"
     :sizes="sizes"
     :class="imageClasses"
   />
@@ -29,7 +28,6 @@ const props = withDefaults(defineProps<{
   fill?: boolean;
   fit?: ImageFit;
   hoverZoom?: HoverZoom;
-  srcset?: string;
   sizes?: string;
   decoding?: 'sync' | 'async' | 'auto';
 }>(), {
@@ -38,7 +36,6 @@ const props = withDefaults(defineProps<{
   fill: false,
   fit: 'cover',
   hoverZoom: 'none',
-  srcset: undefined,
   sizes: undefined,
   decoding: 'async',
 });

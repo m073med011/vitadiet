@@ -44,10 +44,10 @@
                   :alt="$t(product.titleKey)" 
                   fill 
                   class="object-cover transition-all duration-500 group-hover/card:scale-105"
-                  :class="{ 'group-hover/card:opacity-0': product.gallery && product.gallery[0] }"
+                  :class="{ 'group-hover/card:opacity-0': canUseHover && product.gallery && product.gallery[0] }"
                 />
                 <BaseImage 
-                  v-if="product.gallery && product.gallery[0]"
+                  v-if="canUseHover && product.gallery && product.gallery[0]"
                   :src="product.gallery[0]" 
                   :alt="$t(product.titleKey)" 
                   fill 
@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { products } from '~/data/home'
 import { ArrowUpRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -95,9 +95,32 @@ import 'swiper/css/pagination'
 const localePath = useLocalePath()
 const { t } = useI18n()
 const prefersReducedMotion = ref(false)
+const canUseHover = ref(false)
+let reducedMotionQuery: MediaQueryList | undefined
+let hoverQuery: MediaQueryList | undefined
+
+function syncReducedMotionPreference(event?: MediaQueryListEvent) {
+  prefersReducedMotion.value = event ? event.matches : Boolean(reducedMotionQuery?.matches)
+}
+
+function syncHoverCapability(event?: MediaQueryListEvent) {
+  canUseHover.value = event ? event.matches : Boolean(hoverQuery?.matches)
+}
 
 onMounted(() => {
-  prefersReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)')
+
+  syncReducedMotionPreference()
+  syncHoverCapability()
+
+  reducedMotionQuery.addEventListener('change', syncReducedMotionPreference)
+  hoverQuery.addEventListener('change', syncHoverCapability)
+})
+
+onBeforeUnmount(() => {
+  reducedMotionQuery?.removeEventListener('change', syncReducedMotionPreference)
+  hoverQuery?.removeEventListener('change', syncHoverCapability)
 })
 
 const autoplayConfig = computed(() =>
