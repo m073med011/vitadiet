@@ -3,9 +3,8 @@
     <!-- Lotus grid backdrop -->
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
-    <!-- Desktop hero image gallery. The shell renders on SSR to reserve space, but images wait for the viewport check. -->
+    <!-- Desktop hero image gallery -->
     <div class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] pointer-events-none lg:block">
-      <template v-if="hasMounted && isDesktop">
         <div
           v-for="(img, index) in heroSection.images"
           :key="index"
@@ -25,16 +24,17 @@
               :src="img.src"
               alt=""
               fill
+              loading="eager"
+              fetchpriority="high"
               sizes="(min-width: 1024px) 14vw, 240px"
             />
           </div>
         </div>
-      </template>
     </div>
 
-    <!-- Deferred decorative mobile gallery: keep it above the copy while reserving space on first paint. -->
+    <!-- Mobile decorative gallery -->
     <div class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden lg:hidden" aria-hidden="true" dir="ltr">
-      <div v-if="hasMounted && !isDesktop && showMobileGallery" class="hero-mobile-marquee">
+      <div class="hero-mobile-marquee">
         <div
           v-for="(img, index) in mobileHeroLoopImages"
           :key="`mobile-hero-${index}`"
@@ -53,6 +53,8 @@
               :src="img.src"
               alt=""
               fill
+              loading="eager"
+              fetchpriority="high"
               sizes="(max-width: 640px) 28vw, (max-width: 1023px) 18vw, 160px"
             />
           </div>
@@ -123,40 +125,12 @@ import { heroSection } from '~/data/home'
 const { sectionPath } = useSectionPath()
 
 const showHeroImageNumbers = import.meta.dev
-const hasMounted = ref(false)
-const isDesktop = ref(false)
-const showMobileGallery = ref(false)
-let desktopQuery: MediaQueryList | undefined
-let mobileGalleryTimer: ReturnType<typeof setTimeout> | undefined
 
 const mobileHeroImages = computed(() =>
   heroSection.images
     .filter((_, index) => [0, 2, 5, 7].includes(index))
 )
 const mobileHeroLoopImages = computed(() => [...mobileHeroImages.value, ...mobileHeroImages.value])
-
-function syncDesktopLayout(event?: MediaQueryListEvent) {
-  isDesktop.value = event ? event.matches : Boolean(desktopQuery?.matches)
-}
-
-onMounted(() => {
-  hasMounted.value = true
-  desktopQuery = window.matchMedia('(min-width: 1024px)')
-  syncDesktopLayout()
-  desktopQuery.addEventListener('change', syncDesktopLayout)
-
-  // Defer decorative mobile collage so heading/content can paint first.
-  mobileGalleryTimer = setTimeout(() => {
-    showMobileGallery.value = true
-  }, 1800)
-})
-
-onBeforeUnmount(() => {
-  desktopQuery?.removeEventListener('change', syncDesktopLayout)
-  if (mobileGalleryTimer) {
-    clearTimeout(mobileGalleryTimer)
-  }
-})
 
 const trustItems = [
   { labelKey: 'homePage.stats.b2bOnly', icon: HandshakeIcon },
