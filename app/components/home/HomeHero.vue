@@ -24,9 +24,10 @@
               >
                 {{ index + 1 }}
               </span>
+              <!-- Decorative collage: empty alt so it isn't announced/indexed -->
               <BaseImage
                 :src="img.src"
-                :alt="$t('homePage.hero.heading')"
+                alt=""
                 fill
               />
             </div>
@@ -54,9 +55,10 @@
           >
             {{ index + 1 }}
           </span>
+          <!-- Decorative collage: empty alt so it isn't announced/indexed -->
           <BaseImage
             :src="img.src"
-            alt="Certified supplement portfolio for B2B distribution"
+            alt=""
             fill
           />
         </div>

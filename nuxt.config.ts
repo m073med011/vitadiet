@@ -33,8 +33,10 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    // Allow everything; expose the sitemap location.
-    sitemap: '/sitemap.xml',
+    // Allow everything; expose the sitemap location. With i18n the sitemap is a
+    // multi-locale index, so point crawlers at the real XML index (the bare
+    // /sitemap.xml is an HTML redirect on static hosting).
+    sitemap: '/sitemap_index.xml',
   },
 
   image: {

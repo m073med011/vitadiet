@@ -83,7 +83,8 @@
             class="relative h-action w-action shrink-0 overflow-hidden rounded-pill border-2 bg-surface-raised transition-all duration-300 ease-[var(--motion-ease-out)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent sm:h-avatar sm:w-avatar motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:transition-none"
             :class="activeImage === img ? 'border-brand-primary opacity-100 shadow-float -translate-y-0.5 scale-105' : 'border-line/80 opacity-75 hover:border-brand-primary/50 hover:opacity-100 hover:-translate-y-0.5 hover:scale-105'"
           >
-            <BaseImage class="block" :src="img" :alt="$t(product.titleKey)" fill fit="cover" />
+            <!-- Button already carries an aria-label; empty alt avoids duplicate announcement -->
+            <BaseImage class="block" :src="img" alt="" fill fit="cover" />
           </button>
         </div>
       </div>
@@ -104,7 +105,8 @@
           class="relative h-avatar w-avatar shrink-0 overflow-hidden rounded-pill border-2 bg-surface-raised transition-all duration-300 ease-[var(--motion-ease-out)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:transition-none"
           :class="activeImage === img ? 'border-brand-primary opacity-100 shadow-float -translate-y-0.5 scale-105' : 'border-line/80 opacity-75 hover:border-brand-primary/50 hover:opacity-100 hover:-translate-y-0.5 hover:scale-105'"
         >
-          <BaseImage class="block" :src="img" :alt="$t(product.titleKey)" fill fit="cover" />
+          <!-- Button already carries an aria-label; empty alt avoids duplicate announcement -->
+          <BaseImage class="block" :src="img" alt="" fill fit="cover" />
         </button>
       </div>
     </div>

@@ -6,22 +6,36 @@
 
 <script setup lang="ts">
 import ogImage from "~/assets/images/vitadiet-social-share-preview.png";
+import logo from "~/assets/images/vitadiet-official-logo.svg";
 
-const { locale, setLocale, t } = useI18n();
+const { t } = useI18n();
 const requestUrl = useRequestURL();
 const ogImageUrl = computed(() => new URL(ogImage, requestUrl.origin).toString());
+const logoUrl = computed(() => new URL(logo, requestUrl.origin).toString());
+
+// i18n SEO head: emits per-locale canonical + hreflang alternates (incl. x-default),
+// the html lang/dir attributes, and og:locale[:alternate]. Without this the en/ar
+// versions don't reference each other and risk being treated as duplicate content.
+const i18nHead = useLocaleHead();
+
+useHead(() => ({
+  htmlAttrs: i18nHead.value.htmlAttrs ?? {},
+  link: [
+    ...(i18nHead.value.link ?? []),
+    { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+    { rel: "icon", type: "image/svg+xml", href: logoUrl.value },
+    { rel: "apple-touch-icon", href: logoUrl.value },
+  ],
+  meta: i18nHead.value.meta ?? [],
+}));
 
 useHead({
-  htmlAttrs: {
-    lang: computed(() => locale.value),
-    dir: computed(() => (locale.value === "ar" ? "rtl" : "ltr")),
-  },
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} - ${t('appName')}` : t('appName');
   },
   meta: [
     { name: "description", content: () => t("description") },
-    { property: "og:title", content: () => t("welcome") },
+    { property: "og:title", content: () => t("seoTitle") },
     { property: "og:description", content: () => t("description") },
     { property: "og:image", content: () => ogImageUrl.value },
     { property: "og:image:type", content: "image/png" },
@@ -30,11 +44,9 @@ useHead({
     { property: "og:type", content: "website" },
     { property: "og:site_name", content: () => t("appName") },
     { property: "og:url", content: () => requestUrl.href },
-    { property: "og:locale", content: () => (locale.value === "ar" ? "ar_SA" : "en_US") },
-    { property: "og:locale:alternate", content: () => (locale.value === "ar" ? "en_US" : "ar_SA") },
     { name: "theme-color", content: "#1d2b5b" },
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: () => t("welcome") },
+    { name: "twitter:title", content: () => t("seoTitle") },
     { name: "twitter:description", content: () => t("description") },
     { name: "twitter:image", content: () => ogImageUrl.value }
   ]
@@ -44,13 +56,14 @@ useSchemaOrg([
   defineOrganization({
     name: "Vitadiet",
     description: () => t("description"),
-    logo: "/favicon.ico",
+    logo: () => logoUrl.value,
     url: "https://vitadiet.sa",
     sameAs: [
       "https://www.linkedin.com/company/Vitadiet",
       "https://www.instagram.com/Vitadiet.sa",
       "https://www.tiktok.com/@vitadiet.sa",
       "https://x.com/Vitadiet_sa",
+      "https://www.snapchat.com/add/Vitadiet",
     ],
     address: {
       "@type": "PostalAddress",
@@ -59,6 +72,7 @@ useSchemaOrg([
       addressCountry: "SA",
     },
     telephone: "+966508178161",
+    email: "acc@vitadiet.sa",
     vatID: "302135132900003",
   }),
   defineWebSite({

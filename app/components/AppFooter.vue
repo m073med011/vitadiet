@@ -7,7 +7,7 @@
 
         <!-- Col 1 — Brand -->
         <div class="space-y-gutter" data-aos="fade-up">
-          <NuxtLink :to="localePath('/')">
+          <NuxtLink :to="localePath('/')" aria-label="Vitadiet home">
             <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" class="h-page-lg sm:h-product-lg w-auto object-contain" />
           </NuxtLink>
           <p class="text-ink leading-copy">{{ $t('footer.quote') }}</p>
