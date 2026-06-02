@@ -43,9 +43,6 @@
         :key="index"
         class="hero-gallery-item absolute pointer-events-auto"
         :class="img.class"
-        data-aos="zoom-in"
-        data-aos-duration="700"
-        :data-aos-delay="index * 100"
       >
         <div class="hero-gallery-card relative h-full w-full overflow-hidden rounded-card bg-surface-muted shadow-card ring-1 ring-line">
           <span
@@ -70,8 +67,6 @@
       <div class=" mx-auto max-w-[60rem] px-page py-gutter sm:px-card sm:py-card text-center ">
         <span
           class="inline-flex items-center gap-control-y-sm py-control-y-sm px-icon-md rounded-pill bg-brand-primary-soft text-small font-semibold text-brand-primary mb-gutter border border-line"
-          data-aos="fade-up"
-          data-aos-delay="150"
         >
           <ShieldCheckIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
           {{ $t('homePage.hero.badge') }}
@@ -79,24 +74,18 @@
 
         <h1
           class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-normal text-ink mb-gutter leading-heading"
-          data-aos="fade-up"
-          data-aos-delay="200"
         >
           {{ $t('homePage.hero.heading') }}
         </h1>
 
         <p
           class="mt-gutter text-copy sm:text-copy-lg text-ink-soft max-w-copy mx-auto font-medium leading-copy"
-          data-aos="fade-up"
-          data-aos-delay="300"
         >
           {{ $t('homePage.hero.subheading') }}
         </p>
 
         <div
           class="mt-gutter grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row items-stretch lg:items-center justify-center gap-page"
-          data-aos="fade-up"
-          data-aos-delay="400"
         >
           <BaseButton :to="sectionPath('#footer')" variant="primary">
             {{ $t('homePage.hero.primary') }}
@@ -109,8 +98,6 @@
 
         <ul
           class="mt-gutter flex flex-wrap items-center justify-center gap-control-y-sm text-small text-ink-soft"
-          data-aos="fade-up"
-          data-aos-delay="500"
         >
           <li
             v-for="item in trustItems"

@@ -20,11 +20,11 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     AOS.init({
       anchorPlacement: "top-bottom",
-      duration: 650,
+      duration: 450,
       easing: "ease-out-cubic",
-      offset: 72,
-      once: false,
-      mirror: true,
+      offset: 48,
+      once: true,
+      mirror: false,
     });
   });
 

@@ -52,6 +52,16 @@ const categoryKeyBySlug: Record<string, string> = {
   'pharmacy-ready-skus': 'homePage.products.items.pharmacySkus.title',
 }
 
+const isCategorySlug = computed(() => Boolean(categoryKeyBySlug[slugValue.value]))
+const isKnownSlug = computed(() => Boolean(product.value || isCategorySlug.value))
+
+if (!isKnownSlug.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Page Not Found',
+  })
+}
+
 const categoryName = computed(() => {
   return categoryKeyBySlug[slugValue.value] ? t(categoryKeyBySlug[slugValue.value]) : slugValue.value
 })
@@ -84,6 +94,11 @@ const metaDescription = computed(() => {
   return firstLine.length > 160 ? `${firstLine.slice(0, 157).trimEnd()}…` : firstLine
 })
 
+const canonicalUrl = computed(() => {
+  if (product.value) return new URL(localePath(`/product/${product.value.slug}`), requestUrl.origin).toString()
+  return new URL(localePath('/products'), requestUrl.origin).toString()
+})
+
 /** Absolute URL to the product's primary image, for OG tags and Product schema. */
 const productImageUrl = computed(() =>
   product.value ? new URL(product.value.image, requestUrl.origin).toString() : undefined
@@ -110,6 +125,12 @@ useSeoMeta({
   ogDescription: () => metaDescription.value,
   ogImage: () => productImageUrl.value,
   twitterImage: () => productImageUrl.value,
+})
+
+useHead({
+  link: [
+    { rel: 'canonical', href: canonicalUrl.value },
+  ],
 })
 
 watchEffect(() => {

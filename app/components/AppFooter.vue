@@ -91,12 +91,12 @@
               <span class="text-ink leading-copy whitespace-pre-line pt-control-y-sm transition-colors group-hover:text-brand-primary" dir="ltr">{{ $t('footer.contact.phone') }}</span>
             </a>
 
-            <div class="flex items-start gap-page group">
+            <a :href="`mailto:${contactEmail}`" class="flex items-start gap-page group">
               <div class="contact-icon-wrap">
                 <MailIcon class="w-icon-sm h-icon-sm transition-colors" />
               </div>
-              <span class="text-ink leading-copy pt-control-y-sm group-hover:text-brand-primary transition-colors">{{ $t('footer.contact.email') }}</span>
-            </div>
+              <span class="text-ink leading-copy pt-control-y-sm group-hover:text-brand-primary transition-colors">{{ contactEmail }}</span>
+            </a>
 
             <div class="flex items-start gap-page group">
               <div class="contact-icon-wrap">
@@ -149,6 +149,7 @@ import {
 const { t } = useI18n()
 const localePath = useLocalePath()
 const { sectionPath } = useSectionPath()
+const contactEmail = 'acc@vitadiet.sa'
 
 const footerLinks = [
   { labelKey: 'home',     hash: '' },

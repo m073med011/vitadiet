@@ -16,6 +16,17 @@ export default defineNuxtConfig({
         },
       },
     },
+    optimizeDeps: {
+      include: [
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        '@unhead/schema-org/vue',
+        'aos',
+        'lucide-vue-next',
+        'swiper/vue',
+        'swiper/modules'
+      ]
+    }
   },
 
   modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts", "@nuxtjs/seo"],

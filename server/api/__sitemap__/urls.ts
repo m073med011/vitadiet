@@ -18,7 +18,12 @@ const productSlugs = [
 ]
 
 export default defineSitemapEventHandler(() => {
+  const lastmod = new Date().toISOString()
+
   return productSlugs.map<SitemapUrlInput>((slug) => ({
     loc: `/product/${slug}`,
+    lastmod,
+    changefreq: 'weekly',
+    priority: 0.8,
   }))
 })

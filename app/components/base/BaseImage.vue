@@ -1,9 +1,13 @@
 <template>
-  <img 
+  <img
     v-bind="$attrs"
-    :src="src" 
-    :alt="alt" 
+    :src="src"
+    :alt="alt"
     :loading="loading"
+    :decoding="decoding"
+    :fetchpriority="fetchPriority"
+    :srcset="srcset"
+    :sizes="sizes"
     :class="imageClasses"
   />
 </template>
@@ -25,13 +29,21 @@ const props = withDefaults(defineProps<{
   fill?: boolean;
   fit?: ImageFit;
   hoverZoom?: HoverZoom;
+  srcset?: string;
+  sizes?: string;
+  decoding?: 'sync' | 'async' | 'auto';
 }>(), {
   alt: '',
   loading: 'lazy',
   fill: false,
   fit: 'cover',
   hoverZoom: 'none',
+  srcset: undefined,
+  sizes: undefined,
+  decoding: 'async',
 });
+
+const fetchPriority = computed(() => (props.loading === 'eager' ? 'high' : 'auto'))
 
 const fitClasses: Record<ImageFit, string> = {
   cover: 'object-cover',
@@ -49,7 +61,7 @@ const hoverZoomClasses: Record<HoverZoom, string> = {
 };
 
 const imageClasses = computed(() => [
-  props.fill && 'w-full h-full',
+  props.fill && 'absolute inset-0 w-full h-full',
   (props.fill || props.fit !== 'cover') && fitClasses[props.fit],
   hoverZoomClasses[props.hoverZoom],
 ]);

@@ -17,11 +17,7 @@
           :slides-per-view="1"
           :space-between="20"
           :loop="true"
-          :autoplay="{
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true
-          }"
+          :autoplay="autoplayConfig"
           :navigation="true"
           :pagination="{
             clickable: true,
@@ -87,6 +83,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
 import { products } from '~/data/home'
 import { ArrowUpRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -97,6 +94,21 @@ import 'swiper/css/pagination'
 
 const localePath = useLocalePath()
 const { t } = useI18n()
+const prefersReducedMotion = ref(false)
+
+onMounted(() => {
+  prefersReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+})
+
+const autoplayConfig = computed(() =>
+  prefersReducedMotion.value
+    ? false
+    : {
+        delay: 5000,
+        disableOnInteraction: true,
+        pauseOnMouseEnter: true,
+      }
+)
 
 /** Returns true when the translated price string contains at least one digit */
 function isNumericPrice(priceKey: string): boolean {
