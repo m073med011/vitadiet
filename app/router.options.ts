@@ -11,11 +11,11 @@ const getMotionBehavior = () => {
 };
 
 const getHeaderOffset = () => {
-  if (typeof document === "undefined") {
+  if (typeof window === "undefined") {
     return 96;
   }
 
-  const headerHeight = document.querySelector<HTMLElement>(".site-header")?.offsetHeight ?? 72;
+  const headerHeight = window.matchMedia("(min-width: 768px)").matches ? 88 : 64;
 
   return headerHeight + 18;
 };

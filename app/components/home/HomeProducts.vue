@@ -1,7 +1,6 @@
 <template>
   <section id="products" class="w-full py-section md:py-section-lg bg-surface">
     <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
-
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
         <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page">
           {{ $t('homePage.products.heading') }}
@@ -11,127 +10,79 @@
         </p>
       </div>
 
-      <div class="product-carousel-wrapper group relative" data-aos="fade-up">
-        <Swiper
-          :modules="[Autoplay, Navigation, Pagination]"
-          :slides-per-view="1"
-          :space-between="20"
-          :loop="true"
-          :autoplay="autoplayConfig"
-          :navigation="true"
-          :pagination="{
-            clickable: true,
-          }"
-          :breakpoints="{
-            '640': { slidesPerView: 2 },
-            '1024': { slidesPerView: 3 },
-            '1280': { slidesPerView: 4 }
-          }"
-          class="!pb-12"
-        >
-          <SwiperSlide
+      <div class="product-carousel-wrapper relative" data-aos="fade-up">
+        <div class="product-rail" aria-label="Vitadiet products">
+          <NuxtLink
             v-for="product in products"
             :key="product.slug"
-            class="!h-auto"
+            :to="localePath(`/product/${product.slug}`)"
+            class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
           >
-            <NuxtLink
-              :to="localePath(`/product/${product.slug}`)"
-              class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
-            >
-              <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
-                <BaseImage 
-                  :src="product.image" 
-                  :alt="$t(product.titleKey)" 
-                  fill 
-                  class="object-cover transition-all duration-500 group-hover/card:scale-105"
-                  :class="{ 'group-hover/card:opacity-0': canUseHover && product.gallery && product.gallery[0] }"
-                />
-                <BaseImage 
-                  v-if="canUseHover && product.gallery && product.gallery[0]"
-                  :src="product.gallery[0]" 
-                  :alt="$t(product.titleKey)" 
-                  fill 
-                  class="absolute inset-0 object-cover opacity-0 transition-all duration-500 group-hover/card:scale-105 group-hover/card:opacity-100" 
-                />
+            <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
+              <BaseImage
+                :src="product.image"
+                :alt="$t(product.titleKey)"
+                fill
+                class="object-cover transition-all duration-500 group-hover/card:scale-105"
+                :class="{ 'group-hover/card:opacity-0': canUseHover && product.gallery && product.gallery[0] }"
+              />
+              <BaseImage
+                v-if="canUseHover && product.gallery && product.gallery[0]"
+                :src="product.gallery[0]"
+                :alt="$t(product.titleKey)"
+                fill
+                class="absolute inset-0 object-cover opacity-0 transition-all duration-500 group-hover/card:scale-105 group-hover/card:opacity-100"
+              />
+            </div>
+
+            <div class="flex flex-1 flex-col gap-page p-page">
+              <div class="flex items-start justify-between gap-page">
+                <h3 class="product-title text-copy font-bold leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
+                <span class="shrink-0 rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-small font-bold text-brand-primary flex items-center justify-center gap-1">
+                  <span>{{ $t(product.priceKey) }}</span>
+                  <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                </span>
               </div>
 
-              <div class="flex flex-1 flex-col gap-page p-page">
-                <div class="flex items-start justify-between gap-page">
-                  <h3 class="product-title text-copy font-bold leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
-                  <span class="shrink-0 rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-small font-bold text-brand-primary flex items-center justify-center gap-1">
-                    <span>{{ $t(product.priceKey) }}</span>
-                    <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
-                  </span>
-                </div>
-
-                <div class="mt-auto flex items-center justify-between gap-page border-t border-line pt-page">
-                  <span class="text-caption font-bold tracking-label uppercase text-ink-subtle">
-                    {{ $t('homePage.stats.b2bOnly') }}
-                  </span>
-                  <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
-                    <ArrowUpRightIcon class="h-icon-sm w-icon-sm rtl:-rotate-90" aria-hidden="true" />
-                  </span>
-                </div>
+              <div class="mt-auto flex items-center justify-between gap-page border-t border-line pt-page">
+                <span class="text-caption font-bold tracking-label uppercase text-ink-subtle">
+                  {{ $t('homePage.stats.b2bOnly') }}
+                </span>
+                <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
+                  <ArrowUpRightIcon class="h-icon-sm w-icon-sm rtl:-rotate-90" aria-hidden="true" />
+                </span>
               </div>
-            </NuxtLink>
-          </SwiperSlide>
-        </Swiper>
+            </div>
+          </NuxtLink>
+        </div>
       </div>
-
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { products } from '~/data/home'
 import { ArrowUpRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay, Navigation, Pagination } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 
 const localePath = useLocalePath()
 const { t } = useI18n()
-const prefersReducedMotion = ref(false)
 const canUseHover = ref(false)
-let reducedMotionQuery: MediaQueryList | undefined
 let hoverQuery: MediaQueryList | undefined
-
-function syncReducedMotionPreference(event?: MediaQueryListEvent) {
-  prefersReducedMotion.value = event ? event.matches : Boolean(reducedMotionQuery?.matches)
-}
 
 function syncHoverCapability(event?: MediaQueryListEvent) {
   canUseHover.value = event ? event.matches : Boolean(hoverQuery?.matches)
 }
 
 onMounted(() => {
-  reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)')
-
-  syncReducedMotionPreference()
   syncHoverCapability()
-
-  reducedMotionQuery.addEventListener('change', syncReducedMotionPreference)
   hoverQuery.addEventListener('change', syncHoverCapability)
 })
 
 onBeforeUnmount(() => {
-  reducedMotionQuery?.removeEventListener('change', syncReducedMotionPreference)
   hoverQuery?.removeEventListener('change', syncHoverCapability)
 })
-
-const autoplayConfig = computed(() =>
-  prefersReducedMotion.value
-    ? false
-    : {
-        delay: 5000,
-        disableOnInteraction: true,
-        pauseOnMouseEnter: true,
-      }
-)
 
 /** Returns true when the translated price string contains at least one digit */
 function isNumericPrice(priceKey: string): boolean {
@@ -141,7 +92,29 @@ function isNumericPrice(priceKey: string): boolean {
 
 <style scoped>
 .product-carousel-wrapper {
-  --swiper-navigation-color: var(--color-brand-primary);
+  margin-inline: calc(var(--spacing-page, 1rem) * -1);
+}
+
+.product-rail {
+  display: grid;
+  grid-auto-columns: minmax(16rem, 82%);
+  grid-auto-flow: column;
+  gap: 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 0.25rem var(--spacing-page, 1rem) 0.75rem;
+  scroll-padding-inline: var(--spacing-page, 1rem);
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  scroll-snap-align: start;
 }
 
 .product-title {
@@ -160,71 +133,21 @@ html[dir="rtl"] .product-card:hover .product-arrow {
   transform: translateX(-0.25rem);
 }
 
-:deep(.swiper-button-next),
-:deep(.swiper-button-prev) {
-  color: var(--color-brand-primary);
-  opacity: 0.9;
-  transition:
-    transform var(--motion-standard) var(--motion-ease-out),
-    opacity var(--motion-standard) var(--motion-ease-out),
-    background-color var(--motion-standard) var(--motion-ease-out);
-  background-color: color-mix(in oklab, var(--color-surface) 88%, transparent);
-  border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  backdrop-filter: blur(8px);
+@media (min-width: 640px) {
+  .product-rail {
+    grid-auto-columns: minmax(17rem, calc((100% - 1.25rem) / 2));
+  }
 }
 
-:deep(.swiper-button-next:hover),
-:deep(.swiper-button-prev:hover) {
-  opacity: 1;
-  background-color: var(--color-brand-primary);
-  color: var(--color-surface);
-  transform: translateY(-1px);
+@media (min-width: 1024px) {
+  .product-rail {
+    grid-auto-columns: minmax(18rem, calc((100% - 2.5rem) / 3));
+  }
 }
 
-:deep(.swiper-button-next:focus-visible),
-:deep(.swiper-button-prev:focus-visible) {
-  outline: 2px solid var(--color-brand-accent);
-  outline-offset: 3px;
+@media (min-width: 1280px) {
+  .product-rail {
+    grid-auto-columns: minmax(16rem, calc((100% - 3.75rem) / 4));
+  }
 }
-
-:deep(.swiper-button-next:after),
-:deep(.swiper-button-prev:after) {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-:deep(.swiper-pagination) {
-  bottom: 0;
-  background-color: color-mix(in oklab, var(--color-surface) 86%, transparent);
-  border: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
-  backdrop-filter: blur(8px);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
-  width: auto;
-  left: 50%;
-  transform: translateX(-50%);
-}
-:deep(.swiper-pagination-bullet) {
-  width: 0.4rem;
-  height: 0.4rem;
-  background-color: var(--color-ink-subtle);
-  opacity: 0.5;
-  margin: 0 0.25rem !important;
-  transition: all 0.3s ease;
-}
-:deep(.swiper-pagination-bullet-active) {
-  opacity: 1;
-  background-color: var(--color-brand-primary);
-  width: 1.15rem;
-  border-radius: var(--radius-pill);
-}
-
-
 </style>

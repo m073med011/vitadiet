@@ -3,61 +3,59 @@
     <!-- Lotus grid backdrop -->
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
-    <!-- Mobile and tablet hero image gallery -->
-    <div v-if="!isDesktop" class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden" aria-hidden="true" dir="ltr">
-      <div class="hero-mobile-marquee">
+    <!-- Desktop hero image gallery. The shell renders on SSR to reserve space, but images wait for the viewport check. -->
+    <div class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] pointer-events-none lg:block">
+      <template v-if="hasMounted && isDesktop">
         <div
-          v-for="setIndex in 2"
-          :key="`mobile-hero-set-${setIndex}`"
-          class="hero-mobile-marquee-group"
+          v-for="(img, index) in heroSection.images"
+          :key="index"
+          class="hero-gallery-item absolute pointer-events-auto"
+          :class="img.class"
         >
-          <div
-            v-for="(img, index) in heroSection.images"
-            :key="`mobile-hero-${setIndex}-${index}`"
-            class="hero-mobile-marquee-item"
-          >
-            <div class="hero-mobile-gallery-card">
-              <span
-                v-if="showHeroImageNumbers"
-                class="hero-image-debug-number"
-                aria-hidden="true"
-              >
-                {{ index + 1 }}
-              </span>
-              <!-- Decorative collage: empty alt so it isn't announced/indexed -->
-              <BaseImage
-                :src="img.src"
-                alt=""
-                fill
-              />
-            </div>
+          <div class="hero-gallery-card relative h-full w-full overflow-hidden rounded-card bg-surface-muted shadow-card ring-1 ring-line">
+            <span
+              v-if="showHeroImageNumbers"
+              class="hero-image-debug-number"
+              aria-hidden="true"
+            >
+              {{ index + 1 }}
+            </span>
+            <!-- Decorative collage: empty alt so it isn't announced/indexed -->
+            <BaseImage
+              :src="img.src"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 14vw, 240px"
+            />
           </div>
         </div>
-      </div>
+      </template>
     </div>
 
-    <!-- Hero image gallery -->
-    <div v-else class="relative z-10 w-full max-w-shell mx-auto h-[500px] pointer-events-none">
-      <div
-        v-for="(img, index) in heroSection.images"
-        :key="index"
-        class="hero-gallery-item absolute pointer-events-auto"
-        :class="img.class"
-      >
-        <div class="hero-gallery-card relative h-full w-full overflow-hidden rounded-card bg-surface-muted shadow-card ring-1 ring-line">
-          <span
-            v-if="showHeroImageNumbers"
-            class="hero-image-debug-number"
-            aria-hidden="true"
-          >
-            {{ index + 1 }}
-          </span>
-          <!-- Decorative collage: empty alt so it isn't announced/indexed -->
-          <BaseImage
-            :src="img.src"
-            alt=""
-            fill
-          />
+    <!-- Deferred decorative mobile gallery: keep it above the copy while reserving space on first paint. -->
+    <div class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden lg:hidden" aria-hidden="true" dir="ltr">
+      <div v-if="hasMounted && !isDesktop && showMobileGallery" class="hero-mobile-marquee">
+        <div
+          v-for="(img, index) in mobileHeroLoopImages"
+          :key="`mobile-hero-${index}`"
+          class="hero-mobile-marquee-item"
+        >
+          <div class="hero-mobile-gallery-card">
+            <span
+              v-if="showHeroImageNumbers"
+              class="hero-image-debug-number"
+              aria-hidden="true"
+            >
+              {{ index + 1 }}
+            </span>
+            <!-- Decorative collage: empty alt so it isn't announced/indexed -->
+            <BaseImage
+              :src="img.src"
+              alt=""
+              fill
+              sizes="(max-width: 640px) 28vw, (max-width: 1023px) 18vw, 160px"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -125,21 +123,39 @@ import { heroSection } from '~/data/home'
 const { sectionPath } = useSectionPath()
 
 const showHeroImageNumbers = import.meta.dev
+const hasMounted = ref(false)
 const isDesktop = ref(false)
+const showMobileGallery = ref(false)
 let desktopQuery: MediaQueryList | undefined
+let mobileGalleryTimer: ReturnType<typeof setTimeout> | undefined
+
+const mobileHeroImages = computed(() =>
+  heroSection.images
+    .filter((_, index) => [0, 2, 5, 7].includes(index))
+)
+const mobileHeroLoopImages = computed(() => [...mobileHeroImages.value, ...mobileHeroImages.value])
 
 function syncDesktopLayout(event?: MediaQueryListEvent) {
   isDesktop.value = event ? event.matches : Boolean(desktopQuery?.matches)
 }
 
 onMounted(() => {
+  hasMounted.value = true
   desktopQuery = window.matchMedia('(min-width: 1024px)')
   syncDesktopLayout()
   desktopQuery.addEventListener('change', syncDesktopLayout)
+
+  // Defer decorative mobile collage so heading/content can paint first.
+  mobileGalleryTimer = setTimeout(() => {
+    showMobileGallery.value = true
+  }, 1800)
 })
 
 onBeforeUnmount(() => {
   desktopQuery?.removeEventListener('change', syncDesktopLayout)
+  if (mobileGalleryTimer) {
+    clearTimeout(mobileGalleryTimer)
+  }
 })
 
 const trustItems = [
@@ -172,6 +188,7 @@ const trustItems = [
 }
 
 .hero-mobile-gallery-frame {
+  min-height: clamp(8rem, 32vw, 11.25rem);
   padding-block: 1rem 1.125rem;
 }
 
@@ -199,22 +216,15 @@ const trustItems = [
 .hero-mobile-marquee {
   display: flex;
   width: max-content;
-  direction: ltr;
+  gap: 0.5rem;
+  padding-inline: 0.5rem;
   will-change: transform;
-  animation: hero-mobile-marquee 34s linear infinite;
-}
-
-.hero-mobile-marquee-group {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 0.75rem;
-  padding-inline: 0.375rem;
+  animation: hero-mobile-marquee 26s linear infinite;
 }
 
 .hero-mobile-marquee-item {
-  flex: 0 0 clamp(7.75rem, 36vw, 10rem);
+  flex: 0 0 clamp(5.5rem, 24vw, 8rem);
   aspect-ratio: 4 / 5;
-  padding-block: 0.25rem;
 }
 
 .hero-mobile-gallery-card {
@@ -263,18 +273,9 @@ const trustItems = [
   line-height: 1;
 }
 
-@keyframes hero-mobile-marquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 @media (min-width: 640px) and (max-width: 1023px) {
   .hero-mobile-gallery-frame {
+    min-height: clamp(10.75rem, 22vw, 14rem);
     padding-block: 1.25rem 1.5rem;
   }
 
@@ -284,16 +285,23 @@ const trustItems = [
   }
 
   .hero-mobile-marquee {
-    animation-duration: 42s;
-  }
-
-  .hero-mobile-marquee-group {
-    gap: 1rem;
-    padding-inline: 0.5rem;
+    gap: 0.75rem;
+    padding-inline: 0.75rem;
+    animation-duration: 32s;
   }
 
   .hero-mobile-marquee-item {
-    flex-basis: clamp(10rem, 24vw, 13rem);
+    flex-basis: clamp(7.5rem, 17vw, 10rem);
+  }
+}
+
+@keyframes hero-mobile-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 

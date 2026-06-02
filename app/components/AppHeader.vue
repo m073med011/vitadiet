@@ -19,6 +19,8 @@
           :src="logoImage"
           alt="Vitadiet Logo"
           loading="eager"
+          :width="1000"
+          :height="333"
           class="h-8 md:h-12 w-auto max-w-full object-contain transition-all duration-300 group-hover:scale-105"
         />
       </NuxtLink>
@@ -81,7 +83,7 @@
       <!-- Sidebar header -->
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="isMobileMenuOpen = false">
-          <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" class="h-8 sm:h-10 w-auto object-contain" />
+          <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" :width="1000" :height="333" class="h-8 sm:h-10 w-auto object-contain" />
         </NuxtLink>
         <button
           @click="isMobileMenuOpen = false"
@@ -154,13 +156,24 @@ const isScrolled = ref(false)
 const activeHash = ref(route.hash || '')
 const sectionRatios = ref<Record<string, number>>({})
 let sectionObserver: IntersectionObserver | undefined
+let scrollFrame: number | undefined
+let activeSectionFrame: number | undefined
 
 watch(() => route.hash, (newHash) => {
   activeHash.value = newHash || ''
 })
 
+function updateScrolledState() {
+  const nextIsScrolled = window.scrollY > 20
+  if (isScrolled.value !== nextIsScrolled) {
+    isScrolled.value = nextIsScrolled
+  }
+  scrollFrame = undefined
+}
+
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 20
+  if (scrollFrame) return
+  scrollFrame = window.requestAnimationFrame(updateScrolledState)
 }
 
 onMounted(() => {
@@ -172,6 +185,12 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   sectionObserver?.disconnect()
+  if (scrollFrame) {
+    window.cancelAnimationFrame(scrollFrame)
+  }
+  if (activeSectionFrame) {
+    window.cancelAnimationFrame(activeSectionFrame)
+  }
 })
 
 const navItems = [
@@ -184,6 +203,14 @@ const navItems = [
 
 const normalizePath = (path: string) => path.replace(/\/$/, '') || '/'
 const homePath = computed(() => normalizePath(localePath('/')))
+
+function scheduleActiveSectionUpdate() {
+  if (activeSectionFrame) return
+  activeSectionFrame = window.requestAnimationFrame(() => {
+    activeSectionFrame = undefined
+    updateActiveSection()
+  })
+}
 
 function updateActiveSection() {
   if (normalizePath(route.path) !== homePath.value) {
@@ -199,12 +226,6 @@ function updateActiveSection() {
 
   if (window.scrollY < 120) {
     activeHash.value = ''
-    return
-  }
-
-  const isAtBottom = Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50
-  if (isAtBottom) {
-    activeHash.value = sectionHashes[sectionHashes.length - 1]
     return
   }
 
@@ -241,7 +262,7 @@ function setupSectionObserver() {
       if (!id) continue
       sectionRatios.value[`#${id}`] = entry.isIntersecting ? entry.intersectionRatio : 0
     }
-    updateActiveSection()
+    scheduleActiveSectionUpdate()
   }, {
     root: null,
     rootMargin: '-18% 0px -58% 0px',
@@ -252,7 +273,7 @@ function setupSectionObserver() {
     sectionObserver.observe(el)
   }
 
-  updateActiveSection()
+  scheduleActiveSectionUpdate()
 }
 
 watch(() => route.path, async () => {
@@ -262,7 +283,7 @@ watch(() => route.path, async () => {
 })
 
 watch(() => route.fullPath, () => {
-  updateActiveSection()
+  scheduleActiveSectionUpdate()
 })
 
 const isActiveNavItem = (hash: string) => {

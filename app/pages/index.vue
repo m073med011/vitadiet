@@ -1,9 +1,9 @@
 <template>
   <div>
     <HomeHero />
-    <HomeWhoWeAre />
-    <HomeFeatures />
-    <HomeProducts />
+    <LazyHomeWhoWeAre />
+    <LazyHomeFeatures />
+    <LazyHomeProducts />
   </div>
 </template>
 

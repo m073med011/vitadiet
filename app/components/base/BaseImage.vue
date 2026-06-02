@@ -7,6 +7,8 @@
     :decoding="decoding"
     :fetchpriority="fetchPriority"
     :sizes="sizes"
+    :width="resolvedWidth"
+    :height="resolvedHeight"
     :class="imageClasses"
   />
 </template>
@@ -30,6 +32,10 @@ const props = withDefaults(defineProps<{
   hoverZoom?: HoverZoom;
   sizes?: string;
   decoding?: 'sync' | 'async' | 'auto';
+  /** Explicit intrinsic width. Required when fill=false and container has no aspect-ratio. */
+  width?: number;
+  /** Explicit intrinsic height. Required when fill=false and container has no aspect-ratio. */
+  height?: number;
 }>(), {
   alt: '',
   loading: 'lazy',
@@ -38,9 +44,29 @@ const props = withDefaults(defineProps<{
   hoverZoom: 'none',
   sizes: undefined,
   decoding: 'async',
+  width: undefined,
+  height: undefined,
 });
 
 const fetchPriority = computed(() => (props.loading === 'eager' ? 'high' : 'auto'))
+
+/**
+ * For fill images the displayed size is entirely CSS-driven.
+ * We still emit width/height="1" so browsers suppress the "missing dimensions"
+ * warning and can skip layout shift detection for this element; the actual
+ * painted size comes from the absolute-positioned container.
+ */
+const resolvedWidth = computed(() => {
+  if (props.width !== undefined) return props.width
+  if (props.fill) return 1
+  return undefined
+})
+
+const resolvedHeight = computed(() => {
+  if (props.height !== undefined) return props.height
+  if (props.fill) return 1
+  return undefined
+})
 
 const fitClasses: Record<ImageFit, string> = {
   cover: 'object-cover',

@@ -5,9 +5,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 
-  css: ["aos/dist/aos.css", "~/assets/css/main.css"],
+  css: ["~/assets/css/main.css"],
 
   vite: {
+    build: {
+      // Keep SVGs and other assets out of SSR HTML; the Vitadiet logo is large enough
+      // that inlining it noticeably bloats the initial document.
+      assetsInlineLimit: 0,
+    },
     plugins: [tailwindcss()],
     vue: {
       template: {
@@ -21,10 +26,7 @@ export default defineNuxtConfig({
         '@vue/devtools-core',
         '@vue/devtools-kit',
         '@unhead/schema-org/vue',
-        'aos',
         'lucide-vue-next',
-        'swiper/vue',
-        'swiper/modules'
       ]
     }
   },

@@ -8,7 +8,7 @@
         <!-- Col 1 — Brand -->
         <div class="space-y-gutter" data-aos="fade-up">
           <NuxtLink :to="localePath('/')" aria-label="Vitadiet home">
-            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" class="h-page-lg sm:h-product-lg w-auto object-contain" />
+            <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" :width="1000" :height="333" class="h-page-lg sm:h-product-lg w-auto object-contain" />
           </NuxtLink>
           <p class="text-ink leading-copy">{{ $t('footer.quote') }}</p>
           <div class="flex flex-wrap items-center gap-control-y-sm pt-control-y-sm">
@@ -125,7 +125,7 @@
           <span>{{ new Date().getFullYear() }}</span>
           <span class="mx-1">—</span>
           <span>{{ $t('footer.developedBy') }}</span>
-          <img :src="doGif" alt="Digital Order" class="h-4 w-auto inline-block ml-1" />
+          <img :src="doGif" alt="Digital Order" width="56" height="28" class="h-4 w-auto inline-block ml-1" />
         </a>
       </div>
 
