@@ -38,7 +38,7 @@
       <article class="quality-panel" data-aos="fade-up" data-aos-delay="100">
         <div class="quality-image-shell">
           <NuxtImg
-            src="/images/vitadiet-certified-manufacturing-facility.jpg"
+            src="/images/vitadiet-certified-manufacturing-facility.webp"
             :alt="$t('homePage.quality.imageAlt')"
             width="1200"
             height="600"

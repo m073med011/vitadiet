@@ -24,8 +24,8 @@
               :src="img.src"
               alt=""
               fill
-              loading="eager"
-              fetchpriority="high"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="index === 0 ? 'high' : 'auto'"
               sizes="(min-width: 1024px) 14vw, 240px"
             />
           </div>
@@ -53,8 +53,8 @@
               :src="img.src"
               alt=""
               fill
-              loading="eager"
-              fetchpriority="high"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="index === 0 ? 'high' : 'auto'"
               sizes="(max-width: 640px) 28vw, (max-width: 1023px) 18vw, 160px"
             />
           </div>
@@ -129,6 +129,7 @@ const showHeroImageNumbers = import.meta.dev
 const mobileHeroImages = computed(() =>
   heroSection.images
     .filter((_, index) => [0, 2, 5, 7].includes(index))
+    .map(img => ({ ...img, src: img.src.replace('sm_', 'xs_') }))
 )
 const mobileHeroLoopImages = computed(() => [...mobileHeroImages.value, ...mobileHeroImages.value])
 
