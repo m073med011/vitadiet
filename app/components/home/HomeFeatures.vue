@@ -37,11 +37,13 @@
       <!-- ── Quality panel ────────────────────────────────────── -->
       <article class="quality-panel" data-aos="fade-up" data-aos-delay="100">
         <div class="quality-image-shell">
-          <BaseImage
-            src="~/assets/images/vitadiet-certified-manufacturing-facility.jpg"
+          <NuxtImg
+            src="/images/vitadiet-certified-manufacturing-facility.jpg"
             :alt="$t('homePage.quality.imageAlt')"
-            fill
-            class="absolute inset-0 object-cover"
+            width="1200"
+            height="600"
+            sizes="100vw"
+            class="absolute inset-0 w-full h-full object-cover"
           />
           <div class="quality-image-content">
             <h3 class="panel-heading">{{ $t('homePage.quality.heading') }}</h3>

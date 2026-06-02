@@ -125,7 +125,7 @@
           <span>{{ new Date().getFullYear() }}</span>
           <span class="mx-1">—</span>
           <span>{{ $t('footer.developedBy') }}</span>
-          <img :src="doGif" alt="Digital Order" width="56" height="28" class="h-4 w-auto inline-block ml-1" />
+          <NuxtImg src="/images/do-distribution-logo-black.gif" alt="Digital Order" width="56" height="28" class="h-4 w-auto inline-block ml-1" />
         </a>
       </div>
 
