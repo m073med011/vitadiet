@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import ogImage from "~/assets/images/vitadiet-social-share-preview.png";
-import logo from "~/assets/images/vitadiet-official-logo.svg";
+const ogImage = "/images/vitadiet-social-share-preview.png";
+const logo = "/images/vitadiet-official-logo.svg";
 
 const { t } = useI18n();
 const requestUrl = useRequestURL();

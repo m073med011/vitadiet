@@ -1,5 +1,5 @@
 <template>
-  <img
+  <NuxtImg
     v-bind="$attrs"
     :src="src"
     :alt="alt"

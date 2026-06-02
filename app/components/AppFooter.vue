@@ -135,8 +135,7 @@
 
 <script setup lang="ts">
 import type { Component } from 'vue'
-import logoImage from '~/assets/images/vitadiet-official-logo.svg'
-import doGif from '~/assets/images/footer/do-distribution-logo-black.gif'
+const logoImage = '/images/vitadiet-official-logo.svg'
 import {
   MailIcon,
   MapPinIcon,

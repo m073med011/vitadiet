@@ -78,10 +78,14 @@ export default defineNuxtConfig({
     },
   },
 
+  experimental: {
+    inlineSSRStyles: true,
+  },
+
   routeRules: {
-    '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
-    '/_fonts/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
-    '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+    '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+    '/_fonts/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+    '/images/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
   },
 
 
