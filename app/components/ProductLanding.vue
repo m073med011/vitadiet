@@ -28,7 +28,12 @@
           </div>
 
           <div class="mt-gutter flex">
-            <BaseButton :href="product.buyLink || 'mailto:b2b@Vitadiet.sa'" :target="product.buyLink ? '_blank' : undefined" variant="primary">
+            <BaseButton
+              :href="product.buyLink || 'mailto:b2b@vitadiet.sa'"
+              :target="product.buyLink ? '_blank' : undefined"
+              :rel="product.buyLink ? 'noopener noreferrer nofollow sponsored' : undefined"
+              variant="primary"
+            >
               {{ $t('categoryPage.cta') }}
               <ArrowRightIcon class="h-icon-md w-icon-md shrink-0 rtl:rotate-180" aria-hidden="true" />
             </BaseButton>

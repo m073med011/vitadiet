@@ -38,7 +38,7 @@
       <article class="quality-panel" data-aos="fade-up" data-aos-delay="100">
         <div class="quality-image-shell">
           <BaseImage
-            src="~/assets/images/medcal_factory.jpg"
+            src="~/assets/images/vitadiet-certified-manufacturing-facility.jpg"
             :alt="$t('homePage.quality.imageAlt')"
             fill
             class="absolute inset-0 object-cover"

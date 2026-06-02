@@ -18,7 +18,24 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts"],
+  modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts", "@nuxtjs/seo"],
+
+  site: {
+    url: 'https://vitadiet.sa',
+    name: 'Vitadiet',
+    description: 'Certified supplement portfolio for B2B distribution',
+    defaultLocale: 'en'
+  },
+
+  sitemap: {
+    // Dynamic product routes are supplied by server/api/__sitemap__/urls.ts
+    sources: ['/api/__sitemap__/urls'],
+  },
+
+  robots: {
+    // Allow everything; expose the sitemap location.
+    sitemap: '/sitemap.xml',
+  },
 
   image: {
     format: ['webp'],
@@ -27,6 +44,23 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+    prerender: {
+      crawlLinks: true,
+      // Seed routes so the crawler reaches dynamic product pages in both locales.
+      routes: [
+        '/',
+        '/products',
+        '/product/bestrong',
+        '/product/becalme',
+        '/product/vitagen',
+        '/product/femavit',
+        '/product/floradit',
+        '/product/green-pharmacy',
+        '/product/dplus',
+        '/product/soluro',
+        '/product/flowadite',
+      ],
+    },
   },
 
   routeRules: {
@@ -37,15 +71,18 @@ export default defineNuxtConfig({
 
 
   i18n: {
+    baseUrl: 'https://vitadiet.sa',
     locales: [
       {
         code: "en",
+        iso: "en-US",
         name: "English",
         dir: "ltr",
         file: "en.json",
       },
       {
         code: "ar",
+        iso: "ar-SA",
         name: "العربية",
         dir: "rtl",
         file: "ar.json",

@@ -130,7 +130,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
-import logoImage from '~/assets/images/logo.svg'
+import logoImage from '~/assets/images/vitadiet-official-logo.svg'
 import {
   BookOpenIcon,
   ChevronRightIcon,

@@ -26,7 +26,7 @@
               </span>
               <BaseImage
                 :src="img.src"
-                alt=""
+                :alt="$t('homePage.hero.heading')"
                 fill
               />
             </div>

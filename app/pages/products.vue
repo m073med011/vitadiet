@@ -6,7 +6,7 @@
         {{ $t('productPage.description') }}
       </p>
       <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-        <BaseButton href="mailto:b2b@Vitadiet.sa" variant="primary">
+        <BaseButton href="mailto:b2b@vitadiet.sa" variant="primary">
           {{ $t('productPage.cta') }}
         </BaseButton>
       </div>
@@ -15,4 +15,13 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
+// titleTemplate in app.vue appends " - Vitadiet"; keep this brand-free.
+useSeoMeta({
+  title: () => t('productPage.heading'),
+  description: () => t('productPage.description'),
+  ogTitle: () => t('productPage.heading'),
+  ogDescription: () => t('productPage.description'),
+})
 </script>

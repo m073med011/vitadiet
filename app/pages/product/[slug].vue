@@ -14,7 +14,7 @@
         {{ $t('categoryPage.description') }}
       </p>
       <div class="text-center" data-aos="fade-up" data-aos-delay="300">
-        <BaseButton href="mailto:b2b@Vitadiet.sa" variant="primary">
+        <BaseButton href="mailto:b2b@vitadiet.sa" variant="primary">
           {{ $t('categoryPage.cta') }}
         </BaseButton>
       </div>
@@ -52,5 +52,53 @@ const categoryKeyBySlug: Record<string, string> = {
 
 const categoryName = computed(() => {
   return categoryKeyBySlug[slugValue.value] ? t(categoryKeyBySlug[slugValue.value]) : slugValue.value
+})
+
+/** Page name used in the title — product name when matched, otherwise the category. */
+const pageName = computed(() =>
+  product.value ? t(product.value.titleKey) : categoryName.value
+)
+
+const pageDescription = computed(() => {
+  if (product.value?.descriptionKey) return t(product.value.descriptionKey)
+  return t('categoryPage.description')
+})
+
+/** Numeric SAR price for the Offer, or null when the price isn't a number (e.g. "Coming Soon"). */
+const offerPrice = computed(() => {
+  if (!product.value) return null
+  const raw = t(product.value.priceKey)
+  return /\d/.test(raw) ? raw.replace(/[^\d.]/g, '') : null
+})
+
+// The titleTemplate in app.vue already appends " - Vitadiet"; keep page titles brand-free.
+useSeoMeta({
+  title: () => pageName.value,
+  description: () => pageDescription.value,
+  ogTitle: () => pageName.value,
+  ogDescription: () => pageDescription.value,
+})
+
+watchEffect(() => {
+  if (!product.value) return
+
+  useSchemaOrg([
+    defineProduct({
+      name: pageName.value,
+      description: pageDescription.value,
+      brand: { '@type': 'Brand', name: 'Vitadiet' },
+      ...(offerPrice.value
+        ? {
+            offers: {
+              '@type': 'Offer',
+              price: offerPrice.value,
+              priceCurrency: 'SAR',
+              availability: 'https://schema.org/InStock',
+              ...(product.value.buyLink ? { url: product.value.buyLink } : {}),
+            },
+          }
+        : {}),
+    }),
+  ])
 })
 </script>
