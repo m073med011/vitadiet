@@ -4,6 +4,7 @@
     <LazyHomeWhoWeAre />
     <LazyHomeFeatures />
     <LazyHomeProducts />
+    <LazyHomeFaq />
   </div>
 </template>
 

@@ -9,9 +9,15 @@ const ogImage = "/images/vitadiet-social-share-preview.png";
 const logo = "/images/vitadiet-official-logo.svg";
 
 const { t } = useI18n();
-const requestUrl = useRequestURL();
-const ogImageUrl = computed(() => new URL(ogImage, requestUrl.origin).toString());
-const logoUrl = computed(() => new URL(logo, requestUrl.origin).toString());
+const route = useRoute();
+
+// Absolute URLs must be built from the configured site origin, NOT useRequestURL():
+// during static prerender there is no real request host, so useRequestURL() resolves
+// to http://localhost and leaks that into canonical/og:url/schema URLs.
+const siteUrl = useSiteConfig().url;
+const ogImageUrl = computed(() => new URL(ogImage, siteUrl).toString());
+const logoUrl = computed(() => new URL(logo, siteUrl).toString());
+const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl).toString());
 
 // i18n SEO head: emits per-locale canonical + hreflang alternates (incl. x-default),
 // the html lang/dir attributes, and og:locale[:alternate]. Without this the en/ar
@@ -43,12 +49,12 @@ useHead({
     { property: "og:image:height", content: "356" },
     { property: "og:type", content: "website" },
     { property: "og:site_name", content: () => t("appName") },
-    { property: "og:url", content: () => requestUrl.href },
-    { name: "theme-color", content: "#1d2b5b" },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: () => t("seoTitle") },
-    { name: "twitter:description", content: () => t("description") },
-    { name: "twitter:image", content: () => ogImageUrl.value }
+    { property: "og:url", content: () => canonicalUrl.value },
+    { name: "theme-color", content: "#1a7039" },
+    // Only twitter:card is global. twitter:title/description/image are intentionally
+    // omitted so X/Twitter falls back to the per-page og:* tags — otherwise every
+    // product share would inherit the homepage title/description/image.
+    { name: "twitter:card", content: "summary_large_image" }
   ]
 });
 
@@ -57,7 +63,7 @@ useSchemaOrg([
     name: "Vitadiet",
     description: () => t("description"),
     logo: () => logoUrl.value,
-    url: "https://vitadiet.sa",
+    url: siteUrl,
     sameAs: [
       "https://www.linkedin.com/company/Vitadiet",
       "https://www.instagram.com/Vitadiet.sa",

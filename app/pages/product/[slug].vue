@@ -35,7 +35,9 @@ const slug = computed(() => route.params.slug)
 
 const { t, te } = useI18n()
 const localePath = useLocalePath()
-const requestUrl = useRequestURL()
+// Build absolute URLs from the configured site origin, not useRequestURL(): during
+// static prerender the latter resolves to http://localhost and leaks into canonical/OG.
+const siteUrl = useSiteConfig().url
 
 const slugValue = computed(() => {
   const value = slug.value
@@ -95,13 +97,13 @@ const metaDescription = computed(() => {
 })
 
 const canonicalUrl = computed(() => {
-  if (product.value) return new URL(localePath(`/product/${product.value.slug}`), requestUrl.origin).toString()
-  return new URL(localePath('/products'), requestUrl.origin).toString()
+  if (product.value) return new URL(localePath(`/product/${product.value.slug}`), siteUrl).toString()
+  return new URL(localePath('/products'), siteUrl).toString()
 })
 
 /** Absolute URL to the product's primary image, for OG tags and Product schema. */
 const productImageUrl = computed(() =>
-  product.value ? new URL(product.value.image, requestUrl.origin).toString() : undefined
+  product.value ? new URL(product.value.image, siteUrl).toString() : undefined
 )
 
 /**
@@ -117,13 +119,32 @@ const offerPrice = computed(() => {
   return /\d/.test(raw) ? raw.replace(/[^\d.]/g, '') : null
 })
 
+/**
+ * priceValidUntil for the Offer — Google Merchant flags Offers without it. We roll
+ * a year forward from the current build so static regenerations keep it in the future.
+ */
+const priceValidUntil = computed(() => {
+  const d = new Date()
+  d.setFullYear(d.getFullYear() + 1)
+  return d.toISOString().split('T')[0]
+})
+
 // The titleTemplate in app.vue already appends " - Vitadiet"; keep page titles brand-free.
+// twitterTitle/Description are set explicitly (not just ogTitle/Description) to override
+// the global homepage Twitter fallback; og:image:* are overridden because product photos
+// are 668x911 webp, not the 1080x356 png share preview the global tags describe.
 useSeoMeta({
   title: () => pageName.value,
   description: () => metaDescription.value,
   ogTitle: () => pageName.value,
   ogDescription: () => metaDescription.value,
   ogImage: () => productImageUrl.value,
+  ogImageType: 'image/webp',
+  ogImageWidth: 668,
+  ogImageHeight: 911,
+  ogImageAlt: () => pageName.value,
+  twitterTitle: () => pageName.value,
+  twitterDescription: () => metaDescription.value,
   twitterImage: () => productImageUrl.value,
 })
 
@@ -155,7 +176,12 @@ watchEffect(() => {
               '@type': 'Offer',
               price: offerPrice.value,
               priceCurrency: 'SAR',
-              availability: 'https://schema.org/InStock',
+              priceValidUntil: priceValidUntil.value,
+              // A live marketplace link means it's buyable now; otherwise it's a
+              // listed-but-not-yet-purchasable SKU.
+              availability: product.value.buyLink
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/PreOrder',
               ...(product.value.buyLink ? { url: product.value.buyLink } : {}),
             },
           }

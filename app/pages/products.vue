@@ -49,11 +49,25 @@ import { SaudiRiyalIcon } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+const siteUrl = useSiteConfig().url
 
 /** Returns true when the translated price string contains at least one digit */
 function isNumericPrice(priceKey: string): boolean {
   return /\d/.test(t(priceKey))
 }
+
+// ItemList schema mirrors the visible product grid so the listing can earn a
+// richer, ordered result in search.
+useSchemaOrg([
+  defineItemList({
+    itemListElement: products.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: t(product.titleKey),
+      url: new URL(localePath(`/product/${product.slug}`), siteUrl).toString(),
+    })),
+  }),
+])
 
 // titleTemplate in app.vue appends " - Vitadiet"; keep this brand-free.
 useSeoMeta({

@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts", "@nuxtjs/seo"],
 
   site: {
-    url: 'https://vitadiet.sa',
+    url: 'https://www.vitadiet.sa',
     name: 'Vitadiet',
     description: 'Certified supplement portfolio for B2B distribution',
     defaultLocale: 'en'
@@ -91,7 +91,7 @@ export default defineNuxtConfig({
 
 
   i18n: {
-    baseUrl: 'https://vitadiet.sa',
+    baseUrl: 'https://www.vitadiet.sa',
     locales: [
       {
         code: "en",
