@@ -34,9 +34,9 @@
           :style="{ animationDelay: `${index * 100}ms` }"
         >
           <NuxtLink
-            :to="sectionPath(item.hash)"
+            :to="item.path ? localePath(item.path) : sectionPath(item.hash)"
             class="nav-link relative py-2 hover:text-brand-primary transition-colors duration-300"
-            :class="{ 'nav-link-active text-brand-primary': isActiveNavItem(item.hash) }"
+            :class="{ 'nav-link-active text-brand-primary': isActiveNavItem(item) }"
           >
             {{ $t(item.labelKey) }}
           </NuxtLink>
@@ -107,9 +107,9 @@
           <NuxtLink
             v-for="(item, index) in navItems"
             :key="item.labelKey"
-            :to="sectionPath(item.hash)"
+            :to="item.path ? localePath(item.path) : sectionPath(item.hash)"
             class="sidebar-nav-link group flex items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200"
-            :class="{ 'sidebar-nav-link-active': isActiveNavItem(item.hash) }"
+            :class="{ 'sidebar-nav-link-active': isActiveNavItem(item) }"
             :style="{ transitionDelay: `${index * 35}ms` }"
             @click="isMobileMenuOpen = false"
           >
@@ -180,6 +180,10 @@ function updateScrolledState() {
     isScrolled.value = nextIsScrolled
   }
   scrollFrame = undefined
+  // The section observer only fires when a threshold is crossed, which doesn't
+  // happen on the last few pixels of scroll — recheck here so reaching the bottom
+  // reliably activates the bottom-most section.
+  scheduleActiveSectionUpdate()
 }
 
 const handleScroll = () => {
@@ -208,7 +212,7 @@ const navItems = [
   { labelKey: 'home', hash: '', icon: HomeIcon },
   { labelKey: 'about', hash: '#who-we-are', icon: InfoIcon },
   { labelKey: 'services', hash: '#why', icon: SparklesIcon },
-  { labelKey: 'products', hash: '#products', icon: PackageIcon },
+  { labelKey: 'products', hash: '', path: '/products/', icon: PackageIcon },
   { labelKey: 'contact', hash: '#footer', icon: PhoneIcon },
 ]
 
@@ -238,6 +242,27 @@ function updateActiveSection() {
   if (window.scrollY < 120) {
     activeHash.value = ''
     return
+  }
+
+  // The observer band below (-18%/-58%) sits in the upper part of the viewport, which
+  // the footer can never reach: at the bottom of the page scrolling stops, and unless
+  // the footer is taller than ~58% of the viewport its top stays under the band. So
+  // treat "scrolled to the bottom" as activating the bottom-most section, otherwise
+  // the contact link is unreachable on desktop.
+  const scrollBottom = window.scrollY + window.innerHeight
+  if (scrollBottom >= document.documentElement.scrollHeight - 2) {
+    const bottomMost = sectionHashes
+      .map((hash) => {
+        const el = document.querySelector<HTMLElement>(hash)
+        return { hash, top: el ? el.getBoundingClientRect().top + window.scrollY : -1 }
+      })
+      .filter((item) => item.top >= 0)
+      .sort((a, b) => b.top - a.top)[0]
+
+    if (bottomMost) {
+      activeHash.value = bottomMost.hash
+      return
+    }
   }
 
   const visibleSections = sectionHashes
@@ -297,9 +322,13 @@ watch(() => route.fullPath, () => {
   scheduleActiveSectionUpdate()
 })
 
-const isActiveNavItem = (hash: string) => {
+const isActiveNavItem = (item: (typeof navItems)[number]) => {
+  if (item.path) {
+    return normalizePath(route.path) === normalizePath(localePath(item.path))
+  }
+
   if (normalizePath(route.path) !== homePath.value) return false
-  return hash === activeHash.value
+  return item.hash === activeHash.value
 }
 </script>
 

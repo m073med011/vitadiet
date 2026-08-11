@@ -33,15 +33,16 @@ definePageMeta({
 const route = useRoute()
 const slug = computed(() => route.params.slug)
 
-const { t, te } = useI18n()
+const { t, te, locale } = useI18n()
 const localePath = useLocalePath()
+const { productPath } = useProductPath()
 // Build absolute URLs from the configured site origin, not useRequestURL(): during
 // static prerender the latter resolves to http://localhost and leaks into canonical/OG.
 const siteUrl = useSiteConfig().url
 
 const slugValue = computed(() => {
   const value = slug.value
-  return Array.isArray(value) ? value[0] : String(value)
+  return Array.isArray(value) ? (value[0] ?? '') : String(value)
 })
 
 const product = computed(() => products.find((item) => item.slug === slugValue.value))
@@ -65,7 +66,8 @@ if (!isKnownSlug.value) {
 }
 
 const categoryName = computed(() => {
-  return categoryKeyBySlug[slugValue.value] ? t(categoryKeyBySlug[slugValue.value]) : slugValue.value
+  const categoryKey = categoryKeyBySlug[slugValue.value]
+  return categoryKey ? t(categoryKey) : slugValue.value
 })
 
 /** Page name used in the title — product name when matched, otherwise the category. */
@@ -118,7 +120,7 @@ const offerPrice = computed(() => {
  * priceValidUntil for the Offer — Google Merchant flags Offers without it. We roll
  * a year forward from the current build so static regenerations keep it in the future.
  */
-const priceValidUntil = computed(() => {
+const priceValidUntil = useState('offer-price-valid-until', () => {
   const d = new Date()
   d.setFullYear(d.getFullYear() + 1)
   return d.toISOString().split('T')[0]
@@ -134,7 +136,6 @@ useSeoMeta({
   ogTitle: () => pageName.value,
   ogDescription: () => metaDescription.value,
   ogImage: () => productImageUrl.value,
-  ogImageType: 'image/webp',
   ogImageWidth: 668,
   ogImageHeight: 911,
   ogImageAlt: () => pageName.value,
@@ -154,13 +155,14 @@ watchEffect(() => {
     defineBreadcrumb({
       itemListElement: [
         { name: t('home'), item: localePath('/') },
-        { name: t('productPage.heading'), item: localePath('/products') },
-        { name: pageName.value, item: localePath(`/product/${product.value.slug}`) },
+        { name: t('productPage.heading'), item: localePath('/products/') },
+        { name: pageName.value, item: productPath(product.value.slug) },
       ],
     }),
     defineProduct({
       name: pageName.value,
       description: metaDescription.value,
+      inLanguage: locale.value === 'ar' ? 'ar-SA' : 'en-US',
       ...(productImageUrl.value ? { image: productImageUrl.value } : {}),
       brand: { '@type': 'Brand', name: 'Vitadiet' },
       ...(offerPrice.value

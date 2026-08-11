@@ -1,4 +1,3 @@
-import { defineSitemapEventHandler } from '#imports'
 import type { SitemapUrlInput } from '#sitemap/types'
 
 /**
@@ -21,7 +20,7 @@ export default defineSitemapEventHandler(() => {
   const lastmod = new Date().toISOString()
 
   return productSlugs.map<SitemapUrlInput>((slug) => ({
-    loc: `/product/${slug}`,
+    loc: `/product/${slug}/`,
     lastmod,
     changefreq: 'weekly',
     priority: 0.8,

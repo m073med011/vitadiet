@@ -1,13 +1,13 @@
 <template>
   <section id="faq" class="w-full py-section bg-surface">
     <div class="max-w-copy mx-auto px-page sm:px-gutter md:px-page-lg">
-      <div class="text-center mb-rule-sm" data-aos="fade-up">
+      <div class="text-center mb-rule-sm">
         <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page">
           {{ $t('homePage.faq.heading') }}
         </h2>
       </div>
 
-      <div class="flex flex-col gap-page">
+      <div class="flex flex-col gap-4">
         <div
           v-for="(item, index) in faqItems"
           :key="item.key"
@@ -96,18 +96,16 @@ useSchemaOrg([
    grid-template-rows 0fr → 1fr. The inner wrapper needs min-height:0 + overflow
    hidden so the content can be clipped while it grows. */
 .faq-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--motion-page, 320ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--motion-page, 320ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .faq-item.is-open .faq-panel {
-  grid-template-rows: 1fr;
+  max-height: 32rem;
 }
 
 .faq-panel-inner {
-  min-height: 0;
-  overflow: hidden;
   /* Fade + slight lift the copy in as it reveals, tied to the same easing. */
   opacity: 0;
   transform: translateY(-0.25rem);

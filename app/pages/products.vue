@@ -10,7 +10,7 @@
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter mb-12">
         <li v-for="product in products" :key="product.slug" data-aos="fade-up">
           <NuxtLink
-            :to="localePath(`/product/${product.slug}`)"
+            :to="productPath(product.slug)"
             class="product-card group flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
           >
             <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted">
@@ -48,7 +48,7 @@ import { products } from '~/data/home'
 import { SaudiRiyalIcon } from 'lucide-vue-next'
 
 const { t } = useI18n()
-const localePath = useLocalePath()
+const { productPath } = useProductPath()
 const siteUrl = useSiteConfig().url
 
 /** Returns true when the translated price string contains at least one digit */
@@ -64,7 +64,7 @@ useSchemaOrg([
       '@type': 'ListItem',
       position: index + 1,
       name: t(product.titleKey),
-      url: new URL(localePath(`/product/${product.slug}`), siteUrl).toString(),
+      url: new URL(productPath(product.slug), siteUrl).toString(),
     })),
   }),
 ])

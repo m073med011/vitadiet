@@ -8,7 +8,7 @@
 const ogImage = "/images/vitadiet-social-share-preview.png";
 const logo = "/images/vitadiet-official-logo.svg";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const route = useRoute();
 
 // Absolute URLs must be built from the configured site origin, NOT useRequestURL():
@@ -61,30 +61,27 @@ useHead({
 
 useSchemaOrg([
   defineOrganization({
-    name: "Vitadiet",
-    description: () => t("description"),
+    '@id': `${siteUrl}#identity`,
+    name: 'Vitadiet',
+    description: () => t('description'),
     logo: () => logoUrl.value,
     url: siteUrl,
     sameAs: [
-      "https://www.linkedin.com/company/Vitadiet",
-      "https://www.instagram.com/Vitadiet.sa",
-      "https://www.tiktok.com/@vitadiet.sa",
-      "https://x.com/Vitadiet_sa",
-      "https://www.snapchat.com/add/Vitadiet",
+      'https://www.linkedin.com/company/Vitadiet',
+      'https://www.instagram.com/Vitadiet.sa',
+      'https://www.tiktok.com/@vitadiet.sa',
+      'https://x.com/Vitadiet_sa',
+      'https://www.snapchat.com/add/Vitadiet',
     ],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Palestine Street, Al Hamra District, Palestine Commercial Center, First Floor, Office No. 12",
-      addressLocality: "Jeddah",
-      addressCountry: "SA",
-    },
-    telephone: "+966508178161",
-    email: "acc@vitadiet.sa",
-    vatID: "302135132900003",
+    address: { '@type': 'PostalAddress', streetAddress: 'Palestine Street, Al Hamra District, Palestine Commercial Center, First Floor, Office No. 12', addressLocality: 'Jeddah', addressCountry: 'SA' },
+    telephone: '+966508178161', email: 'acc@vitadiet.sa', vatID: '302135132900003',
   }),
   defineWebSite({
     name: "Vitadiet",
     description: () => t("description"),
+  }),
+  defineWebPage({
+    inLanguage: () => locale.value === 'ar' ? 'ar-SA' : 'en-US',
   }),
 ]);
 </script>

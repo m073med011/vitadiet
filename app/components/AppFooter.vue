@@ -57,7 +57,7 @@
               :data-aos-delay="index * 80"
             >
               <NuxtLink
-                :to="sectionPath(link.hash)"
+                :to="link.path ? localePath(link.path) : sectionPath(link.hash)"
                 class="relative inline-flex items-center text-ink hover:text-brand-primary hover:translate-x-2 rtl:hover:-translate-x-2 transition-all duration-300 group"
               >
                 <span class="absolute -left-3 rtl:-right-3 w-dot h-dot rounded-full bg-brand-primary opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"></span>
@@ -122,7 +122,7 @@
         >
           <span>{{ $t('footer.copyright') }}</span>
           <span>&copy;</span>
-          <span>{{ new Date().getFullYear() }}</span>
+          <span>{{ currentYear }}</span>
           <span class="mx-1">—</span>
           <span>{{ $t('footer.developedBy') }}</span>
           <NuxtImg src="/images/do-distribution-logo-black.webp" alt="Digital Order" width="56" height="28" class="h-4 w-auto inline-block ml-1" />
@@ -149,12 +149,13 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const { sectionPath } = useSectionPath()
 const contactEmail = 'acc@vitadiet.sa'
+const currentYear = useState('footer-current-year', () => new Date().getFullYear())
 
 const footerLinks = [
   { labelKey: 'home',     hash: '' },
   { labelKey: 'about',    hash: '#who-we-are' },
   { labelKey: 'services', hash: '#why' },
-  { labelKey: 'products', hash: '#products' },
+  { labelKey: 'products', hash: '', path: '/products/' },
   { labelKey: 'contact',  hash: '#footer' },
 ]
 

@@ -29,13 +29,14 @@
 
           <div class="mt-gutter flex">
             <BaseButton
-              :href="product.buyLink || 'mailto:b2b@vitadiet.sa'"
+              :href="product.buyLink"
               :target="product.buyLink ? '_blank' : undefined"
               :rel="product.buyLink ? 'noopener noreferrer nofollow sponsored' : undefined"
+              :disabled="!product.buyLink"
               variant="primary"
             >
-              {{ $t('categoryPage.cta') }}
-              <ArrowRightIcon class="h-icon-md w-icon-md shrink-0 rtl:rotate-180" aria-hidden="true" />
+              {{ product.buyLink ? $t('categoryPage.cta') : $t('productPage.comingSoon') }}
+              <ArrowRightIcon v-if="product.buyLink" class="h-icon-md w-icon-md shrink-0 rtl:rotate-180" aria-hidden="true" />
             </BaseButton>
           </div>
         </div>

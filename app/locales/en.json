@@ -22,11 +22,11 @@
       "badge": "European supplements for the Saudi market",
       "heading": "Vitadiet: European Quality for a Healthier Life",
       "subheading": "We provide scientifically approved and carefully selected dietary supplements, giving our partners trusted products in the Saudi market.",
-      "primary": "Start Your Partnership",
+      "primary": "Our Profile",
       "secondary": "View Company Profile"
     },
     "stats": {
-      "b2bOnly": "B2B Only",
+      "b2bOnly": "B2B",
       "scientificReview": "Scientific Review",
       "sfdaFocus": "SFDA Approved",
       "europeanAgencies": "European Agencies",
@@ -139,6 +139,7 @@
       "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
       "prev": "Previous product",
       "next": "Next product",
+      "viewAll": "View All Products",
       "items": {
         "bestrong": {
           "title": "BeStrong Dietary Supplement 30 Capsules",
@@ -174,7 +175,7 @@
         },
         "flowadite": {
           "title": "Flowadite Dietary Supplement",
-          "price": "78.00"
+          "price": "Coming Soon"
         }
       }
     },
@@ -333,7 +334,8 @@
   "productPage": {
     "heading": "Products",
     "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
-    "cta": "Request Product Portfolio"
+    "cta": "Request Product Portfolio",
+    "comingSoon": "Coming Soon"
   },
   "categoryPage": {
     "eyebrow": "European Supplement Portfolio",

@@ -87,12 +87,12 @@
         <div
           class="mt-gutter grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row items-stretch lg:items-center justify-center gap-page"
         >
-          <BaseButton :to="sectionPath('#footer')" variant="primary">
+          <BaseButton href="/كتالوج فيتادايت.pdf" download variant="primary">
             {{ $t('homePage.hero.primary') }}
-            <ArrowRightIcon class="h-icon-md w-icon-md rtl:rotate-180" aria-hidden="true" />
+            <DownloadIcon class="h-icon-md w-icon-md" aria-hidden="true" />
           </BaseButton>
-          <BaseButton :to="sectionPath('#products')" variant="secondary">
-            {{ $t('homePage.hero.secondary') }}
+          <BaseButton :to="localePath('/products/')" variant="secondary">
+            {{ $t('homePage.products.viewAll') }}
           </BaseButton>
         </div>
 
@@ -116,6 +116,7 @@
 <script setup lang="ts">
 import {
   ArrowRightIcon,
+  DownloadIcon,
   FileCheckIcon,
   HandshakeIcon,
   ShieldCheckIcon,
@@ -123,6 +124,7 @@ import {
 import { heroSection } from '~/data/home'
 
 const { sectionPath } = useSectionPath()
+const localePath = useLocalePath()
 
 const showHeroImageNumbers = import.meta.dev
 
@@ -141,7 +143,7 @@ const trustItems = [
 </script>
 
 <style scoped>
-/* Complex multi-layer radial + grid background — cannot be expressed in Tailwind utilities */
+/* Complex multi-layer radial + grid background â€” cannot be expressed in Tailwind utilities */
 .lotus-backdrop {
   position: absolute;
   inset: 0;

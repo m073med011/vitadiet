@@ -35,6 +35,7 @@ export default defineNuxtConfig({
 
   site: {
     url: 'https://www.vitadiet.sa',
+    trailingSlash: true,
     name: 'Vitadiet',
     description: 'Certified supplement portfolio for B2B distribution',
     defaultLocale: 'en'
@@ -80,7 +81,6 @@ export default defineNuxtConfig({
   },
 
   experimental: {
-    inlineSSRStyles: true,
   },
 
   routeRules: {
@@ -112,5 +112,8 @@ export default defineNuxtConfig({
     langDir: "app/locales",
     defaultLocale: "en",
     strategy: "prefix_except_default",
+    // Keep localized routes, hreflang values, and i18n canonicals on the same
+    // directory URL form as the statically generated pages.
+    trailingSlash: true,
   },
 });

@@ -11,14 +11,6 @@
           <p class="text-ink-soft text-base md:text-lg lg:text-xl leading-relaxed whitespace-pre-line">
             {{ $t('homePage.whoWeAre.description') }}
           </p>
-          <div class="pt-2">
-            <NuxtLink to="#who-we-are" class="inline-flex items-center text-xl md:text-2xl font-medium text-brand-accent group hover:text-brand-primary transition-colors">
-              {{ $t('appName') }}
-              <svg class="w-6 h-6 ms-3 rtl:rotate-180 transform transition-transform group-hover:translate-x-2 rtl:group-hover:-translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-              </svg>
-            </NuxtLink>
-          </div>
         </div>
 
         <div class="w-full lg:w-6/12 relative flex justify-center items-center py-12 lg:py-0" data-aos="fade-left" data-aos-delay="200">
@@ -96,7 +88,7 @@ const featuresData = [
   transition-delay: 200ms;
 }
 
-[data-aos="draw-line"].aos-animate .progress-circle {
+[data-aos="draw-line"][data-aos-animate] .progress-circle {
   stroke-dashoffset: 0;
 }
 
@@ -112,7 +104,7 @@ const featuresData = [
   transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
-[data-aos="orbit-pop"].aos-animate {
+[data-aos="orbit-pop"][data-aos-animate] {
   right: 0;
   opacity: 1;
   transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(1);

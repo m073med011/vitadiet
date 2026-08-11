@@ -9,83 +9,92 @@
           {{ $t('homePage.products.description') }}
         </p>
       </div>
+    </div>
 
-      <div class="product-carousel-wrapper relative" data-aos="fade-up">
-        <button
-          type="button"
-          class="product-nav product-nav--prev"
-          :aria-label="$t('homePage.products.prev')"
-          @click="nudge(-1)"
-        >
-          <ChevronLeftIcon class="h-icon-sm w-icon-sm rtl:rotate-180" aria-hidden="true" />
-        </button>
+    <!-- Carousel with max-width to align with the section content -->
+    <div class="product-carousel-wrapper max-w-content mx-auto px-page sm:px-gutter md:px-page-lg" data-aos="fade-up">
+      <button
+        type="button"
+        class="product-nav product-nav--prev absolute top-1/2 start-4 md:start-8 z-10"
+        :aria-label="$t('homePage.products.prev')"
+        @click="nudge(-1)"
+      >
+        <ChevronLeftIcon class="h-icon-sm w-icon-sm rtl:rotate-180" aria-hidden="true" />
+      </button>
 
-        <div
-          ref="viewport"
-          class="product-viewport"
-          @mouseenter="paused = true"
-          @mouseleave="paused = false"
-          @focusin="paused = true"
-          @focusout="paused = false"
-          @touchstart.passive="paused = true"
-          @touchend.passive="paused = false"
-        >
-          <div ref="track" class="product-track" aria-label="Vitadiet products">
-            <NuxtLink
-              v-for="(product, index) in loopProducts"
-              :key="`${product.slug}-${index}`"
-              :to="localePath(`/product/${product.slug}`)"
-              :aria-hidden="index >= products.length ? 'true' : undefined"
-              :tabindex="index >= products.length ? -1 : undefined"
-              class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
-            >
-              <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
-                <BaseImage
-                  :src="product.image"
-                  :alt="$t(product.titleKey)"
-                  fill
-                  class="object-cover transition-all duration-500 group-hover/card:scale-105"
-                  :class="{ 'group-hover/card:opacity-0': canUseHover && product.gallery && product.gallery[0] }"
-                />
-                <BaseImage
-                  v-if="canUseHover && product.gallery && product.gallery[0]"
-                  :src="product.gallery[0]"
-                  :alt="$t(product.titleKey)"
-                  fill
-                  class="absolute inset-0 object-cover opacity-0 transition-all duration-500 group-hover/card:scale-105 group-hover/card:opacity-100"
-                />
+      <div
+        ref="viewport"
+        class="product-viewport"
+        @mouseenter="paused = true"
+        @mouseleave="paused = false"
+        @focusin="paused = true"
+        @focusout="paused = false"
+        @touchstart.passive="paused = true"
+        @touchend.passive="paused = false"
+      >
+        <div ref="track" class="product-track" aria-label="Vitadiet products">
+          <NuxtLink
+            v-for="(product, index) in loopProducts"
+            :key="`${product.slug}-${index}`"
+            :to="productPath(product.slug)"
+            :aria-hidden="index >= products.length ? 'true' : undefined"
+            :tabindex="index >= products.length ? -1 : undefined"
+            class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+          >
+            <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
+              <BaseImage
+                :src="product.image"
+                :alt="$t(product.titleKey)"
+                fill
+                class="object-cover transition-all duration-500 group-hover/card:scale-105"
+                :class="{ 'group-hover/card:opacity-0': canUseHover && product.gallery && product.gallery[0] }"
+              />
+              <BaseImage
+                v-if="canUseHover && product.gallery && product.gallery[0]"
+                :src="product.gallery[0]"
+                :alt="$t(product.titleKey)"
+                fill
+                class="absolute inset-0 object-cover opacity-0 transition-all duration-500 group-hover/card:scale-105 group-hover/card:opacity-100"
+              />
+            </div>
+
+            <div class="flex flex-1 flex-col gap-page p-page">
+              <div class="flex items-start justify-between gap-page">
+                <h3 class="product-title text-copy font-bold leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
+                <span class="shrink-0 rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-small font-bold text-brand-primary flex items-center justify-center gap-1">
+                  <span>{{ $t(product.priceKey) }}</span>
+                  <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                </span>
               </div>
 
-              <div class="flex flex-1 flex-col gap-page p-page">
-                <div class="flex items-start justify-between gap-page">
-                  <h3 class="product-title text-copy font-bold leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
-                  <span class="shrink-0 rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-small font-bold text-brand-primary flex items-center justify-center gap-1">
-                    <span>{{ $t(product.priceKey) }}</span>
-                    <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
-                  </span>
-                </div>
-
-                <div class="mt-auto flex items-center justify-between gap-page border-t border-line pt-page">
-                  <span class="text-caption font-bold tracking-label uppercase text-ink-subtle">
-                    {{ $t('homePage.stats.b2bOnly') }}
-                  </span>
-                  <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
-                    <ArrowUpRightIcon class="h-icon-sm w-icon-sm rtl:-rotate-90" aria-hidden="true" />
-                  </span>
-                </div>
+              <div class="mt-auto flex items-center justify-between gap-page border-t border-line pt-page">
+                <span class="text-caption font-bold tracking-label uppercase text-ink-subtle">
+                  {{ $t('homePage.stats.b2bOnly') }}
+                </span>
+                <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
+                  <ArrowUpRightIcon class="h-icon-sm w-icon-sm rtl:-rotate-90" aria-hidden="true" />
+                </span>
               </div>
-            </NuxtLink>
-          </div>
+            </div>
+          </NuxtLink>
         </div>
+      </div>
 
-        <button
-          type="button"
-          class="product-nav product-nav--next"
-          :aria-label="$t('homePage.products.next')"
-          @click="nudge(1)"
-        >
-          <ChevronRightIcon class="h-icon-sm w-icon-sm rtl:rotate-180" aria-hidden="true" />
-        </button>
+      <button
+        type="button"
+        class="product-nav product-nav--next absolute top-1/2 end-4 md:end-8 z-10"
+        :aria-label="$t('homePage.products.next')"
+        @click="nudge(1)"
+      >
+        <ChevronRightIcon class="h-icon-sm w-icon-sm rtl:rotate-180" aria-hidden="true" />
+      </button>
+    </div>
+
+    <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
+      <div class="mt-gutter-lg flex justify-center" data-aos="fade-up">
+        <BaseButton :to="localePath('/products/')" variant="secondary">
+          {{ $t('homePage.products.viewAll') }}
+        </BaseButton>
       </div>
     </div>
   </section>
@@ -96,6 +105,7 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { products } from '~/data/home'
 import { ArrowUpRightIcon, ChevronLeftIcon, ChevronRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
 
+const { productPath } = useProductPath()
 const localePath = useLocalePath()
 const { t } = useI18n()
 const canUseHover = ref(false)
@@ -182,29 +192,50 @@ function isNumericPrice(priceKey: string): boolean {
 
 <style scoped>
 .product-carousel-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  /* Full-bleed rail. The arrows are absolutely positioned over the track, so they
+     take no layout width and the viewport always spans the entire section. */
+  position: relative;
+  width: 100%;
+  /* Shared by the CSS gap below and read back in JS for the arrow step, so the two
+     can never drift apart. */
+  --product-gap: 1.25rem;
 }
 
 .product-viewport {
-  flex: 1 1 auto;
-  min-width: 0;
+  width: 100%;
   overflow: hidden;
-  padding-block: 0.5rem;
+  /* Room for the card's hover lift (-translate-y-1) and shadow so neither is clipped. */
+  padding-block: 0.75rem;
+  /* Soften both edges so cards fade out instead of being cut off mid-card. The
+     fade is inset-relative, so it flips automatically for RTL. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
 }
 
 .product-track {
   display: flex;
-  gap: 1.25rem;
+  gap: var(--product-gap);
   width: max-content;
   will-change: transform;
 }
 
 .product-card {
   flex: 0 0 auto;
-  width: 82%;
-  max-width: 20rem;
+  /* Fluid across every viewport rather than snapping at breakpoints: the clamp
+     keeps cards readable on small phones and from getting oversized on desktop. */
+  width: clamp(13.5rem, 72vw, 18rem);
+}
+
+@media (min-width: 640px) {
+  .product-card {
+    width: clamp(15rem, 34vw, 18rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-card {
+    width: clamp(16rem, 22vw, 20rem);
+  }
 }
 
 .product-title {
@@ -236,13 +267,14 @@ html[dir="rtl"] .product-card:hover .product-arrow {
   color: var(--color-ink, #111);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+  transform: translateY(-50%);
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .product-nav:hover {
   background: var(--color-brand-primary, #111);
   color: var(--color-surface, #fff);
-  transform: scale(1.05);
+  transform: translateY(-50%) scale(1.05);
 }
 
 .product-nav:focus-visible {

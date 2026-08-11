@@ -162,6 +162,7 @@ export const products: HomeProduct[] = [
     descriptionKey: 'productDetails.flowadite.description',
     slug: 'flowadite',
     image: prodFlowadite,
-    buyLink: 'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?utm_source=C1000094L&utm_medium=referral&o=c2ffb29d5ff1618a&shareId=f61d6b13-2afe-4b0b-a0a8-3645f497f3a5',
+    // Deliberately omitted until an approved Flowadite listing is available.
+    // The previous URL was for Floradiet and must never be presented as Flowadite.
   },
 ];
