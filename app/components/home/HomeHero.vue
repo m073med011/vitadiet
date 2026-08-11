@@ -87,7 +87,7 @@
         <div
           class="mt-gutter grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row items-stretch lg:items-center justify-center gap-page"
         >
-          <BaseButton href="/كتالوج فيتادايت.pdf" download variant="primary">
+          <BaseButton href="/vitadiet-catalog.pdf" download="كتالوج فيتادايت.pdf" variant="primary">
             {{ $t('homePage.hero.primary') }}
             <DownloadIcon class="h-icon-md w-icon-md" aria-hidden="true" />
           </BaseButton>

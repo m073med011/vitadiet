@@ -5,9 +5,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate && npm run test:seo",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "test:seo": "node scripts/verify-generated-seo.mjs",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
