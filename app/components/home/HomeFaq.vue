@@ -52,15 +52,9 @@
 
 <script setup lang="ts">
 import { ChevronDownIcon } from 'lucide-vue-next'
+import { faqItems } from '~/data/home'
 
 const { t } = useI18n()
-
-// FAQ copy lives in the locale files under homePage.faq.items.
-const faqItems = [
-  { key: 'consumer', questionKey: 'homePage.faq.items.consumer.question', answerKey: 'homePage.faq.items.consumer.answer' },
-  { key: 'sfda', questionKey: 'homePage.faq.items.sfda.question', answerKey: 'homePage.faq.items.sfda.answer' },
-  { key: 'files', questionKey: 'homePage.faq.items.files.question', answerKey: 'homePage.faq.items.files.answer' },
-]
 
 // Tracks which panels are expanded. A Set allows multiple open at once; swap for a
 // single ref if you'd rather have exclusive (one-at-a-time) accordion behaviour.

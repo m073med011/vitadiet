@@ -23,7 +23,7 @@
           <div class="mt-gutter inline-flex w-fit flex-wrap items-center gap-page rounded-card border border-line/80 bg-surface-raised px-page py-control-y shadow-card">
             <span class="inline-flex items-center justify-center gap-rule text-title font-bold leading-none text-brand-primary">
               <span>{{ $t(product.priceKey) }}</span>
-              <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-icon-md w-icon-md shrink-0" aria-hidden="true" />
+              <SaudiRiyalIcon v-if="isNumericPrice(t(product.priceKey))" class="h-icon-md w-icon-md shrink-0" aria-hidden="true" />
             </span>
           </div>
 
@@ -69,47 +69,27 @@
           </Transition>
         </div>
 
-        <div
+        <!-- Mobile gallery (horizontal) -->
+        <ProductGallery
           v-if="galleryImages.length > 1"
-          class="mt-gutter-lg flex w-full shrink-0 justify-center gap-page overflow-x-auto pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:hidden"
-          :aria-label="$t('products')"
-        >
-          <button
-            v-for="(img, index) in galleryImages"
-            :key="img"
-            type="button"
-            :aria-pressed="activeImage === img"
-            :aria-label="`${$t(product.titleKey)} ${index + 1}`"
-            @click="selectImage(img)"
-            class="relative h-action w-action shrink-0 overflow-hidden rounded-pill border-2 bg-surface-raised transition-all duration-300 ease-[var(--motion-ease-out)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent sm:h-avatar sm:w-avatar motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:transition-none"
-            :class="activeImage === img ? 'border-brand-primary opacity-100 shadow-float -translate-y-0.5 scale-105' : 'border-line/80 opacity-75 hover:border-brand-primary/50 hover:opacity-100 hover:-translate-y-0.5 hover:scale-105'"
-          >
-            <!-- Button already carries an aria-label; empty alt avoids duplicate announcement -->
-            <BaseImage class="block" :src="img" alt="" fill fit="cover" />
-          </button>
-        </div>
+          layout="horizontal"
+          :images="galleryImages"
+          :active-image="activeImage"
+          :product-title="$t(product.titleKey)"
+          @select="selectImage"
+        />
       </div>
 
-      <div
+      <!-- Desktop gallery (vertical) -->
+      <ProductGallery
         v-if="galleryImages.length > 1"
         :dir="pageDirection"
-        class="hidden shrink-0 flex-col items-center justify-center gap-page lg:col-start-2 lg:row-start-1 lg:flex"
-        :aria-label="$t('products')"
-      >
-        <button
-          v-for="(img, index) in galleryImages"
-          :key="img"
-          type="button"
-          :aria-pressed="activeImage === img"
-          :aria-label="`${$t(product.titleKey)} ${index + 1}`"
-          @click="selectImage(img)"
-          class="relative h-avatar w-avatar shrink-0 overflow-hidden rounded-pill border-2 bg-surface-raised transition-all duration-300 ease-[var(--motion-ease-out)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:transition-none"
-          :class="activeImage === img ? 'border-brand-primary opacity-100 shadow-float -translate-y-0.5 scale-105' : 'border-line/80 opacity-75 hover:border-brand-primary/50 hover:opacity-100 hover:-translate-y-0.5 hover:scale-105'"
-        >
-          <!-- Button already carries an aria-label; empty alt avoids duplicate announcement -->
-          <BaseImage class="block" :src="img" alt="" fill fit="cover" />
-        </button>
-      </div>
+        layout="vertical"
+        :images="galleryImages"
+        :active-image="activeImage"
+        :product-title="$t(product.titleKey)"
+        @select="selectImage"
+      />
     </div>
   </section>
 </template>
@@ -119,7 +99,8 @@ import {
   ArrowRightIcon,
   SaudiRiyalIcon,
 } from 'lucide-vue-next'
-import type { HomeProduct } from '~/data/home'
+import type { HomeProduct } from '~/types'
+import { isNumericPrice } from '~/utils/price'
 
 const props = defineProps<{
   product: HomeProduct
@@ -135,11 +116,6 @@ let reducedMotionQuery: MediaQueryList | undefined
 const prefersReducedMotion = ref(false)
 const isRtl = computed(() => locale.value === 'ar')
 const pageDirection = computed(() => isRtl.value ? 'rtl' : 'ltr')
-
-/** Returns true when the translated price string contains at least one digit */
-function isNumericPrice(priceKey: string): boolean {
-  return /\d/.test(t(priceKey))
-}
 
 const activeImage = ref(props.product.image)
 const galleryImages = computed(() => [props.product.image, ...(props.product.gallery ?? [])])
@@ -163,7 +139,7 @@ function rotateImage() {
   const currentIndex = images.indexOf(activeImage.value)
   const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % images.length
 
-  activeImage.value = images[nextIndex]
+  activeImage.value = images[nextIndex] ?? images[0] ?? props.product.image
 }
 
 function startImageRotation() {

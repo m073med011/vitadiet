@@ -2,7 +2,7 @@
   <ProductLanding v-if="product" :product="product" />
 
   <div v-else class="pt-24 pb-12 min-h-screen">
-    <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
+    <div class="content-container">
       <p
         class="text-caption font-bold tracking-label uppercase text-brand-primary text-center mb-4"
         data-aos="fade-up"
@@ -23,8 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import ProductLanding from '~/components/ProductLanding.vue'
 import { products } from '~/data/home'
+import { parseOfferPrice } from '~/utils/price'
 
 definePageMeta({
   headerSticky: false
@@ -110,10 +110,7 @@ const productImageUrl = computed(() =>
  */
 const offerPrice = computed(() => {
   if (!product.value) return null
-  const raw = t(product.value.priceKey).replace(/[٠-٩]/g, (d) =>
-    String(d.charCodeAt(0) - 0x0660)
-  )
-  return /\d/.test(raw) ? raw.replace(/[^\d.]/g, '') : null
+  return parseOfferPrice(t(product.value.priceKey))
 })
 
 /**

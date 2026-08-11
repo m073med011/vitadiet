@@ -71,14 +71,7 @@
 </template>
 
 <script setup lang="ts">
-const featuresData = [
-  { key: 'science', angle: -90 }, 
-  { key: 'sfda', angle: -30 }, 
-  { key: 'distribution', angle: 30 }, 
-  { key: 'quality', angle: 90 }, 
-  { key: 'safety', angle: 150 }, 
-  { key: 'transparency', angle: -150 }, 
-];
+import { aboutFeatures as featuresData } from '~/data/home'
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <section id="why" class="w-full py-section bg-surface-raised/50 section-decor overflow-hidden">
-    <div class="max-w-content mx-auto px-page sm:px-gutter md:px-page-lg">
+    <div class="content-container">
 
       <!-- Section header -->
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
@@ -70,42 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  FileCheckIcon,
-  HeartPulseIcon,
-  MicroscopeIcon,
-  ShieldCheckIcon,
-  SparklesIcon,
-  TruckIcon,
-} from 'lucide-vue-next'
-import { whyPetals } from '~/data/home'
-
-const iconMap: Record<string, object> = {
-  FileCheckIcon,
-  HeartPulseIcon,
-  MicroscopeIcon,
-  ShieldCheckIcon,
-  SparklesIcon,
-  TruckIcon,
-}
-
-const qualitySteps = [
-  {
-    titleKey: 'homePage.quality.items.safety.title',
-    descriptionKey: 'homePage.quality.items.safety.description',
-    icon: ShieldCheckIcon,
-  },
-  {
-    titleKey: 'homePage.quality.items.purity.title',
-    descriptionKey: 'homePage.quality.items.purity.description',
-    icon: SparklesIcon,
-  },
-  {
-    titleKey: 'homePage.quality.items.microscopic.title',
-    descriptionKey: 'homePage.quality.items.microscopic.description',
-    icon: MicroscopeIcon,
-  },
-]
+import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
 </script>
 
 <style scoped>

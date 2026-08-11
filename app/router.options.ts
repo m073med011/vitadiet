@@ -1,6 +1,5 @@
 import type { RouterConfig } from "@nuxt/schema";
-
-const normalizePath = (path: string) => path.replace(/\/$/, "") || "/";
+import { normalizePath } from "~/utils/path";
 
 const getMotionBehavior = () => {
   if (typeof window === "undefined") {
