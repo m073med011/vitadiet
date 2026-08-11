@@ -46,7 +46,14 @@
       <!-- Action group -->
       <div class="flex items-center gap-3 sm:gap-6">
         <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft hidden md:flex">
-          <BaseButton variant="icon" @click="toggleLanguage" :title="$t('switch_lang')" aria-label="Switch Language">
+          <!-- Real anchor (not a JS-only button) so crawlers can reach the other locale -->
+          <BaseButton
+            variant="icon"
+            :to="switchLocalePath(locale === 'en' ? 'ar' : 'en')"
+            :title="$t('switch_lang')"
+            :aria-label="$t('switch_lang')"
+            :hreflang="locale === 'en' ? 'ar' : 'en'"
+          >
             <LanguagesIcon class="w-6 h-6" />
             <span class="ms-2 text-small font-bold uppercase tracking-wide">{{ locale === 'en' ? 'عربي' : 'EN' }}</span>
           </BaseButton>
@@ -117,13 +124,16 @@
       <div class="relative z-10 px-6 py-6 border-t border-line">
         <p class="text-caption font-bold tracking-label uppercase text-ink-subtle mb-4">{{ $t('preferences') }}</p>
         <div class="grid grid-cols-2 gap-4">
-          <button
-            @click="toggleLanguage"
+          <NuxtLink
+            :to="switchLocalePath(locale === 'en' ? 'ar' : 'en')"
+            :hreflang="locale === 'en' ? 'ar' : 'en'"
+            :aria-label="$t('switch_lang')"
             class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted border border-line text-ink hover:bg-brand-primary-soft hover:text-brand-primary transition-all duration-200"
+            @click="isMobileMenuOpen = false"
           >
             <LanguagesIcon class="w-6 h-6 text-brand-primary" />
             <span class="text-small font-bold">{{ locale === 'en' ? 'عربي' : 'English' }}</span>
-          </button>
+          </NuxtLink>
         </div>
       </div>
     </aside>
@@ -146,8 +156,9 @@ import {
   PhoneIcon,
 } from 'lucide-vue-next'
 
-const { locale, setLocale } = useI18n()
+const { locale } = useI18n()
 const localePath = useLocalePath()
+const switchLocalePath = useSwitchLocalePath()
 const route = useRoute()
 const { sectionPath } = useSectionPath()
 
@@ -289,10 +300,6 @@ watch(() => route.fullPath, () => {
 const isActiveNavItem = (hash: string) => {
   if (normalizePath(route.path) !== homePath.value) return false
   return hash === activeHash.value
-}
-
-const toggleLanguage = () => {
-  setLocale(locale.value === 'en' ? 'ar' : 'en')
 }
 </script>
 

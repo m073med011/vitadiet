@@ -96,11 +96,6 @@ const metaDescription = computed(() => {
   return firstLine.length > 160 ? `${firstLine.slice(0, 157).trimEnd()}…` : firstLine
 })
 
-const canonicalUrl = computed(() => {
-  if (product.value) return new URL(localePath(`/product/${product.value.slug}`), siteUrl).toString()
-  return new URL(localePath('/products'), siteUrl).toString()
-})
-
 /** Absolute URL to the product's primary image, for OG tags and Product schema. */
 const productImageUrl = computed(() =>
   product.value ? new URL(product.value.image, siteUrl).toString() : undefined
@@ -148,11 +143,9 @@ useSeoMeta({
   twitterImage: () => productImageUrl.value,
 })
 
-useHead({
-  link: [
-    { rel: 'canonical', href: canonicalUrl.value },
-  ],
-})
+// The canonical + hreflang cluster is emitted centrally by useLocaleHead() in app.vue
+// (baseUrl + current route path). We deliberately do NOT emit a second canonical here —
+// two <link rel="canonical"> tags is invalid and can cause Google to ignore both.
 
 watchEffect(() => {
   if (!product.value) return

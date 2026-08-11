@@ -47,6 +47,7 @@ useHead({
     { property: "og:image:type", content: "image/png" },
     { property: "og:image:width", content: "1080" },
     { property: "og:image:height", content: "356" },
+    { property: "og:image:alt", content: () => t("seoTitle") },
     { property: "og:type", content: "website" },
     { property: "og:site_name", content: () => t("appName") },
     { property: "og:url", content: () => canonicalUrl.value },

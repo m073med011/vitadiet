@@ -137,6 +137,8 @@
     "products": {
       "heading": "Products",
       "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
+      "prev": "Previous product",
+      "next": "Next product",
       "items": {
         "bestrong": {
           "title": "BeStrong Dietary Supplement 30 Capsules",
