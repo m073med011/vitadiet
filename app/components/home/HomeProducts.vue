@@ -29,8 +29,9 @@
         @mouseleave="paused = false"
         @focusin="paused = true"
         @focusout="paused = false"
-        @touchstart.passive="paused = true"
-        @touchend.passive="paused = false"
+        @touchstart.passive="handleTouchStart"
+        @touchmove.passive="handleTouchMove"
+        @touchend.passive="handleTouchEnd"
       >
         <div ref="track" class="product-track" aria-label="Vitadiet products">
           <NuxtLink
@@ -58,21 +59,21 @@
               />
             </div>
 
-            <div class="flex flex-1 flex-col gap-page p-page">
-              <div class="flex items-start justify-between gap-page">
-                <h3 class="product-title text-copy font-bold leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
-                <span class="shrink-0 rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-small font-bold text-brand-primary flex items-center justify-center gap-1">
+            <div class="flex flex-1 flex-col gap-3 sm:gap-page p-3 sm:p-page">
+              <div class="flex flex-col sm:flex-row items-start sm:items-start sm:justify-between gap-2 sm:gap-page">
+                <h3 class="product-title text-copy font-bold leading-tight sm:leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
+                <span class="shrink-0 rounded-pill bg-brand-primary-soft px-2 sm:px-page py-1 sm:py-control-y-sm text-caption sm:text-small font-bold text-brand-primary flex items-center justify-center gap-1">
                   <span>{{ $t(product.priceKey) }}</span>
-                  <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <SaudiRiyalIcon v-if="isNumericPrice(product.priceKey)" class="h-3 w-3 sm:h-4 sm:w-4 shrink-0" aria-hidden="true" />
                 </span>
               </div>
 
-              <div class="mt-auto flex items-center justify-between gap-page border-t border-line pt-page">
-                <span class="text-caption font-bold tracking-label uppercase text-ink-subtle">
+              <div class="mt-auto flex items-center justify-between gap-2 sm:gap-page border-t border-line pt-3 sm:pt-page">
+                <span class="text-caption sm:text-small font-bold tracking-label uppercase text-ink-subtle leading-tight">
                   {{ $t('homePage.stats.b2bOnly') }}
                 </span>
-                <span class="product-arrow inline-flex h-icon-2xl w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
-                  <ArrowUpRightIcon class="h-icon-sm w-icon-sm rtl:-rotate-90" aria-hidden="true" />
+                <span class="product-arrow shrink-0 inline-flex h-8 w-8 sm:h-icon-2xl sm:w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
+                  <ArrowUpRightIcon class="h-4 w-4 sm:h-icon-sm sm:w-icon-sm rtl:-rotate-90" aria-hidden="true" />
                 </span>
               </div>
             </div>
@@ -117,6 +118,10 @@ const loopProducts = computed(() => [...products, ...products])
 const viewport = ref<HTMLElement | null>(null)
 const track = ref<HTMLElement | null>(null)
 const paused = ref(false)
+
+let lastTouchX = 0
+let isDragging = false
+let touchStartY = 0
 
 const AUTO_SPEED = 0.5 // pixels per frame for the ambient auto-scroll
 let offset = 0 // current translation in pixels (always >= 0)
@@ -163,6 +168,41 @@ function nudge(direction: number) {
   const gap = 20 // matches the track gap
   const cardWidth = card ? card.offsetWidth + gap : 300
   manualTarget += direction * cardWidth
+}
+
+function handleTouchStart(e: TouchEvent) {
+  paused.value = true
+  const touch = e.changedTouches[0]
+  if (!touch) return
+  lastTouchX = touch.screenX
+  touchStartY = touch.screenY
+  isDragging = false
+}
+
+function handleTouchMove(e: TouchEvent) {
+  if (!paused.value) return
+  const touch = e.changedTouches[0]
+  if (!touch) return
+  const currentX = touch.screenX
+  const currentY = touch.screenY
+  const diffX = lastTouchX - currentX
+  const diffY = Math.abs(touchStartY - currentY)
+
+  if (!isDragging) {
+    if (diffY > Math.abs(diffX)) return // User is scrolling vertically
+    if (Math.abs(diffX) > 5) isDragging = true
+  }
+
+  if (isDragging) {
+    lastTouchX = currentX
+    const move = isRtl ? -diffX : diffX
+    offset += move
+    manualTarget = 0
+  }
+}
+
+function handleTouchEnd(e: TouchEvent) {
+  paused.value = false
 }
 
 function syncHoverCapability(event?: MediaQueryListEvent) {
@@ -223,27 +263,34 @@ function isNumericPrice(priceKey: string): boolean {
   flex: 0 0 auto;
   /* Fluid across every viewport rather than snapping at breakpoints: the clamp
      keeps cards readable on small phones and from getting oversized on desktop. */
-  width: clamp(13.5rem, 72vw, 18rem);
+  width: clamp(9.5rem, 45vw, 14rem);
 }
 
 @media (min-width: 640px) {
   .product-card {
-    width: clamp(15rem, 34vw, 18rem);
+    width: clamp(15rem, 40vw, 18rem);
   }
 }
 
 @media (min-width: 1024px) {
   .product-card {
-    width: clamp(16rem, 22vw, 20rem);
+    width: clamp(16rem, 25vw, 22rem);
   }
 }
 
 .product-title {
   display: -webkit-box;
-  min-height: 3.5rem;
+  min-height: 2.75rem;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
+}
+
+@media (min-width: 640px) {
+  .product-title {
+    min-height: 3.5rem;
+    -webkit-line-clamp: 3;
+  }
 }
 
 .product-card:hover .product-arrow {
@@ -255,10 +302,10 @@ html[dir="rtl"] .product-card:hover .product-arrow {
 }
 
 .product-nav {
-  display: none;
+  display: inline-flex;
   flex: 0 0 auto;
-  height: 2.75rem;
-  width: 2.75rem;
+  height: 2.25rem;
+  width: 2.25rem;
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
@@ -283,12 +330,10 @@ html[dir="rtl"] .product-card:hover .product-arrow {
 }
 
 @media (min-width: 640px) {
-  .product-card {
-    width: 20rem;
-  }
-
   .product-nav {
     display: inline-flex;
+    height: 2.75rem;
+    width: 2.75rem;
   }
 }
 </style>
