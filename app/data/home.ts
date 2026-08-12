@@ -34,7 +34,7 @@ import {
   TruckIcon,
 } from 'lucide-vue-next'
 
-// Re-export so existing `import type { HomeProduct } from '~/data/home'` keeps working.
+
 export type { HomeProduct }
 
 export const heroSection = {
@@ -85,7 +85,6 @@ export const whyPetals = [
   },
 ];
 
-/** Icon component lookup for `whyPetals[].icon` string keys. */
 export const petalIconMap: Record<string, Component> = {
   FileCheckIcon,
   HeartPulseIcon,
@@ -95,7 +94,6 @@ export const petalIconMap: Record<string, Component> = {
   TruckIcon,
 }
 
-/** Quality assurance steps shown inside the "Why Vitadiet" quality panel. */
 export const qualitySteps = [
   {
     titleKey: 'homePage.quality.items.safety.title',
@@ -114,14 +112,12 @@ export const qualitySteps = [
   },
 ]
 
-/** FAQ accordion items on the homepage. */
 export const faqItems = [
   { key: 'consumer', questionKey: 'homePage.faq.items.consumer.question', answerKey: 'homePage.faq.items.consumer.answer' },
   { key: 'sfda', questionKey: 'homePage.faq.items.sfda.question', answerKey: 'homePage.faq.items.sfda.answer' },
   { key: 'files', questionKey: 'homePage.faq.items.files.question', answerKey: 'homePage.faq.items.files.answer' },
 ]
 
-/** Orbiting feature petals for the "Who We Are" / About section. */
 export const aboutFeatures = [
   { key: 'science', angle: -90 },
   { key: 'sfda', angle: -30 },
@@ -211,7 +207,7 @@ export const products: HomeProduct[] = [
     descriptionKey: 'productDetails.flowadite.description',
     slug: 'flowadite',
     image: prodFlowadite,
-    // Deliberately omitted until an approved Flowadite listing is available.
-    // The previous URL was for Floradiet and must never be presented as Flowadite.
+    
+    
   },
 ];

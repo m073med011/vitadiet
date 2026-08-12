@@ -56,24 +56,24 @@ import { faqItems } from '~/data/home'
 
 const { t } = useI18n()
 
-// Tracks which panels are expanded. A Set allows multiple open at once; swap for a
-// single ref if you'd rather have exclusive (one-at-a-time) accordion behaviour.
+
+
 const openItems = ref(new Set<string>())
 
 function toggle(key: string) {
-  // Reassign so the reactive ref re-renders (mutating a Set in place doesn't trigger it).
+  
   const next = new Set(openItems.value)
   next.has(key) ? next.delete(key) : next.add(key)
   openItems.value = next
 }
 
-// FAQPage schema mirrors the visible content above (Google requires FAQ rich-result
-// content to be visible on the page).
-//
-// defineQuestion only attaches each Question to WebPage.mainEntity when the page's
-// WebPage node is typed FAQPage (see @unhead/schema-org questionResolver). Without
-// this the Questions render but stay orphaned in the @graph and earn no rich result,
-// so we widen the (home) WebPage @type to include FAQPage.
+
+
+
+
+
+
+
 useSchemaOrg([
   defineWebPage({ '@type': ['WebPage', 'FAQPage'] }),
   ...faqItems.map((item) =>
@@ -86,9 +86,6 @@ useSchemaOrg([
 </script>
 
 <style scoped>
-/* Smooth expand/collapse without measuring heights in JS: animate the panel from
-   grid-template-rows 0fr → 1fr. The inner wrapper needs min-height:0 + overflow
-   hidden so the content can be clipped while it grows. */
 .faq-panel {
   max-height: 0;
   overflow: hidden;
@@ -100,8 +97,7 @@ useSchemaOrg([
 }
 
 .faq-panel-inner {
-  /* Fade + slight lift the copy in as it reveals, tied to the same easing. */
-  opacity: 0;
+    opacity: 0;
   transform: translateY(-0.25rem);
   transition:
     opacity var(--motion-page, 320ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),

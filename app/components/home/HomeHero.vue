@@ -1,9 +1,9 @@
 <template>
   <section class="relative w-full overflow-hidden bg-surface pt-5 ">
-    <!-- Lotus grid backdrop -->
+    
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
-    <!-- Desktop hero image gallery -->
+    
     <div class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] pointer-events-none lg:block">
         <div
           v-for="(img, index) in heroSection.images"
@@ -19,7 +19,7 @@
             >
               {{ index + 1 }}
             </span>
-            <!-- Decorative collage: empty alt so it isn't announced/indexed -->
+            
             <BaseImage
               :src="img.src"
               alt=""
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <!-- Mobile decorative gallery -->
+    
     <div class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden lg:hidden" aria-hidden="true" dir="ltr">
       <div class="hero-mobile-marquee">
         <div
@@ -48,7 +48,7 @@
             >
               {{ index + 1 }}
             </span>
-            <!-- Decorative collage: empty alt so it isn't announced/indexed -->
+            
             <BaseImage
               :src="img.src"
               alt=""
@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <!-- Hero copy block -->
+    
     <div class="relative z-20 px-page max-w-content mx-auto lg:-mt-section-lg ">
       <div class=" mx-auto max-w-[60rem] px-page py-gutter sm:px-card sm:py-card text-center ">
         <span
@@ -143,7 +143,7 @@ const trustItems = [
 </script>
 
 <style scoped>
-/* Complex multi-layer radial + grid background â€” cannot be expressed in Tailwind utilities */
+
 .lotus-backdrop {
   position: absolute;
   inset: 0;

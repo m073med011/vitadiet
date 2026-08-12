@@ -2,7 +2,7 @@
   <section id="why" class="w-full py-section bg-surface-raised/50 section-decor overflow-hidden">
     <div class="content-container">
 
-      <!-- Section header -->
+      
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
         <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-brand-primary uppercase tracking-label mb-page">
           {{ $t('homePage.why.heading') }}
@@ -12,7 +12,7 @@
         </p>
       </div>
 
-      <!-- ── Petal cards grid ─────────────────────────────────── -->
+      
       <div class="petal-grid">
         <article
           v-for="(petal, index) in whyPetals"
@@ -29,12 +29,12 @@
             {{ $t(petal.descriptionKey) }}
           </p>
 
-          <!-- Decorative glow blob -->
+          
           <span class="petal-glow" aria-hidden="true" />
         </article>
       </div>
 
-      <!-- ── Quality panel ────────────────────────────────────── -->
+      
       <article class="quality-panel" data-aos="fade-up" data-aos-delay="100">
         <div class="quality-image-shell">
           <NuxtImg
@@ -74,7 +74,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
 </script>
 
 <style scoped>
-/* ── Section decorative element ─────────────────────────── */
+
 .section-decor {
   position: relative;
 }
@@ -91,7 +91,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   pointer-events: none;
 }
 
-/* ── Petal grid ─────────────────────────────────────────── */
+
 .petal-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -99,7 +99,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   margin-bottom: 1rem;
 }
 
-/* ── Petal card ─────────────────────────────────────────── */
+
 .petal-card {
   position: relative;
   overflow: hidden;
@@ -128,7 +128,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
 
 
 
-/* Petal icon */
+
 .petal-icon {
   display: block;
   width: 2rem;
@@ -139,7 +139,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
 
 
 
-/* Decorative glow blob on hover */
+
 .petal-glow {
   position: absolute;
   inset: auto -3rem -4rem auto;
@@ -162,7 +162,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
 
 
 
-/* ── Quality panel ──────────────────────────────────────── */
+
 .quality-panel {
   position: relative;
   border-radius: var(--radius-panel);
@@ -190,7 +190,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   text-align: center;
 }
 
-/* Panel body */
+
 .panel-body {
   position: relative;
   z-index: 2;
@@ -208,14 +208,14 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   text-shadow: 0 0.25rem 2.5rem rgb(2 3 12 / 0.54);
 }
 
-/* Steps grid */
+
 .panel-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.75rem, 2vw, 1rem);
 }
 
-/* Single step card */
+
 .panel-step {
   position: relative;
   overflow: hidden;
@@ -250,7 +250,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   margin-bottom: 1.25rem;
 }
 
-/* Step title */
+
 .step-title {
   margin-bottom: 0.375rem;
   color: var(--color-ink);
@@ -259,7 +259,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   line-height: var(--leading-heading);
 }
 
-/* Step description */
+
 .step-desc {
   color: var(--color-ink-soft);
   font-size: var(--text-copy);
@@ -288,7 +288,7 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   }
 }
 
-/* ── Responsive ─────────────────────────────────────────── */
+
 @media (max-width: 900px) {
   .panel-steps {
     grid-template-columns: 1fr;

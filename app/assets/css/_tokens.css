@@ -1,14 +1,9 @@
-/* ─────────────────────────────────────────────
-   Design Tokens
-   Colors, spacing, radii, typography, shadows
-   ───────────────────────────────────────────── */
 
 @theme {
   --font-sans: 'Poppins', system-ui, sans-serif;
   --font-arabic: 'Tajawal', system-ui, sans-serif;
 
-  /* ── Brand palette ── */
-  --color-brand-primary: #1a7039;
+    --color-brand-primary: #1a7039;
   --color-brand-primary-hover: #d3d3d3;
   --color-brand-primary-soft: #edf3fa;
   --color-brand-accent: #1a7039;
@@ -16,8 +11,7 @@
   --color-brand-accent-soft: #d3d3d3;
   --color-brand-dark: #10243f;
 
-  /* ── Light surfaces ── */
-  --color-surface: #fbfcff;
+    --color-surface: #fbfcff;
   --color-surface-raised: #f7f9fd;
   --color-surface-muted: #d3d3d3;
   --color-ink: #10243f;
@@ -31,18 +25,15 @@
 
 
 
-  /* ── Containers ── */
-  --container-shell: 120rem;
+    --container-shell: 120rem;
   --container-content: 80rem;
   --container-copy: 48rem;
   --container-form: 32rem;
 
-  /* ── Aspect ratios ── */
-  --aspect-media-wide: 4 / 3;
+    --aspect-media-wide: 4 / 3;
   --aspect-media-tall: 4 / 5;
 
-  /* ── Spacing ── */
-  --spacing-page: 1rem;
+    --spacing-page: 1rem;
   --spacing-page-lg: 2rem;
   --spacing-gutter: 1.5rem;
   --spacing-gutter-lg: 3rem;
@@ -76,8 +67,7 @@
   --spacing-bullet-active: 1.5rem;
   --spacing-bullet-gap: 0.25rem;
 
-  /* ── Radii ── */
-  --radius-control: 0.25rem;
+    --radius-control: 0.25rem;
   --radius-card: 0.5rem;
   --radius-panel: 1rem;
   --radius-media: 1.5rem;
@@ -85,8 +75,7 @@
   --radius-display-lg: 3rem;
   --radius-pill: 9999px;
 
-  /* ── Typography ── */
-  --text-caption: 0.75rem;
+    --text-caption: 0.75rem;
   --text-small: 0.875rem;
   --text-copy: 1rem;
   --text-copy-lg: 1.125rem;
@@ -100,8 +89,7 @@
   --tracking-label: 0.08em;
   --tracking-nav: 0.12em;
 
-  /* ── Shadows ── */
-  --shadow-shell: 0 25px 70px rgb(29 43 91 / 0.12);
+    --shadow-shell: 0 25px 70px rgb(29 43 91 / 0.12);
   --shadow-card: 0 12px 32px rgb(29 43 91 / 0.08);
   --shadow-card-hover: 0 18px 42px rgb(29 43 91 / 0.12);
   --shadow-float: 0 16px 40px rgb(29 43 91 / 0.16);
@@ -110,7 +98,6 @@
   --shadow-glow-accent: 0 0 24px rgb(212 178 100 / 0.22);
 }
 
-/* Motion & layout tokens that live outside @theme */
 :root {
   --motion-fast: 200ms;
   --motion-standard: 300ms;

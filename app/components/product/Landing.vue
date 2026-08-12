@@ -69,7 +69,7 @@
           </Transition>
         </div>
 
-        <!-- Mobile gallery (horizontal) -->
+        
         <ProductGallery
           v-if="galleryImages.length > 1"
           layout="horizontal"
@@ -80,7 +80,7 @@
         />
       </div>
 
-      <!-- Desktop gallery (vertical) -->
+      
       <ProductGallery
         v-if="galleryImages.length > 1"
         :dir="pageDirection"

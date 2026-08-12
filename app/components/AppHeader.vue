@@ -27,7 +27,7 @@
 
       <HeaderDesktopNav :nav-items="navItems" :is-active="isActiveNavItem" />
 
-      <!-- Action group -->
+      
       <div class="flex items-center gap-3 sm:gap-6">
         <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft hidden md:flex">
           <HeaderLangSwitcher variant="desktop" />
@@ -70,8 +70,8 @@ const isMobileMenuOpen = ref(false)
 const { isScrolled, handleScroll } = useScrollState()
 const { activeHash, scheduleActiveSectionUpdate } = useActiveSection(navItems)
 
-// The section observer only fires when a threshold is crossed, which doesn't
-// happen on the last few pixels of scroll — hook into scroll to recheck.
+
+
 watch(isScrolled, () => {
   scheduleActiveSectionUpdate()
 })

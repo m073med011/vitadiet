@@ -2,15 +2,6 @@ import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { normalizePath } from '~/utils/path'
 import type { NavItem } from '~/types'
 
-/**
- * Tracks which homepage section is currently most visible in the viewport,
- * using IntersectionObserver with a tuned rootMargin band.
- *
- * Extracted from AppHeader to decouple section tracking from nav rendering.
- *
- * @param navItems     The navigation items (only items with `hash` are observed)
- * @param onObserverReady  Optional callback invoked once the observer is set up
- */
 export function useActiveSection(navItems: NavItem[]) {
   const route = useRoute()
   const localePath = useLocalePath()

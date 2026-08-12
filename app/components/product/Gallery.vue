@@ -24,7 +24,7 @@
           : 'border-line/80 opacity-75 hover:border-brand-primary/50 hover:opacity-100 hover:-translate-y-0.5 hover:scale-105'
       ]"
     >
-      <!-- Button already carries an aria-label; empty alt avoids duplicate announcement -->
+      
       <BaseImage class="block" :src="img" alt="" fill fit="cover" />
     </button>
   </div>

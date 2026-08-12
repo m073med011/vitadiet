@@ -1,11 +1,5 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
-/**
- * Tracks whether the page has been scrolled past a threshold.
- * Uses rAF throttling to avoid layout thrashing.
- *
- * Extracted from AppHeader to decouple scroll state from nav rendering.
- */
 export function useScrollState(threshold = 20) {
   const isScrolled = ref(false)
   let scrollFrame: number | undefined

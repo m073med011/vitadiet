@@ -1,10 +1,6 @@
 import { LinkedinIcon, InstagramIcon } from 'lucide-vue-next'
 import type { SocialLink } from '~/types'
 
-/**
- * Social media links rendered in the footer brand column.
- * Icons use either a Lucide component or an inline SVG `path`.
- */
 export const socialLinks: SocialLink[] = [
   {
     label: 'LinkedIn',

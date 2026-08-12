@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* ── Design system foundations ── */
 @import "./_tokens.css";
 
 @layer base {
@@ -57,12 +56,9 @@
   }
 }
 
-/* ── Shared component patterns ── */
 @layer components {
 
-  /* Circular icon button — used for social links, contact icons, and any
-     round-bordered icon wrapper that lifts on hover. */
-  .icon-circle {
+    .icon-circle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -85,9 +81,7 @@
     box-shadow: var(--shadow-card);
   }
 
-  /* Standard content container — max-width + responsive horizontal padding.
-     Replaces the repeated `max-w-content mx-auto px-page sm:px-gutter md:px-page-lg`. */
-  .content-container {
+    .content-container {
     max-width: var(--container-content);
     margin-inline: auto;
     padding-inline: var(--spacing-page);

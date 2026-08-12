@@ -1,19 +1,9 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 export interface UseMarqueeOptions {
-  /** Pixels per frame for the ambient auto-scroll (default: 0.5) */
-  autoSpeed?: number
+    autoSpeed?: number
 }
 
-/**
- * rAF-driven infinite marquee with touch-gesture support and RTL awareness.
- *
- * Extracted from HomeProducts to decouple the animation engine from the
- * product card rendering.
- *
- * The consumer must bind `viewport` and `track` template refs, and wire
- * the touch/pause event handlers to the viewport element.
- */
 export function useMarquee(options: UseMarqueeOptions = {}) {
   const AUTO_SPEED = options.autoSpeed ?? 0.5
 
@@ -21,8 +11,8 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
   const track = ref<HTMLElement | null>(null)
   const paused = ref(false)
 
-  let offset = 0          // current translation in pixels (always >= 0)
-  let manualTarget = 0    // extra distance queued by the arrow buttons
+  let offset = 0          
+  let manualTarget = 0    
   let rafId = 0
   let isRtl = false
   let prefersReducedMotion = false
@@ -32,7 +22,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
   let touchStartY = 0
 
   function loopWidth(): number {
-    // Half of the track = one full copy of the product list.
+    
     return track.value ? track.value.scrollWidth / 2 : 0
   }
 
@@ -47,7 +37,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
   }
 
   function tick() {
-    // Ease through any queued arrow movement, then apply ambient drift.
+    
     if (manualTarget !== 0) {
       const step = manualTarget * 0.12
       offset += step
@@ -63,10 +53,9 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     rafId = requestAnimationFrame(tick)
   }
 
-  /** Advance one card width in the given direction (1 = next, -1 = prev). */
-  function nudge(direction: number) {
+    function nudge(direction: number) {
     const card = track.value?.querySelector<HTMLElement>('.product-card')
-    const gap = 20 // matches the track gap
+    const gap = 20 
     const cardWidth = card ? card.offsetWidth + gap : 300
     manualTarget += direction * cardWidth
   }
@@ -90,7 +79,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     const diffY = Math.abs(touchStartY - currentY)
 
     if (!isDragging) {
-      if (diffY > Math.abs(diffX)) return // User is scrolling vertically
+      if (diffY > Math.abs(diffX)) return 
       if (Math.abs(diffX) > 5) isDragging = true
     }
 

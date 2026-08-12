@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <!-- Carousel with max-width to align with the section content -->
+    
     <div class="product-carousel-wrapper content-container" data-aos="fade-up">
       <button
         type="button"
@@ -74,7 +74,7 @@ const localePath = useLocalePath()
 const canUseHover = ref(false)
 let hoverQuery: MediaQueryList | undefined
 
-// Render the list twice so the marquee can loop seamlessly.
+
 const loopProducts = computed(() => [...products, ...products])
 
 const {

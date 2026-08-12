@@ -30,7 +30,6 @@ const { sectionPath } = useSectionPath()
 </script>
 
 <style scoped>
-/* Desktop nav underline indicator */
 .nav-link::after {
   content: "";
   position: absolute;

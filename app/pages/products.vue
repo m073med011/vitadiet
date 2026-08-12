@@ -6,7 +6,7 @@
         {{ $t('productPage.description') }}
       </p>
 
-      <!-- Indexable product index: real internal links to every product detail page -->
+      
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter mb-12">
         <li v-for="product in products" :key="product.slug" data-aos="fade-up">
           <ProductCard :product="product" />
@@ -29,8 +29,8 @@ const { t } = useI18n()
 const { productPath } = useProductPath()
 const siteUrl = useSiteConfig().url
 
-// ItemList schema mirrors the visible product grid so the listing can earn a
-// richer, ordered result in search.
+
+
 useSchemaOrg([
   defineItemList({
     itemListElement: products.map((product, index) => ({
@@ -42,7 +42,7 @@ useSchemaOrg([
   }),
 ])
 
-// titleTemplate in app.vue appends " - Vitadiet"; keep this brand-free.
+
 useSeoMeta({
   title: () => t('productPage.heading'),
   description: () => t('productPage.description'),

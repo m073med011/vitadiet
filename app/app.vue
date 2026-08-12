@@ -11,27 +11,27 @@ const logo = "/images/vitadiet-official-logo.svg";
 const { t, locale } = useI18n();
 const route = useRoute();
 
-// Absolute URLs must be built from the configured site origin, NOT useRequestURL():
-// during static prerender there is no real request host, so useRequestURL() resolves
-// to http://localhost and leaks that into canonical/og:url/schema URLs.
+
+
+
 const siteUrl = useSiteConfig().url;
-// site.url carries no trailing slash, so interpolating it directly ("`${siteUrl}#identity`")
-// yields a bare-origin URL that disagrees with the "/"-terminated form used everywhere
-// else — including the schema-org nodes the library generates itself (/#website, /#logo).
+
+
+
 const siteOrigin = new URL("/", siteUrl).toString();
 const ogImageUrl = computed(() => new URL(ogImage, siteUrl).toString());
 const logoUrl = computed(() => new URL(logo, siteUrl).toString());
 const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl).toString());
 
-// i18n SEO head: emits per-locale canonical + hreflang alternates (incl. x-default),
-// the html lang/dir attributes, and og:locale[:alternate]. Without this the en/ar
-// versions don't reference each other and risk being treated as duplicate content.
+
+
+
 const i18nHead = useLocaleHead();
 
-// For the default-locale home page i18n joins baseUrl + "/" down to a bare origin
-// ("https://www.vitadiet.sa"), so its canonical/hreflang disagree with the trailing
-// slash used by og:url, the sitemap, and every other route. Re-serializing through
-// URL restores the "/" — other paths already carry it and pass through unchanged.
+
+
+
+
 const withNormalizedHref = <T extends { href?: string }>(links: T[]): T[] =>
   links.map((link) =>
     link.href?.startsWith("http") ? { ...link, href: new URL(link.href).toString() } : link
@@ -65,9 +65,9 @@ useHead({
     { property: "og:site_name", content: () => t("appName") },
     { property: "og:url", content: () => canonicalUrl.value },
     { name: "theme-color", content: "#1a7039" },
-    // Only twitter:card is global. twitter:title/description/image are intentionally
-    // omitted so X/Twitter falls back to the per-page og:* tags — otherwise every
-    // product share would inherit the homepage title/description/image.
+    
+    
+    
     { name: "twitter:card", content: "summary_large_image" }
   ]
 });

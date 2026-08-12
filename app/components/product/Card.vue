@@ -50,10 +50,8 @@ import { isNumericPrice } from '~/utils/price'
 
 const props = defineProps<{
   product: HomeProduct
-  /** Show the secondary gallery image on hover (requires hover-capable device) */
-  showHoverImage?: boolean
-  /** Pass-through HTML attributes like aria-hidden, tabindex for the carousel clone items */
-  ariaHidden?: boolean
+    showHoverImage?: boolean
+    ariaHidden?: boolean
   tabIndex?: number
 }>()
 

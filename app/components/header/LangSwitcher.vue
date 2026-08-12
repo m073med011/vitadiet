@@ -28,8 +28,7 @@
 import { LanguagesIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
-  /** 'desktop' renders as an icon button; 'mobile' renders as a card-style link */
-  variant: 'desktop' | 'mobile'
+    variant: 'desktop' | 'mobile'
 }>()
 
 defineEmits<{

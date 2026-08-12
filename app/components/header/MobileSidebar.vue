@@ -1,5 +1,5 @@
 <template>
-  <!-- Mobile overlay -->
+  
   <Transition name="fade-overlay">
     <div
       v-if="isOpen"
@@ -8,14 +8,14 @@
     ></div>
   </Transition>
 
-  <!-- Mobile sidebar -->
+  
   <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
     <aside
       v-if="isOpen"
       class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface shadow-[4px_0_60px_rgba(27,56,97,0.18)] border-e border-line pointer-events-auto"
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
-      <!-- Sidebar header -->
+      
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="$emit('close')">
           <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" :width="1000" :height="333" class="h-8 sm:h-10 w-auto object-contain" />
@@ -29,7 +29,7 @@
         </button>
       </div>
 
-      <!-- Sidebar nav links -->
+      
       <nav class="flex-1 overflow-y-auto px-4 sm:px-6 pt-6 pb-6">
         <div class="flex flex-col gap-2">
           <NuxtLink
@@ -48,7 +48,7 @@
         </div>
       </nav>
 
-      <!-- Sidebar footer actions -->
+      
       <div class="relative z-10 px-6 py-6 border-t border-line">
         <p class="text-caption font-bold tracking-label uppercase text-ink-subtle mb-4">{{ $t('preferences') }}</p>
         <div class="grid grid-cols-2 gap-4">
@@ -81,14 +81,12 @@ const { sectionPath } = useSectionPath()
 </script>
 
 <style scoped>
-/* Mobile sidebar active state */
 .sidebar-nav-link-active {
   background: color-mix(in oklab, var(--color-brand-primary) 10%, transparent);
   border-color: color-mix(in oklab, var(--color-brand-primary) 18%, transparent);
   color: var(--color-brand-primary);
 }
 
-/* Slide transitions */
 .fade-overlay-enter-active,
 .fade-overlay-leave-active {
   transition: opacity 280ms ease;
