@@ -75,13 +75,13 @@ import { aboutFeatures as featuresData } from '~/data/home'
 </script>
 
 <style scoped>
-[data-aos="draw-line"] .progress-circle {
+html.aos-ready [data-aos="draw-line"] .progress-circle {
   stroke-dashoffset: 312;
   transition: stroke-dashoffset 4.5s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 200ms;
 }
 
-[data-aos="draw-line"][data-aos-animate] .progress-circle {
+html.aos-ready [data-aos="draw-line"][data-aos-animate] .progress-circle {
   stroke-dashoffset: 0;
 }
 
@@ -89,7 +89,7 @@ import { aboutFeatures as featuresData } from '~/data/home'
   transform: translate(-50%, -50%) rotate(var(--angle));
 }
 
-[data-aos="orbit-pop"] {
+html.aos-ready [data-aos="orbit-pop"] {
   right: 50%;
   opacity: 0;
   transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(0.2);
@@ -97,7 +97,7 @@ import { aboutFeatures as featuresData } from '~/data/home'
   transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1) !important;
 }
 
-[data-aos="orbit-pop"][data-aos-animate] {
+html.aos-ready [data-aos="orbit-pop"][data-aos-animate] {
   right: 0;
   opacity: 1;
   transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(1);

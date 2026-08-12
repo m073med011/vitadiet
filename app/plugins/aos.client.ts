@@ -57,6 +57,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       })
 
       isReady = true
+      document.documentElement.classList.add('aos-ready')
       scheduleRevealRefresh()
     }, 0)
   })

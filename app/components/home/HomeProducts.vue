@@ -11,8 +11,35 @@
       </div>
     </div>
 
-    
-    <div class="product-carousel-wrapper content-container" data-aos="fade-up">
+    <noscript>
+      <style>
+        .ssr-fallback-grid { display: none !important; }
+        .product-carousel-wrapper { display: none !important; }
+      </style>
+      <div class="content-container mb-8">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <ProductCard
+            v-for="(product, index) in products"
+            :key="`${product.slug}-noscript-${index}`"
+            :product="product"
+            :show-hover-image="false"
+          />
+        </div>
+      </div>
+    </noscript>
+
+    <div v-if="!isMounted" class="ssr-fallback-grid content-container mb-8" aria-hidden="true">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <ProductCard
+          v-for="(product, index) in products"
+          :key="`${product.slug}-ssr-${index}`"
+          :product="product"
+          :show-hover-image="false"
+        />
+      </div>
+    </div>
+
+    <div v-show="isMounted" class="product-carousel-wrapper content-container" data-aos="fade-up">
       <button
         type="button"
         class="product-nav product-nav--prev absolute top-1/2 start-4 md:start-8 z-10"
@@ -72,6 +99,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next'
 
 const localePath = useLocalePath()
 const canUseHover = ref(false)
+const isMounted = ref(false)
 let hoverQuery: MediaQueryList | undefined
 
 
@@ -92,6 +120,7 @@ function syncHoverCapability(event?: MediaQueryListEvent) {
 }
 
 onMounted(() => {
+  isMounted.value = true
   hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)')
   syncHoverCapability()
   hoverQuery.addEventListener('change', syncHoverCapability)
