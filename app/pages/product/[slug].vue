@@ -151,7 +151,10 @@ watchEffect(() => {
   useSchemaOrg([
     defineBreadcrumb({
       itemListElement: [
-        { name: t('home'), item: localePath('/') },
+        // Absolute: for the default locale localePath('/') is "/", which schema-org
+        // resolves against the host down to a bare origin, disagreeing with the
+        // trailing-slash form used by the canonical and the sitemap.
+        { name: t('home'), item: new URL(localePath('/'), siteUrl).toString() },
         { name: t('productPage.heading'), item: localePath('/products/') },
         { name: pageName.value, item: productPath(product.value.slug) },
       ],

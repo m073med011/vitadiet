@@ -15,6 +15,10 @@ const route = useRoute();
 // during static prerender there is no real request host, so useRequestURL() resolves
 // to http://localhost and leaks that into canonical/og:url/schema URLs.
 const siteUrl = useSiteConfig().url;
+// site.url carries no trailing slash, so interpolating it directly ("`${siteUrl}#identity`")
+// yields a bare-origin URL that disagrees with the "/"-terminated form used everywhere
+// else — including the schema-org nodes the library generates itself (/#website, /#logo).
+const siteOrigin = new URL("/", siteUrl).toString();
 const ogImageUrl = computed(() => new URL(ogImage, siteUrl).toString());
 const logoUrl = computed(() => new URL(logo, siteUrl).toString());
 const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl).toString());
@@ -24,10 +28,19 @@ const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl).toString())
 // versions don't reference each other and risk being treated as duplicate content.
 const i18nHead = useLocaleHead();
 
+// For the default-locale home page i18n joins baseUrl + "/" down to a bare origin
+// ("https://www.vitadiet.sa"), so its canonical/hreflang disagree with the trailing
+// slash used by og:url, the sitemap, and every other route. Re-serializing through
+// URL restores the "/" — other paths already carry it and pass through unchanged.
+const withNormalizedHref = <T extends { href?: string }>(links: T[]): T[] =>
+  links.map((link) =>
+    link.href?.startsWith("http") ? { ...link, href: new URL(link.href).toString() } : link
+  );
+
 useHead(() => ({
   htmlAttrs: i18nHead.value.htmlAttrs ?? {},
   link: [
-    ...(i18nHead.value.link ?? []),
+    ...withNormalizedHref(i18nHead.value.link ?? []),
     { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
     { rel: "icon", type: "image/svg+xml", href: logoUrl.value },
     { rel: "apple-touch-icon", href: logoUrl.value },
@@ -61,11 +74,11 @@ useHead({
 
 useSchemaOrg([
   defineOrganization({
-    '@id': `${siteUrl}#identity`,
+    '@id': `${siteOrigin}#identity`,
     name: 'Vitadiet',
     description: () => t('description'),
     logo: () => logoUrl.value,
-    url: siteUrl,
+    url: siteOrigin,
     sameAs: [
       'https://www.linkedin.com/company/Vitadiet',
       'https://www.instagram.com/Vitadiet.sa',

@@ -87,6 +87,8 @@ export default defineNuxtConfig({
     '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     '/_fonts/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+    '/sitemap.xml': { robots: false, sitemap: false },
+    '/ar/sitemap.xml': { robots: false, sitemap: false },
   },
 
 
