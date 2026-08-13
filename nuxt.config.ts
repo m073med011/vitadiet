@@ -41,6 +41,12 @@ export default defineNuxtConfig({
     defaultLocale: 'ar'
   },
 
+  schemaOrg: {
+    // The site has one canonical WebSite entity, shared by both locales.
+    // Locale-aware defaults create /en/#website and translationOfWork nodes.
+    defaults: false,
+  },
+
   sitemap: {
     
     sources: ['/api/__sitemap__/urls'],

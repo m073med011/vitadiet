@@ -11,20 +11,7 @@
       </div>
     </div>
 
-    <noscript>
-      <div class="content-container mb-8">
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          <ProductCard
-            v-for="(product, index) in products"
-            :key="`${product.slug}-noscript-${index}`"
-            :product="product"
-            :show-hover-image="false"
-          />
-        </div>
-      </div>
-    </noscript>
-
-    <div v-if="!isMounted" class="ssr-fallback-grid content-container mb-8" aria-hidden="true" inert>
+    <div v-if="!isMounted" class="ssr-fallback-grid content-container mb-8">
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         <ProductCard
           v-for="(product, index) in products"
@@ -36,11 +23,15 @@
     </div>
 
     <div
-      v-show="isMounted"
+      v-else
       class="product-carousel-wrapper content-container"
       role="region"
       :aria-label="$t('homePage.products.carouselLabel')"
       data-aos="fade-up"
+      @mouseenter="paused = true"
+      @mouseleave="paused = false"
+      @focusin="handleCarouselFocusIn"
+      @focusout="handleCarouselFocusOut"
     >
       <button
         type="button"
@@ -54,10 +45,6 @@
       <div
         ref="viewport"
         class="product-viewport"
-        @mouseenter="paused = true"
-        @mouseleave="paused = false"
-        @focusin="paused = true"
-        @focusout="paused = false"
         @touchstart.passive="handleTouchStart"
         @touchmove.passive="handleTouchMove"
         @touchend.passive="handleTouchEnd"
@@ -101,17 +88,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-vue-next'
 
 const localePath = useLocalePath()
 const canUseHover = ref(false)
+
+// Keep SSR and the first client render on the same fallback branch. Rendering
+// Vue components inside a body <noscript> makes browsers parse them as text
+// when JavaScript is enabled, so Vue receives a different hydration tree.
 const isMounted = ref(false)
 let hoverQuery: MediaQueryList | undefined
-
-useHead({
-  noscript: [
-    {
-      id: 'home-products-no-script',
-      innerHTML: '<style>.ssr-fallback-grid{display:none!important}.product-carousel-wrapper{display:none!important}</style>',
-    },
-  ],
-})
 
 const loopProducts = computed(() => [...products, ...products])
 
@@ -120,6 +102,7 @@ const {
   track,
   paused,
   nudge,
+  ensureVisible,
   handleTouchStart,
   handleTouchMove,
   handleTouchEnd,
@@ -127,6 +110,29 @@ const {
 
 function syncHoverCapability(event?: MediaQueryListEvent) {
   canUseHover.value = event ? event.matches : Boolean(hoverQuery?.matches)
+}
+
+function handleCarouselFocusIn(event: FocusEvent) {
+  paused.value = true
+
+  const target = event.target
+  if (!(target instanceof HTMLElement)) return
+
+  const card = target.closest<HTMLElement>('.product-card')
+  if (card && !card.hasAttribute('aria-hidden')) {
+    ensureVisible(card)
+  }
+}
+
+function handleCarouselFocusOut(event: FocusEvent) {
+  const wrapper = event.currentTarget
+  const nextTarget = event.relatedTarget
+
+  if (wrapper instanceof HTMLElement && nextTarget instanceof Node && wrapper.contains(nextTarget)) {
+    return
+  }
+
+  paused.value = false
 }
 
 onMounted(() => {

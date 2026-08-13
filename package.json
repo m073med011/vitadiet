@@ -3,12 +3,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build && npm run test:urls",
+    "build": "nuxt build && npm run test:urls && npm run test:schema",
     "dev": "nuxt dev",
-    "generate": "nuxt generate && npm run test:urls",
+    "generate": "nuxt generate && npm run test:urls && npm run test:schema",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test:urls": "node scripts/check-no-localhost.mjs"
+    "test:urls": "node scripts/check-no-localhost.mjs",
+    "test:schema": "node scripts/check-schema-org.mjs"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.14.0",

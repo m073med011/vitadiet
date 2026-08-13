@@ -16,14 +16,29 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
   let rafId = 0
   let isRtl = false
   let prefersReducedMotion = false
+  let reducedMotionQuery: MediaQueryList | undefined
+  let directionObserver: MutationObserver | undefined
 
   let lastTouchX = 0
   let isDragging = false
   let touchStartY = 0
 
   function loopWidth(): number {
-    
-    return track.value ? track.value.scrollWidth / 2 : 0
+    if (!track.value) return 0
+
+    const cards = track.value.children
+    const cloneIndex = cards.length / 2
+    const firstCard = cards.item(0) as HTMLElement | null
+    const firstClone = Number.isInteger(cloneIndex)
+      ? cards.item(cloneIndex) as HTMLElement | null
+      : null
+
+    if (firstCard && firstClone) {
+      const width = Math.abs(firstClone.offsetLeft - firstCard.offsetLeft)
+      if (width > 0) return width
+    }
+
+    return track.value.scrollWidth / 2
   }
 
   function applyTransform() {
@@ -53,11 +68,49 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     rafId = requestAnimationFrame(tick)
   }
 
-    function nudge(direction: number) {
-    const card = track.value?.querySelector<HTMLElement>('.product-card')
-    const gap = 20 
-    const cardWidth = card ? card.offsetWidth + gap : 300
-    manualTarget += direction * cardWidth
+  function cardStep(): number {
+    const cards = track.value?.querySelectorAll<HTMLElement>('.product-card')
+    const firstCard = cards?.item(0)
+    const secondCard = cards?.item(1)
+
+    if (firstCard && secondCard) {
+      return Math.abs(secondCard.offsetLeft - firstCard.offsetLeft)
+    }
+
+    return firstCard?.offsetWidth ?? 300
+  }
+
+  function nudge(direction: number) {
+    const distance = direction * cardStep()
+
+    if (prefersReducedMotion) {
+      offset += distance
+      manualTarget = 0
+      applyTransform()
+      return
+    }
+
+    manualTarget += distance
+  }
+
+  function ensureVisible(element: HTMLElement) {
+    if (!viewport.value || !track.value || !track.value.contains(element)) return
+
+    const viewportRect = viewport.value.getBoundingClientRect()
+    const elementRect = element.getBoundingClientRect()
+
+    if (elementRect.left >= viewportRect.left && elementRect.right <= viewportRect.right) {
+      return
+    }
+
+    const sign = isRtl ? 1 : -1
+    const untransformedLeft = elementRect.left - (sign * offset)
+    const centeredLeft = viewportRect.left + ((viewportRect.width - elementRect.width) / 2)
+    const maximumOffset = Math.max(0, loopWidth() - 1)
+
+    offset = Math.min(Math.max((centeredLeft - untransformedLeft) / sign, 0), maximumOffset)
+    manualTarget = 0
+    applyTransform()
   }
 
   function handleTouchStart(e: TouchEvent) {
@@ -95,14 +148,40 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     paused.value = false
   }
 
+  function syncReducedMotion(event?: MediaQueryListEvent) {
+    prefersReducedMotion = event ? event.matches : Boolean(reducedMotionQuery?.matches)
+    if (prefersReducedMotion) manualTarget = 0
+  }
+
+  function syncDirection() {
+    const nextIsRtl = getComputedStyle(document.documentElement).direction === 'rtl'
+    if (nextIsRtl === isRtl) return
+
+    isRtl = nextIsRtl
+    offset = 0
+    manualTarget = 0
+    applyTransform()
+  }
+
   onMounted(() => {
     isRtl = getComputedStyle(document.documentElement).direction === 'rtl'
-    prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    syncReducedMotion()
+    reducedMotionQuery.addEventListener('change', syncReducedMotion)
+
+    directionObserver = new MutationObserver(syncDirection)
+    directionObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['dir'],
+    })
+
     rafId = requestAnimationFrame(tick)
   })
 
   onBeforeUnmount(() => {
     cancelAnimationFrame(rafId)
+    reducedMotionQuery?.removeEventListener('change', syncReducedMotion)
+    directionObserver?.disconnect()
   })
 
   return {
@@ -110,6 +189,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     track,
     paused,
     nudge,
+    ensureVisible,
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,

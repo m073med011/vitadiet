@@ -89,6 +89,11 @@ html.aos-ready [data-aos="draw-line"][data-aos-animate] .progress-circle {
   transform: translate(-50%, -50%) rotate(var(--angle));
 }
 
+[data-aos="orbit-pop"] {
+  right: 0;
+  transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(1);
+}
+
 html.aos-ready [data-aos="orbit-pop"] {
   right: 50%;
   opacity: 0;
@@ -101,5 +106,20 @@ html.aos-ready [data-aos="orbit-pop"][data-aos-animate] {
   right: 0;
   opacity: 1;
   transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.aos-ready [data-aos="draw-line"] .progress-circle {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  html.aos-ready [data-aos="orbit-pop"],
+  html.aos-ready [data-aos="orbit-pop"][data-aos-animate] {
+    right: 0;
+    opacity: 1;
+    transform: translate(50%, -50%) rotate(var(--reverse-angle)) scale(1);
+    transition: none !important;
+  }
 }
 </style>

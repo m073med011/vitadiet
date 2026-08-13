@@ -1,14 +1,6 @@
 export default defineNuxtPlugin((nuxtApp) => {
-  
-  
-  
-  
   if (import.meta.prerender) return
 
-  
-  
-  
-  
   const REVEAL_ATTR = 'data-aos-animate'
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -62,30 +54,36 @@ export default defineNuxtPlugin((nuxtApp) => {
     })
   }
 
-  nuxtApp.hook('app:mounted', () => {
-    
-    
-    window.setTimeout(() => {
-      revealObserver = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue
+  function initializeAnimations() {
+    if (isReady) return
 
-          entry.target.setAttribute(REVEAL_ATTR, '')
-          revealObserver?.unobserve(entry.target)
-        }
-      }, {
-        rootMargin: '0px 0px -48px 0px',
-        threshold: 0.01,
-      })
+    revealObserver = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
 
-      isReady = true
-      document.documentElement.classList.add('aos-ready')
-      scheduleRevealRefresh()
-    }, 0)
-  })
+        entry.target.setAttribute(REVEAL_ATTR, '')
+        revealObserver?.unobserve(entry.target)
+      }
+    }, {
+      rootMargin: '0px 0px -48px 0px',
+      threshold: 0.01,
+    })
 
-  
-  
+    isReady = true
+    document.documentElement.classList.add('aos-ready')
+    scheduleRevealRefresh()
+  }
+
+  const initializeAfterHydration = () => {
+    window.requestAnimationFrame(initializeAnimations)
+  }
+
+  if (nuxtApp.isHydrating) {
+    nuxtApp.hooks.hookOnce('app:suspense:resolve', initializeAfterHydration)
+  } else {
+    initializeAfterHydration()
+  }
+
   nuxtApp.hook('page:finish', () => {
     if (isReady) scheduleRevealRefresh()
   })

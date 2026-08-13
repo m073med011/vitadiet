@@ -7,7 +7,7 @@
     <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
       <BaseImage
         :src="product.image"
-        :alt="$t(product.titleKey)"
+        alt=""
         fill
         class="object-cover transition-all duration-500 group-hover/card:scale-105"
         :class="{ 'group-hover/card:opacity-0': showHoverImage && product.gallery && product.gallery[0] }"
@@ -15,7 +15,7 @@
       <BaseImage
         v-if="showHoverImage && product.gallery && product.gallery[0]"
         :src="product.gallery[0]"
-        :alt="$t(product.titleKey)"
+        alt=""
         fill
         class="absolute inset-0 object-cover opacity-0 transition-all duration-500 group-hover/card:scale-105 group-hover/card:opacity-100"
       />

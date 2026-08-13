@@ -19,6 +19,9 @@ const siteUrl = useSiteConfig().url;
 
 
 const siteOrigin = new URL("/", siteUrl).toString();
+const websiteId = `${siteOrigin}#website`;
+const organizationId = `${siteOrigin}#organization`;
+const logoId = `${siteOrigin}#logo`;
 const ogImageUrl = computed(() => new URL(ogImage, siteUrl).toString());
 const logoUrl = computed(() => new URL(logo, siteUrl).toString());
 const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl).toString());
@@ -78,10 +81,10 @@ useHead({
 
 useSchemaOrg([
   defineOrganization({
-    '@id': `${siteOrigin}#identity`,
+    '@id': organizationId,
     name: 'Vitadiet',
     description: () => t('description'),
-    logo: () => logoUrl.value,
+    logo: { '@id': logoId },
     url: siteOrigin,
     sameAs: [
       'https://www.linkedin.com/company/Vitadiet',
@@ -93,12 +96,27 @@ useSchemaOrg([
     address: { '@type': 'PostalAddress', streetAddress: 'Palestine Street, Al Hamra District, Palestine Commercial Center, First Floor, Office No. 12', addressLocality: 'Jeddah', addressCountry: 'SA' },
     telephone: '+966508178161', email: 'acc@vitadiet.sa', vatID: '302135132900003',
   }),
+  defineImage({
+    '@id': logoId,
+    url: () => logoUrl.value,
+    contentUrl: () => logoUrl.value,
+    caption: 'Vitadiet',
+    inLanguage: schemaLanguage,
+  }),
   defineWebSite({
+    '@id': websiteId,
+    url: siteOrigin,
     name: "Vitadiet",
     description: () => t("description"),
+    inLanguage: schemaLanguage,
+    publisher: { '@id': organizationId },
   }),
   defineWebPage<{ inLanguage: string }>({
+    '@id': () => `${canonicalUrl.value}#webpage`,
     inLanguage: schemaLanguage,
+    isPartOf: { '@id': websiteId },
+    about: { '@id': organizationId },
+    primaryImageOfPage: { '@id': logoId },
   }),
 ]);
 </script>

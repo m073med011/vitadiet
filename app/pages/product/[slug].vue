@@ -39,6 +39,7 @@ const { productPath } = useProductPath()
 
 
 const siteUrl = useSiteConfig().url
+const organizationId = `${new URL('/', siteUrl).toString()}#organization`
 
 const slugValue = computed(() => {
   const value = slug.value
@@ -147,7 +148,7 @@ watchEffect(() => {
       description: metaDescription.value,
       inLanguage: locale.value === 'ar' ? 'ar-SA' : 'en-US',
       ...(productImageUrl.value ? { image: productImageUrl.value } : {}),
-      brand: { '@type': 'Brand', name: 'Vitadiet' },
+      brand: { '@id': organizationId },
       ...(offerPrice.value
         ? {
             offers: {
