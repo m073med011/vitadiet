@@ -22,6 +22,9 @@ const siteOrigin = new URL("/", siteUrl).toString();
 const ogImageUrl = computed(() => new URL(ogImage, siteUrl).toString());
 const logoUrl = computed(() => new URL(logo, siteUrl).toString());
 const canonicalUrl = computed(() => new URL(route.fullPath, siteUrl).toString());
+const schemaLanguage = computed<string>(() =>
+  locale.value === "ar" ? "ar-SA" : "en-US"
+);
 
 
 
@@ -65,6 +68,7 @@ useHead({
     { property: "og:site_name", content: () => t("appName") },
     { property: "og:url", content: () => canonicalUrl.value },
     { name: "theme-color", content: "#1a7039" },
+    { name: "google-site-verification", content: "iotPSwEweLS3-TklF4CVgoZPYtYdqepjZysk6zfoK34" },
     
     
     
@@ -93,8 +97,8 @@ useSchemaOrg([
     name: "Vitadiet",
     description: () => t("description"),
   }),
-  defineWebPage({
-    inLanguage: () => locale.value === 'ar' ? 'ar-SA' : 'en-US',
+  defineWebPage<{ inLanguage: string }>({
+    inLanguage: schemaLanguage,
   }),
 ]);
 </script>

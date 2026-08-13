@@ -26,7 +26,8 @@
     opacity: 0;
     transition-property: opacity, transform;
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition-duration: 450ms;
+    transition-duration: var(--aos-duration, 450ms);
+    transition-delay: var(--aos-delay, 0ms);
   }
 
   html.aos-ready [data-aos="fade-up"] {

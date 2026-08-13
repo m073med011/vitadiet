@@ -17,6 +17,12 @@ RewriteEngine On
 # AutoSSL/ACME renewal is validated over plain http on the bare host too.
 RewriteRule ^\.well-known/ - [L]
 
+# Arabic was previously served below /ar/. Keep those indexed URLs valid while
+# the default Arabic locale moves to the canonical root. These are absolute
+# targets so a legacy request reaches its final www/HTTPS URL in one 301 hop.
+RewriteRule ^ar/?$ https://www.vitadiet.sa/ [R=301,L]
+RewriteRule ^ar/(.+)$ https://www.vitadiet.sa/$1 [R=301,L]
+
 # Directory request missing the trailing slash that `trailingSlash: true`
 # canonicalises to. Done here rather than left to mod_dir's DirectorySlash, which
 # runs after this file and would cost a second hop when the host is also wrong.

@@ -16,9 +16,31 @@ export default defineNuxtPlugin((nuxtApp) => {
   let refreshFrame: number | undefined
   let isReady = false
 
+  function getMilliseconds(value: string | undefined) {
+    if (!value) return undefined
+
+    const milliseconds = Number(value)
+    return Number.isFinite(milliseconds) && milliseconds >= 0 ? milliseconds : undefined
+  }
+
+  function applyAnimationTiming(element: HTMLElement) {
+    const delay = getMilliseconds(element.dataset.aosDelay)
+    const duration = getMilliseconds(element.dataset.aosDuration)
+
+    if (delay !== undefined) {
+      element.style.setProperty('--aos-delay', `${delay}ms`)
+    }
+
+    if (duration !== undefined) {
+      element.style.setProperty('--aos-duration', `${duration}ms`)
+    }
+  }
+
   function revealVisibleElements() {
     document.querySelectorAll<HTMLElement>('[data-aos]').forEach((element) => {
       if (element.hasAttribute(REVEAL_ATTR)) return
+
+      applyAnimationTiming(element)
 
       if (prefersReducedMotion.matches) {
         element.setAttribute(REVEAL_ATTR, '')

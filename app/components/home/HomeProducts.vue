@@ -12,10 +12,6 @@
     </div>
 
     <noscript>
-      <style>
-        .ssr-fallback-grid { display: none !important; }
-        .product-carousel-wrapper { display: none !important; }
-      </style>
       <div class="content-container mb-8">
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           <ProductCard
@@ -28,7 +24,7 @@
       </div>
     </noscript>
 
-    <div v-if="!isMounted" class="ssr-fallback-grid content-container mb-8" aria-hidden="true">
+    <div v-if="!isMounted" class="ssr-fallback-grid content-container mb-8" aria-hidden="true" inert>
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         <ProductCard
           v-for="(product, index) in products"
@@ -39,7 +35,13 @@
       </div>
     </div>
 
-    <div v-show="isMounted" class="product-carousel-wrapper content-container" data-aos="fade-up">
+    <div
+      v-show="isMounted"
+      class="product-carousel-wrapper content-container"
+      role="region"
+      :aria-label="$t('homePage.products.carouselLabel')"
+      data-aos="fade-up"
+    >
       <button
         type="button"
         class="product-nav product-nav--prev absolute top-1/2 start-4 md:start-8 z-10"
@@ -60,7 +62,7 @@
         @touchmove.passive="handleTouchMove"
         @touchend.passive="handleTouchEnd"
       >
-        <div ref="track" class="product-track" aria-label="Vitadiet products">
+        <div ref="track" class="product-track">
           <ProductCard
             v-for="(product, index) in loopProducts"
             :key="`${product.slug}-${index}`"
@@ -102,6 +104,14 @@ const canUseHover = ref(false)
 const isMounted = ref(false)
 let hoverQuery: MediaQueryList | undefined
 
+useHead({
+  noscript: [
+    {
+      id: 'home-products-no-script',
+      innerHTML: '<style>.ssr-fallback-grid{display:none!important}.product-carousel-wrapper{display:none!important}</style>',
+    },
+  ],
+})
 
 const loopProducts = computed(() => [...products, ...products])
 

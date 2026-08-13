@@ -38,7 +38,7 @@ export default defineNuxtConfig({
     trailingSlash: true,
     name: 'Vitadiet',
     description: 'Certified supplement portfolio for B2B distribution',
-    defaultLocale: 'en'
+    defaultLocale: 'ar'
   },
 
   sitemap: {
@@ -76,6 +76,17 @@ export default defineNuxtConfig({
         '/product/dplus',
         '/product/soluro',
         '/product/flowadite',
+        '/en',
+        '/en/products',
+        '/en/product/bestrong',
+        '/en/product/becalme',
+        '/en/product/vitagen',
+        '/en/product/femavit',
+        '/en/product/floradit',
+        '/en/product/green-pharmacy',
+        '/en/product/dplus',
+        '/en/product/soluro',
+        '/en/product/flowadite',
       ],
     },
   },
@@ -88,7 +99,7 @@ export default defineNuxtConfig({
     '/_fonts/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     '/sitemap.xml': { robots: false, sitemap: false },
-    '/ar/sitemap.xml': { robots: false, sitemap: false },
+    '/en/sitemap.xml': { robots: false, sitemap: false },
   },
 
 
@@ -112,8 +123,9 @@ export default defineNuxtConfig({
     ],
     restructureDir: ".",
     langDir: "app/locales",
-    defaultLocale: "en",
+    defaultLocale: "ar",
     strategy: "prefix_except_default",
+    detectBrowserLanguage: false,
     
     
     trailingSlash: true,

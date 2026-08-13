@@ -16,6 +16,9 @@ import { join, relative } from 'node:path'
 const PUBLIC_DIR = '.output/public'
 const SCANNED_EXTENSIONS = ['.html', '.xml', '.json']
 const FORBIDDEN = /localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]/gi
+// Nuxt's diagnostic metadata records the local prerender origin, but is not
+// crawler-visible page content or JSON-LD.
+const IGNORED_FILES = new Set([join('__site-config__', 'debug.json')])
 
 /** Every scannable file under `dir`, recursively. */
 const collectFiles = async (dir) => {
@@ -24,7 +27,10 @@ const collectFiles = async (dir) => {
     entries.map((entry) => {
       const path = join(dir, entry.name)
       if (entry.isDirectory()) return collectFiles(path)
-      return SCANNED_EXTENSIONS.some((ext) => entry.name.endsWith(ext)) ? [path] : []
+      const relativePath = relative(PUBLIC_DIR, path)
+      return SCANNED_EXTENSIONS.some((ext) => entry.name.endsWith(ext)) && !IGNORED_FILES.has(relativePath)
+        ? [path]
+        : []
     })
   )
   return files.flat()
