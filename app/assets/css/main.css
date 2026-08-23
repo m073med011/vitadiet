@@ -1,24 +1,52 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-@import "./_tokens.css";
+@import './_tokens.css';
 
 @layer base {
   :root {
     font-family: var(--font-sans);
   }
-  :root:lang(ar), [dir="rtl"] {
+  :root:lang(ar),
+  [dir='rtl'] {
     font-family: var(--font-arabic);
   }
 
-  h1, h2, h3, h4, h5, h6,
-  .font-heading, .text-heading, .text-heading-lg, .text-display, .text-title {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading,
+  .text-heading,
+  .text-heading-lg,
+  .text-display,
+  .text-title {
     font-family: 'Playfair Display', serif;
   }
 
-  :root:lang(ar) h1, :root:lang(ar) h2, :root:lang(ar) h3, :root:lang(ar) h4, :root:lang(ar) h5, :root:lang(ar) h6,
-  :root:lang(ar) .font-heading, :root:lang(ar) .text-heading, :root:lang(ar) .text-heading-lg, :root:lang(ar) .text-display, :root:lang(ar) .text-title,
-  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6,
-  [dir="rtl"] .font-heading, [dir="rtl"] .text-heading, [dir="rtl"] .text-heading-lg, [dir="rtl"] .text-display, [dir="rtl"] .text-title {
+  :root:lang(ar) h1,
+  :root:lang(ar) h2,
+  :root:lang(ar) h3,
+  :root:lang(ar) h4,
+  :root:lang(ar) h5,
+  :root:lang(ar) h6,
+  :root:lang(ar) .font-heading,
+  :root:lang(ar) .text-heading,
+  :root:lang(ar) .text-heading-lg,
+  :root:lang(ar) .text-display,
+  :root:lang(ar) .text-title,
+  [dir='rtl'] h1,
+  [dir='rtl'] h2,
+  [dir='rtl'] h3,
+  [dir='rtl'] h4,
+  [dir='rtl'] h5,
+  [dir='rtl'] h6,
+  [dir='rtl'] .font-heading,
+  [dir='rtl'] .text-heading,
+  [dir='rtl'] .text-heading-lg,
+  [dir='rtl'] .text-display,
+  [dir='rtl'] .text-title {
     font-family: 'El Messiri', sans-serif;
   }
 
@@ -30,15 +58,15 @@
     transition-delay: var(--aos-delay, 0ms);
   }
 
-  html.aos-ready [data-aos="fade-up"] {
+  html.aos-ready [data-aos='fade-up'] {
     transform: translate3d(0, 1.5rem, 0);
   }
 
-  html.aos-ready [data-aos="fade-right"] {
+  html.aos-ready [data-aos='fade-right'] {
     transform: translate3d(-1.5rem, 0, 0);
   }
 
-  html.aos-ready [data-aos="fade-left"] {
+  html.aos-ready [data-aos='fade-left'] {
     transform: translate3d(1.5rem, 0, 0);
   }
 
@@ -58,8 +86,7 @@
 }
 
 @layer components {
-
-    .icon-circle {
+  .icon-circle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -82,7 +109,7 @@
     box-shadow: var(--shadow-card);
   }
 
-    .content-container {
+  .content-container {
     max-width: var(--container-content);
     margin-inline: auto;
     padding-inline: var(--spacing-page);

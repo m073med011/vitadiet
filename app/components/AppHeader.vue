@@ -1,20 +1,24 @@
 <template>
-  <div 
+  <div
     class="top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
     :class="[
       route.meta.headerSticky !== false ? 'sticky' : 'relative',
-      isScrolled && route.meta.headerSticky !== false ? 'md:pt-6 md:px-6' : ''
+      isScrolled && route.meta.headerSticky !== false ? 'md:pt-6 md:px-6' : '',
     ]"
   >
     <header
       class="backdrop-blur transition-all duration-500 ease-in-out text-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
       :class="[
-        isScrolled 
-          ? 'max-w-7xl bg-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30' 
-          : 'max-w-full bg-surface/95 border-b border-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent'
+        isScrolled
+          ? 'max-w-7xl bg-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30'
+          : 'max-w-full bg-surface/95 border-b border-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent',
       ]"
     >
-      <NuxtLink :to="localePath('/')" class="flex items-center relative z-10 group shrink-0" aria-label="Vitadiet home">
+      <NuxtLink
+        :to="localePath('/')"
+        class="flex items-center relative z-10 group shrink-0"
+        aria-label="Vitadiet home"
+      >
         <BaseImage
           :src="logoImage"
           alt="Vitadiet Logo"
@@ -27,7 +31,6 @@
 
       <HeaderDesktopNav :nav-items="navItems" :is-active="isActiveNavItem" />
 
-      
       <div class="flex items-center gap-3 sm:gap-6">
         <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft hidden md:flex">
           <HeaderLangSwitcher variant="desktop" />
@@ -38,7 +41,9 @@
           aria-label="Open menu"
           @click="isMobileMenuOpen = true"
         >
-          <span class="absolute inset-0 rounded-xl bg-brand-primary-soft opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+          <span
+            class="absolute inset-0 rounded-xl bg-brand-primary-soft opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          ></span>
           <MenuIcon class="w-8 h-8 relative z-10" />
         </button>
       </div>
@@ -69,8 +74,6 @@ const isMobileMenuOpen = ref(false)
 
 const { isScrolled, handleScroll } = useScrollState()
 const { activeHash, scheduleActiveSectionUpdate } = useActiveSection(navItems)
-
-
 
 watch(isScrolled, () => {
   scheduleActiveSectionUpdate()

@@ -1,9 +1,8 @@
-
 @theme {
   --font-sans: 'Poppins', system-ui, sans-serif;
   --font-arabic: 'Tajawal', system-ui, sans-serif;
 
-    --color-brand-primary: #1a7039;
+  --color-brand-primary: #1a7039;
   --color-brand-primary-hover: #d3d3d3;
   --color-brand-primary-soft: #edf3fa;
   --color-brand-accent: #1a7039;
@@ -11,7 +10,7 @@
   --color-brand-accent-soft: #d3d3d3;
   --color-brand-dark: #10243f;
 
-    --color-surface: #fbfcff;
+  --color-surface: #fbfcff;
   --color-surface-raised: #f7f9fd;
   --color-surface-muted: #d3d3d3;
   --color-ink: #10243f;
@@ -23,17 +22,15 @@
   --color-on-primary: #d3d3d3;
   --color-on-accent: #10243f;
 
-
-
-    --container-shell: 120rem;
+  --container-shell: 120rem;
   --container-content: 80rem;
   --container-copy: 48rem;
   --container-form: 32rem;
 
-    --aspect-media-wide: 4 / 3;
+  --aspect-media-wide: 4 / 3;
   --aspect-media-tall: 4 / 5;
 
-    --spacing-page: 1rem;
+  --spacing-page: 1rem;
   --spacing-page-lg: 2rem;
   --spacing-gutter: 1.5rem;
   --spacing-gutter-lg: 3rem;
@@ -67,7 +64,7 @@
   --spacing-bullet-active: 1.5rem;
   --spacing-bullet-gap: 0.25rem;
 
-    --radius-control: 0.25rem;
+  --radius-control: 0.25rem;
   --radius-card: 0.5rem;
   --radius-panel: 1rem;
   --radius-media: 1.5rem;
@@ -75,7 +72,7 @@
   --radius-display-lg: 3rem;
   --radius-pill: 9999px;
 
-    --text-caption: 0.75rem;
+  --text-caption: 0.75rem;
   --text-small: 0.875rem;
   --text-copy: 1rem;
   --text-copy-lg: 1.125rem;
@@ -89,7 +86,7 @@
   --tracking-label: 0.08em;
   --tracking-nav: 0.12em;
 
-    --shadow-shell: 0 25px 70px rgb(29 43 91 / 0.12);
+  --shadow-shell: 0 25px 70px rgb(29 43 91 / 0.12);
   --shadow-card: 0 12px 32px rgb(29 43 91 / 0.08);
   --shadow-card-hover: 0 18px 42px rgb(29 43 91 / 0.12);
   --shadow-float: 0 16px 40px rgb(29 43 91 / 0.16);

@@ -16,7 +16,8 @@ const LOGO_ID = `${SITE_ROOT}#logo`
 
 const HTML_EXTENSION = '.html'
 const SCRIPT_RE = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi
-const JSON_LD_TYPE_RE = /\btype\s*=\s*(?:"application\/ld\+json"|'application\/ld\+json'|application\/ld\+json(?:\s|$))/i
+const JSON_LD_TYPE_RE =
+  /\btype\s*=\s*(?:"application\/ld\+json"|'application\/ld\+json'|application\/ld\+json(?:\s|$))/i
 
 const failures = []
 
@@ -31,7 +32,7 @@ const collectHtmlFiles = async (dir) => {
       const path = join(dir, entry.name)
       if (entry.isDirectory()) return collectHtmlFiles(path)
       return entry.isFile() && entry.name.endsWith(HTML_EXTENSION) ? [path] : []
-    })
+    }),
   )
   return files.flat()
 }
@@ -154,7 +155,9 @@ for (const file of htmlFiles) {
     }
   }
 
-  const objectNodes = nodes.filter((node) => node && !Array.isArray(node) && typeof node === 'object')
+  const objectNodes = nodes.filter(
+    (node) => node && !Array.isArray(node) && typeof node === 'object',
+  )
   const website = assertSingleRootNode(file, objectNodes, 'WebSite', WEBSITE_ID)
   const organization = assertSingleRootNode(file, objectNodes, 'Organization', ORGANIZATION_ID)
 
@@ -184,7 +187,11 @@ for (const file of htmlFiles) {
     if (typeof organization.telephone !== 'string' || organization.telephone.trim() === '') {
       fail(file, 'Organization.telephone must be a non-empty string')
     }
-    if (!organization.address || Array.isArray(organization.address) || typeof organization.address !== 'object') {
+    if (
+      !organization.address ||
+      Array.isArray(organization.address) ||
+      typeof organization.address !== 'object'
+    ) {
       fail(file, 'Organization.address must be an object')
     }
   }
@@ -195,21 +202,27 @@ for (const file of htmlFiles) {
   } else {
     const logo = logoNodes[0]
     if (!hasType(logo, 'ImageObject')) fail(file, `Logo node ${LOGO_ID} must be an ImageObject`)
-    if (!logo.url && !logo.contentUrl) fail(file, `Logo node ${LOGO_ID} must have url or contentUrl`)
+    if (!logo.url && !logo.contentUrl)
+      fail(file, `Logo node ${LOGO_ID} must have url or contentUrl`)
   }
 
   const products = objectNodes.filter((node) => hasType(node, 'Product'))
   productCount += products.length
   for (const product of products) {
     if (!isReferenceTo(product.brand, ORGANIZATION_ID)) {
-      fail(file, `Product ${product['@id'] || '(without @id)'}.brand must reference ${ORGANIZATION_ID}`)
+      fail(
+        file,
+        `Product ${product['@id'] || '(without @id)'}.brand must reference ${ORGANIZATION_ID}`,
+      )
     }
   }
 }
 
 if (htmlCount === 0) failures.push(`${PUBLIC_DIR}: no generated HTML files found`)
-if (schemaPageCount === 0) failures.push(`${PUBLIC_DIR}: no generated HTML containing a Schema.org @graph found`)
-if (productCount === 0) failures.push(`${PUBLIC_DIR}: no Product nodes found; Product.brand was not exercised`)
+if (schemaPageCount === 0)
+  failures.push(`${PUBLIC_DIR}: no generated HTML containing a Schema.org @graph found`)
+if (productCount === 0)
+  failures.push(`${PUBLIC_DIR}: no Product nodes found; Product.brand was not exercised`)
 
 if (failures.length > 0) {
   console.error(`\nSchema.org regression check failed with ${failures.length} violation(s):\n`)
@@ -219,6 +232,6 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `Schema.org regression check passed for ${schemaPageCount} page(s), ${graphCount} graph(s), `
-  + `${nodeCount} node(s), and ${productCount} Product node(s).`
+  `Schema.org regression check passed for ${schemaPageCount} page(s), ${graphCount} graph(s), ` +
+    `${nodeCount} node(s), and ${productCount} Product node(s).`,
 )

@@ -1,39 +1,40 @@
 <template>
-  <section class="relative w-full overflow-hidden bg-surface pt-5 ">
-    
+  <section class="relative w-full overflow-hidden bg-surface pt-5">
     <div class="lotus-backdrop" aria-hidden="true"></div>
 
-    
-    <div class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] pointer-events-none lg:block">
+    <div
+      class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] pointer-events-none lg:block"
+    >
+      <div
+        v-for="(img, index) in heroSection.images"
+        :key="index"
+        class="hero-gallery-item absolute pointer-events-auto"
+        :class="img.class"
+      >
         <div
-          v-for="(img, index) in heroSection.images"
-          :key="index"
-          class="hero-gallery-item absolute pointer-events-auto"
-          :class="img.class"
+          class="hero-gallery-card relative h-full w-full overflow-hidden rounded-card bg-surface-muted shadow-card ring-1 ring-line"
         >
-          <div class="hero-gallery-card relative h-full w-full overflow-hidden rounded-card bg-surface-muted shadow-card ring-1 ring-line">
-            <span
-              v-if="showHeroImageNumbers"
-              class="hero-image-debug-number"
-              aria-hidden="true"
-            >
-              {{ index + 1 }}
-            </span>
-            
-            <BaseImage
-              :src="img.src"
-              alt=""
-              fill
-              :loading="index === 0 ? 'eager' : 'lazy'"
-              :fetchpriority="index === 0 ? 'high' : 'auto'"
-              sizes="(min-width: 1024px) 14vw, 240px"
-            />
-          </div>
+          <span v-if="showHeroImageNumbers" class="hero-image-debug-number" aria-hidden="true">
+            {{ index + 1 }}
+          </span>
+
+          <BaseImage
+            :src="img.src"
+            alt=""
+            fill
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : 'auto'"
+            sizes="(min-width: 1024px) 14vw, 240px"
+          />
         </div>
+      </div>
     </div>
 
-    
-    <div class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden lg:hidden" aria-hidden="true" dir="ltr">
+    <div
+      class="hero-mobile-gallery-frame relative z-10 w-full overflow-hidden lg:hidden"
+      aria-hidden="true"
+      dir="ltr"
+    >
       <div class="hero-mobile-marquee">
         <div
           v-for="(img, index) in mobileHeroLoopImages"
@@ -41,14 +42,10 @@
           class="hero-mobile-marquee-item"
         >
           <div class="hero-mobile-gallery-card">
-            <span
-              v-if="showHeroImageNumbers"
-              class="hero-image-debug-number"
-              aria-hidden="true"
-            >
+            <span v-if="showHeroImageNumbers" class="hero-image-debug-number" aria-hidden="true">
               {{ index + 1 }}
             </span>
-            
+
             <BaseImage
               :src="img.src"
               alt=""
@@ -62,9 +59,8 @@
       </div>
     </div>
 
-    
-    <div class="relative z-20 px-page max-w-content mx-auto lg:-mt-section-lg ">
-      <div class=" mx-auto max-w-[60rem] px-page py-gutter sm:px-card sm:py-card text-center ">
+    <div class="relative z-20 px-page max-w-content mx-auto lg:-mt-section-lg">
+      <div class="mx-auto max-w-[60rem] px-page py-gutter sm:px-card sm:py-card text-center">
         <span
           class="inline-flex items-center gap-control-y-sm py-control-y-sm px-icon-md rounded-pill bg-brand-primary-soft text-small font-semibold text-brand-primary mb-gutter border border-line"
         >
@@ -104,7 +100,11 @@
             :key="item.labelKey"
             class="inline-flex items-center gap-control-y-sm rounded-pill border border-line bg-surface-raised px-page py-control-y-sm font-semibold"
           >
-            <component :is="item.icon" class="h-icon-sm w-icon-sm text-brand-primary" aria-hidden="true" />
+            <component
+              :is="item.icon"
+              class="h-icon-sm w-icon-sm text-brand-primary"
+              aria-hidden="true"
+            />
             {{ $t(item.labelKey) }}
           </li>
         </ul>
@@ -131,7 +131,7 @@ const showHeroImageNumbers = import.meta.dev
 const mobileHeroImages = computed(() =>
   heroSection.images
     .filter((_, index) => [0, 2, 5, 7].includes(index))
-    .map(img => ({ ...img, src: img.src.replace('sm_', 'xs_') }))
+    .map((img) => ({ ...img, src: img.src.replace('sm_', 'xs_') })),
 )
 const mobileHeroLoopImages = computed(() => [...mobileHeroImages.value, ...mobileHeroImages.value])
 
@@ -143,17 +143,31 @@ const trustItems = [
 </script>
 
 <style scoped>
-
 .lotus-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
   opacity: 0.55;
   background:
-    radial-gradient(circle at 50% 20%, color-mix(in oklab, var(--color-brand-accent) 10%, transparent) 0 12rem, transparent 24rem),
-    linear-gradient(90deg, color-mix(in oklab, var(--color-brand-primary) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in oklab, var(--color-brand-primary) 7%, transparent) 1px, transparent 1px);
-  background-size: auto, 9rem 9rem, 9rem 9rem;
+    radial-gradient(
+      circle at 50% 20%,
+      color-mix(in oklab, var(--color-brand-accent) 10%, transparent) 0 12rem,
+      transparent 24rem
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-brand-primary) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-brand-primary) 7%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    auto,
+    9rem 9rem,
+    9rem 9rem;
 }
 
 .hero-panel {
@@ -220,8 +234,16 @@ const trustItems = [
   pointer-events: none;
   content: '';
   background:
-    linear-gradient(135deg, color-mix(in oklab, var(--color-surface) 26%, transparent), transparent 36%),
-    linear-gradient(180deg, transparent 62%, color-mix(in oklab, var(--color-brand-dark) 16%, transparent));
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--color-surface) 26%, transparent),
+      transparent 36%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 62%,
+      color-mix(in oklab, var(--color-brand-dark) 16%, transparent)
+    );
 }
 
 .hero-mobile-gallery-card :deep(img) {

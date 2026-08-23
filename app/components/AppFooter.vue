@@ -1,28 +1,23 @@
 <template>
-  <footer id="footer" class="relative bg-surface pt-section pb-page-lg border-t border-line overflow-hidden">
+  <footer
+    id="footer"
+    class="relative bg-surface pt-section pb-page-lg border-t border-line overflow-hidden"
+  >
     <div class="content-container relative z-10">
-
-      
       <div class="footer-grid mb-rule-sm">
-        
         <FooterBrand />
 
-        
         <FooterLinks />
 
-        
         <FooterContact />
       </div>
 
-      
       <FooterBottom />
-
     </div>
   </footer>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .footer-grid {

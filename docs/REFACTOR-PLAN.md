@@ -81,14 +81,14 @@ Getting any of them wrong breaks the site.
 1. **The `xs_*.webp` images ARE used.** `app/components/home/HomeHero.vue:134`
    derives them at runtime with `img.src.replace('sm_', 'xs_')`. A naive
    "delete unreferenced assets" scan is wrong in **both** directions: it flags
-   all 9 `xs_` files as dead, and it *fails* to flag the 9 full-size banners
+   all 9 `xs_` files as dead, and it _fails_ to flag the 9 full-size banners
    (because `sm_vitadiet-foo.webp` contains `vitadiet-foo.webp` as a substring).
    **Never** auto-delete assets here. Use the explicit 16-path list in Phase 6.
 
 2. **`categoryKeyBySlug` in `app/pages/product/[slug].vue:51-57` is dead AND broken.**
    None of its five i18n keys exist in `ar.json`/`en.json`, and none of its slugs
    are in `nitro.prerender.routes` — so on static Apache those URLs 404 before
-   Nuxt is reached. If the branch *were* reachable it would render raw key strings.
+   Nuxt is reached. If the branch _were_ reachable it would render raw key strings.
    **Delete the whole `v-else` branch.** Do not extract it into a composable.
 
 3. **You cannot collapse all five reduced-motion sites into one composable.**
@@ -157,8 +157,15 @@ collisions are painful to debug; explicit is better here.
 
 ```ts
 export const PRODUCT_SLUGS = [
-  'bestrong', 'becalme', 'vitagen', 'femavit', 'floradit',
-  'green-pharmacy', 'dplus', 'soluro', 'flowadite',
+  'bestrong',
+  'becalme',
+  'vitagen',
+  'femavit',
+  'floradit',
+  'green-pharmacy',
+  'dplus',
+  'soluro',
+  'flowadite',
 ] as const
 
 export type ProductSlug = (typeof PRODUCT_SLUGS)[number]
@@ -251,22 +258,22 @@ export const prefersReducedMotion = (): boolean =>
 export function useReducedMotion(): { prefersReducedMotion: Ref<boolean> }
 ```
 
-| Composable | File | Signature | Replaces |
-|---|---|---|---|
-| `useSiteUrls` | `app/composables/useSiteUrls.ts` | `() => { origin, absolute(path), canonical: ComputedRef<string>, organizationId, websiteId, logoId, logoUrl, ogImageUrl }` | the `#organization`/`#website`/`#logo` triplication and ~7 inline `new URL(x, siteUrl)` sites. Internally reads `useSiteConfig().url` — keep nuxt-site-config as the single runtime authority, since `check-no-localhost.mjs` exists to protect exactly that. |
-| `useNavPath` | `app/composables/useNavPath.ts` | `() => { navPath: (item: NavItem) => string }` | the 3× `item.path ? localePath(item.path) : sectionPath(item.hash)` ternary. **Then delete `app/composables/useSectionPath.ts`.** |
-| `useProductSeo` | `app/composables/useProductSeo.ts` | `(product: ComputedRef<HomeProduct>) => { pageName, metaDescription, imageUrl, offerPrice, priceValidUntil }` | the SEO logic in `[slug].vue`. Owns the `.description`→`.metaDescription` key swap, `META_DESCRIPTION_MAX = 160` with `slice(0, MAX - 3)`, and `parseOfferPrice`. Keep `useState('offer-price-valid-until')` — it exists to keep the prerendered payload and hydration consistent. |
-| `useProductSchema` | `app/composables/useProductSchema.ts` | `(product: HomeProduct, seo: ReturnType<typeof useProductSeo>) => void` | the reactive `watchEffect` schema block. Takes a **plain** product, not a ref — see Phase 8 for why that is the fix, not a limitation. |
-| `usePageSeo` | `app/composables/usePageSeo.ts` | `(input: { title: () => string; description: () => string; image?: () => string \| undefined; imageWidth?: number; imageHeight?: number }) => void` | the `useSeoMeta` quadruplication across the 3 pages. |
+| Composable         | File                                  | Signature                                                                                                                                           | Replaces                                                                                                                                                                                                                                                                           |
+| ------------------ | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `useSiteUrls`      | `app/composables/useSiteUrls.ts`      | `() => { origin, absolute(path), canonical: ComputedRef<string>, organizationId, websiteId, logoId, logoUrl, ogImageUrl }`                          | the `#organization`/`#website`/`#logo` triplication and ~7 inline `new URL(x, siteUrl)` sites. Internally reads `useSiteConfig().url` — keep nuxt-site-config as the single runtime authority, since `check-no-localhost.mjs` exists to protect exactly that.                      |
+| `useNavPath`       | `app/composables/useNavPath.ts`       | `() => { navPath: (item: NavItem) => string }`                                                                                                      | the 3× `item.path ? localePath(item.path) : sectionPath(item.hash)` ternary. **Then delete `app/composables/useSectionPath.ts`.**                                                                                                                                                  |
+| `useProductSeo`    | `app/composables/useProductSeo.ts`    | `(product: ComputedRef<HomeProduct>) => { pageName, metaDescription, imageUrl, offerPrice, priceValidUntil }`                                       | the SEO logic in `[slug].vue`. Owns the `.description`→`.metaDescription` key swap, `META_DESCRIPTION_MAX = 160` with `slice(0, MAX - 3)`, and `parseOfferPrice`. Keep `useState('offer-price-valid-until')` — it exists to keep the prerendered payload and hydration consistent. |
+| `useProductSchema` | `app/composables/useProductSchema.ts` | `(product: HomeProduct, seo: ReturnType<typeof useProductSeo>) => void`                                                                             | the reactive `watchEffect` schema block. Takes a **plain** product, not a ref — see Phase 8 for why that is the fix, not a limitation.                                                                                                                                             |
+| `usePageSeo`       | `app/composables/usePageSeo.ts`       | `(input: { title: () => string; description: () => string; image?: () => string \| undefined; imageWidth?: number; imageHeight?: number }) => void` | the `useSeoMeta` quadruplication across the 3 pages.                                                                                                                                                                                                                               |
 
 ### Shared components
 
-| Resolved name | File | Props | Replaces |
-|---|---|---|---|
-| `BaseSectionHeader` | `app/components/base/SectionHeader.vue` | `{ heading: string; description?: string; tone?: 'ink' \| 'primary' }` | the verbatim header block in `HomeFeatures:6-13`, `HomeProducts:4-11`, `HomeFaq:4-8`. `tone` exists because Features uses `text-brand-primary` and Products uses `text-ink`; Faq passes no `description`. |
-| `FooterColumnHeading` | `app/components/footer/ColumnHeading.vue` | `{ label: string }` | `footer/Links.vue:3-5` and `footer/Contact.vue:3-5` — and drops both dead `\|\| 'Quick Links'` / `\|\| 'Contact Us'` fallbacks. |
-| `FooterContactRow` | `app/components/footer/ContactRow.vue` | `{ icon: Component; href?: string; external?: boolean; dir?: 'ltr' \| 'rtl'; preLine?: boolean }` + default slot | the 4 near-identical rows in `footer/Contact.vue:8-37`. Renders `<a>` when `href` is present, `<div>` otherwise. |
-| `ProductPriceBadge` | `app/components/product/PriceBadge.vue` | `{ priceKey: string; size?: 'sm' \| 'lg' }` | `product/Card.vue:27-30` + `product/Landing.vue:23-28`. Owns `isNumericPrice` and the `SaudiRiyalIcon`. |
+| Resolved name         | File                                      | Props                                                                                                            | Replaces                                                                                                                                                                                                  |
+| --------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BaseSectionHeader`   | `app/components/base/SectionHeader.vue`   | `{ heading: string; description?: string; tone?: 'ink' \| 'primary' }`                                           | the verbatim header block in `HomeFeatures:6-13`, `HomeProducts:4-11`, `HomeFaq:4-8`. `tone` exists because Features uses `text-brand-primary` and Products uses `text-ink`; Faq passes no `description`. |
+| `FooterColumnHeading` | `app/components/footer/ColumnHeading.vue` | `{ label: string }`                                                                                              | `footer/Links.vue:3-5` and `footer/Contact.vue:3-5` — and drops both dead `\|\| 'Quick Links'` / `\|\| 'Contact Us'` fallbacks.                                                                           |
+| `FooterContactRow`    | `app/components/footer/ContactRow.vue`    | `{ icon: Component; href?: string; external?: boolean; dir?: 'ltr' \| 'rtl'; preLine?: boolean }` + default slot | the 4 near-identical rows in `footer/Contact.vue:8-37`. Renders `<a>` when `href` is present, `<div>` otherwise.                                                                                          |
+| `ProductPriceBadge`   | `app/components/product/PriceBadge.vue`   | `{ priceKey: string; size?: 'sm' \| 'lg' }`                                                                      | `product/Card.vue:27-30` + `product/Landing.vue:23-28`. Owns `isNumericPrice` and the `SaudiRiyalIcon`.                                                                                                   |
 
 ### New guard scripts
 
@@ -310,8 +317,8 @@ export function useReducedMotion(): { prefersReducedMotion: Ref<boolean> }
 Prettier goes **first**, and this is not a close call. The reason is not diff
 size, it is **verifiability**: a whole-repo Prettier pass is the only change in
 this entire refactor that is provably semantics-preserving in a way you can
-check without judgement — *build before, build after, the HTML must be
-byte-identical*. That proof is unavailable in every later phase, because every
+check without judgement — _build before, build after, the HTML must be
+byte-identical_. That proof is unavailable in every later phase, because every
 later phase legitimately changes output. Running Prettier last instead would
 bury real logic changes inside ~4,000 reformatted lines and destroy your ability
 to tell whether an unexpected build diff came from the refactor or the formatter.
@@ -344,7 +351,7 @@ proof available in this entire refactor.
 
 **Goal:** a green lint + typecheck baseline that every later phase must preserve.
 
-Landing these *now*, before any refactor, is what makes them gates rather than
+Landing these _now_, before any refactor, is what makes them gates rather than
 noise. If they arrive after the refactor they surface a hundred findings at once
 and you cannot tell pre-existing from self-inflicted.
 
@@ -393,7 +400,7 @@ breaks, put `playwright-core` back and note why in the commit message.
 
 **Goal:** subtract. No new abstractions, no moves.
 
-Doing deletion *before* extraction means you never build a composable around
+Doing deletion _before_ extraction means you never build a composable around
 code you are about to delete, and every later phase has a smaller surface to touch.
 
 ### 3a — Dead code
@@ -432,7 +439,7 @@ Two items in 3a that need a sentence of care:
 - **`HomeFaq.vue:96-97` — fix a real content bug.** The open-panel rule caps
   height at `32rem`, silently truncating any answer taller than that. Replace it
   with a `grid-template-rows: 0fr → 1fr` transition (or `interpolate-size:
-  allow-keywords` with `max-height: max-content`).
+allow-keywords` with `max-height: max-content`).
 - `app/data/home.ts:38` — delete the `export type { HomeProduct }` re-export
   (nothing imports it from here; consumers already use `~/types`).
 
@@ -458,13 +465,13 @@ Create `scripts/check-i18n-keys.mjs` implementing this algorithm:
 6. Exit non-zero if any dead keys remain, printing each one.
 
 The allowlist is trustworthy rather than a fudge because both dynamic sites are
-*closed*: `WhoWeAre` iterates a fixed 6-element array, and the metaDescription
+_closed_: `WhoWeAre` iterates a fixed 6-element array, and the metaDescription
 rewrite is mechanically derived from a `descriptionKey` the type system already
 requires.
 
 Then:
 
-1. Run the script. It should print exactly **119** keys. That printed list *is*
+1. Run the script. It should print exactly **119** keys. That printed list _is_
    the delete list.
 2. **Before deleting, mirror those 119 keys to `docs/i18n-backlog.json`** in the
    same commit. These are professionally-translated Arabic marketing strings —
@@ -507,32 +514,32 @@ consistent with `whoWeAre.petals.safety`. Leave that one alone.)
 
 Create `shared/site.ts` and `shared/brand.ts` (specs above), then rewire:
 
-| File | Change |
-|---|---|
-| `nuxt.config.ts:37,113` | `site.url` and `i18n.baseUrl` to `SITE_URL`; `site.name` to `BRAND_NAME_LATIN`. Import **relatively**: `from './shared/site'` |
-| `app/app.vue:8,9` | `ASSETS.ogImage`, `ASSETS.logo` |
-| `app/app.vue:22-24` | `SCHEMA_ID.website` / `.organization` / `.logo` |
-| `app/app.vue:29` | `BCP47_BY_LOCALE[locale.value]` |
-| `app/app.vue:66-68` | `OG_IMAGE_SIZE` |
-| `app/app.vue:73` | `THEME_COLOR` |
-| `app/app.vue:85,103,109` | `BRAND_NAME_LATIN` |
-| `app/app.vue:89-95` | `Object.values(SOCIAL_URLS)` — **this fixes a real divergence**: `social-links.ts:21` carries the TikTok URL with tracking params, `app.vue:92` has the clean form. Canonical is the **clean** form, in both places. |
-| `app/app.vue:96-97` | `CONTACT.address`, `CONTACT.phone`, `CONTACT.email` (**acc@ becomes b2b@**), `CONTACT.vatId` |
-| `footer/Contact.vue:15,46` | `CONTACT.whatsappUrl`, `CONTACT.email` (**acc@ becomes b2b@**) |
-| `footer/Contact.vue:22` | use `CONTACT.phone` instead of the i18n key; then delete `footer.contact.phone` from both locale files (it is a phone number, not copy — identical in both) |
-| `AppHeader.vue:63`, `footer/Brand.vue:44`, `MobileSidebar.vue:66` | `ASSETS.logo` |
-| `HomeHero.vue:90` | `ASSETS.catalog` |
-| `data/social-links.ts` | each `href` reads from `SOCIAL_URLS` |
-| `[slug].vue:42` | `SCHEMA_ID.organization` |
-| `pages/products.vue:17`, `[slug].vue:17` | `CONTACT.email` |
-| `scripts/check-schema-org.mjs:12` | **leave hardcoded** — see below |
+| File                                                              | Change                                                                                                                                                                                                               |
+| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `nuxt.config.ts:37,113`                                           | `site.url` and `i18n.baseUrl` to `SITE_URL`; `site.name` to `BRAND_NAME_LATIN`. Import **relatively**: `from './shared/site'`                                                                                        |
+| `app/app.vue:8,9`                                                 | `ASSETS.ogImage`, `ASSETS.logo`                                                                                                                                                                                      |
+| `app/app.vue:22-24`                                               | `SCHEMA_ID.website` / `.organization` / `.logo`                                                                                                                                                                      |
+| `app/app.vue:29`                                                  | `BCP47_BY_LOCALE[locale.value]`                                                                                                                                                                                      |
+| `app/app.vue:66-68`                                               | `OG_IMAGE_SIZE`                                                                                                                                                                                                      |
+| `app/app.vue:73`                                                  | `THEME_COLOR`                                                                                                                                                                                                        |
+| `app/app.vue:85,103,109`                                          | `BRAND_NAME_LATIN`                                                                                                                                                                                                   |
+| `app/app.vue:89-95`                                               | `Object.values(SOCIAL_URLS)` — **this fixes a real divergence**: `social-links.ts:21` carries the TikTok URL with tracking params, `app.vue:92` has the clean form. Canonical is the **clean** form, in both places. |
+| `app/app.vue:96-97`                                               | `CONTACT.address`, `CONTACT.phone`, `CONTACT.email` (**acc@ becomes b2b@**), `CONTACT.vatId`                                                                                                                         |
+| `footer/Contact.vue:15,46`                                        | `CONTACT.whatsappUrl`, `CONTACT.email` (**acc@ becomes b2b@**)                                                                                                                                                       |
+| `footer/Contact.vue:22`                                           | use `CONTACT.phone` instead of the i18n key; then delete `footer.contact.phone` from both locale files (it is a phone number, not copy — identical in both)                                                          |
+| `AppHeader.vue:63`, `footer/Brand.vue:44`, `MobileSidebar.vue:66` | `ASSETS.logo`                                                                                                                                                                                                        |
+| `HomeHero.vue:90`                                                 | `ASSETS.catalog`                                                                                                                                                                                                     |
+| `data/social-links.ts`                                            | each `href` reads from `SOCIAL_URLS`                                                                                                                                                                                 |
+| `[slug].vue:42`                                                   | `SCHEMA_ID.organization`                                                                                                                                                                                             |
+| `pages/products.vue:17`, `[slug].vue:17`                          | `CONTACT.email`                                                                                                                                                                                                      |
+| `scripts/check-schema-org.mjs:12`                                 | **leave hardcoded** — see below                                                                                                                                                                                      |
 
 ### Two things NOT to de-duplicate
 
 **Leave `scripts/check-schema-org.mjs` and `public/.htaccess` hardcoded.** Apache
 cannot import TypeScript, and a guard that imports the value it is guarding stops
 guarding anything. Instead, add a fourth guard that converts unavoidable
-duplication into *verified* duplication:
+duplication into _verified_ duplication:
 
 `scripts/check-site-url-sync.mjs` — read `shared/site.ts` as text, extract
 `SITE_URL` by regex, then assert that every vitadiet URL occurrence in
@@ -543,7 +550,7 @@ that origin. Wire it into the `test:` scripts alongside the others.
 `footer.contact.address`.** Those are localized prose with per-language labels
 (Arabic vs English); templating a constant into them is high churn with a real
 chance of breaking Arabic text direction around the digits. The
-*machine-readable* values already come from `CONTACT` for the schema graph.
+_machine-readable_ values already come from `CONTACT` for the schema graph.
 
 **Verify:** gate green. `node scripts/check-site-url-sync.mjs` passes.
 Grepping `app/` and `scripts/` for `acc@vitadiet` returns nothing.
@@ -575,6 +582,7 @@ exactly one form across the repo.
 
    **Note the `/` special case.** A naive `'/en' + p` yields `/en/`, which is
    not what the current list contains.
+
 5. `server/api/__sitemap__/urls.ts` — import `PRODUCT_SLUGS` from
    `#shared/products` and delete the local array.
 6. Update the two importers of the old path: `pages/products.vue:26` and
@@ -740,7 +748,7 @@ guarded by `scripts/check-schema-org.mjs`, which runs automatically in the gate.
    getter-valued leaf fields** — exactly the pattern `app.vue:86,101,110` already
    uses successfully. Delete the `watchEffect`.
 
-   *Why calling it once is correct, not a regression:* the conditional `offers`
+   _Why calling it once is correct, not a regression:_ the conditional `offers`
    block is the only thing that looked like it needed reactivity. `offerPrice` is
    null exactly when the translated price string contains no digits — and in both
    locale files, `soluro` and `flowadite` are "coming soon" while the other seven
@@ -757,6 +765,7 @@ guarded by `scripts/check-schema-org.mjs`, which runs automatically in the gate.
 
 **Verify:** gate green (`check-schema-org.mjs` runs automatically), plus these
 explicit assertions:
+
 - `.output/public/index.html` and `/en/index.html` each contain `FAQPage` and
   exactly three `Question` nodes.
 - `.output/public/products/index.html` contains **no** `FAQPage`.
@@ -803,14 +812,14 @@ needing fixes — the Tailwind-classes-embedded-in-data problem, the
 `icon: string` + `petalIconMap` indirection, and the two-competing-icon-conventions
 problem:
 
-| Export | Destination |
-|---|---|
-| `heroSection` (+ the 24 path aliases + embedded Tailwind classes) | local const in `home/HeroDesktopGallery.vue` |
-| `whyPetals` + `petalIconMap` | local const in `home/Features.vue`, with **direct icon component imports** — this deletes the name-string-to-map lookup and its unconstrained-key problem outright |
-| `qualitySteps` | local const in `home/QualityPanel.vue` |
-| `aboutFeatures` | local const in `home/WhoWeAre.vue` |
-| `faqItems` | already moved to `app/data/faq.ts` in Phase 5 |
-| `products` | already moved to `app/data/products.ts` in Phase 5 |
+| Export                                                            | Destination                                                                                                                                                        |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `heroSection` (+ the 24 path aliases + embedded Tailwind classes) | local const in `home/HeroDesktopGallery.vue`                                                                                                                       |
+| `whyPetals` + `petalIconMap`                                      | local const in `home/Features.vue`, with **direct icon component imports** — this deletes the name-string-to-map lookup and its unconstrained-key problem outright |
+| `qualitySteps`                                                    | local const in `home/QualityPanel.vue`                                                                                                                             |
+| `aboutFeatures`                                                   | local const in `home/WhoWeAre.vue`                                                                                                                                 |
+| `faqItems`                                                        | already moved to `app/data/faq.ts` in Phase 5                                                                                                                      |
+| `products`                                                        | already moved to `app/data/products.ts` in Phase 5                                                                                                                 |
 
 `app/data/home.ts` ceases to exist. Final `app/data/`: `products.ts`,
 `navigation.ts`, `social-links.ts`, `faq.ts`.
@@ -826,8 +835,8 @@ from `#shared/products`.
 - **`base/BaseButton.vue`** is the only component still using runtime
   `defineProps({...})` with a validator; all 18 others use typed generics.
   Convert to `withDefaults(defineProps<{ variant?: 'primary' | 'secondary' |
-  'icon' | 'none'; to?: string | RouteLocationRaw; href?: string; nativeType?:
-  'button' | 'submit' | 'reset' }>(), { variant: 'primary', nativeType: 'button' })`.
+'icon' | 'none'; to?: string | RouteLocationRaw; href?: string; nativeType?:
+'button' | 'submit' | 'reset' }>(), { variant: 'primary', nativeType: 'button' })`.
   The runtime validator becomes a compile-time union — strictly better.
 - **`product/Card.vue`** declares `ariaHidden` and `tabIndex` props only to
   re-emit them through a manual `extraAttrs` computed. Delete both props and the
@@ -878,8 +887,8 @@ still works on both `/` and `/en`, in both RTL and LTR.
 5. **Add `app/error.vue`.** There is currently none, and no `ErrorDocument` in
    `public/.htaccess`, so any URL outside the prerender list gets a bare Apache
    404 with no layout, locale, or header. Create the error page (layout + locale
-   + a link home), add `ErrorDocument 404 /404.html` to `.htaccess`, and add
-   `/404.html` to the prerender routes.
+   - a link home), add `ErrorDocument 404 /404.html` to `.htaccess`, and add
+     `/404.html` to the prerender routes.
 6. **Prune two config guesses.** Check whether
    `vite.vue.template.transformAssetUrls.BaseImage` does anything — every `src`
    reaching `BaseImage` is a runtime string from a data file, and
@@ -909,16 +918,16 @@ and the unreachable category branch.
 
 **Guards after this work — all wired into `build` / `generate`:**
 
-| Guard | Protects |
-|---|---|
-| `check-no-localhost.mjs` | canonical URLs never leak a dev origin |
-| `check-schema-org.mjs` | the JSON-LD graph stays single-rooted and cross-referenced |
-| `check-i18n-keys.mjs` | no orphaned or missing translation keys, and ar/en parity |
-| `check-site-url-sync.mjs` | the site URL stays consistent across TS, config, and Apache |
-| `nitro.prerender.failOnError` | every registered slug actually renders |
-| `nuxt typecheck` | `shared/`, `server/`, and app code all type-check |
-| `eslint` | no dead code or unused imports |
-| `prettier --check` | consistent formatting |
+| Guard                         | Protects                                                    |
+| ----------------------------- | ----------------------------------------------------------- |
+| `check-no-localhost.mjs`      | canonical URLs never leak a dev origin                      |
+| `check-schema-org.mjs`        | the JSON-LD graph stays single-rooted and cross-referenced  |
+| `check-i18n-keys.mjs`         | no orphaned or missing translation keys, and ar/en parity   |
+| `check-site-url-sync.mjs`     | the site URL stays consistent across TS, config, and Apache |
+| `nitro.prerender.failOnError` | every registered slug actually renders                      |
+| `nuxt typecheck`              | `shared/`, `server/`, and app code all type-check           |
+| `eslint`                      | no dead code or unused imports                              |
+| `prettier --check`            | consistent formatting                                       |
 
 **Ordering rationale in one line each:**
 Prettier first (only phase with a byte-identical proof) → tooling second (creates

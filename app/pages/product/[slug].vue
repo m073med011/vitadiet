@@ -9,8 +9,14 @@
       >
         {{ $t('categoryPage.eyebrow') }}
       </p>
-      <h1 class="text-4xl font-bold text-center mb-8" data-aos="fade-up" data-aos-delay="100">{{ categoryName }}</h1>
-      <p class="text-copy-lg leading-copy text-ink-soft text-center max-w-copy mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">
+      <h1 class="text-4xl font-bold text-center mb-8" data-aos="fade-up" data-aos-delay="100">
+        {{ categoryName }}
+      </h1>
+      <p
+        class="text-copy-lg leading-copy text-ink-soft text-center max-w-copy mx-auto mb-8"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
         {{ $t('categoryPage.description') }}
       </p>
       <div class="text-center" data-aos="fade-up" data-aos-delay="300">
@@ -27,7 +33,7 @@ import { products } from '~/data/home'
 import { parseOfferPrice } from '~/utils/price'
 
 definePageMeta({
-  headerSticky: false
+  headerSticky: false,
 })
 
 const route = useRoute()
@@ -36,7 +42,6 @@ const slug = computed(() => route.params.slug)
 const { t, te, locale } = useI18n()
 const localePath = useLocalePath()
 const { productPath } = useProductPath()
-
 
 const siteUrl = useSiteConfig().url
 const organizationId = `${new URL('/', siteUrl).toString()}#organization`
@@ -71,9 +76,7 @@ const categoryName = computed(() => {
   return categoryKey ? t(categoryKey) : slugValue.value
 })
 
-const pageName = computed(() =>
-  product.value ? t(product.value.titleKey) : categoryName.value
-)
+const pageName = computed(() => (product.value ? t(product.value.titleKey) : categoryName.value))
 
 const pageDescription = computed(() => {
   if (product.value?.descriptionKey) return t(product.value.descriptionKey)
@@ -81,8 +84,6 @@ const pageDescription = computed(() => {
 })
 
 const metaDescription = computed(() => {
-  
-  
   const descKey = product.value?.descriptionKey
   if (descKey) {
     const metaKey = descKey.replace(/\.description$/, '.metaDescription')
@@ -93,7 +94,7 @@ const metaDescription = computed(() => {
 })
 
 const productImageUrl = computed(() =>
-  product.value ? new URL(product.value.image, siteUrl).toString() : undefined
+  product.value ? new URL(product.value.image, siteUrl).toString() : undefined,
 )
 
 const offerPrice = computed(() => {
@@ -106,10 +107,6 @@ const priceValidUntil = useState('offer-price-valid-until', () => {
   d.setFullYear(d.getFullYear() + 1)
   return d.toISOString().split('T')[0]
 })
-
-
-
-
 
 useSeoMeta({
   title: () => pageName.value,
@@ -125,19 +122,12 @@ useSeoMeta({
   twitterImage: () => productImageUrl.value,
 })
 
-
-
-
-
 watchEffect(() => {
   if (!product.value) return
 
   useSchemaOrg([
     defineBreadcrumb({
       itemListElement: [
-        
-        
-        
         { name: t('home'), item: new URL(localePath('/'), siteUrl).toString() },
         { name: t('productPage.heading'), item: localePath('/products/') },
         { name: pageName.value, item: productPath(product.value.slug) },
@@ -156,8 +146,7 @@ watchEffect(() => {
               price: offerPrice.value,
               priceCurrency: 'SAR',
               priceValidUntil: priceValidUntil.value,
-              
-              
+
               availability: product.value.buyLink
                 ? 'https://schema.org/InStock'
                 : 'https://schema.org/PreOrder',

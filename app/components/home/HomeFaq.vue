@@ -2,7 +2,9 @@
   <section id="faq" class="w-full py-section bg-surface">
     <div class="max-w-copy mx-auto px-page sm:px-gutter md:px-page-lg">
       <div class="text-center mb-rule-sm">
-        <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page">
+        <h2
+          class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page"
+        >
           {{ $t('homePage.faq.heading') }}
         </h2>
       </div>
@@ -56,23 +58,13 @@ import { faqItems } from '~/data/home'
 
 const { t } = useI18n()
 
-
-
 const openItems = ref(new Set<string>())
 
 function toggle(key: string) {
-  
   const next = new Set(openItems.value)
   next.has(key) ? next.delete(key) : next.add(key)
   openItems.value = next
 }
-
-
-
-
-
-
-
 
 useSchemaOrg([
   defineWebPage({ '@type': ['WebPage', 'FAQPage'] }),
@@ -89,7 +81,8 @@ useSchemaOrg([
 .faq-panel {
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--motion-page, 320ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  transition: max-height var(--motion-page, 320ms)
+    var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .faq-item.is-open .faq-panel {
@@ -97,7 +90,7 @@ useSchemaOrg([
 }
 
 .faq-panel-inner {
-    opacity: 0;
+  opacity: 0;
   transform: translateY(-0.25rem);
   transition:
     opacity var(--motion-page, 320ms) var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),

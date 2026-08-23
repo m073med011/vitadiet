@@ -1,5 +1,7 @@
 <template>
-  <nav class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft uppercase font-heading">
+  <nav
+    class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft uppercase font-heading"
+  >
     <div
       v-for="(item, index) in navItems"
       :key="item.labelKey"
@@ -31,7 +33,7 @@ const { sectionPath } = useSectionPath()
 
 <style scoped>
 .nav-link::after {
-  content: "";
+  content: '';
   position: absolute;
   inset-inline: 0;
   bottom: 0;

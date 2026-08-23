@@ -1,5 +1,4 @@
 <template>
-  
   <Transition name="fade-overlay">
     <div
       v-if="isOpen"
@@ -8,17 +7,22 @@
     ></div>
   </Transition>
 
-  
   <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
     <aside
       v-if="isOpen"
       class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface shadow-[4px_0_60px_rgba(27,56,97,0.18)] border-e border-line pointer-events-auto"
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
-      
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="$emit('close')">
-          <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="eager" :width="1000" :height="333" class="h-8 sm:h-10 w-auto object-contain" />
+          <BaseImage
+            :src="logoImage"
+            alt="Vitadiet Logo"
+            loading="eager"
+            :width="1000"
+            :height="333"
+            class="h-8 sm:h-10 w-auto object-contain"
+          />
         </NuxtLink>
         <button
           @click="$emit('close')"
@@ -29,7 +33,6 @@
         </button>
       </div>
 
-      
       <nav class="flex-1 overflow-y-auto px-4 sm:px-6 pt-6 pb-6">
         <div class="flex flex-col gap-2">
           <NuxtLink
@@ -43,14 +46,17 @@
           >
             <component :is="item.icon" class="w-6 h-6 shrink-0" />
             <span class="font-semibold text-copy font-heading">{{ $t(item.labelKey) }}</span>
-            <ChevronRightIcon class="w-5 h-5 ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5" />
+            <ChevronRightIcon
+              class="w-5 h-5 ms-auto opacity-40 rtl:rotate-180 transition-transform group-hover:opacity-100 group-hover:translate-x-0.5"
+            />
           </NuxtLink>
         </div>
       </nav>
 
-      
       <div class="relative z-10 px-6 py-6 border-t border-line">
-        <p class="text-caption font-bold tracking-label uppercase text-ink-subtle mb-4">{{ $t('preferences') }}</p>
+        <p class="text-caption font-bold tracking-label uppercase text-ink-subtle mb-4">
+          {{ $t('preferences') }}
+        </p>
         <div class="grid grid-cols-2 gap-4">
           <HeaderLangSwitcher variant="mobile" @switch="$emit('close')" />
         </div>

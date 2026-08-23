@@ -1,16 +1,13 @@
-import tailwindcss from "@tailwindcss/vite";
-
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
 
   vite: {
     build: {
-      
-      
       assetsInlineLimit: 0,
     },
     plugins: [tailwindcss()],
@@ -27,18 +24,18 @@ export default defineNuxtConfig({
         '@vue/devtools-kit',
         '@unhead/schema-org/vue',
         'lucide-vue-next',
-      ]
-    }
+      ],
+    },
   },
 
-  modules: ["@nuxtjs/i18n", "@nuxt/image", "@nuxt/fonts", "@nuxtjs/seo"],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/seo'],
 
   site: {
     url: 'https://www.vitadiet.sa',
     trailingSlash: true,
     name: 'Vitadiet',
     description: 'Certified supplement portfolio for B2B distribution',
-    defaultLocale: 'ar'
+    defaultLocale: 'ar',
   },
 
   schemaOrg: {
@@ -48,14 +45,10 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    
     sources: ['/api/__sitemap__/urls'],
   },
 
   robots: {
-    
-    
-    
     sitemap: '/sitemap_index.xml',
   },
 
@@ -97,8 +90,7 @@ export default defineNuxtConfig({
     },
   },
 
-  experimental: {
-  },
+  experimental: {},
 
   routeRules: {
     '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
@@ -108,32 +100,30 @@ export default defineNuxtConfig({
     '/en/sitemap.xml': { robots: false, sitemap: false },
   },
 
-
   i18n: {
     baseUrl: 'https://www.vitadiet.sa',
     locales: [
       {
-        code: "en",
-        iso: "en-US",
-        name: "English",
-        dir: "ltr",
-        file: "en.json",
+        code: 'en',
+        iso: 'en-US',
+        name: 'English',
+        dir: 'ltr',
+        file: 'en.json',
       },
       {
-        code: "ar",
-        iso: "ar-SA",
-        name: "العربية",
-        dir: "rtl",
-        file: "ar.json",
+        code: 'ar',
+        iso: 'ar-SA',
+        name: 'العربية',
+        dir: 'rtl',
+        file: 'ar.json',
       },
     ],
-    restructureDir: ".",
-    langDir: "app/locales",
-    defaultLocale: "ar",
-    strategy: "prefix_except_default",
+    restructureDir: '.',
+    langDir: 'app/locales',
+    defaultLocale: 'ar',
+    strategy: 'prefix_except_default',
     detectBrowserLanguage: false,
-    
-    
+
     trailingSlash: true,
   },
-});
+})

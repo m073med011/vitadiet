@@ -1,2 +1,1 @@
-export const normalizePath = (path: string): string =>
-  path.replace(/\/$/, '') || '/'
+export const normalizePath = (path: string): string => path.replace(/\/$/, '') || '/'

@@ -2,7 +2,9 @@
   <section id="products" class="w-full py-section md:py-section-lg bg-surface">
     <div class="content-container">
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
-        <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page">
+        <h2
+          class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page"
+        >
           {{ $t('homePage.products.heading') }}
         </h2>
         <p class="text-copy-lg leading-copy text-ink-soft">
@@ -128,7 +130,11 @@ function handleCarouselFocusOut(event: FocusEvent) {
   const wrapper = event.currentTarget
   const nextTarget = event.relatedTarget
 
-  if (wrapper instanceof HTMLElement && nextTarget instanceof Node && wrapper.contains(nextTarget)) {
+  if (
+    wrapper instanceof HTMLElement &&
+    nextTarget instanceof Node &&
+    wrapper.contains(nextTarget)
+  ) {
     return
   }
 
@@ -158,8 +164,20 @@ onBeforeUnmount(() => {
   width: 100%;
   overflow: hidden;
   padding-block: 0.75rem;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
-  mask-image: linear-gradient(to right, transparent, #000 4rem, #000 calc(100% - 4rem), transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent
+  );
 }
 
 .product-track {
@@ -200,7 +218,10 @@ onBeforeUnmount(() => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transform: translateY(-50%);
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .product-nav:hover {

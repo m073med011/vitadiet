@@ -1,6 +1,8 @@
 <template>
   <section :dir="pageDirection" class="bg-surface lg:min-h-[calc(100svh_-_var(--anchor-offset))]">
-    <div class="mx-auto grid max-w-content items-center gap-gutter-lg px-page py-section-sm sm:px-gutter md:px-page-lg lg:min-h-[calc(100svh_-_var(--anchor-offset))] lg:grid-cols-[minmax(0,1.08fr)_var(--spacing-avatar)_minmax(0,0.92fr)] lg:gap-gutter-lg lg:py-page lg:[direction:ltr]">
+    <div
+      class="mx-auto grid max-w-content items-center gap-gutter-lg px-page py-section-sm sm:px-gutter md:px-page-lg lg:min-h-[calc(100svh_-_var(--anchor-offset))] lg:grid-cols-[minmax(0,1.08fr)_var(--spacing-avatar)_minmax(0,0.92fr)] lg:gap-gutter-lg lg:py-page lg:[direction:ltr]"
+    >
       <div
         :dir="pageDirection"
         class="flex items-center justify-center lg:col-start-3 lg:row-start-1"
@@ -8,22 +10,36 @@
         data-aos-delay="150"
       >
         <div class="flex w-full max-w-152 flex-col items-start justify-center text-start">
-          <p class="mb-page inline-flex w-fit items-center rounded-pill border border-brand-primary/20 bg-brand-primary-soft px-page py-control-y-sm text-caption font-bold tracking-label uppercase text-brand-primary">
+          <p
+            class="mb-page inline-flex w-fit items-center rounded-pill border border-brand-primary/20 bg-brand-primary-soft px-page py-control-y-sm text-caption font-bold tracking-label uppercase text-brand-primary"
+          >
             {{ $t('categoryPage.eyebrow') }}
           </p>
 
-          <h1 class="max-w-136 text-heading font-bold leading-heading text-ink md:text-heading-lg lg:text-display">
+          <h1
+            class="max-w-136 text-heading font-bold leading-heading text-ink md:text-heading-lg lg:text-display"
+          >
             {{ $t(product.titleKey) }}
           </h1>
 
-          <p class="mt-gutter max-w-152 whitespace-pre-line text-copy-lg font-medium leading-copy text-ink-soft">
+          <p
+            class="mt-gutter max-w-152 whitespace-pre-line text-copy-lg font-medium leading-copy text-ink-soft"
+          >
             {{ description }}
           </p>
 
-          <div class="mt-gutter inline-flex w-fit flex-wrap items-center gap-page rounded-card border border-line/80 bg-surface-raised px-page py-control-y shadow-card">
-            <span class="inline-flex items-center justify-center gap-rule text-title font-bold leading-none text-brand-primary">
+          <div
+            class="mt-gutter inline-flex w-fit flex-wrap items-center gap-page rounded-card border border-line/80 bg-surface-raised px-page py-control-y shadow-card"
+          >
+            <span
+              class="inline-flex items-center justify-center gap-rule text-title font-bold leading-none text-brand-primary"
+            >
               <span>{{ $t(product.priceKey) }}</span>
-              <SaudiRiyalIcon v-if="isNumericPrice(t(product.priceKey))" class="h-icon-md w-icon-md shrink-0" aria-hidden="true" />
+              <SaudiRiyalIcon
+                v-if="isNumericPrice(t(product.priceKey))"
+                class="h-icon-md w-icon-md shrink-0"
+                aria-hidden="true"
+              />
             </span>
           </div>
 
@@ -36,7 +52,11 @@
               variant="primary"
             >
               {{ product.buyLink ? $t('categoryPage.cta') : $t('productPage.comingSoon') }}
-              <ArrowRightIcon v-if="product.buyLink" class="h-icon-md w-icon-md shrink-0 rtl:rotate-180" aria-hidden="true" />
+              <ArrowRightIcon
+                v-if="product.buyLink"
+                class="h-icon-md w-icon-md shrink-0 rtl:rotate-180"
+                aria-hidden="true"
+              />
             </BaseButton>
           </div>
         </div>
@@ -69,7 +89,6 @@
           </Transition>
         </div>
 
-        
         <ProductGallery
           v-if="galleryImages.length > 1"
           layout="horizontal"
@@ -80,7 +99,6 @@
         />
       </div>
 
-      
       <ProductGallery
         v-if="galleryImages.length > 1"
         :dir="pageDirection"
@@ -95,10 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ArrowRightIcon,
-  SaudiRiyalIcon,
-} from 'lucide-vue-next'
+import { ArrowRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
 import type { HomeProduct } from '~/types'
 import { isNumericPrice } from '~/utils/price'
 
@@ -115,7 +130,7 @@ let reducedMotionQuery: MediaQueryList | undefined
 
 const prefersReducedMotion = ref(false)
 const isRtl = computed(() => locale.value === 'ar')
-const pageDirection = computed(() => isRtl.value ? 'rtl' : 'ltr')
+const pageDirection = computed(() => (isRtl.value ? 'rtl' : 'ltr'))
 
 const activeImage = ref(props.product.image)
 const galleryImages = computed(() => [props.product.image, ...(props.product.gallery ?? [])])
@@ -162,14 +177,17 @@ function syncReducedMotionPreference(event: MediaQueryListEvent) {
   startImageRotation()
 }
 
-watch(() => props.product, (newProduct) => {
-  activeImage.value = newProduct.image
-  startImageRotation()
-})
+watch(
+  () => props.product,
+  (newProduct) => {
+    activeImage.value = newProduct.image
+    startImageRotation()
+  },
+)
 
-const description = computed(() => (
-  props.product.descriptionKey ? t(props.product.descriptionKey) : t('categoryPage.description')
-))
+const description = computed(() =>
+  props.product.descriptionKey ? t(props.product.descriptionKey) : t('categoryPage.description'),
+)
 
 onMounted(() => {
   reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -182,5 +200,4 @@ onBeforeUnmount(() => {
   clearImageRotation()
   reducedMotionQuery?.removeEventListener('change', syncReducedMotionPreference)
 })
-
 </script>

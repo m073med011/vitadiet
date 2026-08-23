@@ -1,10 +1,4 @@
-import {
-  HomeIcon,
-  InfoIcon,
-  PackageIcon,
-  PhoneIcon,
-  SparklesIcon,
-} from 'lucide-vue-next'
+import { HomeIcon, InfoIcon, PackageIcon, PhoneIcon, SparklesIcon } from 'lucide-vue-next'
 import type { NavItem } from '~/types'
 
 export const navItems: NavItem[] = [

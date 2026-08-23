@@ -28,10 +28,11 @@ const collectFiles = async (dir) => {
       const path = join(dir, entry.name)
       if (entry.isDirectory()) return collectFiles(path)
       const relativePath = relative(PUBLIC_DIR, path)
-      return SCANNED_EXTENSIONS.some((ext) => entry.name.endsWith(ext)) && !IGNORED_FILES.has(relativePath)
+      return SCANNED_EXTENSIONS.some((ext) => entry.name.endsWith(ext)) &&
+        !IGNORED_FILES.has(relativePath)
         ? [path]
         : []
-    })
+    }),
   )
   return files.flat()
 }

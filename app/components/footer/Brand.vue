@@ -1,7 +1,14 @@
 <template>
   <div class="space-y-gutter" data-aos="fade-up">
     <NuxtLink :to="localePath('/')" aria-label="Vitadiet home">
-      <BaseImage :src="logoImage" alt="Vitadiet Logo" loading="lazy" :width="1000" :height="333" class="h-page-lg sm:h-product-lg w-auto object-contain" />
+      <BaseImage
+        :src="logoImage"
+        alt="Vitadiet Logo"
+        loading="lazy"
+        :width="1000"
+        :height="333"
+        class="h-page-lg sm:h-product-lg w-auto object-contain"
+      />
     </NuxtLink>
     <p class="text-ink leading-copy">{{ $t('footer.quote') }}</p>
     <div class="flex flex-wrap items-center gap-control-y-sm pt-control-y-sm">
@@ -9,7 +16,8 @@
         v-for="link in socialLinks"
         :key="link.label"
         :href="link.href"
-        target="_blank" rel="noopener noreferrer"
+        target="_blank"
+        rel="noopener noreferrer"
         :aria-label="link.label"
         class="icon-circle"
       >
@@ -25,12 +33,12 @@
           :viewBox="link.viewBox || '0 0 24 24'"
           aria-hidden="true"
         >
-          <path 
-            fill="currentColor" 
-            :stroke="link.stroke || 'none'" 
-            :stroke-width="link.strokeWidth || 0" 
-            :stroke-linejoin="link.strokeLinejoin" 
-            :d="link.path" 
+          <path
+            fill="currentColor"
+            :stroke="link.stroke || 'none'"
+            :stroke-width="link.strokeWidth || 0"
+            :stroke-linejoin="link.strokeLinejoin"
+            :d="link.path"
           />
         </svg>
       </a>

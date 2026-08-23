@@ -1,12 +1,17 @@
 <template>
   <div class="pt-24 pb-12 min-h-screen">
     <div class="content-container">
-      <h1 class="text-4xl font-bold text-center mb-8" data-aos="fade-up">{{ $t('productPage.heading') }}</h1>
-      <p class="text-copy-lg leading-copy text-ink-soft text-center max-w-copy mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">
+      <h1 class="text-4xl font-bold text-center mb-8" data-aos="fade-up">
+        {{ $t('productPage.heading') }}
+      </h1>
+      <p
+        class="text-copy-lg leading-copy text-ink-soft text-center max-w-copy mx-auto mb-8"
+        data-aos="fade-up"
+        data-aos-delay="100"
+      >
         {{ $t('productPage.description') }}
       </p>
 
-      
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter mb-12">
         <li v-for="product in products" :key="product.slug" data-aos="fade-up">
           <ProductCard :product="product" />
@@ -29,8 +34,6 @@ const { t } = useI18n()
 const { productPath } = useProductPath()
 const siteUrl = useSiteConfig().url
 
-
-
 useSchemaOrg([
   defineItemList({
     itemListElement: products.map((product, index) => ({
@@ -41,7 +44,6 @@ useSchemaOrg([
     })),
   }),
 ])
-
 
 useSeoMeta({
   title: () => t('productPage.heading'),

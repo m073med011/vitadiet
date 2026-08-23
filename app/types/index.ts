@@ -22,7 +22,7 @@ export interface SocialLink {
   label: string
   href: string
   icon?: Component
-    path?: string
+  path?: string
   viewBox?: string
   stroke?: string
   strokeWidth?: number

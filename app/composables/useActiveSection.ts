@@ -13,9 +13,12 @@ export function useActiveSection(navItems: NavItem[]) {
 
   const homePath = computed(() => normalizePath(localePath('/')))
 
-  watch(() => route.hash, (newHash) => {
-    activeHash.value = newHash || ''
-  })
+  watch(
+    () => route.hash,
+    (newHash) => {
+      activeHash.value = newHash || ''
+    },
+  )
 
   function scheduleActiveSectionUpdate() {
     if (activeSectionFrame) return
@@ -31,7 +34,7 @@ export function useActiveSection(navItems: NavItem[]) {
       return
     }
 
-    const sectionHashes = navItems.filter(item => item.hash).map(item => item.hash)
+    const sectionHashes = navItems.filter((item) => item.hash).map((item) => item.hash)
     if (sectionHashes.length === 0) {
       activeHash.value = ''
       return
@@ -81,7 +84,7 @@ export function useActiveSection(navItems: NavItem[]) {
       return
     }
 
-    const sectionHashes = navItems.filter(item => item.hash).map(item => item.hash)
+    const sectionHashes = navItems.filter((item) => item.hash).map((item) => item.hash)
     if (sectionHashes.length === 0) return
 
     const elements = sectionHashes
@@ -90,18 +93,21 @@ export function useActiveSection(navItems: NavItem[]) {
 
     if (elements.length === 0) return
 
-    sectionObserver = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        const id = entry.target.id
-        if (!id) continue
-        sectionRatios.value[`#${id}`] = entry.isIntersecting ? entry.intersectionRatio : 0
-      }
-      scheduleActiveSectionUpdate()
-    }, {
-      root: null,
-      rootMargin: '-18% 0px -58% 0px',
-      threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
-    })
+    sectionObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id
+          if (!id) continue
+          sectionRatios.value[`#${id}`] = entry.isIntersecting ? entry.intersectionRatio : 0
+        }
+        scheduleActiveSectionUpdate()
+      },
+      {
+        root: null,
+        rootMargin: '-18% 0px -58% 0px',
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+      },
+    )
 
     for (const el of elements) {
       sectionObserver.observe(el)
@@ -110,14 +116,20 @@ export function useActiveSection(navItems: NavItem[]) {
     scheduleActiveSectionUpdate()
   }
 
-  watch(() => route.path, async () => {
-    await nextTick()
-    setupSectionObserver()
-  })
+  watch(
+    () => route.path,
+    async () => {
+      await nextTick()
+      setupSectionObserver()
+    },
+  )
 
-  watch(() => route.fullPath, () => {
-    scheduleActiveSectionUpdate()
-  })
+  watch(
+    () => route.fullPath,
+    () => {
+      scheduleActiveSectionUpdate()
+    },
+  )
 
   onMounted(() => {
     setupSectionObserver()

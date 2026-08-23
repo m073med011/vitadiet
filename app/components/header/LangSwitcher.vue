@@ -28,7 +28,7 @@
 import { LanguagesIcon } from 'lucide-vue-next'
 
 const props = defineProps<{
-    variant: 'desktop' | 'mobile'
+  variant: 'desktop' | 'mobile'
 }>()
 
 defineEmits<{
@@ -38,7 +38,7 @@ defineEmits<{
 const { locale } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
-const targetLocale = computed(() => locale.value === 'en' ? 'ar' : 'en')
+const targetLocale = computed(() => (locale.value === 'en' ? 'ar' : 'en'))
 const label = computed(() => {
   if (props.variant === 'desktop') {
     return locale.value === 'en' ? 'عربي' : 'EN'

@@ -10,7 +10,9 @@
         alt=""
         fill
         class="object-cover transition-all duration-500 group-hover/card:scale-105"
-        :class="{ 'group-hover/card:opacity-0': showHoverImage && product.gallery && product.gallery[0] }"
+        :class="{
+          'group-hover/card:opacity-0': showHoverImage && product.gallery && product.gallery[0],
+        }"
       />
       <BaseImage
         v-if="showHoverImage && product.gallery && product.gallery[0]"
@@ -22,20 +24,39 @@
     </div>
 
     <div class="flex flex-1 flex-col gap-3 sm:gap-page p-3 sm:p-page">
-      <div class="flex flex-col sm:flex-row items-start sm:items-start sm:justify-between gap-2 sm:gap-page">
-        <h3 class="product-title text-copy font-bold leading-tight sm:leading-heading text-ink">{{ $t(product.titleKey) }}</h3>
-        <span class="shrink-0 rounded-pill bg-brand-primary-soft px-2 sm:px-page py-1 sm:py-control-y-sm text-caption sm:text-small font-bold text-brand-primary flex items-center justify-center gap-1">
+      <div
+        class="flex flex-col sm:flex-row items-start sm:items-start sm:justify-between gap-2 sm:gap-page"
+      >
+        <h3 class="product-title text-copy font-bold leading-tight sm:leading-heading text-ink">
+          {{ $t(product.titleKey) }}
+        </h3>
+        <span
+          class="shrink-0 rounded-pill bg-brand-primary-soft px-2 sm:px-page py-1 sm:py-control-y-sm text-caption sm:text-small font-bold text-brand-primary flex items-center justify-center gap-1"
+        >
           <span>{{ $t(product.priceKey) }}</span>
-          <SaudiRiyalIcon v-if="isNumericPrice(t(product.priceKey))" class="h-3 w-3 sm:h-4 sm:w-4 shrink-0" aria-hidden="true" />
+          <SaudiRiyalIcon
+            v-if="isNumericPrice(t(product.priceKey))"
+            class="h-3 w-3 sm:h-4 sm:w-4 shrink-0"
+            aria-hidden="true"
+          />
         </span>
       </div>
 
-      <div class="mt-auto flex items-center justify-between gap-2 sm:gap-page border-t border-line pt-3 sm:pt-page">
-        <span class="text-caption sm:text-small font-bold tracking-label uppercase text-ink-subtle leading-tight">
+      <div
+        class="mt-auto flex items-center justify-between gap-2 sm:gap-page border-t border-line pt-3 sm:pt-page"
+      >
+        <span
+          class="text-caption sm:text-small font-bold tracking-label uppercase text-ink-subtle leading-tight"
+        >
           {{ $t('homePage.stats.b2bOnly') }}
         </span>
-        <span class="product-arrow shrink-0 inline-flex h-8 w-8 sm:h-icon-2xl sm:w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300">
-          <ArrowUpRightIcon class="h-4 w-4 sm:h-icon-sm sm:w-icon-sm rtl:-rotate-90" aria-hidden="true" />
+        <span
+          class="product-arrow shrink-0 inline-flex h-8 w-8 sm:h-icon-2xl sm:w-icon-2xl items-center justify-center rounded-pill bg-brand-primary text-surface transition-transform duration-300"
+        >
+          <ArrowUpRightIcon
+            class="h-4 w-4 sm:h-icon-sm sm:w-icon-sm rtl:-rotate-90"
+            aria-hidden="true"
+          />
         </span>
       </div>
     </div>
@@ -50,8 +71,8 @@ import { isNumericPrice } from '~/utils/price'
 
 const props = defineProps<{
   product: HomeProduct
-    showHoverImage?: boolean
-    ariaHidden?: boolean
+  showHoverImage?: boolean
+  ariaHidden?: boolean
   tabIndex?: number
 }>()
 
@@ -86,7 +107,7 @@ const extraAttrs = computed(() => {
   transform: translateX(0.25rem);
 }
 
-html[dir="rtl"] .product-card:hover .product-arrow {
+html[dir='rtl'] .product-card:hover .product-arrow {
   transform: translateX(-0.25rem);
 }
 </style>

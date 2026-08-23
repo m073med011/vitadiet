@@ -1,7 +1,7 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 export interface UseMarqueeOptions {
-    autoSpeed?: number
+  autoSpeed?: number
 }
 
 export function useMarquee(options: UseMarqueeOptions = {}) {
@@ -11,8 +11,8 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
   const track = ref<HTMLElement | null>(null)
   const paused = ref(false)
 
-  let offset = 0          
-  let manualTarget = 0    
+  let offset = 0
+  let manualTarget = 0
   let rafId = 0
   let isRtl = false
   let prefersReducedMotion = false
@@ -30,7 +30,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     const cloneIndex = cards.length / 2
     const firstCard = cards.item(0) as HTMLElement | null
     const firstClone = Number.isInteger(cloneIndex)
-      ? cards.item(cloneIndex) as HTMLElement | null
+      ? (cards.item(cloneIndex) as HTMLElement | null)
       : null
 
     if (firstCard && firstClone) {
@@ -52,7 +52,6 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
   }
 
   function tick() {
-    
     if (manualTarget !== 0) {
       const step = manualTarget * 0.12
       offset += step
@@ -104,8 +103,8 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     }
 
     const sign = isRtl ? 1 : -1
-    const untransformedLeft = elementRect.left - (sign * offset)
-    const centeredLeft = viewportRect.left + ((viewportRect.width - elementRect.width) / 2)
+    const untransformedLeft = elementRect.left - sign * offset
+    const centeredLeft = viewportRect.left + (viewportRect.width - elementRect.width) / 2
     const maximumOffset = Math.max(0, loopWidth() - 1)
 
     offset = Math.min(Math.max((centeredLeft - untransformedLeft) / sign, 0), maximumOffset)
@@ -132,7 +131,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
     const diffY = Math.abs(touchStartY - currentY)
 
     if (!isDragging) {
-      if (diffY > Math.abs(diffX)) return 
+      if (diffY > Math.abs(diffX)) return
       if (Math.abs(diffX) > 5) isDragging = true
     }
 

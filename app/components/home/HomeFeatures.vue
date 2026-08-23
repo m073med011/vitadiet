@@ -1,10 +1,10 @@
 <template>
   <section id="why" class="w-full py-section bg-surface-raised/50 section-decor overflow-hidden">
     <div class="content-container">
-
-      
       <div class="text-center max-w-copy mx-auto mb-rule-sm" data-aos="fade-up">
-        <h2 class="text-heading md:text-heading-lg leading-heading font-bold text-brand-primary uppercase tracking-label mb-page">
+        <h2
+          class="text-heading md:text-heading-lg leading-heading font-bold text-brand-primary uppercase tracking-label mb-page"
+        >
           {{ $t('homePage.why.heading') }}
         </h2>
         <p class="text-copy-lg leading-copy text-ink-soft">
@@ -12,7 +12,6 @@
         </p>
       </div>
 
-      
       <div class="petal-grid">
         <article
           v-for="(petal, index) in whyPetals"
@@ -29,12 +28,10 @@
             {{ $t(petal.descriptionKey) }}
           </p>
 
-          
           <span class="petal-glow" aria-hidden="true" />
         </article>
       </div>
 
-      
       <article class="quality-panel" data-aos="fade-up" data-aos-delay="100">
         <div class="quality-image-shell">
           <NuxtImg
@@ -52,11 +49,7 @@
 
         <div class="panel-body">
           <div class="panel-steps">
-            <div
-              v-for="(step, i) in qualitySteps"
-              :key="step.titleKey"
-              class="panel-step"
-            >
+            <div v-for="(step, i) in qualitySteps" :key="step.titleKey" class="panel-step">
               <component :is="step.icon" class="step-icon" aria-hidden="true" />
               <h4 class="step-title">{{ $t(step.titleKey) }}</h4>
               <p class="step-desc">{{ $t(step.descriptionKey) }}</p>
@@ -64,7 +57,6 @@
           </div>
         </div>
       </article>
-
     </div>
   </section>
 </template>
@@ -74,12 +66,11 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
 </script>
 
 <style scoped>
-
 .section-decor {
   position: relative;
 }
 .section-decor::before {
-  content: "";
+  content: '';
   position: absolute;
   inset-block-start: 3rem;
   inset-inline-end: 3rem;
@@ -91,14 +82,12 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   pointer-events: none;
 }
 
-
 .petal-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 1rem;
 }
-
 
 .petal-card {
   position: relative;
@@ -126,9 +115,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   border-color: color-mix(in oklab, var(--color-brand-primary) 22%, var(--color-line));
 }
 
-
-
-
 .petal-icon {
   display: block;
   width: 2rem;
@@ -136,9 +122,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   color: var(--color-brand-primary);
   margin-bottom: 1.25rem;
 }
-
-
-
 
 .petal-glow {
   position: absolute;
@@ -159,9 +142,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   opacity: 1;
   transform: scale(1.1);
 }
-
-
-
 
 .quality-panel {
   position: relative;
@@ -190,7 +170,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   text-align: center;
 }
 
-
 .panel-body {
   position: relative;
   z-index: 2;
@@ -208,13 +187,11 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   text-shadow: 0 0.25rem 2.5rem rgb(2 3 12 / 0.54);
 }
 
-
 .panel-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.75rem, 2vw, 1rem);
 }
-
 
 .panel-step {
   position: relative;
@@ -250,7 +227,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   margin-bottom: 1.25rem;
 }
 
-
 .step-title {
   margin-bottom: 0.375rem;
   color: var(--color-ink);
@@ -258,7 +234,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
   font-weight: 700;
   line-height: var(--leading-heading);
 }
-
 
 .step-desc {
   color: var(--color-ink-soft);
@@ -287,7 +262,6 @@ import { whyPetals, petalIconMap as iconMap, qualitySteps } from '~/data/home'
     grid-column-start: 2;
   }
 }
-
 
 @media (max-width: 900px) {
   .panel-steps {
