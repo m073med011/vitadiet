@@ -1,47 +1,52 @@
-# Canonical origin: https://www.vitadiet.sa/ - must match nuxt.config.ts
-# `site.url` and `i18n.baseUrl`, which already emit www-only canonical, hreflang,
-# og:url, sitemap <loc> and JSON-LD values. Apache answers 200 on all four
-# scheme/host variants, so without this file every page exists at four URLs and
-# ranking signals split across them.
+# VitaDiet production canonical redirects
+# Production: https://www.vitadiet.sa/
+# Development: https://dev.vitadiet.sa/
 #
-# Every rule redirects to the absolute canonical origin and ends in [L], so host,
-# scheme and trailing slash are corrected in a single 301 - never a chain.
-#
-# No [NE] anywhere on purpose: REQUEST_URI is Apache's already-decoded r->uri, so
-# letting mod_rewrite re-escape the substitution is what produces a valid
-# Location header. Adding [NE] here would put raw UTF-8 bytes in the header for
-# Arabic paths such as /ar/إلى/.
+# IMPORTANT:
+# Production redirects are intentionally limited to vitadiet.sa and
+# www.vitadiet.sa. The dev subdomain is never redirected to production.
+
 ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
+
 RewriteEngine On
 
-# AutoSSL/ACME renewal is validated over plain http on the bare host too.
+# AutoSSL / ACME validation
 RewriteRule ^\.well-known/ - [L]
 
-# Arabic was previously served below /ar/. Keep those indexed URLs valid while
-# the default Arabic locale moves to the canonical root. These are absolute
-# targets so a legacy request reaches its final www/HTTPS URL in one 301 hop.
+# ------------------------------------------------------------
+# LEGACY /ar/ REDIRECTS — PRODUCTION HOSTS ONLY
+# ------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^(?:www\.)?vitadiet\.sa$ [NC]
 RewriteRule ^ar/?$ https://www.vitadiet.sa/ [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^(?:www\.)?vitadiet\.sa$ [NC]
 RewriteRule ^ar/(.+)$ https://www.vitadiet.sa/$1 [R=301,L]
 
-# Directory request missing the trailing slash that `trailingSlash: true`
-# canonicalises to. Done here rather than left to mod_dir's DirectorySlash, which
-# runs after this file and would cost a second hop when the host is also wrong.
-# Skipped for subrequests so the internal DirectoryIndex lookup cannot loop.
+# ------------------------------------------------------------
+# TRAILING SLASH — PRODUCTION HOSTS ONLY
+# ------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^(?:www\.)?vitadiet\.sa$ [NC]
 RewriteCond %{IS_SUBREQ} !=true
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteCond %{REQUEST_URI} !/$
 RewriteRule ^ https://www.vitadiet.sa%{REQUEST_URI}/ [R=301,L]
 
-# Wrong host, any scheme. The original query string is re-appended automatically
-# because the target contains no "?".
-RewriteCond %{HTTP_HOST} !^www\.vitadiet\.sa$ [NC]
+# ------------------------------------------------------------
+# BARE DOMAIN -> WWW
+# Only vitadiet.sa is redirected.
+# dev.vitadiet.sa is NOT matched.
+# ------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^vitadiet\.sa$ [NC]
 RewriteRule ^ https://www.vitadiet.sa%{REQUEST_URI} [R=301,L]
 
-# Right host, plain http. X-Forwarded-Proto is checked as well so terminating a
-# TLS proxy in front of Apache later cannot turn this into a redirect loop.
+# ------------------------------------------------------------
+# FORCE HTTPS ON WWW PRODUCTION HOST ONLY
+# ------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^www\.vitadiet\.sa$ [NC]
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 RewriteRule ^ https://www.vitadiet.sa%{REQUEST_URI} [R=301,L]
+
 </IfModule>
