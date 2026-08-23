@@ -1,5 +1,5 @@
 <template>
-  <section id="featured-products" class="w-full bg-surface py-section md:py-section-lg">
+  <section id="featured-products" class="section-block">
     <div class="content-container">
       <BaseSectionHeader
         :heading="$t('featuredProducts.heading')"
@@ -18,13 +18,11 @@
           </div>
 
           <div class="flex flex-1 flex-col gap-page p-card">
-            <p
-              class="w-fit rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-caption font-bold uppercase tracking-label text-brand-primary"
-            >
+            <p class="eyebrow-pill">
               {{ $t('featuredProducts.mainEyebrow') }}
             </p>
             <div>
-              <h2 class="text-heading font-bold leading-heading text-ink md:text-heading-lg">
+              <h2 class="panel-heading">
                 {{ $t(mainProduct.titleKey) }}
               </h2>
               <p class="mt-control-y text-copy-lg leading-copy text-ink-soft">

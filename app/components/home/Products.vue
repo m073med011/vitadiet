@@ -1,5 +1,5 @@
 <template>
-  <section id="products" class="w-full py-section md:py-section-lg bg-surface">
+  <section id="products" class="section-block">
     <div class="content-container">
       <BaseSectionHeader
         :heading="$t('homePage.products.heading')"

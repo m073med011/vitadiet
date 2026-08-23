@@ -126,4 +126,44 @@
       padding-inline: var(--spacing-page-lg);
     }
   }
+
+  .focus-ring {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent;
+  }
+
+  .focus-ring-lg {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-accent;
+  }
+
+  .section-block {
+    @apply w-full bg-surface py-section md:py-section-lg;
+  }
+
+  .section-block--tinted {
+    @apply w-full bg-surface py-section;
+  }
+
+  .panel-card {
+    @apply rounded-card border border-line bg-surface p-card shadow-card;
+  }
+
+  .panel-heading {
+    @apply text-heading font-bold leading-heading text-ink md:text-heading-lg;
+  }
+
+  .panel-copy {
+    @apply mt-page max-w-copy text-copy-lg leading-copy text-ink-soft;
+  }
+
+  .eyebrow-text {
+    @apply text-caption font-bold uppercase tracking-label text-brand-primary;
+  }
+
+  .eyebrow-pill {
+    @apply inline-flex w-fit rounded-pill bg-brand-primary-soft px-page py-control-y-sm text-caption font-bold uppercase tracking-label text-brand-primary;
+  }
+
+  .badge-pill {
+    @apply rounded-pill px-page py-control-y-sm text-caption font-bold;
+  }
 }

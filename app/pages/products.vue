@@ -12,7 +12,7 @@
         {{ $t('productPage.description') }}
       </p>
 
-      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter mb-12">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-gutter mb-12">
         <li v-for="product in products" :key="product.slug" data-aos="fade-up">
           <ProductCard :product="product" />
         </li>

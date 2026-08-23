@@ -2,18 +2,18 @@
   <article
     class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
   >
-    <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted">
+    <div class="relative aspect-square w-full overflow-hidden bg-surface-muted">
       <BaseImage
         :src="product.image"
         :alt="$t(product.titleKey)"
         fill
-        class="object-contain p-page transition-transform duration-500 group-hover/card:scale-105"
+        class="object-cover transition-transform duration-500 group-hover/card:scale-105"
       />
     </div>
 
-    <div class="flex flex-1 flex-col gap-3 p-3 sm:gap-page sm:p-page">
+    <div class="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-4">
       <div
-        class="flex flex-col items-start gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-page"
+        class="flex flex-col items-start gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-2"
       >
         <h3 class="product-title text-copy font-bold leading-tight text-ink sm:leading-heading">
           {{ $t(product.titleKey) }}
@@ -25,15 +25,13 @@
         {{ shortDescription }}
       </p>
 
-      <div class="mt-auto grid gap-control-y border-t border-line pt-3 sm:pt-page">
+      <div class="mt-auto grid gap-2 border-t border-line pt-2 sm:pt-3">
         <div class="flex flex-wrap items-center gap-control-y-sm">
-          <span
-            class="rounded-pill bg-surface-raised px-page py-control-y-sm text-caption font-bold text-ink-soft"
-          >
+          <span class="badge-pill bg-surface-raised text-ink-soft">
             {{ $t(packSizeKey) }}
           </span>
           <span
-            class="rounded-pill px-page py-control-y-sm text-caption font-bold"
+            class="badge-pill"
             :class="
               isAvailable
                 ? 'bg-brand-primary-soft text-brand-primary'
@@ -50,7 +48,7 @@
           </span>
         </div>
 
-        <div class="grid gap-control-y sm:grid-cols-2">
+        <div class="grid gap-2 sm:grid-cols-2">
           <BaseButton :to="productPath(product.slug)" variant="secondary">
             <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
             {{ $t('productCard.learnMore') }}

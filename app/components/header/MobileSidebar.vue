@@ -2,7 +2,7 @@
   <Transition name="fade-overlay">
     <div
       v-if="isOpen"
-      class="fixed inset-0 bg-ink/60 z-[60] md:hidden backdrop-blur-sm pointer-events-auto"
+      class="fixed inset-0 bg-ink/60 z-[60] lg:hidden backdrop-blur-sm pointer-events-auto"
       @click="$emit('close')"
     />
   </Transition>
@@ -10,13 +10,13 @@
   <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
     <aside
       v-if="isOpen"
-      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface shadow-sidebar border-e border-line pointer-events-auto"
+      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col lg:hidden overflow-hidden bg-surface shadow-sidebar border-e border-line pointer-events-auto"
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink
           :to="localePath('/')"
-          class="flex min-h-11 items-center shrink-0 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+          class="focus-ring flex min-h-11 items-center shrink-0 rounded-lg"
           @click="$emit('close')"
         >
           <BaseImage
@@ -29,7 +29,7 @@
           />
         </NuxtLink>
         <button
-          class="w-11 h-11 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+          class="focus-ring w-11 h-11 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200"
           :aria-label="$t('a11y.closeMenu')"
           @click="$emit('close')"
         >
@@ -43,7 +43,7 @@
             v-for="(item, index) in navItems"
             :key="item.labelKey"
             :to="navPath(item)"
-            class="sidebar-nav-link group flex min-h-11 items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+            class="focus-ring sidebar-nav-link group flex min-h-11 items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200"
             :class="{ 'sidebar-nav-link-active': isActive(item) }"
             :style="{ transitionDelay: `${index * MOBILE_NAV_STAGGER_MS}ms` }"
             @click="$emit('close')"

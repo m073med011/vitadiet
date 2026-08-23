@@ -3,15 +3,15 @@
     class="top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
     :class="[
       route.meta.headerSticky !== false ? 'sticky' : 'relative',
-      isScrolled && route.meta.headerSticky !== false ? 'md:pt-6 md:px-6' : '',
+      isScrolled && route.meta.headerSticky !== false ? 'lg:px-6 lg:pt-6' : '',
     ]"
   >
     <header
       class="backdrop-blur transition-all duration-500 ease-in-out text-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
       :class="[
         isScrolled
-          ? 'max-w-7xl bg-surface/95 shadow-float rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30'
-          : 'max-w-full bg-surface/95 border-b border-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent',
+          ? 'max-w-7xl bg-surface/95 shadow-float rounded-none lg:rounded-3xl px-page py-3 sm:px-gutter lg:border xl:px-8 border-b border-line/30'
+          : 'max-w-full bg-surface/95 border-b border-line px-page py-3 sm:px-gutter lg:px-10 lg:py-5 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent',
       ]"
     >
       <NuxtLink
@@ -25,25 +25,25 @@
           loading="eager"
           :width="1000"
           :height="333"
-          class="h-8 md:h-12 w-auto max-w-full object-contain transition-all duration-300 group-hover:scale-105"
+          class="h-8 w-auto max-w-[8rem] object-contain transition-all duration-300 group-hover:scale-105 sm:h-9 lg:h-11 xl:h-12"
         />
       </NuxtLink>
 
       <HeaderDesktopNav :nav-items="navItems" :is-active="isActiveNavItem" />
 
       <div class="flex items-center gap-2 sm:gap-4">
-        <BaseButton class="hidden md:inline-flex" :to="localePath('/products/')" variant="primary">
+        <BaseButton class="hidden lg:inline-flex" :to="localePath('/products/')" variant="primary">
           {{ $t('header.discoverProducts') }}
         </BaseButton>
 
-        <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft hidden md:flex">
+        <div class="hidden items-center text-ink-soft lg:flex">
           <HeaderLangSwitcher variant="desktop" />
         </div>
 
-        <HeaderLangSwitcher class="md:hidden" variant="desktop" />
+        <HeaderLangSwitcher class="lg:hidden" variant="desktop" />
 
         <button
-          class="md:hidden min-h-11 min-w-11 flex items-center justify-center -mr-1 rtl:-ml-1 rounded-xl text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary transition-colors relative group pointer-events-auto"
+          class="focus-ring relative -mr-1 flex min-h-11 min-w-11 items-center justify-center rounded-xl text-ink transition-colors hover:text-brand-primary group pointer-events-auto rtl:-ml-1 lg:hidden"
           :aria-label="$t('a11y.openMenu')"
           @click="isMobileMenuOpen = true"
         >

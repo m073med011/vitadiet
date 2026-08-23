@@ -1,5 +1,5 @@
 <template>
-  <section id="why" class="w-full py-section bg-surface-raised/50 section-decor overflow-hidden">
+  <section id="why" class="w-full py-section bg-surface section-decor overflow-hidden">
     <div class="content-container">
       <BaseSectionHeader
         :heading="$t('homePage.why.heading')"

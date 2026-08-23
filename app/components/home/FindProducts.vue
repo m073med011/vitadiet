@@ -1,5 +1,5 @@
 <template>
-  <section id="where-to-buy" class="w-full bg-surface py-section md:py-section-lg">
+  <section id="where-to-buy" class="section-block">
     <div class="content-container">
       <BaseSectionHeader
         :heading="$t('findProductsSection.heading')"
@@ -7,7 +7,7 @@
       />
 
       <div class="grid gap-gutter lg:grid-cols-[1fr_0.8fr]">
-        <div class="rounded-card border border-line bg-surface-raised p-card shadow-card">
+        <div class="panel-card bg-surface-raised">
           <h3 class="mb-page text-title font-bold text-ink">
             {{ $t('findProductsSection.availableHeading') }}
           </h3>
@@ -18,7 +18,7 @@
               :href="product.buyLink"
               target="_blank"
               rel="noopener noreferrer nofollow sponsored"
-              class="flex min-h-16 items-center justify-between gap-page rounded-card border border-line bg-surface px-page py-page text-ink transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+              class="focus-ring flex min-h-16 items-center justify-between gap-page rounded-card border border-line bg-surface px-page py-page text-ink transition-colors hover:border-brand-primary hover:text-brand-primary"
             >
               <span class="text-small font-bold leading-tight">{{ $t(product.titleKey) }}</span>
               <ExternalLinkIcon class="h-icon-sm w-icon-sm shrink-0" aria-hidden="true" />
@@ -26,7 +26,7 @@
           </div>
         </div>
 
-        <div class="rounded-card border border-line bg-surface p-card shadow-card">
+        <div class="panel-card">
           <h3 class="mb-page text-title font-bold text-ink">
             {{ $t('findProductsSection.soonHeading') }}
           </h3>

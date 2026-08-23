@@ -1,14 +1,14 @@
 <template>
-  <section class="w-full bg-surface-raised/50 py-section">
+  <section class="section-block--tinted">
     <div class="content-container">
-      <div class="rounded-card border border-line bg-surface p-card shadow-card">
-        <p class="mb-page text-caption font-bold uppercase tracking-label text-brand-primary">
+      <div class="panel-card">
+        <p class="eyebrow-text mb-page">
           {{ $t('educationTeaser.eyebrow') }}
         </p>
-        <h2 class="text-heading font-bold leading-heading text-ink md:text-heading-lg">
+        <h2 class="panel-heading">
           {{ $t('educationTeaser.heading') }}
         </h2>
-        <p class="mt-page max-w-copy text-copy-lg leading-copy text-ink-soft">
+        <p class="panel-copy">
           {{ $t('educationTeaser.description') }}
         </p>
       </div>

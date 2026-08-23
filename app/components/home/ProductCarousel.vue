@@ -24,20 +24,20 @@ import { products } from '~/data/products'
 }
 
 .product-list :deep(.product-card) {
-  flex: 0 0 min(82vw, 21rem);
+  flex: 0 0 min(75vw, 18rem);
   scroll-snap-align: start;
 }
 
 @media (min-width: 640px) {
   .product-list :deep(.product-card) {
-    flex-basis: 20rem;
+    flex-basis: 17rem;
   }
 }
 
 @media (min-width: 900px) {
   .product-list {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     overflow: visible;
     padding-block: 0.75rem;
   }

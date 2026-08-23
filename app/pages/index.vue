@@ -1,7 +1,6 @@
 <template>
   <div>
     <HomeHero />
-    <LazyHomeTrustBar />
     <LazyHomeFeaturedProducts />
     <LazyHomeProducts />
     <LazyHomeFeatures />
