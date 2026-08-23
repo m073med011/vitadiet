@@ -19,7 +19,7 @@
       </ul>
 
       <div class="text-center" data-aos="fade-up" data-aos-delay="200">
-        <BaseButton href="mailto:b2b@vitadiet.sa" variant="primary">
+        <BaseButton :href="`mailto:${CONTACT.email}`" variant="primary">
           {{ $t('productPage.cta') }}
         </BaseButton>
       </div>
@@ -28,11 +28,12 @@
 </template>
 
 <script setup lang="ts">
-import { products } from '~/data/home'
+import { CONTACT } from '#shared/brand'
+import { products } from '~/data/products'
 
 const { t } = useI18n()
 const { productPath } = useProductPath()
-const siteUrl = useSiteConfig().url
+const { absoluteSiteUrl } = useSiteUrls()
 
 useSchemaOrg([
   defineItemList({
@@ -40,15 +41,13 @@ useSchemaOrg([
       '@type': 'ListItem',
       position: index + 1,
       name: t(product.titleKey),
-      url: new URL(productPath(product.slug), siteUrl).toString(),
+      url: absoluteSiteUrl(productPath(product.slug)),
     })),
   }),
 ])
 
-useSeoMeta({
+usePageSeo({
   title: () => t('productPage.heading'),
   description: () => t('productPage.description'),
-  ogTitle: () => t('productPage.heading'),
-  ogDescription: () => t('productPage.description'),
 })
 </script>

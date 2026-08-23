@@ -11,6 +11,8 @@
 # letting mod_rewrite re-escape the substitution is what produces a valid
 # Location header. Adding [NE] here would put raw UTF-8 bytes in the header for
 # Arabic paths such as /ar/إلى/.
+ErrorDocument 404 /404.html
+
 <IfModule mod_rewrite.c>
 RewriteEngine On
 

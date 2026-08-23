@@ -1,0 +1,482 @@
+{
+  "source": "scripts/check-i18n-keys.mjs",
+  "keyCount": 119,
+  "keys": {
+    "blog": {
+      "ar": "الجودة",
+      "en": "Quality"
+    },
+    "companyArabic": {
+      "ar": "Vitadiet",
+      "en": "فيتادايت "
+    },
+    "dark_mode": {
+      "ar": "داكن",
+      "en": "Dark"
+    },
+    "footer.contact.email": {
+      "ar": "acc{'@'}vitadiet.sa",
+      "en": "acc{'@'}vitadiet.sa"
+    },
+    "footer.links.aboutUs": {
+      "ar": "ابدأ شراكتك",
+      "en": "Start a Partnership"
+    },
+    "footer.links.beautyProducts": {
+      "ar": "المنتجات",
+      "en": "Products"
+    },
+    "footer.links.bestSeller": {
+      "ar": "من نحن",
+      "en": "About Vitadiet"
+    },
+    "footer.links.skinProducts": {
+      "ar": "مراحل الجودة",
+      "en": "Quality Stages"
+    },
+    "footer.links.trackOrder": {
+      "ar": "أرقامنا",
+      "en": "Our Numbers"
+    },
+    "footer.newsletter.join": {
+      "ar": "طلب",
+      "en": "Request"
+    },
+    "footer.newsletter.joinedMessage": {
+      "ar": "تم استلام الطلب من:",
+      "en": "Request received from:"
+    },
+    "footer.newsletter.placeholder": {
+      "ar": "البريد التجاري",
+      "en": "Business email"
+    },
+    "footer.newsletter.text": {
+      "ar": "استخدم بريدك التجاري لطلب ملفات المنتجات أو بدء مناقشة شراكة.",
+      "en": "Use your business email to request product files or start a partnership discussion."
+    },
+    "footer.privacyPolicy": {
+      "ar": "إشعار الخصوصية",
+      "en": "Privacy Notice"
+    },
+    "footer.termsOfService": {
+      "ar": "شروط الشراكة",
+      "en": "Partner Terms"
+    },
+    "homePage.about.cta": {
+      "ar": "اطلب ملف الشركة",
+      "en": "Request Company Credentials"
+    },
+    "homePage.about.description": {
+      "ar": "فيتادايت شركة سعودية متخصصة في تقديم توكيلات حصرية لمكملات غذائية أوروبية، تعمل بنظام B2B لتخدم الصيدليات والموزعين داخل المملكة.",
+      "en": "Vitadiet is a Saudi company specialized in exclusive European dietary supplement agencies. We operate through a B2B model to serve pharmacies and distributors across the Kingdom."
+    },
+    "homePage.about.heading": {
+      "ar": "من نحن",
+      "en": "About Us"
+    },
+    "homePage.about.responsibility": {
+      "ar": "نحرص على اختيار منتجاتنا وفق أعلى المعايير العلمية، مع ضمان تسجيلها واعتمادها رسميا قبل طرحها في السوق.",
+      "en": "We select every product according to strict scientific standards and make sure it is officially registered and approved before entering the market."
+    },
+    "homePage.certificates.description": {
+      "ar": "الشهادات جزء من ملف المنتج وتساعد الشركاء المؤهلين على مراجعة الجودة بثقة.",
+      "en": "Certificates are part of the product file and help qualified partners review quality with confidence."
+    },
+    "homePage.certificates.heading": {
+      "ar": "شهادات الاعتماد والثقة",
+      "en": "Certificates and Trust"
+    },
+    "homePage.certificates.items.eu": {
+      "ar": "وثائق المصانع الأوروبية",
+      "en": "European manufacturer documentation"
+    },
+    "homePage.certificates.items.safety": {
+      "ar": "مراجعة السلامة والنقاء والفعالية",
+      "en": "Safety, purity, and effectiveness review"
+    },
+    "homePage.certificates.items.sfda": {
+      "ar": "ملفات اعتماد هيئة الغذاء والدواء",
+      "en": "Saudi Food and Drug Authority approval files"
+    },
+    "homePage.contactSection.description": {
+      "ar": "انضم إلى شبكة شركائنا واستفد من منتجات موثوقة بجودة أوروبية.",
+      "en": "Join our partner network and benefit from trusted products with European quality."
+    },
+    "homePage.contactSection.heading": {
+      "ar": "ابدأ شراكتك مع فيتادايت اليوم",
+      "en": "Start Your Partnership With Vitadiet Today"
+    },
+    "homePage.contactSection.placeholder": {
+      "ar": "البريد التجاري",
+      "en": "Business email"
+    },
+    "homePage.contactSection.privacy": {
+      "ar": "مخصص للصيدليات والموزعين والشركاء المؤهلين.",
+      "en": "For pharmacies, distributors, and qualified B2B partners."
+    },
+    "homePage.contactSection.submit": {
+      "ar": "إرسال طلب شراكة",
+      "en": "Send Partnership Request"
+    },
+    "homePage.contactSection.submittedMessage": {
+      "ar": "تم استلام طلب الشراكة من:",
+      "en": "Partnership request received from:"
+    },
+    "homePage.coverage.description": {
+      "ar": "تدعم فيتادايت علاقات الصيدليات والموزعين في مختلف مناطق المملكة.",
+      "en": "Vitadiet supports pharmacy and distributor relationships across the Kingdom."
+    },
+    "homePage.coverage.heading": {
+      "ar": "تغطية التوزيع في السعودية",
+      "en": "Saudi Distribution Coverage"
+    },
+    "homePage.coverage.regions.central": {
+      "ar": "المنطقة الوسطى",
+      "en": "Central Region"
+    },
+    "homePage.coverage.regions.eastern": {
+      "ar": "المنطقة الشرقية",
+      "en": "Eastern Region"
+    },
+    "homePage.coverage.regions.northern": {
+      "ar": "المنطقة الشمالية",
+      "en": "Northern Region"
+    },
+    "homePage.coverage.regions.southern": {
+      "ar": "المنطقة الجنوبية",
+      "en": "Southern Region"
+    },
+    "homePage.coverage.regions.western": {
+      "ar": "المنطقة الغربية",
+      "en": "Western Region"
+    },
+    "homePage.downloads.description": {
+      "ar": "يمكن للشركاء المؤهلين طلب البروشورات والشهادات وملفات المنتجات للمراجعة الشرائية.",
+      "en": "Qualified partners can request brochures, certificates, and product files for procurement review."
+    },
+    "homePage.downloads.heading": {
+      "ar": "مركز التحميل",
+      "en": "Download Center"
+    },
+    "homePage.downloads.items.brochures": {
+      "ar": "بروشورات المنتجات",
+      "en": "Product Brochures"
+    },
+    "homePage.downloads.items.certificates": {
+      "ar": "الشهادات",
+      "en": "Certificates"
+    },
+    "homePage.downloads.items.dossiers": {
+      "ar": "ملفات B2B",
+      "en": "B2B Dossiers"
+    },
+    "homePage.downloads.items.profile": {
+      "ar": "ملف الشركة",
+      "en": "Company Profile"
+    },
+    "homePage.future.description": {
+      "ar": "تواصل فيتادايت تحسين محفظة المنتجات وبناء علاقات توزيع أقوى داخل السوق السعودي.",
+      "en": "Vitadiet continues to improve its product portfolio and strengthen distribution relationships across the Saudi market."
+    },
+    "homePage.future.heading": {
+      "ar": "نتطور مع شركائنا",
+      "en": "Growing With Our Partners"
+    },
+    "homePage.global.description": {
+      "ar": "تمنح فيتادايت المنتجات الأوروبية مسارا سعوديا موثوقا عبر المراجعة العلمية، والتسجيل، والتوزيع.",
+      "en": "Vitadiet gives European products a trusted Saudi B2B path through scientific review, registration, and distribution."
+    },
+    "homePage.global.heading": {
+      "ar": "للمصانع الأوروبية",
+      "en": "For European Manufacturers"
+    },
+    "homePage.global.points.brand": {
+      "ar": "تمثيل احترافي للعلامة",
+      "en": "Professional brand representation"
+    },
+    "homePage.global.points.coverage": {
+      "ar": "علاقات توزيع",
+      "en": "Distribution relationships"
+    },
+    "homePage.global.points.ethics": {
+      "ar": "شراكة طويلة الأمد",
+      "en": "Long-term partnership"
+    },
+    "homePage.global.points.market": {
+      "ar": "فهم للسوق السعودي",
+      "en": "Saudi market understanding"
+    },
+    "homePage.hero.secondary": {
+      "ar": "عرض ملف الشركة",
+      "en": "View Company Profile"
+    },
+    "homePage.insight.description": {
+      "ar": "ثقة المكمل تصنعها الأدلة، ومراجعة السلامة، والاعتماد الرسمي، ووضوح التعامل قبل وصول المنتج إلى الشركاء.",
+      "en": "A trusted supplement is shaped by evidence, safety review, official approval, and clear handling before it reaches partners."
+    },
+    "homePage.insight.heading": {
+      "ar": "ثقة مبنية بعناية",
+      "en": "Built on Trust"
+    },
+    "homePage.lab.description": {
+      "ar": "تمر المنتجات بمراحل اختبار السلامة، واختبار النقاء، والفحص المجهري لدعم الفعالية والجودة.",
+      "en": "Every product passes through safety testing, purity testing, and microscopic examination to support dependable effectiveness."
+    },
+    "homePage.lab.heading": {
+      "ar": "مراحل الجودة",
+      "en": "Quality Stages"
+    },
+    "homePage.local.description": {
+      "ar": "اختر فيتادايت عندما تحتاج إلى جودة أوروبية، واعتماد رسمي، وملفات شفافة، وشراكة B2B جادة.",
+      "en": "Choose Vitadiet when you need European quality, official approval, transparent files, and a serious B2B partnership."
+    },
+    "homePage.local.heading": {
+      "ar": "للصيدليات والموزعين داخل المملكة",
+      "en": "For Pharmacies and Distributors Inside the Kingdom"
+    },
+    "homePage.local.points.delivery": {
+      "ar": "شبكة توزيع قوية",
+      "en": "Strong distribution network"
+    },
+    "homePage.local.points.files": {
+      "ar": "ملفات منتجات واضحة",
+      "en": "Clear product files"
+    },
+    "homePage.local.points.quality": {
+      "ar": "جودة أوروبية موثوقة",
+      "en": "Trusted European quality"
+    },
+    "homePage.local.points.sfda": {
+      "ar": "اعتماد هيئة الغذاء والدواء",
+      "en": "Saudi Food and Drug Authority approval"
+    },
+    "homePage.nameStory.description": {
+      "ar": "اسم «فيتادايت » يجمع بين كلمتين: Vita وتعني الحياة، وDiet وتعني النظام الغذائي. ليعكس التزامنا بتقديم منتجات تدعم نمط حياة صحي ومتوازن، قائم على الجودة والعلم.",
+      "en": "The name Vitadiet combines two words: Vita means life, and Diet means nutritional system. Together, they reflect our commitment to products that support a healthy, balanced lifestyle built on quality and science."
+    },
+    "homePage.nameStory.heading": {
+      "ar": "قصة الاسم: لماذا فيتادايت ",
+      "en": "The Story Behind the Name: Why Vitadiet"
+    },
+    "homePage.partners.description": {
+      "ar": "شبكتنا موجهة للصيدليات والموزعين الباحثين عن مكملات غذائية أوروبية موثوقة.",
+      "en": "Our B2B network is built for pharmacies and distributors seeking trusted European supplement products."
+    },
+    "homePage.partners.heading": {
+      "ar": "شبكة الشركاء",
+      "en": "Partner Network"
+    },
+    "homePage.partners.items.distributors": {
+      "ar": "الموزعون المعتمدون",
+      "en": "Authorized Distributors"
+    },
+    "homePage.partners.items.pharmacies": {
+      "ar": "شركاء الصيدليات",
+      "en": "Pharmacy Partners"
+    },
+    "homePage.partners.items.suppliers": {
+      "ar": "شركاء التوريد",
+      "en": "Supply Partners"
+    },
+    "homePage.route.description": {
+      "ar": "نختار منتجاتنا من مصانع أوروبية معتمدة، ونمر بمراحل دقيقة من الفحص والتسجيل، حتى تصل إلى السوق السعودي بجودة موثوقة.",
+      "en": "We select products from approved European manufacturers, then move through careful inspection and registration stages until they reach the Saudi market with trusted quality."
+    },
+    "homePage.route.heading": {
+      "ar": "من أوروبا إلى السعودية",
+      "en": "From Europe to Saudi Arabia"
+    },
+    "homePage.route.steps.distribute": {
+      "ar": "توزيع موثوق داخل السعودية",
+      "en": "Trusted distribution in Saudi Arabia"
+    },
+    "homePage.route.steps.register": {
+      "ar": "تسجيل واعتماد رسمي",
+      "en": "Official registration and approval"
+    },
+    "homePage.route.steps.review": {
+      "ar": "فحص علمي ومراجعة وثائق",
+      "en": "Scientific inspection and documentation review"
+    },
+    "homePage.route.steps.source": {
+      "ar": "مصانع أوروبية معتمدة",
+      "en": "Approved European manufacturers"
+    },
+    "homePage.stats.europeanAgencies": {
+      "ar": "توكيلات أوروبية",
+      "en": "European Agencies"
+    },
+    "homePage.stats.heading": {
+      "ar": "أرقامنا",
+      "en": "Our Numbers"
+    },
+    "homePage.stats.items.certificates.label": {
+      "ar": "شهادات",
+      "en": "Certificates"
+    },
+    "homePage.stats.items.certificates.value": {
+      "ar": "4",
+      "en": "4"
+    },
+    "homePage.stats.items.partners.label": {
+      "ar": "شريك",
+      "en": "Partners"
+    },
+    "homePage.stats.items.partners.value": {
+      "ar": "+100",
+      "en": "+100"
+    },
+    "homePage.stats.items.products.label": {
+      "ar": "منتجات",
+      "en": "Products"
+    },
+    "homePage.stats.items.products.value": {
+      "ar": "10",
+      "en": "10"
+    },
+    "homePage.stats.items.regions.label": {
+      "ar": "مناطق توزيع",
+      "en": "Distribution Regions"
+    },
+    "homePage.stats.items.regions.value": {
+      "ar": "8",
+      "en": "8"
+    },
+    "homePage.stats.items.sources.label": {
+      "ar": "مصادر أوروبية",
+      "en": "European Sources"
+    },
+    "homePage.stats.items.sources.value": {
+      "ar": "3",
+      "en": "3"
+    },
+    "homePage.steps.heading": {
+      "ar": "كيف تبدأ معنا",
+      "en": "How to Start With Us"
+    },
+    "homePage.steps.items.contact": {
+      "ar": "تواصل مع فريق فيتادايت ",
+      "en": "Contact the Vitadiet team"
+    },
+    "homePage.steps.items.delivery": {
+      "ar": "راجع احتياجات التوزيع",
+      "en": "Review distribution requirements"
+    },
+    "homePage.steps.items.partnership": {
+      "ar": "ابن شراكة طويلة الأمد",
+      "en": "Build a long-term partnership"
+    },
+    "homePage.steps.items.request": {
+      "ar": "اطلب ملفات الشركة والمنتجات",
+      "en": "Request product and company files"
+    },
+    "homePage.trustBox.description": {
+      "ar": "التغليف والتخزين والتوصيل جزء من وعد المنتج.",
+      "en": "Packaging, storage, and delivery are treated as part of the product promise."
+    },
+    "homePage.trustBox.heading": {
+      "ar": "صندوق الثقة",
+      "en": "The Trust Box"
+    },
+    "homePage.trustBox.points.delivery": {
+      "ar": "توصيل فعال لقنوات الصيدليات",
+      "en": "Efficient pharmacy-channel delivery"
+    },
+    "homePage.trustBox.points.packaging": {
+      "ar": "مراجعة التغليف",
+      "en": "Packaging review"
+    },
+    "homePage.trustBox.points.storage": {
+      "ar": "مبادئ تخزين محكمة",
+      "en": "Controlled storage principles"
+    },
+    "homePage.values.heading": {
+      "ar": "قيمنا",
+      "en": "Our Values"
+    },
+    "homePage.values.items.commitment.description": {
+      "ar": "نلتزم بأعلى المعايير العلمية والأخلاقية.",
+      "en": "We follow the highest scientific and ethical standards."
+    },
+    "homePage.values.items.commitment.title": {
+      "ar": "الالتزام",
+      "en": "Commitment"
+    },
+    "homePage.values.items.development.description": {
+      "ar": "تحسين مستمر لمحفظة المنتجات.",
+      "en": "Continuous improvement of the product portfolio."
+    },
+    "homePage.values.items.development.title": {
+      "ar": "التطور",
+      "en": "Development"
+    },
+    "homePage.values.items.partnership.description": {
+      "ar": "علاقات مستدامة قائمة على الثقة.",
+      "en": "Sustainable relationships built on trust."
+    },
+    "homePage.values.items.partnership.title": {
+      "ar": "الشراكة",
+      "en": "Partnership"
+    },
+    "homePage.values.items.reliability.description": {
+      "ar": "منتجاتنا مبنية على دراسات سريرية.",
+      "en": "Our products are built on clinical studies."
+    },
+    "homePage.values.items.reliability.title": {
+      "ar": "الموثوقية",
+      "en": "Reliability"
+    },
+    "homePage.values.items.transparency.description": {
+      "ar": "وضوح كامل في كل التفاصيل.",
+      "en": "Every detail is clear and accessible to partners."
+    },
+    "homePage.values.items.transparency.title": {
+      "ar": "الشفافية",
+      "en": "Transparency"
+    },
+    "homePage.vision.heading": {
+      "ar": "رؤيتنا",
+      "en": "Our Vision"
+    },
+    "homePage.vision.missionText": {
+      "ar": "تقديم منتجات مختارة بعناية، بملفات واضحة، واعتماد رسمي، وتعاون موثوق طويل الأمد مع شركائنا.",
+      "en": "To provide partners with selected products, clear documentation, official approval, and reliable long-term cooperation."
+    },
+    "homePage.vision.missionTitle": {
+      "ar": "التزامنا",
+      "en": "Our Commitment"
+    },
+    "homePage.vision.visionText": {
+      "ar": "أن نكون الخيار الأول في تقديم المكملات الغذائية الموثوقة في السوق السعودي، من خلال الجودة والاعتماد العلمي.",
+      "en": "To be the first choice for trusted dietary supplements in the Saudi market through quality and scientific approval."
+    },
+    "homePage.vision.visionTitle": {
+      "ar": "الرؤية",
+      "en": "Vision"
+    },
+    "homePage.why.petals.partnership.description": {
+      "ar": "نعمل على علاقات مستدامة قائمة على الثقة والالتزام والنمو المشترك.",
+      "en": "We build sustainable relationships based on trust, commitment, and shared growth."
+    },
+    "homePage.why.petals.partnership.title": {
+      "ar": "شراكات طويلة الأمد",
+      "en": "Long-Term Partnerships"
+    },
+    "light_mode": {
+      "ar": "فاتح",
+      "en": "Light"
+    },
+    "newsletter": {
+      "ar": "طلب شراكة",
+      "en": "Partner Inquiry"
+    },
+    "toggle_theme": {
+      "ar": "تبديل الوضع الداكن",
+      "en": "Toggle dark mode"
+    },
+    "welcome": {
+      "ar": "فيتادايت : جودة أوروبية لحياة صحية أفضل",
+      "en": "Vitadiet: European Quality for a Healthier Life"
+    }
+  }
+}

@@ -1,4 +1,3 @@
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { normalizePath } from '~/utils/path'
 import type { NavItem } from '~/types'
 

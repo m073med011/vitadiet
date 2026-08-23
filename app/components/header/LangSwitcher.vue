@@ -35,14 +35,11 @@ defineEmits<{
   switch: []
 }>()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
 const targetLocale = computed(() => (locale.value === 'en' ? 'ar' : 'en'))
-const label = computed(() => {
-  if (props.variant === 'desktop') {
-    return locale.value === 'en' ? 'عربي' : 'EN'
-  }
-  return locale.value === 'en' ? 'عربي' : 'English'
-})
+const label = computed(() =>
+  props.variant === 'desktop' ? t('langSwitcher.short') : t('langSwitcher.long'),
+)
 </script>

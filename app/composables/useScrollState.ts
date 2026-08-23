@@ -1,5 +1,3 @@
-import { ref, onMounted, onUnmounted } from 'vue'
-
 export function useScrollState(threshold = 20) {
   const isScrolled = ref(false)
   let scrollFrame: number | undefined

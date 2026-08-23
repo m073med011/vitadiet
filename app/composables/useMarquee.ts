@@ -1,4 +1,4 @@
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { REDUCED_MOTION_QUERY } from '~/utils/motion'
 
 export interface UseMarqueeOptions {
   autoSpeed?: number
@@ -164,7 +164,7 @@ export function useMarquee(options: UseMarqueeOptions = {}) {
 
   onMounted(() => {
     isRtl = getComputedStyle(document.documentElement).direction === 'rtl'
-    reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    reducedMotionQuery = window.matchMedia(REDUCED_MOTION_QUERY)
     syncReducedMotion()
     reducedMotionQuery.addEventListener('change', syncReducedMotion)
 

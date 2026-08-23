@@ -4,20 +4,20 @@
       v-if="isOpen"
       class="fixed inset-0 bg-ink/60 z-[60] md:hidden backdrop-blur-sm pointer-events-auto"
       @click="$emit('close')"
-    ></div>
+    />
   </Transition>
 
   <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
     <aside
       v-if="isOpen"
-      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface shadow-[4px_0_60px_rgba(27,56,97,0.18)] border-e border-line pointer-events-auto"
+      class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col md:hidden overflow-hidden bg-surface shadow-sidebar border-e border-line pointer-events-auto"
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="$emit('close')">
           <BaseImage
             :src="logoImage"
-            alt="Vitadiet Logo"
+            :alt="$t('a11y.logoAlt')"
             loading="eager"
             :width="1000"
             :height="333"
@@ -25,9 +25,9 @@
           />
         </NuxtLink>
         <button
-          @click="$emit('close')"
           class="w-10 h-10 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200"
-          aria-label="Close menu"
+          :aria-label="$t('a11y.closeMenu')"
+          @click="$emit('close')"
         >
           <XIcon class="w-6 h-6" />
         </button>
@@ -38,10 +38,10 @@
           <NuxtLink
             v-for="(item, index) in navItems"
             :key="item.labelKey"
-            :to="item.path ? localePath(item.path) : sectionPath(item.hash)"
+            :to="navPath(item)"
             class="sidebar-nav-link group flex items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200"
             :class="{ 'sidebar-nav-link-active': isActive(item) }"
-            :style="{ transitionDelay: `${index * 35}ms` }"
+            :style="{ transitionDelay: `${index * MOBILE_NAV_STAGGER_MS}ms` }"
             @click="$emit('close')"
           >
             <component :is="item.icon" class="w-6 h-6 shrink-0" />
@@ -67,9 +67,11 @@
 
 <script setup lang="ts">
 import { ChevronRightIcon, XIcon } from 'lucide-vue-next'
+import { ASSETS } from '#shared/brand'
 import type { NavItem } from '~/types'
 
-const logoImage = '/images/vitadiet-official-logo.svg'
+const logoImage = ASSETS.logo
+const MOBILE_NAV_STAGGER_MS = 35
 
 defineProps<{
   isOpen: boolean
@@ -83,7 +85,7 @@ defineEmits<{
 
 const { locale } = useI18n()
 const localePath = useLocalePath()
-const { sectionPath } = useSectionPath()
+const { navPath } = useNavPath()
 </script>
 
 <style scoped>

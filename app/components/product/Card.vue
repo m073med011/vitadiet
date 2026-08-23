@@ -1,7 +1,6 @@
 <template>
   <NuxtLink
     :to="productPath(product.slug)"
-    v-bind="extraAttrs"
     class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
   >
     <div class="relative aspect-[4/5] w-full overflow-hidden bg-surface-muted group/image">
@@ -30,16 +29,7 @@
         <h3 class="product-title text-copy font-bold leading-tight sm:leading-heading text-ink">
           {{ $t(product.titleKey) }}
         </h3>
-        <span
-          class="shrink-0 rounded-pill bg-brand-primary-soft px-2 sm:px-page py-1 sm:py-control-y-sm text-caption sm:text-small font-bold text-brand-primary flex items-center justify-center gap-1"
-        >
-          <span>{{ $t(product.priceKey) }}</span>
-          <SaudiRiyalIcon
-            v-if="isNumericPrice(t(product.priceKey))"
-            class="h-3 w-3 sm:h-4 sm:w-4 shrink-0"
-            aria-hidden="true"
-          />
-        </span>
+        <ProductPriceBadge :price-key="product.priceKey" />
       </div>
 
       <div
@@ -64,27 +54,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { ArrowUpRightIcon, SaudiRiyalIcon } from 'lucide-vue-next'
+import { ArrowUpRightIcon } from 'lucide-vue-next'
 import type { HomeProduct } from '~/types'
-import { isNumericPrice } from '~/utils/price'
 
-const props = defineProps<{
+defineProps<{
   product: HomeProduct
   showHoverImage?: boolean
-  ariaHidden?: boolean
-  tabIndex?: number
 }>()
 
-const { t } = useI18n()
 const { productPath } = useProductPath()
-
-const extraAttrs = computed(() => {
-  const attrs: Record<string, unknown> = {}
-  if (props.ariaHidden) attrs['aria-hidden'] = 'true'
-  if (props.tabIndex !== undefined) attrs.tabindex = props.tabIndex
-  return attrs
-})
 </script>
 
 <style scoped>

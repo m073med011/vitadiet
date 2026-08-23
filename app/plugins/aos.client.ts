@@ -1,9 +1,11 @@
+import { REDUCED_MOTION_QUERY } from '~/utils/motion'
+
 export default defineNuxtPlugin((nuxtApp) => {
   if (import.meta.prerender) return
 
   const REVEAL_ATTR = 'data-aos-animate'
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const prefersReducedMotion = window.matchMedia(REDUCED_MOTION_QUERY)
   let revealObserver: IntersectionObserver | undefined
   let refreshFrame: number | undefined
   let isReady = false

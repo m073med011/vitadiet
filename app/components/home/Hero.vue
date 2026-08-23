@@ -1,6 +1,6 @@
 <template>
   <section class="relative w-full overflow-hidden bg-surface pt-5">
-    <div class="lotus-backdrop" aria-hidden="true"></div>
+    <div class="lotus-backdrop" aria-hidden="true" />
 
     <div
       class="relative z-10 hidden w-full max-w-shell mx-auto h-[500px] pointer-events-none lg:block"
@@ -83,7 +83,7 @@
         <div
           class="mt-gutter grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row items-stretch lg:items-center justify-center gap-page"
         >
-          <BaseButton href="/vitadiet-catalog.pdf" download="كتالوج فيتادايت.pdf" variant="primary">
+          <BaseButton :href="ASSETS.catalog" :download="$t('catalog.filename')" variant="primary">
             {{ $t('homePage.hero.primary') }}
             <DownloadIcon class="h-icon-md w-icon-md" aria-hidden="true" />
           </BaseButton>
@@ -114,24 +114,89 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ArrowRightIcon,
-  DownloadIcon,
-  FileCheckIcon,
-  HandshakeIcon,
-  ShieldCheckIcon,
-} from 'lucide-vue-next'
-import { heroSection } from '~/data/home'
+import { DownloadIcon, FileCheckIcon, HandshakeIcon, ShieldCheckIcon } from 'lucide-vue-next'
+import { ASSETS } from '#shared/brand'
 
-const { sectionPath } = useSectionPath()
 const localePath = useLocalePath()
 
 const showHeroImageNumbers = import.meta.dev
 
+const banner1 = '/images/Banners/sm_vitadiet-b2b-certified-medical-supplements.webp'
+const banner9 = '/images/Banners/sm_vitadiet-natural-energy-boost-vitamins.webp'
+const banner8 = '/images/Banners/sm_vitadiet-saudi-fda-approved-vitamins.webp'
+const banner3 = '/images/Banners/sm_vitadiet-beauty-and-collagen-nutrition.webp'
+const banner7 = '/images/Banners/sm_vitadiet-herbal-digestive-health-formula.webp'
+const banner2 = '/images/Banners/sm_vitadiet-immune-system-defense-capsules.webp'
+const banner5 = '/images/Banners/sm_vitadiet-premium-health-supplements-collection.webp'
+const banner6 = '/images/Banners/sm_vitadiet-stress-relief-and-calm-supplements.webp'
+const banner4 = '/images/Banners/sm_vitadiet-womens-daily-wellness-support.webp'
+
+const heroSection = {
+  images: [
+    {
+      src: banner1,
+      srcMobile: '/images/Banners/xs_vitadiet-b2b-certified-medical-supplements.webp',
+      showOnMobile: true,
+      class: 'top-[12%] left-[4%] w-[10%] aspect-[3/4] hidden 2xl:block',
+    },
+    {
+      src: banner2,
+      srcMobile: '/images/Banners/xs_vitadiet-immune-system-defense-capsules.webp',
+      showOnMobile: false,
+      class: 'top-[48%] left-[7%] w-[9%] aspect-square hidden xl:block',
+    },
+    {
+      src: banner3,
+      srcMobile: '/images/Banners/xs_vitadiet-beauty-and-collagen-nutrition.webp',
+      showOnMobile: true,
+      class: 'top-[8%] left-[18%] w-[11%] aspect-[4/5] hidden lg:block',
+    },
+    {
+      src: banner4,
+      srcMobile: '/images/Banners/xs_vitadiet-womens-daily-wellness-support.webp',
+      showOnMobile: false,
+      class: 'top-[42%] left-[24%] w-[10%] aspect-square hidden md:block',
+    },
+    {
+      src: banner5,
+      srcMobile: '/images/Banners/xs_vitadiet-premium-health-supplements-collection.webp',
+      showOnMobile: false,
+      class: 'top-[5%] left-[40%] w-[11%] aspect-[4/5] hidden sm:block',
+    },
+    {
+      src: banner6,
+      srcMobile: '/images/Banners/xs_vitadiet-stress-relief-and-calm-supplements.webp',
+      showOnMobile: true,
+      class:
+        'top-[19%] left-[55%] w-[12%] aspect-[3/4] max-sm:left-[10%] max-sm:top-[5%] max-sm:w-[35%]',
+    },
+    {
+      src: banner7,
+      srcMobile: '/images/Banners/xs_vitadiet-herbal-digestive-health-formula.webp',
+      showOnMobile: false,
+      class:
+        'top-[4%] left-[69%] w-[10%] aspect-[4/5] max-sm:left-[55%] max-sm:top-[20%] max-sm:w-[35%]',
+    },
+    {
+      src: banner8,
+      srcMobile: '/images/Banners/xs_vitadiet-saudi-fda-approved-vitamins.webp',
+      showOnMobile: true,
+      class: 'top-[31%] left-[80%] w-[10%] aspect-[4/5] hidden md:block',
+    },
+    {
+      src: banner9,
+      srcMobile: '/images/Banners/xs_vitadiet-natural-energy-boost-vitamins.webp',
+      showOnMobile: false,
+      class:
+        'top-[51%] left-[88%] w-[8%] aspect-[4/5] hidden xl:block -rotate-6 shadow-2xl scale-110 z-10 border-[6px] border-white rounded-xl',
+    },
+  ],
+}
+
 const mobileHeroImages = computed(() =>
   heroSection.images
-    .filter((_, index) => [0, 2, 5, 7].includes(index))
-    .map((img) => ({ ...img, src: img.src.replace('sm_', 'xs_') })),
+    .filter((img) => img.showOnMobile)
+    .map((img) => ({ ...img, src: img.srcMobile })),
 )
 const mobileHeroLoopImages = computed(() => [...mobileHeroImages.value, ...mobileHeroImages.value])
 
@@ -168,10 +233,6 @@ const trustItems = [
     auto,
     9rem 9rem,
     9rem 9rem;
-}
-
-.hero-panel {
-  backdrop-filter: blur(14px);
 }
 
 .hero-gallery-item:hover {

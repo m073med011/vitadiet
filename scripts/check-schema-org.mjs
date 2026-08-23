@@ -108,7 +108,6 @@ const assertSingleRootNode = (file, nodes, type, id) => {
   return typedNodes[0]
 }
 
-let htmlCount = 0
 let schemaPageCount = 0
 let graphCount = 0
 let nodeCount = 0
@@ -122,7 +121,7 @@ try {
   process.exit(1)
 }
 
-htmlCount = htmlFiles.length
+const htmlCount = htmlFiles.length
 
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8')

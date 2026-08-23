@@ -12,19 +12,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { NuxtLink } from '#components'
+import type { RouteLocationRaw } from 'vue-router'
 
-const props = defineProps({
-  variant: {
-    type: String,
-    default: 'primary',
-    validator: (value: string) => ['primary', 'secondary', 'icon', 'none'].includes(value),
+const props = withDefaults(
+  defineProps<{
+    href?: string
+    nativeType?: 'button' | 'submit' | 'reset'
+    to?: string | RouteLocationRaw
+    variant?: 'primary' | 'secondary' | 'icon' | 'none'
+  }>(),
+  {
+    href: undefined,
+    nativeType: 'button',
+    to: undefined,
+    variant: 'primary',
   },
-  to: { type: [String, Object], default: undefined },
-  href: { type: String, default: undefined },
-  nativeType: { type: String, default: 'button' },
-})
+)
 
 const componentType = computed(() => {
   if (props.to) return NuxtLink

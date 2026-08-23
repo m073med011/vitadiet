@@ -1,4 +1,4 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { REDUCED_MOTION_QUERY } from '~/utils/motion'
 
 export function useReducedMotion() {
   const prefersReducedMotion = ref(false)
@@ -9,7 +9,7 @@ export function useReducedMotion() {
   }
 
   onMounted(() => {
-    query = window.matchMedia('(prefers-reduced-motion: reduce)')
+    query = window.matchMedia(REDUCED_MOTION_QUERY)
     syncPreference()
     query.addEventListener('change', syncPreference)
   })

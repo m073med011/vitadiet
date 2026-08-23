@@ -6,10 +6,10 @@
       v-for="(item, index) in navItems"
       :key="item.labelKey"
       class="animate-fade-in"
-      :style="{ animationDelay: `${index * 100}ms` }"
+      :style="{ animationDelay: `${index * DESKTOP_NAV_STAGGER_MS}ms` }"
     >
       <NuxtLink
-        :to="item.path ? localePath(item.path) : sectionPath(item.hash)"
+        :to="navPath(item)"
         class="nav-link relative py-2 hover:text-brand-primary transition-colors duration-300"
         :class="{ 'nav-link-active text-brand-primary': isActive(item) }"
       >
@@ -22,13 +22,14 @@
 <script setup lang="ts">
 import type { NavItem } from '~/types'
 
+const DESKTOP_NAV_STAGGER_MS = 100
+
 defineProps<{
   navItems: NavItem[]
   isActive: (item: NavItem) => boolean
 }>()
 
-const localePath = useLocalePath()
-const { sectionPath } = useSectionPath()
+const { navPath } = useNavPath()
 </script>
 
 <style scoped>

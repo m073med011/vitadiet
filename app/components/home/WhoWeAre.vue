@@ -1,9 +1,9 @@
 <template>
-  <section class="py-16 md:py-24 lg:py-32 bg-surface overflow-hidden" id="who-we-are">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-      <div class="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
-        <div class="w-full lg:w-5/12 space-y-8" data-aos="fade-right">
-          <h2 class="text-5xl md:text-6xl lg:text-7xl font-medium text-brand-accent tracking-tight">
+  <section id="who-we-are" class="py-section md:py-section-lg bg-surface overflow-hidden">
+    <div class="content-container">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-gutter-lg">
+        <div class="w-full lg:w-5/12 space-y-gutter" data-aos="fade-right">
+          <h2 class="text-heading-lg lg:text-display font-medium text-brand-accent">
             {{ $t('appName') }}
           </h2>
           <p
@@ -24,6 +24,7 @@
                 class="w-full h-full -rotate-90 pointer-events-none"
                 viewBox="0 0 100 100"
                 overflow="visible"
+                :style="{ '--circle-circumference': CIRCLE_CIRCUMFERENCE }"
               >
                 <defs>
                   <mask id="circle-mask">
@@ -34,7 +35,7 @@
                       fill="none"
                       stroke="white"
                       stroke-width="2"
-                      stroke-dasharray="312"
+                      :stroke-dasharray="CIRCLE_CIRCUMFERENCE"
                       class="progress-circle"
                     />
                   </mask>
@@ -74,7 +75,7 @@
               <div
                 class="absolute top-1/2 orbit-positioner w-[36%] sm:w-[32%] lg:w-[30%] aspect-square z-20"
                 data-aos="orbit-pop"
-                :data-aos-delay="400 + index * 100"
+                :data-aos-delay="ORBIT_AOS_BASE_DELAY_MS + index * ORBIT_AOS_STAGGER_MS"
                 data-aos-duration="700"
                 :style="{ '--reverse-angle': `${-feature.angle}deg` }"
               >
@@ -105,12 +106,23 @@
 </template>
 
 <script setup lang="ts">
-import { aboutFeatures as featuresData } from '~/data/home'
+const ORBIT_AOS_BASE_DELAY_MS = 400
+const ORBIT_AOS_STAGGER_MS = 100
+const CIRCLE_CIRCUMFERENCE = 312
+
+const featuresData = [
+  { key: 'science', angle: -90 },
+  { key: 'sfda', angle: -30 },
+  { key: 'distribution', angle: 30 },
+  { key: 'quality', angle: 90 },
+  { key: 'safety', angle: 150 },
+  { key: 'transparency', angle: -150 },
+]
 </script>
 
 <style scoped>
 html.aos-ready [data-aos='draw-line'] .progress-circle {
-  stroke-dashoffset: 312;
+  stroke-dashoffset: var(--circle-circumference);
   transition: stroke-dashoffset 4.5s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 200ms;
 }

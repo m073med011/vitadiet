@@ -1,4 +1,8 @@
 import tailwindcss from '@tailwindcss/vite'
+import { BRAND_NAME_LATIN, SITE_URL } from './shared/site'
+import { PRODUCT_SLUGS } from './shared/products'
+
+const paths = ['/', '/products', ...PRODUCT_SLUGS.map((slug) => `/product/${slug}`)]
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -11,29 +15,17 @@ export default defineNuxtConfig({
       assetsInlineLimit: 0,
     },
     plugins: [tailwindcss()],
-    vue: {
-      template: {
-        transformAssetUrls: {
-          BaseImage: ['src'],
-        },
-      },
-    },
     optimizeDeps: {
-      include: [
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-        '@unhead/schema-org/vue',
-        'lucide-vue-next',
-      ],
+      include: ['@unhead/schema-org/vue', 'lucide-vue-next'],
     },
   },
 
-  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/seo'],
+  modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/seo', '@nuxt/eslint'],
 
   site: {
-    url: 'https://www.vitadiet.sa',
+    url: SITE_URL,
     trailingSlash: true,
-    name: 'Vitadiet',
+    name: BRAND_NAME_LATIN,
     description: 'Certified supplement portfolio for B2B distribution',
     defaultLocale: 'ar',
   },
@@ -64,44 +56,21 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: true,
       routes: [
-        '/',
-        '/products',
-        '/product/bestrong',
-        '/product/becalme',
-        '/product/vitagen',
-        '/product/femavit',
-        '/product/floradit',
-        '/product/green-pharmacy',
-        '/product/dplus',
-        '/product/soluro',
-        '/product/flowadite',
-        '/en',
-        '/en/products',
-        '/en/product/bestrong',
-        '/en/product/becalme',
-        '/en/product/vitagen',
-        '/en/product/femavit',
-        '/en/product/floradit',
-        '/en/product/green-pharmacy',
-        '/en/product/dplus',
-        '/en/product/soluro',
-        '/en/product/flowadite',
+        ...paths,
+        ...paths.map((path) => (path === '/' ? '/en' : `/en${path}`)),
+        '/404.html',
       ],
     },
   },
-
-  experimental: {},
 
   routeRules: {
     '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     '/_fonts/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
-    '/sitemap.xml': { robots: false, sitemap: false },
-    '/en/sitemap.xml': { robots: false, sitemap: false },
   },
 
   i18n: {
-    baseUrl: 'https://www.vitadiet.sa',
+    baseUrl: SITE_URL,
     locales: [
       {
         code: 'en',

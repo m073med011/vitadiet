@@ -1,12 +1,9 @@
 import type { RouterConfig } from '@nuxt/schema'
+import { prefersReducedMotion } from '~/utils/motion'
 import { normalizePath } from '~/utils/path'
 
 const getMotionBehavior = () => {
-  if (typeof window === 'undefined') {
-    return 'auto'
-  }
-
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  return prefersReducedMotion() ? 'auto' : 'smooth'
 }
 
 const getHeaderOffset = () => {

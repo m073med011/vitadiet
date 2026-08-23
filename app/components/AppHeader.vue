@@ -10,18 +10,18 @@
       class="backdrop-blur transition-all duration-500 ease-in-out text-ink flex flex-row flex-nowrap items-center justify-between w-full pointer-events-auto animate-fade-in"
       :class="[
         isScrolled
-          ? 'max-w-7xl bg-surface/95 shadow-[0_16px_40px_rgb(29,43,91,0.16)] rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30'
+          ? 'max-w-7xl bg-surface/95 shadow-float rounded-none md:rounded-3xl py-3 px-6 md:px-8 border-b md:border border-line/30'
           : 'max-w-full bg-surface/95 border-b border-line py-3 md:py-5 px-6 md:px-10 rounded-none border-x-transparent border-t-transparent border-l-transparent border-r-transparent',
       ]"
     >
       <NuxtLink
         :to="localePath('/')"
         class="flex items-center relative z-10 group shrink-0"
-        aria-label="Vitadiet home"
+        :aria-label="$t('a11y.homeLink')"
       >
         <BaseImage
           :src="logoImage"
-          alt="Vitadiet Logo"
+          :alt="$t('a11y.logoAlt')"
           loading="eager"
           :width="1000"
           :height="333"
@@ -38,12 +38,12 @@
 
         <button
           class="md:hidden p-1 -mr-1 rtl:-ml-1 text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary transition-colors relative group pointer-events-auto"
-          aria-label="Open menu"
+          :aria-label="$t('a11y.openMenu')"
           @click="isMobileMenuOpen = true"
         >
           <span
             class="absolute inset-0 rounded-xl bg-brand-primary-soft opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-          ></span>
+          />
           <MenuIcon class="w-8 h-8 relative z-10" />
         </button>
       </div>
@@ -59,20 +59,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { MenuIcon } from 'lucide-vue-next'
+import { ASSETS } from '#shared/brand'
 import { navItems } from '~/data/navigation'
 import { normalizePath } from '~/utils/path'
 import type { NavItem } from '~/types'
 
-const logoImage = '/images/vitadiet-official-logo.svg'
+const logoImage = ASSETS.logo
 
 const localePath = useLocalePath()
 const route = useRoute()
 
 const isMobileMenuOpen = ref(false)
 
-const { isScrolled, handleScroll } = useScrollState()
+const { isScrolled } = useScrollState()
 const { activeHash, scheduleActiveSectionUpdate } = useActiveSection(navItems)
 
 watch(isScrolled, () => {

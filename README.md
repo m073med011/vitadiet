@@ -1,75 +1,70 @@
-# Nuxt Minimal Starter
+# VITADIET Website
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Static Nuxt 4 site for VITADIET, a bilingual supplement catalogue for the Saudi
+market. Arabic is the default experience at `/`; English is served from `/en`.
 
-## Setup
+## Stack
 
-Make sure to install dependencies:
+- Nuxt 4 with the default `app/` source directory.
+- Vue 3, TypeScript, and Nuxt auto-imports.
+- Tailwind CSS v4 in CSS-first mode. There is no `tailwind.config.js`; design
+  tokens live in `app/assets/css/_tokens.css` and Tailwind is loaded from
+  `nuxt.config.ts` through `@tailwindcss/vite`.
+- `@nuxtjs/i18n` with locale files in `app/locales/`.
+- `@nuxtjs/seo`, schema.org, sitemap, robots, Nuxt Image, and Nuxt Fonts.
+
+## Commands
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+npm run generate
 ```
 
-## Production
-
-Build the application for production:
+Quality gates:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run format:check
+npm run lint
+npm run typecheck
+npm run generate
 ```
 
-Locally preview production build:
+`npm run generate` produces `.output/public` and also runs the project guards.
+
+## Guards
+
+- `scripts/check-no-localhost.mjs` fails if generated public files contain a dev
+  host such as `localhost` or `127.0.0.1`.
+- `scripts/check-schema-org.mjs` checks the generated JSON-LD graph for the
+  expected canonical WebSite, Organization, logo, breadcrumbs, and Product
+  nodes.
+- `scripts/check-i18n-keys.mjs` enforces Arabic/English key parity and fails on
+  orphaned translation keys.
+- `nitro.prerender.failOnError` is enabled so broken generated routes fail the
+  build instead of silently producing 404 output.
+
+## Project Layout
+
+- `app/components/` contains shared UI, header/footer, home sections, and
+  product components.
+- `app/pages/` contains the generated routes.
+- `app/data/` currently holds navigation/home/product registries.
+- `app/locales/ar.json` and `app/locales/en.json` are the only runtime locale
+  files.
+- `docs/i18n-backlog.json` stores retired translated copy outside the runtime
+  i18n bundle.
+- `public/.htaccess` is part of the production contract for Apache redirects.
+
+## Deployment
+
+Production deploys the static output from:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+npm run generate
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Upload the contents of `.output/public` to Apache. Keep `public/.htaccess` in
+the generated output: it canonicalizes `https://www.vitadiet.sa/`, preserves
+legacy `/ar/` redirects, enforces trailing slashes for generated directories,
+and avoids redirect chains.

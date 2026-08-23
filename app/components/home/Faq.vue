@@ -1,13 +1,7 @@
 <template>
   <section id="faq" class="w-full py-section bg-surface">
     <div class="max-w-copy mx-auto px-page sm:px-gutter md:px-page-lg">
-      <div class="text-center mb-rule-sm">
-        <h2
-          class="text-heading md:text-heading-lg leading-heading font-bold text-ink uppercase tracking-label mb-page"
-        >
-          {{ $t('homePage.faq.heading') }}
-        </h2>
-      </div>
+      <BaseSectionHeader :heading="$t('homePage.faq.heading')" />
 
       <div class="flex flex-col gap-4">
         <div
@@ -16,7 +10,7 @@
           class="faq-item rounded-card border border-line/80 bg-surface-raised/60 shadow-card"
           :class="{ 'is-open': openItems.has(item.key) }"
           data-aos="fade-up"
-          :data-aos-delay="index * 80"
+          :data-aos-delay="index * AOS_STAGGER_MS"
         >
           <h3 class="m-0">
             <button
@@ -54,42 +48,37 @@
 
 <script setup lang="ts">
 import { ChevronDownIcon } from 'lucide-vue-next'
-import { faqItems } from '~/data/home'
-
-const { t } = useI18n()
+import { faqItems } from '~/data/faq'
+import { AOS_STAGGER_MS } from '~/utils/motion'
 
 const openItems = ref(new Set<string>())
 
 function toggle(key: string) {
   const next = new Set(openItems.value)
-  next.has(key) ? next.delete(key) : next.add(key)
+  if (next.has(key)) {
+    next.delete(key)
+  } else {
+    next.add(key)
+  }
   openItems.value = next
 }
-
-useSchemaOrg([
-  defineWebPage({ '@type': ['WebPage', 'FAQPage'] }),
-  ...faqItems.map((item) =>
-    defineQuestion({
-      name: () => t(item.questionKey),
-      acceptedAnswer: () => t(item.answerKey),
-    }),
-  ),
-])
 </script>
 
 <style scoped>
 .faq-panel {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  transition: max-height var(--motion-page, 320ms)
+  transition: grid-template-rows var(--motion-page, 320ms)
     var(--motion-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
 .faq-item.is-open .faq-panel {
-  max-height: 32rem;
+  grid-template-rows: 1fr;
 }
 
 .faq-panel-inner {
+  min-height: 0;
   opacity: 0;
   transform: translateY(-0.25rem);
   transition:
@@ -104,10 +93,6 @@ useSchemaOrg([
 
 .faq-item.is-open .faq-chevron {
   transform: rotate(180deg);
-}
-
-html[dir='rtl'] .faq-trigger {
-  text-align: right;
 }
 
 @media (prefers-reduced-motion: reduce) {

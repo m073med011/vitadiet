@@ -1,9 +1,9 @@
 <template>
   <div class="space-y-gutter" data-aos="fade-up">
-    <NuxtLink :to="localePath('/')" aria-label="Vitadiet home">
+    <NuxtLink :to="localePath('/')" :aria-label="$t('a11y.homeLink')">
       <BaseImage
         :src="logoImage"
-        alt="Vitadiet Logo"
+        :alt="$t('a11y.logoAlt')"
         loading="lazy"
         :width="1000"
         :height="333"
@@ -47,8 +47,9 @@
 </template>
 
 <script setup lang="ts">
+import { ASSETS } from '#shared/brand'
 import { socialLinks } from '~/data/social-links'
 
-const logoImage = '/images/vitadiet-official-logo.svg'
+const logoImage = ASSETS.logo
 const localePath = useLocalePath()
 </script>

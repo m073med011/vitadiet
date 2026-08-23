@@ -1,64 +1,45 @@
 {
   "appName": "Vitadiet",
-  "companyArabic": "فيتادايت ",
-  "welcome": "Vitadiet: European Quality for a Healthier Life",
   "description": "Vitadiet provides scientifically approved, carefully selected European dietary supplements for trusted B2B partnerships in the Saudi market.",
   "seoTitle": "European Dietary Supplements for Saudi Pharmacies & Distributors",
-  "toggle_theme": "Toggle dark mode",
   "switch_lang": "Arabic",
+  "a11y": {
+    "homeLink": "Vitadiet home",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "logoAlt": "Vitadiet Logo"
+  },
+  "langSwitcher": {
+    "short": "AR",
+    "long": "Arabic"
+  },
+  "catalog": {
+    "filename": "vitadiet-catalog.pdf"
+  },
+  "error": {
+    "notFound": "Page Not Found",
+    "title": "Page not found",
+    "description": "The page you are looking for is not available.",
+    "homeCta": "Back home"
+  },
   "navigation": "Navigation",
   "preferences": "Preferences",
-  "light_mode": "Light",
-  "dark_mode": "Dark",
   "home": "Home",
   "about": "About",
   "services": "Why Vitadiet",
   "products": "Products",
-  "blog": "Quality",
   "contact": "Contact",
-  "newsletter": "Partner Inquiry",
   "homePage": {
     "hero": {
       "badge": "European supplements for the Saudi market",
       "heading": "Vitadiet: European Quality for a Healthier Life",
       "subheading": "We provide scientifically approved and carefully selected dietary supplements, giving our partners trusted products in the Saudi market.",
-      "primary": "Our Profile",
-      "secondary": "View Company Profile"
+      "primary": "Our Profile"
     },
     "stats": {
       "b2bOnly": "B2B",
       "scientificReview": "Scientific Review",
-      "sfdaFocus": "SFDA Approved",
-      "europeanAgencies": "European Agencies",
-      "heading": "Our Numbers",
-      "items": {
-        "partners": {
-          "value": "+100",
-          "label": "Partners"
-        },
-        "products": {
-          "value": "10",
-          "label": "Products"
-        },
-        "certificates": {
-          "value": "4",
-          "label": "Certificates"
-        },
-        "regions": {
-          "value": "8",
-          "label": "Distribution Regions"
-        },
-        "sources": {
-          "value": "3",
-          "label": "European Sources"
-        }
-      }
-    },
-    "about": {
-      "heading": "About Us",
-      "description": "Vitadiet is a Saudi company specialized in exclusive European dietary supplement agencies. We operate through a B2B model to serve pharmacies and distributors across the Kingdom.",
-      "responsibility": "We select every product according to strict scientific standards and make sure it is officially registered and approved before entering the market.",
-      "cta": "Request Company Credentials"
+      "sfdaFocus": "SFDA Approved"
     },
     "whoWeAre": {
       "heading": "Vitadiet Up Close - Who We Are and What Sets Us Apart",
@@ -100,38 +81,7 @@
         "safety": {
           "title": "Long-Term Partnerships",
           "description": "We build sustainable relationships based on trust, commitment, and shared growth."
-        },
-        "partnership": {
-          "title": "Long-Term Partnerships",
-          "description": "We build sustainable relationships based on trust, commitment, and shared growth."
         }
-      }
-    },
-    "nameStory": {
-      "heading": "The Story Behind the Name: Why Vitadiet",
-      "description": "The name Vitadiet combines two words: Vita means life, and Diet means nutritional system. Together, they reflect our commitment to products that support a healthy, balanced lifestyle built on quality and science."
-    },
-    "route": {
-      "heading": "From Europe to Saudi Arabia",
-      "description": "We select products from approved European manufacturers, then move through careful inspection and registration stages until they reach the Saudi market with trusted quality.",
-      "steps": {
-        "source": "Approved European manufacturers",
-        "review": "Scientific inspection and documentation review",
-        "register": "Official registration and approval",
-        "distribute": "Trusted distribution in Saudi Arabia"
-      }
-    },
-    "lab": {
-      "heading": "Quality Stages",
-      "description": "Every product passes through safety testing, purity testing, and microscopic examination to support dependable effectiveness."
-    },
-    "certificates": {
-      "heading": "Certificates and Trust",
-      "description": "Certificates are part of the product file and help qualified partners review quality with confidence.",
-      "items": {
-        "sfda": "Saudi Food and Drug Authority approval files",
-        "eu": "European manufacturer documentation",
-        "safety": "Safety, purity, and effectiveness review"
       }
     },
     "products": {
@@ -180,86 +130,6 @@
         }
       }
     },
-    "trustBox": {
-      "heading": "The Trust Box",
-      "description": "Packaging, storage, and delivery are treated as part of the product promise.",
-      "points": {
-        "packaging": "Packaging review",
-        "storage": "Controlled storage principles",
-        "delivery": "Efficient pharmacy-channel delivery"
-      }
-    },
-    "downloads": {
-      "heading": "Download Center",
-      "description": "Qualified partners can request brochures, certificates, and product files for procurement review.",
-      "items": {
-        "profile": "Company Profile",
-        "brochures": "Product Brochures",
-        "certificates": "Certificates",
-        "dossiers": "B2B Dossiers"
-      }
-    },
-    "coverage": {
-      "heading": "Saudi Distribution Coverage",
-      "description": "Vitadiet supports pharmacy and distributor relationships across the Kingdom.",
-      "regions": {
-        "central": "Central Region",
-        "western": "Western Region",
-        "eastern": "Eastern Region",
-        "southern": "Southern Region",
-        "northern": "Northern Region"
-      }
-    },
-    "partners": {
-      "heading": "Partner Network",
-      "description": "Our B2B network is built for pharmacies and distributors seeking trusted European supplement products.",
-      "items": {
-        "pharmacies": "Pharmacy Partners",
-        "distributors": "Authorized Distributors",
-        "suppliers": "Supply Partners"
-      }
-    },
-    "steps": {
-      "heading": "How to Start With Us",
-      "items": {
-        "contact": "Contact the Vitadiet team",
-        "request": "Request product and company files",
-        "delivery": "Review distribution requirements",
-        "partnership": "Build a long-term partnership"
-      }
-    },
-    "vision": {
-      "heading": "Our Vision",
-      "visionTitle": "Vision",
-      "visionText": "To be the first choice for trusted dietary supplements in the Saudi market through quality and scientific approval.",
-      "missionTitle": "Our Commitment",
-      "missionText": "To provide partners with selected products, clear documentation, official approval, and reliable long-term cooperation."
-    },
-    "values": {
-      "heading": "Our Values",
-      "items": {
-        "reliability": {
-          "title": "Reliability",
-          "description": "Our products are built on clinical studies."
-        },
-        "commitment": {
-          "title": "Commitment",
-          "description": "We follow the highest scientific and ethical standards."
-        },
-        "transparency": {
-          "title": "Transparency",
-          "description": "Every detail is clear and accessible to partners."
-        },
-        "partnership": {
-          "title": "Partnership",
-          "description": "Sustainable relationships built on trust."
-        },
-        "development": {
-          "title": "Development",
-          "description": "Continuous improvement of the product portfolio."
-        }
-      }
-    },
     "quality": {
       "heading": "Quality Control",
       "imageAlt": "Quality control review inside a supplement manufacturing facility",
@@ -278,34 +148,6 @@
         }
       }
     },
-    "insight": {
-      "heading": "Built on Trust",
-      "description": "A trusted supplement is shaped by evidence, safety review, official approval, and clear handling before it reaches partners."
-    },
-    "future": {
-      "heading": "Growing With Our Partners",
-      "description": "Vitadiet continues to improve its product portfolio and strengthen distribution relationships across the Saudi market."
-    },
-    "local": {
-      "heading": "For Pharmacies and Distributors Inside the Kingdom",
-      "description": "Choose Vitadiet when you need European quality, official approval, transparent files, and a serious B2B partnership.",
-      "points": {
-        "quality": "Trusted European quality",
-        "sfda": "Saudi Food and Drug Authority approval",
-        "files": "Clear product files",
-        "delivery": "Strong distribution network"
-      }
-    },
-    "global": {
-      "heading": "For European Manufacturers",
-      "description": "Vitadiet gives European products a trusted Saudi B2B path through scientific review, registration, and distribution.",
-      "points": {
-        "market": "Saudi market understanding",
-        "brand": "Professional brand representation",
-        "coverage": "Distribution relationships",
-        "ethics": "Long-term partnership"
-      }
-    },
     "faq": {
       "heading": "Frequently Asked Questions",
       "items": {
@@ -322,14 +164,6 @@
           "answer": "Qualified partners can request product files, certificates, and supporting documentation through the Vitadiet team."
         }
       }
-    },
-    "contactSection": {
-      "heading": "Start Your Partnership With Vitadiet Today",
-      "description": "Join our partner network and benefit from trusted products with European quality.",
-      "placeholder": "Business email",
-      "submit": "Send Partnership Request",
-      "privacy": "For pharmacies, distributors, and qualified B2B partners.",
-      "submittedMessage": "Partnership request received from:"
     }
   },
   "productPage": {
@@ -388,28 +222,11 @@
   },
   "footer": {
     "quote": "European quality for a healthier life, delivered through trusted B2B partnerships in Saudi Arabia.",
-    "links": {
-      "bestSeller": "About Vitadiet",
-      "skinProducts": "Quality Stages",
-      "beautyProducts": "Products",
-      "trackOrder": "Our Numbers",
-      "aboutUs": "Start a Partnership"
-    },
     "contact": {
       "address": "Saudi Arabia - Jeddah - Palestine Street - Al Hamra District - Palestine Commercial Center - First Floor - Office No. 12",
-      "phone": "+966508178161",
-      "email": "acc{'@'}vitadiet.sa",
       "vat": "VAT# : 302135132900003"
     },
-    "newsletter": {
-      "text": "Use your business email to request product files or start a partnership discussion.",
-      "placeholder": "Business email",
-      "join": "Request",
-      "joinedMessage": "Request received from:"
-    },
     "copyright": "All rights reserved to Digital Order",
-    "developedBy": "Implementation and development by",
-    "privacyPolicy": "Privacy Notice",
-    "termsOfService": "Partner Terms"
+    "developedBy": "Implementation and development by"
   }
 }
