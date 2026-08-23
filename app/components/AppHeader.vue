@@ -32,9 +32,6 @@
       <HeaderDesktopNav :nav-items="navItems" :is-active="isActiveNavItem" />
 
       <div class="flex items-center gap-2 sm:gap-4">
-        <BaseButton class="hidden lg:inline-flex" :to="localePath('/products/')" variant="primary">
-          {{ $t('header.discoverProducts') }}
-        </BaseButton>
 
         <div class="hidden items-center text-ink-soft lg:flex">
           <HeaderLangSwitcher variant="desktop" />
