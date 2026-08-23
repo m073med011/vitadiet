@@ -8,6 +8,12 @@
 
 ErrorDocument 404 /404.html
 
+<IfModule mod_headers.c>
+  # Keep production indexable; block indexing on dev/staging/subdomains.
+  SetEnvIfNoCase Host "^(?!www\.vitadiet\.sa$|vitadiet\.sa$).+" noindex_non_production
+  Header set X-Robots-Tag "noindex, nofollow" env=noindex_non_production
+</IfModule>
+
 <IfModule mod_rewrite.c>
 
 RewriteEngine On
