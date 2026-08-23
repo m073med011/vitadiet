@@ -1,9 +1,14 @@
 <template>
   <div>
     <HomeHero />
-    <LazyHomeWhoWeAre />
-    <LazyHomeFeatures />
+    <LazyHomeTrustBar />
+    <LazyHomeFeaturedProducts />
     <LazyHomeProducts />
+    <LazyHomeFeatures />
+    <LazyHomeWhoWeAre />
+    <LazyHomeFindProducts />
+    <LazyHomeEducationTeaser />
+    <LazyHomePartners />
     <LazyHomeFaq />
   </div>
 </template>

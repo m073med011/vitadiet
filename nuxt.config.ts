@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     url: SITE_URL,
     trailingSlash: true,
     name: BRAND_NAME_LATIN,
-    description: 'Certified supplement portfolio for B2B distribution',
+    description: 'European dietary supplements for everyday wellness in Saudi Arabia',
     defaultLocale: 'ar',
   },
 

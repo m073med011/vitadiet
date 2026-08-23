@@ -14,7 +14,11 @@
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
-        <NuxtLink :to="localePath('/')" class="flex items-center shrink-0" @click="$emit('close')">
+        <NuxtLink
+          :to="localePath('/')"
+          class="flex min-h-11 items-center shrink-0 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
+          @click="$emit('close')"
+        >
           <BaseImage
             :src="logoImage"
             :alt="$t('a11y.logoAlt')"
@@ -25,7 +29,7 @@
           />
         </NuxtLink>
         <button
-          class="w-10 h-10 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200"
+          class="w-11 h-11 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
           :aria-label="$t('a11y.closeMenu')"
           @click="$emit('close')"
         >
@@ -39,7 +43,7 @@
             v-for="(item, index) in navItems"
             :key="item.labelKey"
             :to="navPath(item)"
-            class="sidebar-nav-link group flex items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200"
+            class="sidebar-nav-link group flex min-h-11 items-center gap-4 px-4 py-3.5 rounded-xl text-ink hover:bg-brand-primary-soft hover:text-brand-primary border border-transparent hover:border-brand-primary/15 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
             :class="{ 'sidebar-nav-link-active': isActive(item) }"
             :style="{ transitionDelay: `${index * MOBILE_NAV_STAGGER_MS}ms` }"
             @click="$emit('close')"
@@ -54,6 +58,15 @@
       </nav>
 
       <div class="relative z-10 px-6 py-6 border-t border-line">
+        <BaseButton
+          class="mb-4 w-full"
+          :to="localePath('/products/')"
+          variant="primary"
+          @click="$emit('close')"
+        >
+          {{ $t('header.discoverProducts') }}
+        </BaseButton>
+
         <p class="text-caption font-bold tracking-label uppercase text-ink-subtle mb-4">
           {{ $t('preferences') }}
         </p>

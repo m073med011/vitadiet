@@ -31,13 +31,19 @@
 
       <HeaderDesktopNav :nav-items="navItems" :is-active="isActiveNavItem" />
 
-      <div class="flex items-center gap-3 sm:gap-6">
+      <div class="flex items-center gap-2 sm:gap-4">
+        <BaseButton class="hidden md:inline-flex" :to="localePath('/products/')" variant="primary">
+          {{ $t('header.discoverProducts') }}
+        </BaseButton>
+
         <div class="flex items-center space-x-3 rtl:space-x-reverse text-ink-soft hidden md:flex">
           <HeaderLangSwitcher variant="desktop" />
         </div>
 
+        <HeaderLangSwitcher class="md:hidden" variant="desktop" />
+
         <button
-          class="md:hidden p-1 -mr-1 rtl:-ml-1 text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary transition-colors relative group pointer-events-auto"
+          class="md:hidden min-h-11 min-w-11 flex items-center justify-center -mr-1 rtl:-ml-1 rounded-xl text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent hover:text-brand-primary transition-colors relative group pointer-events-auto"
           :aria-label="$t('a11y.openMenu')"
           @click="isMobileMenuOpen = true"
         >

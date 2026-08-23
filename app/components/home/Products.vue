@@ -10,7 +10,7 @@
     <HomeProductCarousel />
 
     <div class="content-container">
-      <div class="mt-gutter-lg flex justify-center" data-aos="fade-up">
+      <div class="mt-gutter-lg flex justify-center">
         <BaseButton :to="localePath('/products/')" variant="secondary">
           {{ $t('homePage.products.viewAll') }}
         </BaseButton>

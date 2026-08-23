@@ -3,7 +3,7 @@
     <FooterColumnHeading :label="$t('navigation')" />
     <ul class="space-y-page mt-control-y-sm">
       <li
-        v-for="(link, index) in navItems"
+        v-for="(link, index) in footerNavItems"
         :key="link.labelKey"
         data-aos="fade-up"
         :data-aos-delay="index * AOS_STAGGER_MS"
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { navItems } from '~/data/navigation'
+import { footerNavItems } from '~/data/navigation'
 import { AOS_STAGGER_MS } from '~/utils/motion'
 
 const { navPath } = useNavPath()

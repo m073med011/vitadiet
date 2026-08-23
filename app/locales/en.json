@@ -1,7 +1,7 @@
 {
   "appName": "Vitadiet",
-  "description": "Vitadiet provides scientifically approved, carefully selected European dietary supplements for trusted B2B partnerships in the Saudi market.",
-  "seoTitle": "European Dietary Supplements for Saudi Pharmacies & Distributors",
+  "description": "Vitadiet offers carefully selected European dietary supplements that support everyday wellness and are available through trusted platforms in Saudi Arabia.",
+  "seoTitle": "Vitadiet European Dietary Supplements in Saudi Arabia",
   "switch_lang": "Arabic",
   "a11y": {
     "homeLink": "Vitadiet home",
@@ -26,20 +26,89 @@
   "preferences": "Preferences",
   "home": "Home",
   "about": "About",
-  "services": "Why Vitadiet",
+  "services": "Quality",
   "products": "Products",
+  "findProducts": "Where to Buy",
   "contact": "Contact",
+  "partners": "For Pharmacies",
+  "header": {
+    "discoverProducts": "Discover products"
+  },
+  "productCard": {
+    "learnMore": "Learn more",
+    "whereBuy": "Where to buy",
+    "availability": {
+      "available": "Available",
+      "soon": "Coming soon"
+    },
+    "packSize": {
+      "bestrong": "30 capsules",
+      "becalme": "30 capsules",
+      "vitagen": "30 capsules",
+      "femavit": "30 capsules",
+      "floradit": "20 capsules",
+      "greenPharmacy": "Skin care pack",
+      "dplus": "60 tablets",
+      "soluro": "Coming soon",
+      "flowadite": "Coming soon"
+    }
+  },
+  "trustBar": {
+    "ariaLabel": "Vitadiet quality and trust signals"
+  },
+  "featuredProducts": {
+    "heading": "Featured Products",
+    "description": "Start with the most prominent products for everyday wellness routines.",
+    "mainEyebrow": "Main product",
+    "learnMore": "Learn more",
+    "whereBuy": "Where to buy",
+    "items": {
+      "becalme": {
+        "intro": "A European formula supporting calm sleep and relaxation.",
+        "benefit": "Helps you fall asleep faster and naturally improve sleep quality."
+      },
+      "femavit": {
+        "intro": "Complete daily support for women's wellness.",
+        "benefit": "Supports women during pregnancy and breastfeeding, with iron, immunity, and bone support."
+      },
+      "vitagen": {
+        "intro": "An integrated multivitamin for men and women.",
+        "benefit": "Supports daily energy, immunity, heart health, and brain health."
+      }
+    }
+  },
+  "findProductsSection": {
+    "heading": "Where to Find Our Products",
+    "description": "Available products include direct buying links through trusted platforms in Saudi Arabia.",
+    "availableHeading": "Available now",
+    "soonHeading": "Coming soon"
+  },
+  "educationTeaser": {
+    "eyebrow": "Educational content",
+    "heading": "A future space for clear wellness information",
+    "description": "Simple educational content around thoughtful supplement use will be added later, without creating empty articles or pages in this phase."
+  },
+  "partnerSection": {
+    "eyebrow": "For pharmacies and distributors",
+    "heading": "Interested in carrying Vitadiet products?",
+    "description": "For pharmacy, distributor, and retail partnership inquiries, our team can share product information, documentation, and availability details separately from the consumer shopping journey.",
+    "cta": "Contact the team",
+    "catalog": "Company profile"
+  },
   "homePage": {
     "hero": {
-      "badge": "European supplements for the Saudi market",
-      "heading": "Vitadiet: European Quality for a Healthier Life",
-      "subheading": "We provide scientifically approved and carefully selected dietary supplements, giving our partners trusted products in the Saudi market.",
-      "primary": "Our Profile"
+      "badge": "European wellness supplements",
+      "heading": "VITADIET - Smart European formulas for your new lifestyle.",
+      "subheading": "Carefully selected dietary supplements, with European quality, available through trusted shopping platforms in Saudi Arabia.",
+      "primary": "Discover products",
+      "secondary": "Where to buy"
     },
     "stats": {
-      "b2bOnly": "B2B",
+      "europeanQuality": "European quality",
       "scientificReview": "Scientific Review",
-      "sfdaFocus": "SFDA Approved"
+      "officialRequirements": "Registered according to official requirements",
+      "clearConsumerInfo": "Clear information for consumers",
+      "trustedPlatforms": "Available through trusted platforms"
     },
     "whoWeAre": {
       "heading": "Vitadiet Up Close - Who We Are and What Sets Us Apart",
@@ -47,16 +116,16 @@
       "petals": {
         "science": "Precise Scientific Selection",
         "sfda": "Official Registration (SFDA)",
-        "distribution": "Professional Distribution Chain",
+        "distribution": "Available through trusted channels",
         "quality": "Trusted European Products",
-        "safety": "Long-Term Partnerships",
+        "safety": "Everyday wellness support",
         "transparency": "Full Transparency"
       },
-      "footerText": "All our products are officially licensed by the Saudi Food and Drug Authority (SFDA) and undergo strict scientific reviews before being added to our portfolio.\nWe do not deal directly with consumers, but rather serve approved pharmacies, distributors, and suppliers within the Kingdom."
+      "footerText": "Vitadiet focuses on carefully selected European formulas, clear product information, and a straightforward path from discovery to trusted purchase options in the Kingdom."
     },
     "why": {
       "heading": "Why Choose Vitadiet",
-      "description": "A focused model built for partners who value scientific selection, official approval, and reliable distribution.",
+      "description": "A simple promise for consumers: carefully selected formulas, clear information, and quality standards you can understand.",
       "petals": {
         "science": {
           "title": "Precise Scientific Selection",
@@ -67,28 +136,26 @@
           "description": "We work with carefully selected European sources and manufacturers with dependable quality systems."
         },
         "sfda": {
-          "title": "Approved by the Saudi Food and Drug Authority",
-          "description": "Products go through official registration and approval requirements before market launch."
+          "title": "Official Requirements",
+          "description": "Products follow the official registration requirements before market launch."
         },
         "transparency": {
-          "title": "Full Transparency",
-          "description": "Partners receive clear product information, documentation, certificates, and commercial details."
+          "title": "Clear Information",
+          "description": "Product details are written to help consumers understand the formula, benefit, and usage context."
         },
         "distribution": {
-          "title": "Strong Distribution Network",
-          "description": "Our network is built to support pharmacies and distributors across key regions in the Kingdom."
+          "title": "Trusted Availability",
+          "description": "Products are presented with clear buying paths through trusted platforms whenever available."
         },
         "safety": {
-          "title": "Long-Term Partnerships",
-          "description": "We build sustainable relationships based on trust, commitment, and shared growth."
+          "title": "Lifestyle Support",
+          "description": "Each product is positioned around a practical wellness need without mixing consumer prices with trade messaging."
         }
       }
     },
     "products": {
       "heading": "Products",
-      "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
-      "prev": "Previous product",
-      "next": "Next product",
+      "description": "Explore carefully selected European dietary supplements for everyday wellness, sleep, energy, immunity, digestion, and beauty care.",
       "viewAll": "View All Products",
       "carouselLabel": "Vitadiet products",
       "items": {
@@ -152,29 +219,29 @@
       "heading": "Frequently Asked Questions",
       "items": {
         "consumer": {
-          "question": "Does Vitadiet sell directly to consumers?",
-          "answer": "No. Vitadiet operates as a B2B company serving pharmacies and distributors."
+          "question": "Where can I buy Vitadiet products?",
+          "answer": "Available products include buying links to trusted shopping platforms whenever online purchase is available."
         },
         "sfda": {
           "question": "Are products officially approved?",
           "answer": "Products are registered and approved through the required official process before they are introduced to the market."
         },
         "files": {
-          "question": "Can partners access product files?",
-          "answer": "Qualified partners can request product files, certificates, and supporting documentation through the Vitadiet team."
+          "question": "I am a pharmacy or distributor. How do I contact Vitadiet?",
+          "answer": "Use the dedicated pharmacies and distributors section near the bottom of the homepage to contact the Vitadiet team."
         }
       }
     }
   },
   "productPage": {
     "heading": "Products",
-    "description": "A collection of carefully selected European dietary supplements, ready for distribution inside the Kingdom.",
-    "cta": "Request Product Portfolio",
+    "description": "Explore carefully selected European dietary supplements for everyday wellness.",
+    "cta": "Contact Vitadiet",
     "comingSoon": "Coming Soon"
   },
   "categoryPage": {
     "eyebrow": "European Supplement Portfolio",
-    "description": "This category belongs to Vitadiet's B2B portfolio. Product details, documentation, and availability are shared with qualified partners.",
+    "description": "Explore Vitadiet products and learn more about their formulas, benefits, and buying options.",
     "cta": "Buy Now"
   },
   "productDetails": {
@@ -221,7 +288,7 @@
     }
   },
   "footer": {
-    "quote": "European quality for a healthier life, delivered through trusted B2B partnerships in Saudi Arabia.",
+    "quote": "European quality for a healthier everyday lifestyle in Saudi Arabia.",
     "contact": {
       "address": "Saudi Arabia - Jeddah - Palestine Street - Al Hamra District - Palestine Commercial Center - First Floor - Office No. 12",
       "vat": "VAT# : 302135132900003"

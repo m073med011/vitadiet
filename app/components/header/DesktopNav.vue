@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="hidden md:flex items-center gap-6 lg:gap-10 text-small font-semibold tracking-nav text-ink-soft uppercase font-heading"
+    class="hidden md:flex items-center gap-4 lg:gap-7 text-small font-semibold tracking-nav text-ink-soft uppercase font-heading"
   >
     <div
       v-for="(item, index) in navItems"
@@ -10,7 +10,7 @@
     >
       <NuxtLink
         :to="navPath(item)"
-        class="nav-link relative py-2 hover:text-brand-primary transition-colors duration-300"
+        class="nav-link relative inline-flex min-h-11 items-center py-2 hover:text-brand-primary transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-accent"
         :class="{ 'nav-link-active text-brand-primary': isActive(item) }"
       >
         {{ $t(item.labelKey) }}

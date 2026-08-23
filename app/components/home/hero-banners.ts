@@ -11,12 +11,6 @@ export interface HeroBanner {
 
 export const heroBanners: HeroBanner[] = [
   {
-    src: '/images/banners/sm_vitadiet-b2b-certified-medical-supplements.webp',
-    srcMobile: '/images/banners/xs_vitadiet-b2b-certified-medical-supplements.webp',
-    showOnMobile: true,
-    class: 'top-[12%] left-[4%] w-[10%] aspect-[3/4] hidden 2xl:block',
-  },
-  {
     src: '/images/banners/sm_vitadiet-immune-system-defense-capsules.webp',
     srcMobile: '/images/banners/xs_vitadiet-immune-system-defense-capsules.webp',
     showOnMobile: false,
@@ -37,7 +31,7 @@ export const heroBanners: HeroBanner[] = [
   {
     src: '/images/banners/sm_vitadiet-premium-health-supplements-collection.webp',
     srcMobile: '/images/banners/xs_vitadiet-premium-health-supplements-collection.webp',
-    showOnMobile: false,
+    showOnMobile: true,
     class: 'top-[5%] left-[40%] w-[11%] aspect-[4/5] hidden sm:block',
   },
   {
@@ -53,12 +47,6 @@ export const heroBanners: HeroBanner[] = [
     showOnMobile: false,
     class:
       'top-[4%] left-[69%] w-[10%] aspect-[4/5] max-sm:left-[55%] max-sm:top-[20%] max-sm:w-[35%]',
-  },
-  {
-    src: '/images/banners/sm_vitadiet-saudi-fda-approved-vitamins.webp',
-    srcMobile: '/images/banners/xs_vitadiet-saudi-fda-approved-vitamins.webp',
-    showOnMobile: true,
-    class: 'top-[31%] left-[80%] w-[10%] aspect-[4/5] hidden md:block',
   },
   {
     src: '/images/banners/sm_vitadiet-natural-energy-boost-vitamins.webp',

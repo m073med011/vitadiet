@@ -16,7 +16,7 @@
     :to="switchLocalePath(targetLocale)"
     :hreflang="targetLocale"
     :aria-label="$t('switch_lang')"
-    class="flex flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted border border-line text-ink hover:bg-brand-primary-soft hover:text-brand-primary transition-all duration-200"
+    class="flex min-h-11 flex-col items-center gap-2 py-3.5 px-3 rounded-xl bg-surface-muted border border-line text-ink hover:bg-brand-primary-soft hover:text-brand-primary transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent"
     @click="$emit('switch')"
   >
     <LanguagesIcon class="w-6 h-6 text-brand-primary" />

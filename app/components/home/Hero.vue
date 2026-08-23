@@ -29,12 +29,15 @@
         <div
           class="mt-gutter grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row items-stretch lg:items-center justify-center gap-page"
         >
-          <BaseButton :href="ASSETS.catalog" :download="$t('catalog.filename')" variant="primary">
+          <BaseButton :to="localePath('/products/')" variant="primary">
             {{ $t('homePage.hero.primary') }}
-            <DownloadIcon class="h-icon-md w-icon-md" aria-hidden="true" />
+            <ArrowRightIcon
+              class="h-icon-md w-icon-md shrink-0 rtl:rotate-180"
+              aria-hidden="true"
+            />
           </BaseButton>
-          <BaseButton :to="localePath('/products/')" variant="secondary">
-            {{ $t('homePage.products.viewAll') }}
+          <BaseButton :to="`${localePath('/')}#where-to-buy`" variant="secondary">
+            {{ $t('homePage.hero.secondary') }}
           </BaseButton>
         </div>
 
@@ -60,15 +63,14 @@
 </template>
 
 <script setup lang="ts">
-import { DownloadIcon, FileCheckIcon, HandshakeIcon, ShieldCheckIcon } from 'lucide-vue-next'
-import { ASSETS } from '#shared/brand'
+import { ArrowRightIcon, FileCheckIcon, ShieldCheckIcon, SparklesIcon } from 'lucide-vue-next'
 
 const localePath = useLocalePath()
 
 const trustItems = [
-  { labelKey: 'homePage.stats.b2bOnly', icon: HandshakeIcon },
+  { labelKey: 'homePage.stats.europeanQuality', icon: SparklesIcon },
   { labelKey: 'homePage.stats.scientificReview', icon: FileCheckIcon },
-  { labelKey: 'homePage.stats.sfdaFocus', icon: ShieldCheckIcon },
+  { labelKey: 'homePage.stats.officialRequirements', icon: ShieldCheckIcon },
 ]
 </script>
 
