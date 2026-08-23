@@ -1,7 +1,7 @@
 <template>
-  <div class="pt-24 pb-12 min-h-screen">
+  <div class="pt-section-lg pb-section-sm min-h-screen">
     <div class="content-container">
-      <h1 class="text-4xl font-bold text-center mb-8" data-aos="fade-up">
+      <h1 class="text-heading-lg font-bold text-center mb-8" data-aos="fade-up">
         {{ $t('productPage.heading') }}
       </h1>
       <p
