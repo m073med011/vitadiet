@@ -54,9 +54,6 @@
       "flowadite": "Coming soon"
     }
   },
-  "trustBar": {
-    "ariaLabel": "Vitadiet quality and trust signals"
-  },
   "featuredProducts": {
     "heading": "Featured Products",
     "description": "Start with the most prominent products for everyday wellness routines.",
@@ -102,23 +99,6 @@
       "subheading": "Carefully selected dietary supplements, with European quality, available through trusted shopping platforms in Saudi Arabia.",
       "primary": "Discover products",
       "secondary": "Where to buy"
-    },
-    "stats": {
-      "europeanQuality": "European quality",
-      "scientificReview": "Scientific Review",
-      "officialRequirements": "Registered according to official requirements",
-      "clearConsumerInfo": "Clear information for consumers",
-      "trustedPlatforms": "Available through trusted platforms",
-      "eyebrow": "HOW WE WORK",
-      "title": "From product selection to your hands,",
-      "subtitle": "step by step",
-      "descriptions": {
-        "europeanQuality": "We provide products manufactured to the highest European quality standards to ensure efficacy and safety.",
-        "scientificReview": "All our formulations undergo rigorous review by experts based on the latest research.",
-        "officialRequirements": "We are committed to registering all our products with official authorities in the Kingdom.",
-        "clearConsumerInfo": "We ensure transparent and accurate details about ingredients and benefits to help you make informed decisions.",
-        "trustedPlatforms": "Our products are available through authorized and trusted sales channels for your convenience and safety."
-      }
     },
     "whoWeAre": {
       "heading": "Vitadiet Up Close - Who We Are and What Sets Us Apart",

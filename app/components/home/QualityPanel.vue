@@ -6,7 +6,8 @@
         :alt="$t('homePage.quality.imageAlt')"
         width="1200"
         height="600"
-        sizes="100vw"
+        loading="lazy"
+        decoding="async"
         class="absolute inset-0 w-full h-full object-cover"
       />
       <div class="quality-image-content">

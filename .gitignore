@@ -17,8 +17,11 @@ logs
 .DS_Store
 .fleet
 .idea
+/docs/DEPLOYMENT.md
 
 # Local env files
 .env
 .env.*
 !.env.example
+# .zip files
+*.zip

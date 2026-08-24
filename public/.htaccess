@@ -10,7 +10,7 @@ ErrorDocument 404 /404.html
 
 <IfModule mod_headers.c>
   # Keep production indexable; block indexing on dev/staging/subdomains.
-  SetEnvIfNoCase Host "^(?!www\.vitadiet\.sa$|vitadiet\.sa$).+" noindex_non_production
+  SetEnvIfNoCase Host "^(?!(?:www\.)?vitadiet\.sa(?::[0-9]+)?$).+" noindex_non_production
   Header set X-Robots-Tag "noindex, nofollow, noarchive" env=noindex_non_production
 </IfModule>
 
