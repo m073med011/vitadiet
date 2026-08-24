@@ -16,7 +16,7 @@
             <button
               :id="`faq-trigger-${item.key}`"
               type="button"
-              class="flex w-full cursor-pointer items-center justify-between gap-page p-page text-start text-copy-lg font-bold leading-heading text-ink transition-colors hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent rounded-card"
+              class="flex min-h-11 w-full cursor-pointer items-center justify-between gap-page p-page text-start text-copy-lg font-bold leading-heading text-ink transition-colors hover:text-brand-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent rounded-card"
               :aria-expanded="openItems.has(item.key)"
               :aria-controls="`faq-panel-${item.key}`"
               @click="toggle(item.key)"

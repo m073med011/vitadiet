@@ -77,7 +77,11 @@
                 data-aos="orbit-pop"
                 :data-aos-delay="ORBIT_AOS_BASE_DELAY_MS + index * ORBIT_AOS_STAGGER_MS"
                 data-aos-duration="700"
-                :style="{ '--reverse-angle': `${-feature.angle}deg` }"
+                :style="{
+                  '--reverse-angle': `${-feature.angle}deg`,
+                  '--aos-delay': `${ORBIT_AOS_BASE_DELAY_MS + index * ORBIT_AOS_STAGGER_MS}ms`,
+                  '--aos-duration': '700ms',
+                }"
               >
                 <div
                   class="w-full h-full rounded-full bg-surface-raised border border-brand-accent shadow-float flex flex-col items-center justify-center p-2 sm:p-3 lg:p-4 transition-all duration-500 hover:scale-110 hover:border-brand-primary pointer-events-auto group"

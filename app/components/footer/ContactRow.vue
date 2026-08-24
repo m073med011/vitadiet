@@ -4,7 +4,7 @@
     :href="href"
     :target="external ? '_blank' : undefined"
     :rel="external ? 'noopener noreferrer' : undefined"
-    class="flex items-start gap-page group"
+    class="focus-ring flex min-h-11 items-start gap-page rounded-control group"
   >
     <div class="icon-circle">
       <component :is="icon" class="w-icon-sm h-icon-sm transition-colors" />

@@ -21,7 +21,7 @@
       <div class="relative z-10 flex items-center justify-between px-6 py-5 border-b border-line">
         <NuxtLink
           :to="localePath('/')"
-          class="focus-ring flex min-h-11 items-center shrink-0 rounded-lg"
+          class="focus-ring flex min-h-11 min-w-11 items-center shrink-0 rounded-lg"
           @click="$emit('close')"
         >
           <BaseImage

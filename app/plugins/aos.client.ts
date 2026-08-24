@@ -95,13 +95,4 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook('page:finish', () => {
     if (isReady) scheduleRevealRefresh()
   })
-
-  nuxtApp.hook('app:beforeUnmount', () => {
-    mutationObserver?.disconnect()
-    revealObserver?.disconnect()
-
-    if (refreshFrame) {
-      window.cancelAnimationFrame(refreshFrame)
-    }
-  })
 })
