@@ -33,7 +33,7 @@
             >
               {{ $t(mainProduct.benefitKey) }}
             </p>
-            <div class="mt-auto grid gap-page sm:grid-cols-2">
+            <div class="featured-actions mt-auto grid gap-page sm:grid-cols-2">
               <BaseButton :to="productPath(mainProduct.slug)" variant="secondary">
                 <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
                 {{ $t('featuredProducts.learnMore') }}
@@ -79,7 +79,7 @@
               <p class="text-small font-semibold leading-copy text-brand-accent">
                 {{ $t(product.benefitKey) }}
               </p>
-              <div class="mt-auto grid gap-control-y sm:grid-cols-2">
+              <div class="featured-actions mt-auto grid gap-control-y sm:grid-cols-2">
                 <BaseButton :to="productPath(product.slug)" variant="secondary">
                   {{ $t('featuredProducts.learnMore') }}
                   <span class="sr-only"> - {{ $t(product.titleKey) }}</span>
@@ -176,6 +176,15 @@ const secondaryProducts = computed<FeaturedProduct[]>(() => featuredProducts.sli
 
 .featured-image--main {
   min-height: 20rem;
+}
+
+.featured-actions :deep(a),
+.featured-actions :deep(button) {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  text-align: center;
+  white-space: normal;
 }
 
 @media (min-width: 768px) {

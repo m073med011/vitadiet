@@ -7,6 +7,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   const prefersReducedMotion = window.matchMedia(REDUCED_MOTION_QUERY)
   let revealObserver: IntersectionObserver | undefined
+  let mutationObserver: MutationObserver | undefined
   let refreshFrame: number | undefined
   let isReady = false
 
@@ -77,19 +78,30 @@ export default defineNuxtPlugin((nuxtApp) => {
     isReady = true
     document.documentElement.classList.add('aos-ready')
     scheduleRevealRefresh()
+
+    mutationObserver = new MutationObserver(scheduleRevealRefresh)
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    })
   }
 
   const initializeAfterHydration = () => {
     window.requestAnimationFrame(initializeAnimations)
   }
 
-  if (nuxtApp.isHydrating) {
-    nuxtApp.hooks.hookOnce('app:suspense:resolve', initializeAfterHydration)
-  } else {
-    initializeAfterHydration()
-  }
+  nuxtApp.hooks.hookOnce('app:mounted', initializeAfterHydration)
 
   nuxtApp.hook('page:finish', () => {
     if (isReady) scheduleRevealRefresh()
+  })
+
+  nuxtApp.hook('app:beforeUnmount', () => {
+    mutationObserver?.disconnect()
+    revealObserver?.disconnect()
+
+    if (refreshFrame) {
+      window.cancelAnimationFrame(refreshFrame)
+    }
   })
 })

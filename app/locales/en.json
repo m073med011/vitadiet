@@ -100,6 +100,11 @@
       "primary": "Discover products",
       "secondary": "Where to buy"
     },
+    "stats": {
+      "europeanQuality": "European quality",
+      "scientificReview": "Scientific review",
+      "officialRequirements": "Official requirements"
+    },
     "whoWeAre": {
       "heading": "Vitadiet Up Close - Who We Are and What Sets Us Apart",
       "description": "Vitadiet is a Saudi company providing exclusive agencies for high-quality European dietary supplements.",
