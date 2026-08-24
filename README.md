@@ -64,6 +64,23 @@ Production deploys the static output from:
 npm run generate
 ```
 
+Development must be generated with the deployment environment set explicitly so
+every page emits `noindex, nofollow, noarchive` for both robots and Googlebot:
+
+```powershell
+$env:VITADIET_DEPLOY_ENV = 'development'
+npm run generate
+```
+
+```bash
+VITADIET_DEPLOY_ENV=development npm run generate
+```
+
+Do not set `VITADIET_DEPLOY_ENV` for the production build. The default is
+`production`, which remains indexable. The generated delivery check fails when
+either environment receives the wrong robots policy or an image uses `1x1`
+dimensions.
+
 Upload the contents of `.output/public` to Apache. Keep `public/.htaccess` in
 the generated output: it canonicalizes `https://www.vitadiet.sa/`, preserves
 legacy `/ar/` redirects, enforces trailing slashes for generated directories,

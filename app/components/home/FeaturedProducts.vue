@@ -12,19 +12,18 @@
             <BaseImage
               :src="mainProduct.image"
               :alt="$t(mainProduct.titleKey)"
+              :width="668"
+              :height="911"
               fill
               class="object-contain"
             />
           </div>
 
           <div class="flex flex-1 flex-col gap-page p-card">
-            <p class="eyebrow-pill">
-              {{ $t('featuredProducts.mainEyebrow') }}
-            </p>
             <div>
-              <h2 class="panel-heading">
+              <h3 class="panel-heading">
                 {{ $t(mainProduct.titleKey) }}
-              </h2>
+              </h3>
               <p class="mt-control-y text-copy-lg leading-copy text-ink-soft">
                 {{ $t(mainProduct.introKey) }}
               </p>
@@ -64,6 +63,8 @@
               <BaseImage
                 :src="product.image"
                 :alt="$t(product.titleKey)"
+                :width="668"
+                :height="911"
                 fill
                 class="object-contain"
               />

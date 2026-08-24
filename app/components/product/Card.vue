@@ -6,6 +6,8 @@
       <BaseImage
         :src="product.image"
         :alt="$t(product.titleKey)"
+        :width="668"
+        :height="911"
         fill
         class="object-cover transition-transform duration-500 group-hover/card:scale-105"
       />

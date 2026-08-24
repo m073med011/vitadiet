@@ -16,6 +16,8 @@
           <BaseImage
             :src="img.srcMobile"
             alt=""
+            :width="200"
+            :height="268"
             fill
             :loading="index === 0 ? 'eager' : 'lazy'"
             :fetchpriority="index === 0 ? 'high' : 'auto'"

@@ -22,7 +22,7 @@
       ]"
       @click="$emit('select', img)"
     >
-      <BaseImage class="block" :src="img" alt="" fill fit="cover" />
+      <BaseImage class="block" :src="img" alt="" :width="668" :height="911" fill fit="cover" />
     </button>
   </div>
 </template>

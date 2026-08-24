@@ -3,12 +3,26 @@ import { BRAND_NAME_LATIN, SITE_URL } from './shared/site'
 import { PRODUCT_SLUGS } from './shared/products'
 
 const paths = ['/', '/products', ...PRODUCT_SLUGS.map((slug) => `/product/${slug}`)]
+const deploymentEnvironment = process.env.VITADIET_DEPLOY_ENV ?? 'production'
+if (!['development', 'production'].includes(deploymentEnvironment)) {
+  throw new Error(
+    `VITADIET_DEPLOY_ENV must be "development" or "production", received "${deploymentEnvironment}".`,
+  )
+}
+const isDevelopmentDeployment = deploymentEnvironment === 'development'
+const noIndexDirective = 'noindex, nofollow, noarchive'
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
   css: ['~/assets/css/main.css'],
+
+  app: {
+    head: {
+      meta: isDevelopmentDeployment ? [{ name: 'googlebot', content: noIndexDirective }] : [],
+    },
+  },
 
   vite: {
     build: {
@@ -24,6 +38,7 @@ export default defineNuxtConfig({
 
   site: {
     url: SITE_URL,
+    indexable: !isDevelopmentDeployment,
     trailingSlash: true,
     name: BRAND_NAME_LATIN,
     description: 'European dietary supplements for everyday wellness in Saudi Arabia',
@@ -42,6 +57,7 @@ export default defineNuxtConfig({
 
   robots: {
     sitemap: '/sitemap_index.xml',
+    robotsDisabledValue: noIndexDirective,
   },
 
   image: {

@@ -1,6 +1,10 @@
 <template>
   <div class="space-y-gutter" data-aos="fade-up">
-    <NuxtLink :to="localePath('/')" :aria-label="$t('a11y.homeLink')">
+    <NuxtLink
+      :to="localePath('/')"
+      :aria-label="$t('a11y.homeLink')"
+      class="focus-ring inline-flex min-h-11 min-w-11 items-center rounded-control"
+    >
       <BaseImage
         :src="logoImage"
         :alt="$t('a11y.logoAlt')"
@@ -19,7 +23,7 @@
         target="_blank"
         rel="noopener noreferrer"
         :aria-label="link.label"
-        class="icon-circle"
+        class="focus-ring icon-circle"
       >
         <component
           :is="link.icon"

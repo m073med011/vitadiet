@@ -53,13 +53,11 @@ const fetchPriority = computed(() => (props.loading === 'eager' ? 'high' : 'auto
 
 const resolvedWidth = computed(() => {
   if (props.width !== undefined) return props.width
-  if (props.fill) return 1
   return undefined
 })
 
 const resolvedHeight = computed(() => {
   if (props.height !== undefined) return props.height
-  if (props.fill) return 1
   return undefined
 })
 

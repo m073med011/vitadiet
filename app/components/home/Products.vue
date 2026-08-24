@@ -1,5 +1,5 @@
 <template>
-  <section id="products" class="section-block">
+  <section id="products" class="section-block overflow-x-clip">
     <div class="content-container">
       <BaseSectionHeader
         :heading="$t('homePage.products.heading')"

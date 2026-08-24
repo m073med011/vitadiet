@@ -10,6 +10,11 @@
   <Transition :name="locale === 'ar' ? 'slide-right' : 'slide-left'">
     <aside
       v-if="isOpen"
+      id="mobile-navigation"
+      ref="sidebar"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="$t('navigation')"
       class="fixed top-0 bottom-0 z-[70] w-[85vw] max-w-[320px] sm:max-w-none sm:w-80 h-[100dvh] flex flex-col lg:hidden overflow-hidden bg-surface shadow-sidebar border-e border-line pointer-events-auto"
       :class="locale === 'ar' ? 'right-0' : 'left-0'"
     >
@@ -29,6 +34,8 @@
           />
         </NuxtLink>
         <button
+          ref="closeButton"
+          type="button"
           class="focus-ring w-11 h-11 flex items-center justify-center rounded-xl text-ink-soft bg-surface-muted hover:bg-brand-primary-soft hover:text-brand-primary border border-line transition-all duration-200"
           :aria-label="$t('a11y.closeMenu')"
           @click="$emit('close')"
@@ -86,19 +93,83 @@ import type { NavItem } from '~/types'
 const logoImage = ASSETS.logo
 const MOBILE_NAV_STAGGER_MS = 35
 
-defineProps<{
+const props = defineProps<{
   isOpen: boolean
   navItems: NavItem[]
   isActive: (item: NavItem) => boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   close: []
 }>()
 
 const { locale } = useI18n()
 const localePath = useLocalePath()
 const { navPath } = useNavPath()
+const sidebar = ref<HTMLElement | null>(null)
+const closeButton = ref<HTMLButtonElement | null>(null)
+
+const focusableSelector = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',')
+
+function getFocusableElements() {
+  return Array.from(sidebar.value?.querySelectorAll<HTMLElement>(focusableSelector) ?? []).filter(
+    (element) => element.getClientRects().length > 0,
+  )
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (!props.isOpen) return
+
+  if (event.key === 'Escape') {
+    event.preventDefault()
+    emit('close')
+    return
+  }
+
+  if (event.key !== 'Tab') return
+
+  const focusableElements = getFocusableElements()
+  const firstElement = focusableElements[0]
+  const lastElement = focusableElements.at(-1)
+
+  if (!firstElement || !lastElement) {
+    event.preventDefault()
+    return
+  }
+
+  if (!sidebar.value?.contains(document.activeElement)) {
+    event.preventDefault()
+    firstElement.focus()
+    return
+  }
+
+  if (event.shiftKey && document.activeElement === firstElement) {
+    event.preventDefault()
+    lastElement.focus()
+  } else if (!event.shiftKey && document.activeElement === lastElement) {
+    event.preventDefault()
+    firstElement.focus()
+  }
+}
+
+watch(
+  () => props.isOpen,
+  async (isOpen) => {
+    if (!isOpen) return
+    await nextTick()
+    closeButton.value?.focus()
+  },
+)
+
+onMounted(() => document.addEventListener('keydown', handleKeydown))
+onBeforeUnmount(() => document.removeEventListener('keydown', handleKeydown))
 </script>
 
 <style scoped>

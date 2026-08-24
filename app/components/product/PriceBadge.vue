@@ -14,6 +14,9 @@
       :class="size === 'lg' ? 'h-icon-md w-icon-md' : 'h-3 w-3 sm:h-4 sm:w-4'"
       aria-hidden="true"
     />
+    <span v-if="isNumericPrice(t(priceKey))" class="sr-only">
+      {{ $t('a11y.priceCurrency') }}
+    </span>
   </span>
 </template>
 

@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="headerShell"
     class="top-0 z-50 w-full flex justify-center transition-all duration-500 ease-in-out pointer-events-none"
     :class="[
       route.meta.headerSticky !== false ? 'sticky' : 'relative',
@@ -16,7 +17,7 @@
     >
       <NuxtLink
         :to="localePath('/')"
-        class="flex items-center relative z-10 group shrink-0"
+        class="focus-ring flex min-h-11 min-w-11 items-center relative z-10 group shrink-0 rounded-control"
         :aria-label="$t('a11y.homeLink')"
       >
         <BaseImage
@@ -43,9 +44,13 @@
         <HeaderLangSwitcher class="lg:hidden" variant="desktop" />
 
         <button
+          ref="menuButton"
+          type="button"
           class="focus-ring relative -mr-1 flex min-h-11 min-w-11 items-center justify-center rounded-xl text-ink transition-colors hover:text-brand-primary group pointer-events-auto rtl:-ml-1 lg:hidden"
           :aria-label="$t('a11y.openMenu')"
-          @click="isMobileMenuOpen = true"
+          :aria-expanded="isMobileMenuOpen"
+          aria-controls="mobile-navigation"
+          @click="openMobileMenu"
         >
           <span
             class="absolute inset-0 rounded-xl bg-brand-primary-soft opacity-0 group-hover:opacity-100 transition-opacity duration-200"
@@ -60,7 +65,7 @@
     :is-open="isMobileMenuOpen"
     :nav-items="navItems"
     :is-active="isActiveNavItem"
-    @close="isMobileMenuOpen = false"
+    @close="closeMobileMenu"
   />
 </template>
 
@@ -77,12 +82,57 @@ const localePath = useLocalePath()
 const route = useRoute()
 
 const isMobileMenuOpen = ref(false)
+const headerShell = ref<HTMLElement | null>(null)
+const menuButton = ref<HTMLButtonElement | null>(null)
+let previousBodyOverflow = ''
 
 const { isScrolled } = useScrollState()
 const { activeHash, scheduleActiveSectionUpdate } = useActiveSection(navItems)
 
 watch(isScrolled, () => {
   scheduleActiveSectionUpdate()
+})
+
+function setBackgroundInert(value: boolean) {
+  const backgroundElements = [
+    headerShell.value,
+    document.querySelector<HTMLElement>('main'),
+    document.querySelector<HTMLElement>('footer'),
+  ]
+
+  for (const element of backgroundElements) {
+    if (element) element.inert = value
+  }
+}
+
+function openMobileMenu() {
+  isMobileMenuOpen.value = true
+}
+
+function closeMobileMenu() {
+  isMobileMenuOpen.value = false
+}
+
+watch(isMobileMenuOpen, async (isOpen) => {
+  if (!import.meta.client) return
+
+  if (isOpen) {
+    previousBodyOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    setBackgroundInert(true)
+    return
+  }
+
+  document.body.style.overflow = previousBodyOverflow
+  setBackgroundInert(false)
+  await nextTick()
+  menuButton.value?.focus()
+})
+
+onBeforeUnmount(() => {
+  if (!import.meta.client) return
+  document.body.style.overflow = previousBodyOverflow
+  setBackgroundInert(false)
 })
 
 const isActiveNavItem = (item: NavItem) => {

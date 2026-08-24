@@ -19,6 +19,8 @@
           class="block"
           :src="activeImage"
           :alt="alt"
+          :width="668"
+          :height="911"
           fill
           fit="contain"
           loading="eager"

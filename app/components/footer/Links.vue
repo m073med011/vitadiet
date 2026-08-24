@@ -10,7 +10,7 @@
       >
         <NuxtLink
           :to="navPath(link)"
-          class="relative inline-flex items-center text-ink hover:text-brand-primary hover:translate-x-2 rtl:hover:-translate-x-2 transition-all duration-300 group"
+          class="focus-ring relative inline-flex min-h-11 min-w-11 items-center rounded-control py-2 text-ink hover:text-brand-primary hover:translate-x-2 rtl:hover:-translate-x-2 transition-all duration-300 group"
         >
           <span
             class="absolute -left-3 rtl:-right-3 w-dot h-dot rounded-full bg-brand-primary opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300"

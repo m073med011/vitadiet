@@ -1,6 +1,6 @@
 # VitaDiet production canonical redirects
 # Production: https://www.vitadiet.sa/
-# Development: https://dev.vitadiet.sa/
+# Development: the www.dev subdomain
 #
 # IMPORTANT:
 # Production redirects are intentionally limited to vitadiet.sa and
@@ -11,7 +11,7 @@ ErrorDocument 404 /404.html
 <IfModule mod_headers.c>
   # Keep production indexable; block indexing on dev/staging/subdomains.
   SetEnvIfNoCase Host "^(?!www\.vitadiet\.sa$|vitadiet\.sa$).+" noindex_non_production
-  Header set X-Robots-Tag "noindex, nofollow" env=noindex_non_production
+  Header set X-Robots-Tag "noindex, nofollow, noarchive" env=noindex_non_production
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -42,7 +42,7 @@ RewriteRule ^ https://www.vitadiet.sa%{REQUEST_URI}/ [R=301,L]
 # ------------------------------------------------------------
 # BARE DOMAIN -> WWW
 # Only vitadiet.sa is redirected.
-# dev.vitadiet.sa is NOT matched.
+# Development subdomains are NOT matched.
 # ------------------------------------------------------------
 RewriteCond %{HTTP_HOST} ^vitadiet\.sa$ [NC]
 RewriteRule ^ https://www.vitadiet.sa%{REQUEST_URI} [R=301,L]

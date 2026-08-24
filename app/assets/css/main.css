@@ -6,6 +6,12 @@
   :root {
     font-family: var(--font-sans);
   }
+
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   :root:lang(ar),
   [dir='rtl'] {
     font-family: var(--font-arabic);
@@ -90,8 +96,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--size-icon-2xl, 2.5rem);
-    height: var(--size-icon-2xl, 2.5rem);
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: var(--radius-pill, 9999px);
     border: 1px solid var(--color-line);
     background: var(--color-surface);

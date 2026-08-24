@@ -7,7 +7,8 @@
     "homeLink": "Vitadiet home",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "logoAlt": "Vitadiet Logo"
+    "logoAlt": "Vitadiet Logo",
+    "priceCurrency": "Saudi riyals"
   },
   "langSwitcher": {
     "short": "AR",
@@ -59,7 +60,6 @@
   "featuredProducts": {
     "heading": "Featured Products",
     "description": "Start with the most prominent products for everyday wellness routines.",
-    "mainEyebrow": "Main product",
     "learnMore": "Learn more",
     "whereBuy": "Where to buy",
     "items": {
@@ -303,7 +303,7 @@
       "address": "Saudi Arabia - Jeddah - Palestine Street - Al Hamra District - Palestine Commercial Center - First Floor - Office No. 12",
       "vat": "VAT# : 302135132900003"
     },
-    "copyright": "All rights reserved to Digital Order",
+    "copyright": "All rights reserved by VITADIET",
     "developedBy": "Implementation and development by"
   }
 }
