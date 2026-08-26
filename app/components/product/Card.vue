@@ -2,7 +2,14 @@
   <article
     class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
   >
-    <div class="relative aspect-square w-full overflow-hidden bg-surface-muted">
+    <!-- Redundant link: it goes where the "learn more" button below already goes, so it is
+         taken out of the tab order and hidden from assistive tech rather than announced twice. -->
+    <NuxtLink
+      :to="productPath(product.slug)"
+      class="relative block aspect-square w-full overflow-hidden bg-surface-muted"
+      tabindex="-1"
+      aria-hidden="true"
+    >
       <BaseImage
         :src="primaryImage.src"
         :alt="imageAlt"
@@ -12,7 +19,7 @@
         fill
         :class="productImageClasses"
       />
-    </div>
+    </NuxtLink>
 
     <div class="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-4">
       <div class="flex items-start">

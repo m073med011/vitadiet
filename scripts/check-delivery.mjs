@@ -1,10 +1,16 @@
-import { readFile, readdir } from 'node:fs/promises'
+import { readFile, readdir, stat } from 'node:fs/promises'
 import { join, relative } from 'node:path'
 
 const PUBLIC_DIR = '.output/public'
+const IPX_DIR = join(PUBLIC_DIR, '_ipx')
 const NO_INDEX = 'noindex, nofollow, noarchive'
 /** Smallest edge any generated image variant may have before it is treated as broken. */
 const MIN_RENDERED_EDGE = 16
+/**
+ * A resized raster below this many bytes carries no visible content. It is what the
+ * pipeline emits when it re-encodes an animated image whose first frame is blank.
+ */
+const MIN_VARIANT_BYTES = 400
 const deploymentEnvironment = process.env.VITADIET_DEPLOY_ENV ?? 'production'
 
 if (!['development', 'production'].includes(deploymentEnvironment)) {
@@ -45,6 +51,37 @@ try {
   htmlFiles = await collectHtmlFiles(PUBLIC_DIR)
 } catch {
   failures.push(`${PUBLIC_DIR} does not exist; generate the site before running this check`)
+}
+
+const collectFiles = async (dir) => {
+  const entries = await readdir(dir, { withFileTypes: true })
+  const files = await Promise.all(
+    entries.map((entry) => {
+      const path = join(dir, entry.name)
+      return entry.isDirectory() ? collectFiles(path) : [path]
+    }),
+  )
+  return files.flat()
+}
+
+// Every generated raster must actually contain pixels. A near-empty file means the
+// source was re-encoded into nothing - an animated image flattened to a blank first
+// frame, for example - and the page renders an invisible gap instead of the asset.
+let variantCount = 0
+try {
+  for (const file of await collectFiles(IPX_DIR)) {
+    if (/\.(svg|br|gz)$/i.test(file)) continue
+    variantCount++
+    const { size } = await stat(file)
+    if (size < MIN_VARIANT_BYTES) {
+      failures.push(
+        `${relative(PUBLIC_DIR, file).replaceAll('\\', '/')}: generated variant is only ${size} ` +
+          `bytes, which renders blank - serve this source unprocessed instead`,
+      )
+    }
+  }
+} catch {
+  // No _ipx directory means no generated variants to police.
 }
 
 for (const file of htmlFiles) {
@@ -112,6 +149,7 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `Delivery check passed for ${htmlFiles.length} ${deploymentEnvironment} HTML file(s): ` +
-    `robots policy and image dimensions are valid.`,
+  `Delivery check passed for ${htmlFiles.length} ${deploymentEnvironment} HTML file(s) and ` +
+    `${variantCount} generated image variant(s): robots policy, image dimensions, and ` +
+    `variant payloads are valid.`,
 )

@@ -1,18 +1,18 @@
 import {
+  AwardIcon,
   HandshakeIcon,
   HomeIcon,
   InfoIcon,
   MapPinIcon,
   PackageIcon,
-  SparklesIcon,
 } from 'lucide-vue-next'
 import type { NavItem } from '~/types'
 
 export const navItems: NavItem[] = [
   { labelKey: 'products', hash: '', path: '/products/', icon: PackageIcon },
-  { labelKey: 'services', hash: '#why', icon: SparklesIcon },
-  { labelKey: 'findProducts', hash: '#where-to-buy', icon: MapPinIcon },
+  { labelKey: 'services', hash: '#why', icon: AwardIcon },
   { labelKey: 'about', hash: '#who-we-are', icon: InfoIcon },
+  { labelKey: 'findProducts', hash: '#where-to-buy', icon: MapPinIcon },
 ]
 
 export const partnerNavItem: NavItem = {

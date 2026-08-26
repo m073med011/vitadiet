@@ -63,12 +63,12 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowRightIcon, FileCheckIcon, ShieldCheckIcon, SparklesIcon } from 'lucide-vue-next'
+import { ArrowRightIcon, AwardIcon, FileCheckIcon, ShieldCheckIcon } from 'lucide-vue-next'
 
 const localePath = useLocalePath()
 
 const trustItems = [
-  { labelKey: 'homePage.stats.europeanQuality', icon: SparklesIcon },
+  { labelKey: 'homePage.stats.europeanQuality', icon: AwardIcon },
   { labelKey: 'homePage.stats.scientificReview', icon: FileCheckIcon },
   { labelKey: 'homePage.stats.officialRequirements', icon: ShieldCheckIcon },
 ]

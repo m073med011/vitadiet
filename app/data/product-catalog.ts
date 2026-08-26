@@ -51,6 +51,12 @@ const noonOption = (
 ): ProductPurchaseOption => ({
   availability,
   id: 'noon',
+  logo: {
+    alt: text('Noon', 'نون'),
+    height: 408,
+    src: '/images/noon-com-seeklogo.svg',
+    width: 408,
+  },
   logoText: 'noon',
   name: text('Noon', 'نون'),
   productSlug,

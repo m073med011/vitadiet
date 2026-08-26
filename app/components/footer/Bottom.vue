@@ -15,11 +15,13 @@
       class="focus-ring flex min-h-11 min-w-11 flex-wrap items-center justify-center gap-1 rounded-control px-2 text-small text-ink-soft transition-colors hover:text-brand-primary"
     >
       <span>{{ $t('footer.developedBy') }}</span>
-      <NuxtImg
+      <!-- Animated WebP: BaseImage serves it unprocessed, otherwise the resize keeps
+           only the blank first frame of the fade-in. -->
+      <BaseImage
         src="/images/do-distribution-logo-black.webp"
         alt="Digital Order"
-        width="56"
-        height="28"
+        :width="100"
+        :height="50"
         class="h-4 w-auto inline-block ml-1"
       />
     </a>

@@ -26,7 +26,7 @@
                 :width="option.logo.width"
                 :height="option.logo.height"
                 fit="contain"
-                class="h-full w-full p-1"
+                class="h-full w-full"
               />
               <template v-else>{{ option.logoText }}</template>
             </span>

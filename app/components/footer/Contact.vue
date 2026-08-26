@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-contact-col" data-aos="fade-up" data-aos-delay="200">
+  <div class="footer-contact-col lg:col-span-2" data-aos="fade-up" data-aos-delay="200">
     <FooterColumnHeading :label="$t('contact')" />
     <div class="space-y-icon-md">
       <FooterContactRow :icon="MapPinIcon" pre-line>

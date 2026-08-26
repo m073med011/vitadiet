@@ -130,7 +130,11 @@
       <div
         class="content-container grid gap-gutter-lg lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)]"
       >
-        <aside class="grid h-fit gap-page rounded-card border border-line bg-surface-raised p-card">
+        <!-- Pinned while the long detail column scrolls past it. Only from lg up: below
+             that the columns stack, so sticking would trap the panel over the content. -->
+        <aside
+          class="grid h-fit gap-page rounded-card border border-line bg-surface-raised p-card lg:sticky lg:top-28"
+        >
           <h2 class="text-title font-bold text-ink">{{ $t('productPage.sections.identity') }}</h2>
           <dl class="grid gap-page">
             <div v-for="fact in identityFacts" :key="fact.label" class="grid gap-1">
@@ -290,6 +294,20 @@
                   :to="productPath(related.slug)"
                   class="focus-ring flex h-full items-center gap-page rounded-card border border-line bg-surface-raised px-page py-page transition-colors hover:border-brand-primary hover:text-brand-primary"
                 >
+                  <span
+                    class="relative h-action w-action shrink-0 overflow-hidden rounded-card bg-surface"
+                  >
+                    <BaseImage
+                      :src="getPrimaryImage(related).src"
+                      alt=""
+                      :width="getPrimaryImage(related).width"
+                      :height="getPrimaryImage(related).height"
+                      sizes="48px"
+                      fill
+                      fit="contain"
+                      aria-hidden="true"
+                    />
+                  </span>
                   <span class="font-semibold leading-tight">{{
                     getProductTitle(related, locale)
                   }}</span>

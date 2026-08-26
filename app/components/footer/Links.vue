@@ -1,7 +1,7 @@
 <template>
   <nav data-aos="fade-up" data-aos-delay="100">
     <FooterColumnHeading :label="$t('navigation')" />
-    <ul class="space-y-page mt-control-y-sm">
+    <ul class="space-y-control-y-sm mt-control-y-sm">
       <li
         v-for="(link, index) in footerNavItems"
         :key="link.labelKey"

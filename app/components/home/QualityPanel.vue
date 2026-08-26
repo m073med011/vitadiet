@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { MicroscopeIcon, ShieldCheckIcon, SparklesIcon } from 'lucide-vue-next'
+import { DropletIcon, MicroscopeIcon, ShieldCheckIcon } from 'lucide-vue-next'
 
 const qualitySteps = [
   {
@@ -39,7 +39,7 @@ const qualitySteps = [
   {
     titleKey: 'homePage.quality.items.purity.title',
     descriptionKey: 'homePage.quality.items.purity.description',
-    icon: SparklesIcon,
+    icon: DropletIcon,
   },
   {
     titleKey: 'homePage.quality.items.microscopic.title',

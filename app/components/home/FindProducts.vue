@@ -16,12 +16,25 @@
               v-for="product in availableProducts"
               :key="product.slug"
               :href="`${productPath(product.slug)}#where-to-buy`"
-              class="focus-ring flex min-h-16 items-center justify-between gap-page rounded-card border border-line bg-surface px-page py-page text-ink transition-colors hover:border-brand-primary hover:text-brand-primary"
+              class="focus-ring flex min-h-16 items-center gap-page rounded-card border border-line bg-surface px-page py-page text-ink transition-colors hover:border-brand-primary hover:text-brand-primary"
             >
+              <span
+                class="relative h-action w-action shrink-0 overflow-hidden rounded-card bg-surface-raised"
+              >
+                <BaseImage
+                  :src="getPrimaryImage(product).src"
+                  alt=""
+                  :width="getPrimaryImage(product).width"
+                  :height="getPrimaryImage(product).height"
+                  sizes="48px"
+                  fill
+                  fit="contain"
+                  aria-hidden="true"
+                />
+              </span>
               <span class="text-small font-bold leading-tight">{{
                 getProductTitle(product, locale)
               }}</span>
-              <ShoppingBagIcon class="h-icon-sm w-icon-sm shrink-0" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -34,9 +47,23 @@
             <li
               v-for="product in comingSoonProducts"
               :key="product.slug"
-              class="rounded-card border border-line bg-surface-raised px-page py-page text-small font-semibold text-ink-soft"
+              class="flex items-center gap-page rounded-card border border-line bg-surface-raised px-page py-page text-small font-semibold text-ink-soft"
             >
-              {{ getProductTitle(product, locale) }}
+              <!-- Greyed to match the not-yet-buyable treatment used on the product cards. -->
+              <span class="relative h-action w-action shrink-0 overflow-hidden rounded-card">
+                <BaseImage
+                  :src="getPrimaryImage(product).src"
+                  alt=""
+                  :width="getPrimaryImage(product).width"
+                  :height="getPrimaryImage(product).height"
+                  sizes="48px"
+                  fill
+                  fit="contain"
+                  class="grayscale"
+                  aria-hidden="true"
+                />
+              </span>
+              <span class="min-w-0">{{ getProductTitle(product, locale) }}</span>
             </li>
           </ul>
         </div>
@@ -46,9 +73,12 @@
 </template>
 
 <script setup lang="ts">
-import { ShoppingBagIcon } from 'lucide-vue-next'
 import { products } from '~/data/products'
-import { getProductTitle, hasBuyablePurchaseOptions } from '~/services/product-catalog'
+import {
+  getPrimaryImage,
+  getProductTitle,
+  hasBuyablePurchaseOptions,
+} from '~/services/product-catalog'
 
 const { locale } = useI18n()
 const { productPath } = useProductPath()

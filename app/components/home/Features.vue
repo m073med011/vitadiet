@@ -34,11 +34,11 @@
 
 <script setup lang="ts">
 import {
+  FactoryIcon,
   FileCheckIcon,
   HeartPulseIcon,
   MicroscopeIcon,
   ShieldCheckIcon,
-  SparklesIcon,
   TruckIcon,
 } from 'lucide-vue-next'
 import { AOS_STAGGER_MS } from '~/utils/motion'
@@ -52,7 +52,7 @@ const whyPetals = [
   {
     titleKey: 'homePage.why.petals.quality.title',
     descriptionKey: 'homePage.why.petals.quality.description',
-    icon: SparklesIcon,
+    icon: FactoryIcon,
   },
   {
     titleKey: 'homePage.why.petals.sfda.title',
