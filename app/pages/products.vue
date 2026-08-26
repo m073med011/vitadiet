@@ -119,21 +119,31 @@
 <script setup lang="ts">
 import { AlertCircleIcon, MailIcon, SearchIcon, SearchXIcon, XIcon } from 'lucide-vue-next'
 import { CONTACT } from '#shared/brand'
-import { products } from '~/data/products'
 import type { HomeProduct } from '~/types'
-import { getProductTitle, productMatchesSearch } from '~/services/product-catalog'
+import { getProducts, getProductTitle, productMatchesSearch } from '~/services/product-catalog'
 
 const { locale, t } = useI18n()
 const { productPath } = useProductPath()
 const { absoluteSiteUrl } = useSiteUrls()
 
 const searchQuery = ref('')
-const isLoading = ref(false)
-const catalogError = ref<string | undefined>()
 const selectedProduct = ref<HomeProduct | undefined>()
 
+// Resolved during SSR, so the grid is in the prerendered markup and the loading and
+// error branches below are the same ones a Dashboard-backed source would take.
+const {
+  data: catalog,
+  error: catalogError,
+  status,
+} = await useAsyncData('product-catalog', () => getProducts(), { default: () => [] })
+
+const isLoading = computed(() => status.value === 'pending')
+const products = computed(() => catalog.value ?? [])
+
 const filteredProducts = computed(() =>
-  products.filter((product) => productMatchesSearch(product, searchQuery.value, locale.value)),
+  products.value.filter((product) =>
+    productMatchesSearch(product, searchQuery.value, locale.value),
+  ),
 )
 
 const clearSearch = () => {
@@ -146,12 +156,13 @@ const openPurchaseModal = (product: HomeProduct) => {
 
 useSchemaOrg([
   defineItemList({
-    itemListElement: products.map((product, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: () => getProductTitle(product, locale.value),
-      url: () => absoluteSiteUrl(productPath(product.slug)),
-    })),
+    itemListElement: () =>
+      products.value.map((product, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: getProductTitle(product, locale.value),
+        url: absoluteSiteUrl(productPath(product.slug)),
+      })),
   }),
 ])
 

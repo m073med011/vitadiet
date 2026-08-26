@@ -29,9 +29,18 @@ export interface ProductPrice {
 
 export type PurchaseAvailability = 'in_stock' | 'out_of_stock' | 'coming_soon'
 
+export interface PlatformLogo {
+  alt: LocalizedCopy
+  height: number
+  src: string
+  width: number
+}
+
 export interface ProductPurchaseOption {
   availability: PurchaseAvailability
   id: string
+  /** Optional brand mark. When absent the platform renders as a text-only badge. */
+  logo?: PlatformLogo
   logoText: string
   name: LocalizedCopy
   productSlug: ProductSlug

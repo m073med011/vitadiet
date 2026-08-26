@@ -15,6 +15,22 @@ import type {
 
 export const isApproved = (status?: ApprovalStatus): boolean => status === 'approved'
 
+/**
+ * Single read path for the product list. Today it resolves the bundled catalog, so it
+ * settles during SSR and the markup never waits on the client. Swapping the body for a
+ * `$fetch` against the future Dashboard API needs no change in the pages, because they
+ * already handle the pending and error branches this signature implies.
+ */
+export const getProducts = async (): Promise<HomeProduct[]> => {
+  const { products } = await import('~/data/products')
+  return products
+}
+
+export const getProductBySlug = async (slug: string): Promise<HomeProduct | undefined> => {
+  const catalog = await getProducts()
+  return catalog.find((product) => product.slug === slug)
+}
+
 export const localizeCopy = (copy: LocalizedCopy, locale: string): string => {
   const normalizedLocale: AppLocale = locale === 'ar' ? 'ar' : 'en'
   return copy[normalizedLocale]

@@ -3,6 +3,8 @@ import { join, relative } from 'node:path'
 
 const PUBLIC_DIR = '.output/public'
 const NO_INDEX = 'noindex, nofollow, noarchive'
+/** Smallest edge any generated image variant may have before it is treated as broken. */
+const MIN_RENDERED_EDGE = 16
 const deploymentEnvironment = process.env.VITADIET_DEPLOY_ENV ?? 'production'
 
 if (!['development', 'production'].includes(deploymentEnvironment)) {
@@ -57,6 +59,18 @@ for (const file of htmlFiles) {
     const height = getAttribute(match[0], 'height')
     if (width === '1' || height === '1') {
       failures.push(`${fileName}: image uses ${width ?? 'unset'}x${height ?? 'unset'} dimensions`)
+    }
+
+    // A `sizes` value the image provider cannot parse silently degrades into a
+    // near-empty render target (e.g. /_ipx/q_80&s_1x1/...), which still carries correct
+    // width/height attributes. Catch the generated variant instead of trusting them.
+    for (const [, w, h] of match[0].matchAll(/\/_ipx\/[^/"'\s]*s_(\d+)x(\d+)\//g)) {
+      if (Number(w) < MIN_RENDERED_EDGE || Number(h) < MIN_RENDERED_EDGE) {
+        failures.push(
+          `${fileName}: generated image variant is ${w}x${h}, below the ${MIN_RENDERED_EDGE}px ` +
+            `minimum - check that the "sizes" prop uses the provider's screen-key syntax`,
+        )
+      }
     }
   }
 

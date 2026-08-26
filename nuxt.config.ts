@@ -62,8 +62,25 @@ export default defineNuxtConfig({
 
   image: {
     format: ['webp'],
-    quality: 80,
-    provider: 'none',
+    // `quality` is deliberately left at the encoder default (80 for webp). Setting it
+    // adds a second modifier, which puts a literal "&" in every generated path
+    // (/_ipx/q_80&s_288x393/...) - legal in a URL, but a common source of breakage on
+    // Apache/cPanel hosting and in FTP/zip deploys. One modifier keeps paths plain.
+    //
+    // No explicit provider: the module serves images through the ipx runtime handler in
+    // dev and switches to prerendered files for `nuxt generate`. Pinning 'ipxStatic'
+    // here 404s every image in dev, because that provider has no runtime handler.
+    // The screens/densities pair is what produces real resized variants instead of the
+    // single full-resolution file that `provider: 'none'` used to emit.
+    densities: [1, 2],
+    screens: {
+      xs: 320,
+      sm: 480,
+      md: 640,
+      lg: 768,
+      xl: 1024,
+      xxl: 1280,
+    },
   },
 
   nitro: {

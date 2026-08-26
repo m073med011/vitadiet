@@ -21,7 +21,7 @@
             fill
             :loading="index === 0 ? 'eager' : 'lazy'"
             :fetchpriority="index === 0 ? 'high' : 'auto'"
-            sizes="(max-width: 640px) 28vw, (max-width: 1023px) 18vw, 160px"
+            sizes="xs:28vw md:18vw xl:160px"
           />
         </div>
       </div>

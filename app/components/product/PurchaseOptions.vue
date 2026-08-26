@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-page">
-    <p class="text-small leading-copy text-ink-soft">
+    <p v-if="options.length" class="text-small leading-copy text-ink-soft">
       {{ $t('purchase.externalNotice') }}
     </p>
 
@@ -12,11 +12,23 @@
       >
         <div class="grid gap-page sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
           <div class="flex min-w-0 items-center gap-page">
+            <!-- Brand mark when the platform logo is on file, text wordmark otherwise.
+                 Either way the platform name is repeated as text in the heading below,
+                 so the logo never carries information on its own. -->
             <span
-              class="flex h-action w-action shrink-0 items-center justify-center rounded-card border border-line bg-surface-raised text-caption font-bold uppercase text-ink"
+              class="flex h-action w-action shrink-0 items-center justify-center overflow-hidden rounded-card border border-line bg-surface-raised text-caption font-bold uppercase text-ink"
               aria-hidden="true"
             >
-              {{ option.logoText }}
+              <BaseImage
+                v-if="option.logo"
+                :src="option.logo.src"
+                alt=""
+                :width="option.logo.width"
+                :height="option.logo.height"
+                fit="contain"
+                class="h-full w-full p-1"
+              />
+              <template v-else>{{ option.logoText }}</template>
             </span>
             <div class="min-w-0">
               <h3 class="text-copy font-bold leading-tight text-ink">

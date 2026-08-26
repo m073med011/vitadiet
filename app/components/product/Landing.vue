@@ -73,7 +73,9 @@
               <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
               {{ $t('purchase.cta') }}
             </BaseButton>
-            <BaseButton :to="{ hash: '#product-information' }" variant="secondary">
+            <!-- Plain in-page anchor: routing to the current path would make NuxtLink
+                 add aria-current="page", which misannounces a jump link. -->
+            <BaseButton href="#product-information" variant="secondary">
               <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
               {{ $t('productPage.productInfoCta') }}
             </BaseButton>
@@ -89,7 +91,7 @@
               :alt="activeImageAlt"
               :width="activeImage.width"
               :height="activeImage.height"
-              sizes="(min-width: 1024px) 36vw, (min-width: 640px) 60vw, 90vw"
+              sizes="xs:90vw md:60vw xl:36vw"
               fill
               fit="contain"
               loading="eager"
@@ -336,7 +338,6 @@ import {
   ShoppingBagIcon,
 } from 'lucide-vue-next'
 import { CONTACT } from '#shared/brand'
-import { NuxtLink } from '#components'
 import { products } from '~/data/products'
 import type { HomeProduct, ProductFact, ProductReference } from '~/types'
 import {

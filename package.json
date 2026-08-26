@@ -3,9 +3,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build && npm run test:urls && npm run test:schema && npm run test:i18n && npm run test:site-url && npm run test:delivery",
+    "build": "nuxt build && npm run test:catalog && npm run test:urls && npm run test:schema && npm run test:i18n && npm run test:site-url && npm run test:delivery",
     "dev": "nuxt dev",
-    "generate": "nuxt generate && npm run test:urls && npm run test:schema && npm run test:i18n && npm run test:site-url && npm run test:delivery",
+    "generate": "nuxt generate && npm run test:catalog && npm run test:urls && npm run test:schema && npm run test:i18n && npm run test:site-url && npm run test:delivery",
     "preview": "nuxt preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -17,7 +17,8 @@
     "test:schema": "node scripts/check-schema-org.mjs",
     "test:i18n": "node scripts/check-i18n-keys.mjs",
     "test:site-url": "node scripts/check-site-url-sync.mjs",
-    "test:delivery": "node scripts/check-delivery.mjs"
+    "test:delivery": "node scripts/check-delivery.mjs",
+    "test:catalog": "node scripts/check-product-catalog.mjs"
   },
   "dependencies": {
     "@nuxt/fonts": "^0.14.0",

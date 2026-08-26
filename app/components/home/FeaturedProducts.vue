@@ -7,7 +7,7 @@
       />
 
       <div class="grid gap-gutter lg:grid-cols-[1.1fr_0.9fr]">
-        <article v-if="mainProduct" class="featured-card featured-card--main">
+        <article v-if="mainProduct && mainImage" class="featured-card featured-card--main">
           <div class="featured-image featured-image--main">
             <BaseImage
               :src="mainImage.src"
@@ -53,16 +53,16 @@
 
         <div class="grid gap-gutter sm:grid-cols-2 lg:grid-cols-1">
           <article
-            v-for="product in secondaryProducts"
+            v-for="{ product, image } in secondaryCards"
             :key="product.slug"
             class="featured-card featured-card--secondary"
           >
             <div class="featured-image">
               <BaseImage
-                :src="getPrimaryImage(product).src"
-                :alt="getProductImageAlt(getPrimaryImage(product), locale)"
-                :width="getPrimaryImage(product).width"
-                :height="getPrimaryImage(product).height"
+                :src="image.src"
+                :alt="getProductImageAlt(image, locale)"
+                :width="image.width"
+                :height="image.height"
                 fill
                 class="object-contain"
               />
@@ -149,8 +149,12 @@ const featuredProducts: FeaturedProduct[] = featuredItems.flatMap((item) => {
 })
 
 const mainProduct = computed<FeaturedProduct | undefined>(() => featuredProducts[0])
-const secondaryProducts = computed<FeaturedProduct[]>(() => featuredProducts.slice(1))
-const mainImage = computed(() => getPrimaryImage(mainProduct.value!))
+const mainImage = computed(() =>
+  mainProduct.value ? getPrimaryImage(mainProduct.value) : undefined,
+)
+const secondaryCards = computed(() =>
+  featuredProducts.slice(1).map((product) => ({ image: getPrimaryImage(product), product })),
+)
 </script>
 
 <style scoped>

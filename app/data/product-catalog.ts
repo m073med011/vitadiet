@@ -3,6 +3,8 @@ import type {
   ApprovedCopy,
   LocalizedCopy,
   ProductCatalogItem,
+  ProductFact,
+  ProductIngredient,
   ProductPurchaseOption,
 } from '~/types'
 
@@ -14,6 +16,17 @@ const text = (en: string, ar: string): LocalizedCopy => ({ ar, en })
 
 const approved = (en: string, ar: string): ApprovedCopy => ({
   status: 'approved',
+  text: text(en, ar),
+})
+
+/**
+ * Copy that exists in the data source but is withheld from the consumer UI until
+ * the VITADIET SEO owner approves it. Health claims, ingredient amounts, and
+ * manufacturing facts must never ship as `approved` from this file - they are
+ * sourced and signed off by VITADIET, not authored here.
+ */
+const pending = (en: string, ar: string): ApprovedCopy => ({
+  status: 'pending_approval',
   text: text(en, ar),
 })
 
@@ -78,6 +91,100 @@ const catalogReference: ProductCatalogItem['references'] = [
   },
 ]
 
+/**
+ * Label-level guidance that is true of every dietary supplement in the catalog and
+ * carries no health claim, so it ships as `approved`. Product-specific dosing must
+ * override these entries once VITADIET supplies the label data.
+ */
+const genericUsage: ApprovedCopy[] = [
+  approved('Follow the dose printed on the package.', 'اتبع الجرعة المدونة على العبوة.'),
+  approved('Do not exceed the stated daily dose.', 'لا تتجاوز الجرعة اليومية المدونة.'),
+  approved(
+    'Store in a dry place at room temperature, away from direct sunlight.',
+    'يحفظ في مكان جاف بدرجة حرارة الغرفة وبعيدا عن أشعة الشمس المباشرة.',
+  ),
+]
+
+const genericWarnings: ApprovedCopy[] = [
+  approved(
+    'A dietary supplement does not replace a varied, balanced diet and a healthy lifestyle.',
+    'المكمل الغذائي لا يغني عن نظام غذائي متنوع ومتوازن ونمط حياة صحي.',
+  ),
+  approved('Keep out of the reach of children.', 'يحفظ بعيدا عن متناول الأطفال.'),
+  approved(
+    'Consult your physician or pharmacist before use if you are pregnant, breastfeeding, taking medication, or managing a medical condition.',
+    'استشر الطبيب أو الصيدلي قبل الاستخدام في حال الحمل أو الرضاعة أو تناول أدوية أو وجود حالة صحية.',
+  ),
+  approved(
+    'Stop use and seek medical advice if any unwanted reaction occurs.',
+    'أوقف الاستخدام واستشر الطبيب عند ظهور أي أثر غير مرغوب.',
+  ),
+]
+
+const genericSuitableFor: ApprovedCopy[] = [
+  approved('Adults aged 18 and over.', 'البالغون من عمر 18 عاما وأكثر.'),
+  approved(
+    'Not intended for children, or for pregnant and breastfeeding women, without medical advice.',
+    'غير مخصص للأطفال أو للحوامل والمرضعات دون استشارة طبية.',
+  ),
+]
+
+/**
+ * Placeholder rows so the product template renders its approval workflow end to end.
+ * Health claims are never authored here - VITADIET replaces the text and flips the
+ * status to `approved`, which is the only step needed to publish them.
+ */
+const pendingBenefits: ApprovedCopy[] = [1, 2, 3].map((index) =>
+  pending(
+    `Approved benefit ${index} - awaiting health copy from the VITADIET SEO owner.`,
+    `الفائدة المعتمدة ${index} - بانتظار النص الصحي من مسؤول SEO في فيتادايت.`,
+  ),
+)
+
+const pendingIngredients: ProductIngredient[] = [1, 2, 3].map((index) => ({
+  amount: '-',
+  name: text(
+    `Active ingredient ${index} - awaiting label data`,
+    `المكون الفعال ${index} - بانتظار بيانات الملصق`,
+  ),
+  status: 'pending_approval',
+}))
+
+const pendingManufacturer: ProductFact[] = [
+  {
+    label: text('Country of manufacture', 'بلد التصنيع'),
+    status: 'pending_approval',
+    value: text('Awaiting confirmation from Vitadiet.', 'بانتظار التأكيد من فيتادايت.'),
+  },
+  {
+    label: text('Manufacturer name', 'اسم المصنع'),
+    status: 'pending_approval',
+    value: text('Awaiting confirmation from Vitadiet.', 'بانتظار التأكيد من فيتادايت.'),
+  },
+]
+
+const pendingCompliance: ProductFact[] = [
+  {
+    label: text('Registration and compliance', 'معلومات التسجيل والامتثال'),
+    status: 'pending_approval',
+    value: text(
+      'Pending final publication approval from Vitadiet.',
+      'قيد الاعتماد النهائي من فيتادايت قبل النشر.',
+    ),
+  },
+]
+
+/** Sections shared by every product on the phase-2 template. */
+const phase2Sections = {
+  benefits: pendingBenefits,
+  compliance: pendingCompliance,
+  ingredients: pendingIngredients,
+  manufacturer: pendingManufacturer,
+  suitableFor: genericSuitableFor,
+  usage: genericUsage,
+  warnings: genericWarnings,
+} satisfies Partial<ProductCatalogItem>
+
 export const productCatalog: ProductCatalogItem[] = [
   {
     arabicName: 'بي سترونج مكمل غذائي 30 كبسولة',
@@ -126,17 +233,8 @@ export const productCatalog: ProductCatalogItem[] = [
     title: text('BeStrong Dietary Supplement 30 Capsules', 'بي سترونج مكمل غذائي 30 كبسولة'),
   },
   {
+    ...phase2Sections,
     arabicName: 'بي كالم مكمل غذائي 30 كبسولة',
-    compliance: [
-      {
-        label: text('Registration and compliance', 'معلومات التسجيل والامتثال'),
-        status: 'pending_approval',
-        value: text(
-          'Pending final publication approval from Vitadiet.',
-          'قيد الاعتماد النهائي من فيتادايت قبل النشر.',
-        ),
-      },
-    ],
     definition: approved(
       'BeCalme is a 30-capsule dietary supplement product in the Vitadiet catalog.',
       'بي كالم منتج مكمل غذائي بعبوة 30 كبسولة ضمن كتالوج فيتادايت.',
@@ -189,17 +287,8 @@ export const productCatalog: ProductCatalogItem[] = [
     title: text('BeCalme Dietary Supplement 30 Capsules', 'بي كالم مكمل غذائي 30 كبسولة'),
   },
   {
+    ...phase2Sections,
     arabicName: 'فيتاجين مكمل غذائي 30 كبسولة',
-    compliance: [
-      {
-        label: text('Registration and compliance', 'معلومات التسجيل والامتثال'),
-        status: 'pending_approval',
-        value: text(
-          'Pending final publication approval from Vitadiet.',
-          'قيد الاعتماد النهائي من فيتادايت قبل النشر.',
-        ),
-      },
-    ],
     definition: approved(
       'Vitagen is a 30-capsule dietary supplement product in the Vitadiet catalog.',
       'فيتاجين منتج مكمل غذائي بعبوة 30 كبسولة ضمن كتالوج فيتادايت.',
@@ -252,17 +341,8 @@ export const productCatalog: ProductCatalogItem[] = [
     title: text('Vitagen Dietary Supplement 30 Capsules', 'فيتاجين مكمل غذائي 30 كبسولة'),
   },
   {
+    ...phase2Sections,
     arabicName: 'فيمافيت بلس 30 كبسولة',
-    compliance: [
-      {
-        label: text('Registration and compliance', 'معلومات التسجيل والامتثال'),
-        status: 'pending_approval',
-        value: text(
-          'Pending final publication approval from Vitadiet.',
-          'قيد الاعتماد النهائي من فيتادايت قبل النشر.',
-        ),
-      },
-    ],
     definition: approved(
       'Femavit Plus is a 30-capsule dietary supplement product in the Vitadiet catalog.',
       'فيمافيت بلس منتج مكمل غذائي بعبوة 30 كبسولة ضمن كتالوج فيتادايت.',

@@ -22,10 +22,30 @@ app/services/product-catalog.ts
 - `listingDescription`: وصف مختصر لبطاقات وقائمة المنتجات.
 - `positioning`, `definition`, `benefits`, `ingredients`, `usage`, `warnings`, `suitableFor`: أقسام اختيارية، ولا تظهر إلا إذا كانت حالتها `approved`.
 - `price`: السعر الرسمي الموحد، ويظهر فقط عند `status: 'approved'`.
-- `purchaseOptions`: منصات الشراء، حالة التوفر، ورابط المنتج نفسه.
+- `packSize`: حجم العبوة (عدد الكبسولات أو الأقراص) بالعربية والإنجليزية، ويظهر في بطاقة المنتج وفي قسم تفاصيل المنتج.
+- `manufacturer`: قائمة `ProductFact` لبلد التصنيع واسم المصنع، كل حقل بحالة اعتماد مستقلة.
+- `compliance`: قائمة `ProductFact` لمعلومات التسجيل والامتثال، كل حقل بحالة اعتماد مستقلة.
+- `purchaseOptions`: منصات الشراء، حالة التوفر، ورابط المنتج نفسه، مع `logo` اختياري لشعار المنصة.
 - `images`: مسار الصورة، أبعادها، وAlt Text مختلف لكل صورة.
 - `faqs`, `references`, `relatedSlugs`, `lastReviewed`: حقول اختيارية لقالب صفحة المنتج.
 - `templateVersion`: المنتجات الثلاثة في هذه المرحلة تستخدم `phase-2`، وباقي المنتجات تبقى `legacy` إلى حين اعتمادها لاحقا.
+
+الأقسام المشتركة بين منتجات `phase-2` معرّفة مرة واحدة في الثابت `phase2Sections` داخل ملف البيانات، وكل منتج من الثلاثة ينشرها عبر `...phase2Sections`. تعديل قسم مشترك في مكان واحد يسري على المنتجات الثلاثة.
+
+## الحقول التي تنتظر اعتماد مسؤول SEO
+
+الأقسام التالية موجودة في ملف البيانات بحالة `pending_approval` للمنتجات الثلاثة (BeCalme، Femavit Plus، Vitagen)، ولا تظهر للمستهلك حتى تتحول حالتها إلى `approved`:
+
+| القسم                     | الحقل          | سبب الانتظار                           |
+| ------------------------- | -------------- | -------------------------------------- |
+| الفوائد المعتمدة          | `benefits`     | نص صحي يحتاج اعتماد رسمي قبل النشر     |
+| المكونات والكميات         | `ingredients`  | بيانات ملصق العبوة تُسلَّم من فيتادايت |
+| بلد التصنيع واسم المصنع   | `manufacturer` | بيانات تصنيع تحتاج تأكيدا رسميا        |
+| معلومات التسجيل والامتثال | `compliance`   | أرقام التسجيل تحتاج تأكيدا رسميا       |
+
+أما `usage` و`warnings` و`suitableFor` فهي إرشادات ملصق عامة لا تحتوي أي Claim صحي، ولذلك حالتها `approved` وتظهر في الصفحة. عند تسليم بيانات المنتج النهائية يجب استبدال النص العام بالنص الخاص بكل منتج.
+
+خطوة الاعتماد الواحدة: استبدل نص الحقل ثم غيّر `status` من `pending_approval` إلى `approved`. لا حاجة لأي تغيير في الصفحات أو المكونات.
 
 ## حالات الاعتماد
 
@@ -45,7 +65,8 @@ app/services/product-catalog.ts
 4. أضف حالة التوفر لكل منصة داخل `purchaseOptions`.
 5. تأكد أن `purchaseOptions[].productSlug` يطابق المنتج نفسه قبل ظهور زر الشراء.
 6. أضف أبعاد الصور وAlt Text وصفي لكل صورة مهمة.
-7. شغّل الفحوص قبل التسليم:
+7. لإظهار شعار منصة بيع، ضع الملف في `public/images/platforms/` ثم أضف `logo` إلى خيار الشراء. بدون `logo` تظهر المنصة باسمها النصي فقط.
+8. شغّل الفحوص قبل التسليم:
 
 ```bash
 npm run lint
@@ -53,6 +74,32 @@ npm run typecheck
 npm run generate
 ```
 
+## قواعد التحقق
+
+`scripts/check-product-catalog.mjs` يفحص ملف البيانات ويوقف البناء عند أي خطأ. يعمل تلقائيا داخل `npm run build` و`npm run generate`، ويمكن تشغيله وحده:
+
+```bash
+npm run test:catalog
+```
+
+القواعد المفحوصة:
+
+- كل `slug` في `shared/products.ts` له مدخل في الكتالوج، والعكس، وبدون تكرار.
+- كل ملف صورة أو شعار منصة أو ملف PDF مذكور في البيانات موجود فعلا على القرص.
+- Alt Text غير فارغ ومختلف لكل صورة داخل نفس المنتج، بالعربية والإنجليزية.
+- `purchaseOptions[].productSlug` يشير إلى منتج معروف، ورابط المنصة يبدأ بـ`https` وليس Localhost.
+- لا تحتوي أي نصوص `approved` على العبارات المحظورة.
+- المنتجات الثلاثة تستخدم `templateVersion: 'phase-2'` وتنشر `...phase2Sections`، ولكل منها `definition` و`faqs` و`packSize` و`positioning` و`seo`.
+
+كما يفحص `scripts/check-delivery.mjs` أبعاد الصور المولّدة ويرفض أي نسخة أصغر من 16 بكسل، وهي علامة على أن قيمة `sizes` غير مفهومة من مزود الصور.
+
 ## الربط المستقبلي مع Dashboard
 
-عند بناء Dashboard، يمكن استبدال `app/data/product-catalog.ts` بمصدر API يعيد نفس شكل `ProductCatalogItem`. يجب إبقاء `app/services/product-catalog.ts` كطبقة adapter للتحقق من الاعتماد، الأسعار الموحدة، وروابط الشراء قبل عرضها.
+القراءة كلها تمر عبر دالتين في طبقة الوسيط:
+
+```ts
+getProducts(): Promise<HomeProduct[]>
+getProductBySlug(slug: string): Promise<HomeProduct | undefined>
+```
+
+الصفحات تستدعيهما عبر `useAsyncData`، وتتعامل أصلا مع حالات Loading وError. لربط Dashboard لاحقا يكفي استبدال جسم هاتين الدالتين بـ`$fetch` إلى الAPI بشرط أن يعيد نفس شكل `ProductCatalogItem`، دون تعديل الصفحات أو المكونات أو الURLs. تبقى بقية دوال `app/services/product-catalog.ts` طبقة adapter للتحقق من الاعتماد والأسعار الموحدة وروابط الشراء قبل عرضها.

@@ -1,9 +1,15 @@
 import { SCHEMA_ID } from '#shared/site'
 import type { HomeProduct } from '~/types'
-import { canBuyFromOption, getPurchaseOptions, hasApprovedPrice } from '~/services/product-catalog'
+import {
+  canBuyFromOption,
+  getPurchaseOptions,
+  hasApprovedPrice,
+  isApproved,
+  localizeCopy,
+} from '~/services/product-catalog'
 
 export function useProductSchema(product: HomeProduct, seo: ReturnType<typeof useProductSeo>) {
-  const { t } = useI18n()
+  const { locale, t } = useI18n()
   const localePath = useLocalePath()
   const { productPath } = useProductPath()
   const { absoluteSiteUrl } = useSiteUrls()
@@ -24,7 +30,27 @@ export function useProductSchema(product: HomeProduct, seo: ReturnType<typeof us
     }))
   })
 
+  // Only question/answer pairs where both halves are approved reach the markup, so the
+  // schema can never assert a claim the page itself withholds.
+  const approvedFaqs = (product.faqs ?? []).filter(
+    (faq) => isApproved(faq.question.status) && isApproved(faq.answer.status),
+  )
+
   useSchemaOrg([
+    // `schemaOrg: { defaults: false }` disables the automatic WebPage -> FAQPage
+    // upgrade, which would leave the Question nodes orphaned and unreadable by search
+    // engines. Declaring the page type explicitly attaches them.
+    ...(approvedFaqs.length
+      ? [
+          defineWebPage({ '@type': ['WebPage', 'FAQPage'] }),
+          ...approvedFaqs.map((faq) =>
+            defineQuestion({
+              name: () => localizeCopy(faq.question.text, locale.value),
+              acceptedAnswer: () => localizeCopy(faq.answer.text, locale.value),
+            }),
+          ),
+        ]
+      : []),
     defineBreadcrumb({
       itemListElement: [
         { name: () => t('home'), item: () => absoluteSiteUrl(localePath('/')) },

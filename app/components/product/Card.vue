@@ -8,7 +8,7 @@
         :alt="imageAlt"
         :width="primaryImage.width"
         :height="primaryImage.height"
-        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 85vw"
+        sizes="xs:85vw md:50vw xl:25vw"
         fill
         :class="productImageClasses"
       />
