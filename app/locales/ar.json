@@ -229,15 +229,58 @@
     }
   },
   "productPage": {
+    "eyebrow": "دليل المنتجات للمستهلك",
     "heading": "المنتجات",
     "description": "اكتشف مكملات غذائية أوروبية مختارة بعناية لدعم نمط الحياة اليومي.",
-    "cta": "تواصل مع فيتادايت",
-    "comingSoon": "قريبًا"
+    "comingSoon": "قريبًا",
+    "productInfoCta": "معلومات المنتج",
+    "search": {
+      "label": "بحث المنتجات",
+      "placeholder": "ابحث باسم المنتج",
+      "clear": "مسح البحث",
+      "results": "عدد النتائج: {count}",
+      "loading": "جار تحميل المنتجات...",
+      "emptyTitle": "لا توجد منتجات مطابقة",
+      "emptyDescription": "جرّب اسم منتج آخر.",
+      "errorTitle": "تعذر عرض المنتجات",
+      "errorDescription": "يرجى تحديث الصفحة."
+    },
+    "sections": {
+      "identity": "تفاصيل المنتج",
+      "definition": "نظرة عامة",
+      "benefits": "الفوائد المعتمدة",
+      "ingredients": "المكونات والكميات",
+      "usage": "طريقة الاستخدام",
+      "warnings": "التحذيرات",
+      "suitableFor": "لمن يناسب المنتج؟",
+      "manufacturing": "التصنيع والتسجيل",
+      "purchase": "أماكن الشراء",
+      "faq": "الأسئلة الشائعة",
+      "references": "المراجع العلمية",
+      "related": "منتجات مرتبطة"
+    },
+    "details": {
+      "arabicName": "الاسم العربي",
+      "englishName": "الاسم الإنجليزي",
+      "packSize": "حجم العبوة",
+      "lastReviewed": "آخر مراجعة"
+    }
   },
-  "categoryPage": {
-    "eyebrow": "محفظة مكملات غذائية أوروبية",
-    "description": "استكشف منتجات فيتادايت وتعرّف على تركيباتها وفوائدها وخيارات الشراء المتاحة.",
-    "cta": "لشراء"
+  "purchase": {
+    "cta": "عرض أماكن الشراء",
+    "modalEyebrow": "خيارات الشراء",
+    "modalTitle": "أماكن شراء {name}",
+    "externalNotice": "سينتقل المستخدم إلى موقع خارجي عند اختيار منصة متاحة.",
+    "goToPlatform": "الانتقال للمنصة",
+    "close": "إغلاق خيارات الشراء",
+    "comingSoon": "قريبًا",
+    "unavailable": "غير متوفر",
+    "noOptions": "ستظهر خيارات الشراء هنا عند اعتمادها.",
+    "status": {
+      "inStock": "متوفر",
+      "outOfStock": "غير متوفر",
+      "comingSoon": "قريبًا"
+    }
   },
   "productDetails": {
     "bestrong": {

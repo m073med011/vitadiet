@@ -30,13 +30,14 @@ const product = computed(() => {
 })
 
 const productSeo = useProductSeo(product)
-const { imageHeight, imageWidth, metaDescription, pageName, productImageUrl } = productSeo
+const { imageHeight, imageWidth, metaDescription, pageName, productImageAlt, productImageUrl } =
+  productSeo
 
 usePageSeo({
   title: () => pageName.value,
   description: () => metaDescription.value,
   image: () => productImageUrl.value,
-  imageAlt: () => pageName.value,
+  imageAlt: () => productImageAlt.value,
   imageHeight,
   imageWidth,
 })

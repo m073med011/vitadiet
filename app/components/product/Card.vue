@@ -4,19 +4,20 @@
   >
     <div class="relative aspect-square w-full overflow-hidden bg-surface-muted">
       <BaseImage
-        :src="product.image"
-        :alt="$t(product.titleKey)"
-        :width="668"
-        :height="911"
+        :src="primaryImage.src"
+        :alt="imageAlt"
+        :width="primaryImage.width"
+        :height="primaryImage.height"
+        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 85vw"
         fill
-        class="object-cover transition-transform duration-500 group-hover/card:scale-105"
+        :class="productImageClasses"
       />
     </div>
 
     <div class="flex flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-4">
       <div class="flex items-start">
         <h3 class="product-title text-copy font-bold leading-tight text-ink sm:leading-heading">
-          {{ $t(product.titleKey) }}
+          {{ productTitle }}
         </h3>
       </div>
 
@@ -29,44 +30,46 @@
           <span v-if="showSingleComingSoonBadge" class="badge-pill bg-surface-muted text-ink-soft">
             {{ $t('productCard.availability.soon') }}
           </span>
-          <span v-else class="badge-pill bg-surface-raised text-ink-soft">
-            {{ $t(packSizeKey) }}
-          </span>
-          <span
-            v-if="!showSingleComingSoonBadge"
-            class="badge-pill"
-            :class="
-              isAvailable
-                ? 'bg-brand-primary-soft text-brand-primary'
-                : 'bg-surface-muted text-ink-soft'
-            "
-          >
-            {{
-              $t(
+          <template v-else>
+            <span class="badge-pill bg-surface-raised text-ink-soft">
+              {{ packSize }}
+            </span>
+            <span
+              class="badge-pill"
+              :class="
                 isAvailable
-                  ? 'productCard.availability.available'
-                  : 'productCard.availability.soon',
-              )
-            }}
-          </span>
-          <ProductPriceBadge
-            v-if="!showSingleComingSoonBadge"
-            class="product-meta__price"
-            :price-key="product.priceKey"
-          />
+                  ? 'bg-brand-primary-soft text-brand-primary'
+                  : 'bg-surface-muted text-ink-soft'
+              "
+            >
+              {{ $t(cardAvailabilityKey) }}
+            </span>
+            <ProductPriceBadge
+              v-if="hasApprovedPrice(product.price)"
+              class="product-meta__price"
+              :price="product.price"
+            />
+          </template>
         </div>
 
         <div class="product-actions grid gap-2">
           <BaseButton :to="productPath(product.slug)" variant="secondary">
             <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
             {{ $t('productCard.learnMore') }}
-            <span class="sr-only"> - {{ $t(product.titleKey) }}</span>
+            <span class="sr-only"> - {{ productTitle }}</span>
           </BaseButton>
           <BaseButton
-            v-if="product.buyLink"
-            :href="product.buyLink"
-            target="_blank"
-            rel="noopener noreferrer nofollow sponsored"
+            v-if="isAvailable && purchaseMode === 'modal'"
+            native-type="button"
+            variant="primary"
+            @click="$emit('showPurchase', product)"
+          >
+            <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
+            {{ $t('productCard.whereBuy') }}
+          </BaseButton>
+          <BaseButton
+            v-else-if="isAvailable"
+            :to="`${productPath(product.slug)}#where-to-buy`"
             variant="primary"
           >
             <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
@@ -83,46 +86,49 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductSlug } from '#shared/products'
 import { InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
 import type { HomeProduct } from '~/types'
+import {
+  getProductDescription,
+  getProductImageAlt,
+  getProductTitle,
+  getPrimaryImage,
+  hasApprovedPrice,
+  hasBuyablePurchaseOptions,
+  localizeCopy,
+} from '~/services/product-catalog'
 
-const props = defineProps<{
-  product: HomeProduct
+const props = withDefaults(
+  defineProps<{
+    product: HomeProduct
+    purchaseMode?: 'anchor' | 'modal'
+  }>(),
+  {
+    purchaseMode: 'anchor',
+  },
+)
+
+defineEmits<{
+  showPurchase: [product: HomeProduct]
 }>()
 
-const { t } = useI18n()
+const { locale } = useI18n()
 const { productPath } = useProductPath()
 
-const packSizeKeyBySlug: Record<ProductSlug, string> = {
-  bestrong: 'productCard.packSize.bestrong',
-  becalme: 'productCard.packSize.becalme',
-  vitagen: 'productCard.packSize.vitagen',
-  femavit: 'productCard.packSize.femavit',
-  floradit: 'productCard.packSize.floradit',
-  'green-pharmacy': 'productCard.packSize.greenPharmacy',
-  dplus: 'productCard.packSize.dplus',
-  soluro: 'productCard.packSize.soluro',
-  flowadite: 'productCard.packSize.flowadite',
-}
-
-const shortDescription = computed(() => {
-  if (!props.product.descriptionKey) return t('categoryPage.description')
-  return t(props.product.descriptionKey).split('\n')[0]
-})
-
-const packSizeKey = computed(() => packSizeKeyBySlug[props.product.slug])
-const isAvailable = computed(() => Boolean(props.product.buyLink))
-const normalizeBadgeText = (value: string) => value.trim().toLocaleLowerCase()
-const showSingleComingSoonBadge = computed(() => {
-  const soonText = normalizeBadgeText(t('productCard.availability.soon'))
-
-  return (
-    normalizeBadgeText(t(packSizeKey.value)) === soonText &&
-    normalizeBadgeText(t(props.product.priceKey)) === soonText &&
-    !isAvailable.value
-  )
-})
+const primaryImage = computed(() => getPrimaryImage(props.product))
+const productTitle = computed(() => getProductTitle(props.product, locale.value))
+const imageAlt = computed(() => getProductImageAlt(primaryImage.value, locale.value))
+const shortDescription = computed(() => getProductDescription(props.product, locale.value))
+const packSize = computed(() => localizeCopy(props.product.packSize, locale.value))
+const isAvailable = computed(() => hasBuyablePurchaseOptions(props.product))
+const cardAvailabilityKey = computed(() =>
+  isAvailable.value ? 'productCard.availability.available' : 'productCard.availability.soon',
+)
+const showSingleComingSoonBadge = computed(() => !isAvailable.value && !props.product.price)
+const productImageClasses = computed(() => [
+  'object-cover transition-[filter,transform] duration-500 group-hover/card:scale-105',
+  !isAvailable.value && 'grayscale group-hover/card:grayscale-0',
+])
 </script>
 
 <style scoped>

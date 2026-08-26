@@ -10,10 +10,10 @@
         <article v-if="mainProduct" class="featured-card featured-card--main">
           <div class="featured-image featured-image--main">
             <BaseImage
-              :src="mainProduct.image"
-              :alt="$t(mainProduct.titleKey)"
-              :width="668"
-              :height="911"
+              :src="mainImage.src"
+              :alt="getProductImageAlt(mainImage, locale)"
+              :width="mainImage.width"
+              :height="mainImage.height"
               fill
               class="object-contain"
             />
@@ -22,7 +22,7 @@
           <div class="flex flex-1 flex-col gap-page p-card">
             <div>
               <h3 class="panel-heading">
-                {{ $t(mainProduct.titleKey) }}
+                {{ getProductTitle(mainProduct, locale) }}
               </h3>
               <p class="mt-control-y text-copy-lg leading-copy text-ink-soft">
                 {{ $t(mainProduct.introKey) }}
@@ -37,13 +37,11 @@
               <BaseButton :to="productPath(mainProduct.slug)" variant="secondary">
                 <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
                 {{ $t('featuredProducts.learnMore') }}
-                <span class="sr-only"> - {{ $t(mainProduct.titleKey) }}</span>
+                <span class="sr-only"> - {{ getProductTitle(mainProduct, locale) }}</span>
               </BaseButton>
               <BaseButton
-                v-if="mainProduct.buyLink"
-                :href="mainProduct.buyLink"
-                target="_blank"
-                rel="noopener noreferrer nofollow sponsored"
+                v-if="hasBuyablePurchaseOptions(mainProduct)"
+                :to="`${productPath(mainProduct.slug)}#where-to-buy`"
                 variant="primary"
               >
                 <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
@@ -61,17 +59,17 @@
           >
             <div class="featured-image">
               <BaseImage
-                :src="product.image"
-                :alt="$t(product.titleKey)"
-                :width="668"
-                :height="911"
+                :src="getPrimaryImage(product).src"
+                :alt="getProductImageAlt(getPrimaryImage(product), locale)"
+                :width="getPrimaryImage(product).width"
+                :height="getPrimaryImage(product).height"
                 fill
                 class="object-contain"
               />
             </div>
             <div class="flex flex-1 flex-col gap-control-y p-page">
               <h3 class="text-title font-bold leading-heading text-ink">
-                {{ $t(product.titleKey) }}
+                {{ getProductTitle(product, locale) }}
               </h3>
               <p class="text-copy leading-copy text-ink-soft">
                 {{ $t(product.introKey) }}
@@ -82,13 +80,11 @@
               <div class="featured-actions mt-auto grid gap-control-y sm:grid-cols-2">
                 <BaseButton :to="productPath(product.slug)" variant="secondary">
                   {{ $t('featuredProducts.learnMore') }}
-                  <span class="sr-only"> - {{ $t(product.titleKey) }}</span>
+                  <span class="sr-only"> - {{ getProductTitle(product, locale) }}</span>
                 </BaseButton>
                 <BaseButton
-                  v-if="product.buyLink"
-                  :href="product.buyLink"
-                  target="_blank"
-                  rel="noopener noreferrer nofollow sponsored"
+                  v-if="hasBuyablePurchaseOptions(product)"
+                  :to="`${productPath(product.slug)}#where-to-buy`"
                   variant="primary"
                 >
                   {{ $t('featuredProducts.whereBuy') }}
@@ -107,7 +103,14 @@ import { InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
 import { products } from '~/data/products'
 import type { HomeProduct } from '~/types'
 import type { ProductSlug } from '#shared/products'
+import {
+  getProductImageAlt,
+  getProductTitle,
+  getPrimaryImage,
+  hasBuyablePurchaseOptions,
+} from '~/services/product-catalog'
 
+const { locale } = useI18n()
 const { productPath } = useProductPath()
 
 type FeaturedProduct = HomeProduct & {
@@ -147,6 +150,7 @@ const featuredProducts: FeaturedProduct[] = featuredItems.flatMap((item) => {
 
 const mainProduct = computed<FeaturedProduct | undefined>(() => featuredProducts[0])
 const secondaryProducts = computed<FeaturedProduct[]>(() => featuredProducts.slice(1))
+const mainImage = computed(() => getPrimaryImage(mainProduct.value!))
 </script>
 
 <style scoped>

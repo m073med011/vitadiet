@@ -1,11 +1,28 @@
 import { SCHEMA_ID } from '#shared/site'
 import type { HomeProduct } from '~/types'
+import { canBuyFromOption, getPurchaseOptions, hasApprovedPrice } from '~/services/product-catalog'
 
 export function useProductSchema(product: HomeProduct, seo: ReturnType<typeof useProductSeo>) {
   const { t } = useI18n()
   const localePath = useLocalePath()
   const { productPath } = useProductPath()
   const { absoluteSiteUrl } = useSiteUrls()
+  const offerNodes = computed(() => {
+    const price = product.price
+    if (!hasApprovedPrice(price) || !seo.offerPrice.value) return []
+
+    return getPurchaseOptions(product).map((option) => ({
+      '@type': 'Offer',
+      availability:
+        option.availability === 'in_stock'
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
+      price: seo.offerPrice.value,
+      priceCurrency: price.currency,
+      ...(seo.priceValidUntil.value ? { priceValidUntil: seo.priceValidUntil.value } : {}),
+      ...(canBuyFromOption(product, option) ? { url: option.url } : {}),
+    }))
+  })
 
   useSchemaOrg([
     defineBreadcrumb({
@@ -27,18 +44,9 @@ export function useProductSchema(product: HomeProduct, seo: ReturnType<typeof us
       inLanguage: () => seo.schemaLanguage.value,
       image: () => seo.productImageUrl.value,
       brand: { '@id': SCHEMA_ID.organization },
-      ...(seo.offerPrice.value
+      ...(offerNodes.value.length
         ? {
-            offers: {
-              '@type': 'Offer',
-              price: () => seo.offerPrice.value,
-              priceCurrency: 'SAR',
-              priceValidUntil: () => seo.priceValidUntil.value,
-              availability: product.buyLink
-                ? 'https://schema.org/InStock'
-                : 'https://schema.org/PreOrder',
-              ...(product.buyLink ? { url: product.buyLink } : {}),
-            },
+            offers: () => (offerNodes.value.length === 1 ? offerNodes.value[0] : offerNodes.value),
           }
         : {}),
     }),

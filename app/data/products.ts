@@ -1,112 +1,95 @@
 import { PRODUCT_SLUGS, type ProductSlug } from '#shared/products'
+import { productCatalog } from '~/data/product-catalog'
 import type { HomeProduct } from '~/types'
 
-type ProductRegistryItem = Omit<HomeProduct, 'slug'> & { slug: ProductSlug }
+type LegacyProductKeys = {
+  descriptionKey: string
+  highlights?: string[]
+  packSizeKey: string
+  priceKey: string
+  titleKey: string
+}
 
-const prodBecalme = '/images/products/becalme/becalme-supplement-front-view.webp'
-const prodBestrong = '/images/products/bestrong/bestrong-supplement-front-view.webp'
-const prodDplus = '/images/products/dplus/dplus-supplement-front-view.webp'
-const prodFemavit = '/images/products/femavit/femavit-supplement-front-view.webp'
-const prodGreen = '/images/products/green-pharmacy/green-pharmacy-supplement-front-view.webp'
-const prodFloradit = '/images/products/floradit/floradit-supplement-front-view.webp'
-const prodVitagen = '/images/products/vitagen/vitagen-supplement-front-view.webp'
-const prodDplusSubMain = '/images/products/dplus/dplus-supplement-details.webp'
-const prodFlowadite = '/images/products/flowadite/flowadite-supplement-front-view.webp'
-const prodSoluro = '/images/products/soluro/soluro-supplement-front-view.webp'
-const prodBecalmeSubMain = '/images/products/becalme/becalme-supplement-details.webp'
-const prodBestrongSubMain = '/images/products/bestrong/bestrong-supplement-details.webp'
-const prodFemavitSubMain = '/images/products/femavit/femavit-supplement-details.webp'
-const prodVitagenSubMain = '/images/products/vitagen/vitagen-supplement-details.webp'
-
-export const products: ProductRegistryItem[] = [
-  {
-    titleKey: 'homePage.products.items.bestrong.title',
-    priceKey: 'homePage.products.items.bestrong.price',
+const legacyKeysBySlug: Record<ProductSlug, LegacyProductKeys> = {
+  bestrong: {
     descriptionKey: 'productDetails.bestrong.description',
-    slug: 'bestrong',
-    image: prodBestrong,
-    gallery: [prodBestrongSubMain],
-    buyLink:
-      'https://www.noon.com/saudi-ar/bestrong-30-capsules/Z0A78CE20D0670E8247E8Z/p/?o=b085f0baf8350ccc&shareId=55cbcdbc-fd96-4405-b8b4-a9e080dcd82b',
+    packSizeKey: 'productCard.packSize.bestrong',
+    priceKey: 'homePage.products.items.bestrong.price',
+    titleKey: 'homePage.products.items.bestrong.title',
   },
-  {
-    titleKey: 'homePage.products.items.becalme.title',
-    priceKey: 'homePage.products.items.becalme.price',
+  becalme: {
     descriptionKey: 'productDetails.becalme.description',
-    slug: 'becalme',
-    image: prodBecalme,
-    gallery: [prodBecalmeSubMain],
-    buyLink:
-      'https://www.noon.com/saudi-ar/becalme-30-capsules/Z452A1BEE5A19A8DA4747Z/p/?utm_source=C1000094L&utm_medium=referral&o=d460e066583a294c&shareId=2d3fedf9-3d8a-42d5-bb15-f75a87f3f67f',
+    packSizeKey: 'productCard.packSize.becalme',
+    priceKey: 'homePage.products.items.becalme.price',
+    titleKey: 'homePage.products.items.becalme.title',
   },
-  {
-    titleKey: 'homePage.products.items.vitagen.title',
-    priceKey: 'homePage.products.items.vitagen.price',
+  vitagen: {
     descriptionKey: 'productDetails.vitagen.description',
-    slug: 'vitagen',
-    image: prodVitagen,
-    gallery: [prodVitagenSubMain],
-    buyLink:
-      'https://www.noon.com/saudi-ar/vitagen-30-capsules/Z22305437D29BF099F2E6Z/p/?utm_source=C1000094L&utm_medium=referral&o=c1d5a9304d019fac&shareId=69113b68-bce3-4c81-bd28-e3513e2d14ac',
+    packSizeKey: 'productCard.packSize.vitagen',
+    priceKey: 'homePage.products.items.vitagen.price',
+    titleKey: 'homePage.products.items.vitagen.title',
   },
-  {
-    titleKey: 'homePage.products.items.femavit.title',
-    priceKey: 'homePage.products.items.femavit.price',
+  femavit: {
     descriptionKey: 'productDetails.femavit.description',
-    slug: 'femavit',
-    image: prodFemavit,
-    gallery: [prodFemavitSubMain],
-    buyLink:
-      'https://www.noon.com/saudi-ar/femavit-plus-30-capsules/Z3058C2F313DDA75557DCZ/p/?o=f82fddebb7fe0f4c',
+    packSizeKey: 'productCard.packSize.femavit',
+    priceKey: 'homePage.products.items.femavit.price',
+    titleKey: 'homePage.products.items.femavit.title',
   },
-  {
-    titleKey: 'homePage.products.items.floradit.title',
-    priceKey: 'homePage.products.items.floradit.price',
+  floradit: {
     descriptionKey: 'productDetails.floradit.description',
-    slug: 'floradit',
-    image: prodFloradit,
-    buyLink:
-      'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?o=c2ffb29d5ff1618a',
+    packSizeKey: 'productCard.packSize.floradit',
+    priceKey: 'homePage.products.items.floradit.price',
+    titleKey: 'homePage.products.items.floradit.title',
   },
-  {
-    titleKey: 'homePage.products.items.greenPharmacy.title',
-    priceKey: 'homePage.products.items.greenPharmacy.price',
+  'green-pharmacy': {
     descriptionKey: 'productDetails.greenPharmacy.description',
-    slug: 'green-pharmacy',
-    image: prodGreen,
-    buyLink:
-      'https://www.noon.com/saudi-ar/green-pharmacy-herbal-cleansing-gel/ZE1F26AF85CD2E72E8C09Z/p/?o=afbf327c818b3cdf&shareId=cdc8f2ed-b201-4dd6-a4b2-2e52558114e3',
+    packSizeKey: 'productCard.packSize.greenPharmacy',
+    priceKey: 'homePage.products.items.greenPharmacy.price',
+    titleKey: 'homePage.products.items.greenPharmacy.title',
   },
-  {
-    titleKey: 'homePage.products.items.dplus.title',
-    priceKey: 'homePage.products.items.dplus.price',
+  dplus: {
     descriptionKey: 'productDetails.dplus.description',
     highlights: [
       'productDetails.dplus.highlights.zinc',
       'productDetails.dplus.highlights.vitaminD',
       'productDetails.dplus.highlights.bComplex',
     ],
-    slug: 'dplus',
-    image: prodDplus,
-    gallery: [prodDplusSubMain],
-    buyLink:
-      'https://www.noon.com/saudi-ar/d-plus-60-tablets/Z3435D02D8C058A6CC517Z/p/?o=dbef8bf85bc52a1b',
+    packSizeKey: 'productCard.packSize.dplus',
+    priceKey: 'homePage.products.items.dplus.price',
+    titleKey: 'homePage.products.items.dplus.title',
   },
-  {
-    titleKey: 'homePage.products.items.soluro.title',
-    priceKey: 'homePage.products.items.soluro.price',
+  soluro: {
     descriptionKey: 'productDetails.soluro.description',
-    slug: 'soluro',
-    image: prodSoluro,
+    packSizeKey: 'productCard.packSize.soluro',
+    priceKey: 'homePage.products.items.soluro.price',
+    titleKey: 'homePage.products.items.soluro.title',
   },
-  {
-    titleKey: 'homePage.products.items.flowadite.title',
-    priceKey: 'homePage.products.items.flowadite.price',
+  flowadite: {
     descriptionKey: 'productDetails.flowadite.description',
-    slug: 'flowadite',
-    image: prodFlowadite,
+    packSizeKey: 'productCard.packSize.flowadite',
+    priceKey: 'homePage.products.items.flowadite.price',
+    titleKey: 'homePage.products.items.flowadite.title',
   },
-]
+}
+
+export const products: HomeProduct[] = productCatalog.map((product) => {
+  const primaryImage = product.images[0]
+  const buyLink = product.purchaseOptions?.find(
+    (option) => option.availability === 'in_stock' && option.productSlug === product.slug,
+  )?.url
+
+  if (!primaryImage) {
+    throw new Error(`Missing product image for slug: ${product.slug}`)
+  }
+
+  return {
+    ...product,
+    ...legacyKeysBySlug[product.slug],
+    buyLink,
+    gallery: product.images.slice(1).map((image) => image.src),
+    image: primaryImage.src,
+  }
+})
 
 const registeredProductSlugs = new Set(products.map((product) => product.slug))
 

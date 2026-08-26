@@ -1,31 +1,32 @@
 import type { ComputedRef } from 'vue'
 import { BCP47_BY_LOCALE, type AppLocale } from '#shared/site'
 import type { HomeProduct } from '~/types'
-import { parseOfferPrice } from '~/utils/price'
+import {
+  formatOfficialPrice,
+  getProductDescription,
+  getProductImageAlt,
+  getProductTitle,
+  getPrimaryImage,
+  hasApprovedPrice,
+  localizeApprovedCopy,
+} from '~/services/product-catalog'
 
 const META_DESCRIPTION_MAX = 160
-const PRODUCT_IMAGE_SIZE = { width: 668, height: 911 } as const
 
 export function useProductSeo(product: ComputedRef<HomeProduct>) {
-  const { t, te, locale } = useI18n()
+  const { locale } = useI18n()
   const { absoluteSiteUrl } = useSiteUrls()
 
-  const pageName = computed(() => t(product.value.titleKey))
+  const pageName = computed(() => getProductTitle(product.value, locale.value))
 
   const pageDescription = computed(() => {
-    return product.value.descriptionKey
-      ? t(product.value.descriptionKey)
-      : t('categoryPage.description')
+    return (
+      localizeApprovedCopy(product.value.seo.description, locale.value) ??
+      getProductDescription(product.value, locale.value)
+    )
   })
 
   const metaDescription = computed(() => {
-    const descKey = product.value.descriptionKey
-
-    if (descKey) {
-      const metaKey = descKey.replace(/\.description$/, '.metaDescription')
-      if (te(metaKey)) return t(metaKey)
-    }
-
     const firstLine = pageDescription.value.split('\n')[0]?.trim() ?? pageDescription.value
 
     return firstLine.length > META_DESCRIPTION_MAX
@@ -33,26 +34,27 @@ export function useProductSeo(product: ComputedRef<HomeProduct>) {
       : firstLine
   })
 
-  const productImageUrl = computed(() => absoluteSiteUrl(product.value.image))
+  const primaryImage = computed(() => getPrimaryImage(product.value))
+  const productImageUrl = computed(() => absoluteSiteUrl(primaryImage.value.src))
+  const productImageAlt = computed(() => getProductImageAlt(primaryImage.value, locale.value))
 
-  const offerPrice = computed(() => parseOfferPrice(t(product.value.priceKey)))
+  const offerPrice = computed(() =>
+    hasApprovedPrice(product.value.price) ? formatOfficialPrice(product.value.price) : null,
+  )
 
-  const priceValidUntil = useState('offer-price-valid-until', () => {
-    const date = new Date()
-    date.setFullYear(date.getFullYear() + 1)
-    return date.toISOString().split('T')[0]
-  })
+  const priceValidUntil = computed(() => product.value.price?.validUntil)
 
   const schemaLanguage = computed(() => BCP47_BY_LOCALE[locale.value as AppLocale])
 
   return {
-    imageHeight: PRODUCT_IMAGE_SIZE.height,
-    imageWidth: PRODUCT_IMAGE_SIZE.width,
+    imageHeight: primaryImage.value.height,
+    imageWidth: primaryImage.value.width,
     metaDescription,
     offerPrice,
     pageDescription,
     pageName,
     priceValidUntil,
+    productImageAlt,
     productImageUrl,
     schemaLanguage,
   }

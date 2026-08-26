@@ -229,15 +229,58 @@
     }
   },
   "productPage": {
+    "eyebrow": "Consumer product guide",
     "heading": "Products",
     "description": "Explore carefully selected European dietary supplements for everyday wellness.",
-    "cta": "Contact Vitadiet",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "productInfoCta": "Product information",
+    "search": {
+      "label": "Search products",
+      "placeholder": "Search by product name",
+      "clear": "Clear search",
+      "results": "Results: {count}",
+      "loading": "Loading products...",
+      "emptyTitle": "No products found",
+      "emptyDescription": "Try another product name.",
+      "errorTitle": "Products unavailable",
+      "errorDescription": "Please refresh the page."
+    },
+    "sections": {
+      "identity": "Product details",
+      "definition": "Overview",
+      "benefits": "Approved benefits",
+      "ingredients": "Ingredients and amounts",
+      "usage": "How to use",
+      "warnings": "Warnings",
+      "suitableFor": "Who is it for?",
+      "manufacturing": "Manufacturing and registration",
+      "purchase": "Where to buy",
+      "faq": "FAQ",
+      "references": "Scientific references",
+      "related": "Related products"
+    },
+    "details": {
+      "arabicName": "Arabic name",
+      "englishName": "English name",
+      "packSize": "Pack size",
+      "lastReviewed": "Last reviewed"
+    }
   },
-  "categoryPage": {
-    "eyebrow": "European Supplement Portfolio",
-    "description": "Explore Vitadiet products and learn more about their formulas, benefits, and buying options.",
-    "cta": "Buy Now"
+  "purchase": {
+    "cta": "Where to buy",
+    "modalEyebrow": "Purchase options",
+    "modalTitle": "Where to buy {name}",
+    "externalNotice": "You will be transferred to an external website when you choose an available platform.",
+    "goToPlatform": "Go to platform",
+    "close": "Close purchase options",
+    "comingSoon": "Coming soon",
+    "unavailable": "Unavailable",
+    "noOptions": "Buying options will appear here when they are approved.",
+    "status": {
+      "inStock": "Available",
+      "outOfStock": "Out of stock",
+      "comingSoon": "Coming soon"
+    }
   },
   "productDetails": {
     "bestrong": {

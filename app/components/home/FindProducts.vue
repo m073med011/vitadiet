@@ -15,13 +15,13 @@
             <a
               v-for="product in availableProducts"
               :key="product.slug"
-              :href="product.buyLink"
-              target="_blank"
-              rel="noopener noreferrer nofollow sponsored"
+              :href="`${productPath(product.slug)}#where-to-buy`"
               class="focus-ring flex min-h-16 items-center justify-between gap-page rounded-card border border-line bg-surface px-page py-page text-ink transition-colors hover:border-brand-primary hover:text-brand-primary"
             >
-              <span class="text-small font-bold leading-tight">{{ $t(product.titleKey) }}</span>
-              <ExternalLinkIcon class="h-icon-sm w-icon-sm shrink-0" aria-hidden="true" />
+              <span class="text-small font-bold leading-tight">{{
+                getProductTitle(product, locale)
+              }}</span>
+              <ShoppingBagIcon class="h-icon-sm w-icon-sm shrink-0" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -36,7 +36,7 @@
               :key="product.slug"
               class="rounded-card border border-line bg-surface-raised px-page py-page text-small font-semibold text-ink-soft"
             >
-              {{ $t(product.titleKey) }}
+              {{ getProductTitle(product, locale) }}
             </li>
           </ul>
         </div>
@@ -46,9 +46,17 @@
 </template>
 
 <script setup lang="ts">
-import { ExternalLinkIcon } from 'lucide-vue-next'
+import { ShoppingBagIcon } from 'lucide-vue-next'
 import { products } from '~/data/products'
+import { getProductTitle, hasBuyablePurchaseOptions } from '~/services/product-catalog'
 
-const availableProducts = computed(() => products.filter((product) => product.buyLink))
-const comingSoonProducts = computed(() => products.filter((product) => !product.buyLink))
+const { locale } = useI18n()
+const { productPath } = useProductPath()
+
+const availableProducts = computed(() =>
+  products.filter((product) => hasBuyablePurchaseOptions(product)),
+)
+const comingSoonProducts = computed(() =>
+  products.filter((product) => !hasBuyablePurchaseOptions(product)),
+)
 </script>
