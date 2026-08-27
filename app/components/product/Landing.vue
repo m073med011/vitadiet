@@ -88,17 +88,29 @@
           <div
             class="group/product-image relative mx-auto h-[18rem] max-w-sm overflow-hidden rounded-card bg-surface sm:h-[22rem] lg:h-[32rem]"
           >
-            <BaseImage
-              :src="activeImage.src"
-              :alt="activeImageAlt"
-              :width="activeImage.width"
-              :height="activeImage.height"
-              sizes="xs:90vw md:60vw xl:36vw"
-              fill
-              fit="contain"
-              loading="eager"
-              :class="heroImageClasses"
-            />
+            <!-- Every gallery image is rendered here, not just the selected one. The
+                 prerenderer only emits the resized variants it can see in the markup, so
+                 swapping `src` on a single tag left the hero-sized variants of the other
+                 images ungenerated and they 404'd on the static build. Hidden images keep
+                 loading="lazy", so they cost nothing until the visitor picks one. -->
+            <div
+              v-for="(image, index) in product.images"
+              v-show="image.src === activeImage.src"
+              :key="image.src"
+              class="absolute inset-0"
+            >
+              <BaseImage
+                :src="image.src"
+                :alt="getProductImageAlt(image, locale)"
+                :width="image.width"
+                :height="image.height"
+                sizes="xs:90vw md:60vw xl:36vw"
+                fill
+                fit="contain"
+                :loading="index === 0 ? 'eager' : 'lazy'"
+                :class="heroImageClasses"
+              />
+            </div>
           </div>
 
           <div v-if="product.images.length > 1" class="mt-page flex justify-center gap-control-y">
@@ -451,7 +463,6 @@ const activeImage = computed(
     props.product.images.find((image) => image.src === selectedImageSrc.value) ??
     getPrimaryImage(props.product),
 )
-const activeImageAlt = computed(() => getProductImageAlt(activeImage.value, locale.value))
 
 const localizeFacts = (facts: ProductFact[]) =>
   facts.map((fact) => ({
