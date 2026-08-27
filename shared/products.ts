@@ -3,11 +3,9 @@ export const PRODUCT_SLUGS = [
   'becalme',
   'vitagen',
   'femavit',
-  'floradit',
   'green-pharmacy',
   'dplus',
   'soluro',
-  'flowadite',
 ] as const
 
 export type ProductSlug = (typeof PRODUCT_SLUGS)[number]

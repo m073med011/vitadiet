@@ -35,12 +35,6 @@ const legacyKeysBySlug: Record<ProductSlug, LegacyProductKeys> = {
     priceKey: 'homePage.products.items.femavit.price',
     titleKey: 'homePage.products.items.femavit.title',
   },
-  floradit: {
-    descriptionKey: 'productDetails.floradit.description',
-    packSizeKey: 'productCard.packSize.floradit',
-    priceKey: 'homePage.products.items.floradit.price',
-    titleKey: 'homePage.products.items.floradit.title',
-  },
   'green-pharmacy': {
     descriptionKey: 'productDetails.greenPharmacy.description',
     packSizeKey: 'productCard.packSize.greenPharmacy',
@@ -63,12 +57,6 @@ const legacyKeysBySlug: Record<ProductSlug, LegacyProductKeys> = {
     packSizeKey: 'productCard.packSize.soluro',
     priceKey: 'homePage.products.items.soluro.price',
     titleKey: 'homePage.products.items.soluro.title',
-  },
-  flowadite: {
-    descriptionKey: 'productDetails.flowadite.description',
-    packSizeKey: 'productCard.packSize.flowadite',
-    priceKey: 'homePage.products.items.flowadite.price',
-    titleKey: 'homePage.products.items.flowadite.title',
   },
 }
 

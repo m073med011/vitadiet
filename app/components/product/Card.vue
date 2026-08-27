@@ -2,13 +2,13 @@
   <article
     class="product-card group/card flex h-full flex-col overflow-hidden rounded-card border border-line/80 bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
   >
-    <!-- Redundant link: it goes where the "learn more" button below already goes, so it is
-         taken out of the tab order and hidden from assistive tech rather than announced twice. -->
+    <!-- Redundant visual link: it goes where the "learn more" button below already goes,
+         so it stays out of the tab order while still carrying a stable accessible name. -->
     <NuxtLink
       :to="productPath(product.slug)"
       class="relative block aspect-square w-full overflow-hidden bg-surface-muted"
       tabindex="-1"
-      aria-hidden="true"
+      :aria-label="`${$t('productCard.learnMore')} - ${productTitle}`"
     >
       <BaseImage
         :src="primaryImage.src"
@@ -82,10 +82,12 @@
             <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
             {{ $t('productCard.whereBuy') }}
           </BaseButton>
-          <BaseButton v-else disabled variant="primary">
-            <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-            {{ $t('productCard.whereBuy') }}
-          </BaseButton>
+          <span
+            v-else
+            class="product-actions__coming-soon inline-flex min-h-11 w-full items-center justify-center text-center text-small font-semibold text-ink-soft"
+          >
+            {{ $t('productCard.availability.soon') }}
+          </span>
         </div>
       </div>
     </div>

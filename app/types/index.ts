@@ -71,6 +71,12 @@ export interface ProductReference {
   url?: string
 }
 
+export interface ProductFile {
+  label: LocalizedCopy
+  status: ApprovalStatus
+  url?: string
+}
+
 export interface ProductCatalogItem {
   arabicName: string
   benefits?: ApprovedCopy[]
@@ -86,6 +92,7 @@ export interface ProductCatalogItem {
   packSize: LocalizedCopy
   positioning?: ApprovedCopy
   price?: ProductPrice
+  productFiles?: ProductFile[]
   purchaseOptions?: ProductPurchaseOption[]
   references?: ProductReference[]
   relatedSlugs?: ProductSlug[]

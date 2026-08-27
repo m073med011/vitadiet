@@ -47,11 +47,9 @@
       "becalme": "30 capsules",
       "vitagen": "30 capsules",
       "femavit": "30 capsules",
-      "floradit": "20 capsules",
       "greenPharmacy": "Skin care pack",
       "dplus": "60 tablets",
-      "soluro": "Coming soon",
-      "flowadite": "Coming soon"
+      "soluro": "Coming soon"
     }
   },
   "featuredProducts": {
@@ -170,10 +168,6 @@
           "title": "Femavit Plus 30 Capsules",
           "price": "110.00"
         },
-        "floradit": {
-          "title": "Floradiet Dietary Supplement 20 Capsules",
-          "price": "78.00"
-        },
         "greenPharmacy": {
           "title": "Green Pharmacy Herbal Cleansing Gel",
           "price": "50.00"
@@ -184,10 +178,6 @@
         },
         "soluro": {
           "title": "Soluro Dietary Supplement",
-          "price": "Coming Soon"
-        },
-        "flowadite": {
-          "title": "Flowadite Dietary Supplement",
           "price": "Coming Soon"
         }
       }
@@ -256,6 +246,7 @@
       "manufacturing": "Manufacturing and registration",
       "purchase": "Where to buy",
       "faq": "FAQ",
+      "productFiles": "Product files",
       "references": "Scientific references",
       "related": "Related products"
     },
@@ -299,10 +290,6 @@
       "metaDescription": "Complete European supplement supporting women's health in pregnancy and breastfeeding, with iron, immunity, and bone support.",
       "description": "Supports women's health during pregnancy and breastfeeding.\nBoosts immunity and daily energy.\nMaintains healthy bones and teeth.\nImproves iron absorption and helps prevent anemia.\nHelps the development of the fetus's brain and nervous system.\nA complete blend that supports your health."
     },
-    "floradit": {
-      "metaDescription": "Mint and fennel digestive formula that soothes the stomach, eases cramps and bloating, and improves digestion after meals.",
-      "description": "Helps soothe the stomach and reduce cramps and bloating.\nSupports digestive comfort and helps improve digestion after meals.\nA mint and fennel formula that helps reduce gas and provides a feeling of comfort and freshness."
-    },
     "greenPharmacy": {
       "metaDescription": "Gentle herbal cleansing gel that deeply cleanses the skin, removes excess oil, and leaves it soothed, moisturized, and refreshed.",
       "description": "Helps deeply cleanse the skin and remove impurities and excess oil.\nHelps soothe and moisturize the skin, giving it a healthy, refreshed appearance.\nA gentle herbal formula that supports skin softness and daily care."
@@ -315,10 +302,6 @@
         "vitaminD": "Vitamin D3 formula",
         "bComplex": "With B6 and C"
       }
-    },
-    "flowadite": {
-      "metaDescription": "Probiotic formula that restores healthy gut bacteria, improves digestion, and relieves bloating and gas.",
-      "description": "Restores the healthy balance of beneficial bacteria in the intestines, improves digestion, and relieves bloating and gas."
     },
     "soluro": {
       "metaDescription": "European supplement that strengthens immunity, replenishes vitamin and mineral deficiencies, and supports hair, skin, and nails.",

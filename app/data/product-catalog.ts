@@ -89,7 +89,7 @@ const purchaseFaq = (productNameEn: string, productNameAr: string): ProductCatal
   },
 ]
 
-const catalogReference: ProductCatalogItem['references'] = [
+const catalogProductFiles: ProductCatalogItem['productFiles'] = [
   {
     label: text('Vitadiet product catalog', 'كتالوج منتجات فيتادايت'),
     status: 'approved',
@@ -279,7 +279,7 @@ export const productCatalog: ProductCatalogItem[] = [
         'https://www.noon.com/saudi-ar/becalme-30-capsules/Z452A1BEE5A19A8DA4747Z/p/?utm_source=C1000094L&utm_medium=referral&o=d460e066583a294c&shareId=2d3fedf9-3d8a-42d5-bb15-f75a87f3f67f',
       ),
     ],
-    references: catalogReference,
+    productFiles: catalogProductFiles,
     relatedSlugs: ['femavit', 'vitagen'],
     seo: {
       description: approved(
@@ -333,7 +333,7 @@ export const productCatalog: ProductCatalogItem[] = [
         'https://www.noon.com/saudi-ar/vitagen-30-capsules/Z22305437D29BF099F2E6Z/p/?utm_source=C1000094L&utm_medium=referral&o=c1d5a9304d019fac&shareId=69113b68-bce3-4c81-bd28-e3513e2d14ac',
       ),
     ],
-    references: catalogReference,
+    productFiles: catalogProductFiles,
     relatedSlugs: ['becalme', 'femavit'],
     seo: {
       description: approved(
@@ -387,7 +387,7 @@ export const productCatalog: ProductCatalogItem[] = [
         'https://www.noon.com/saudi-ar/femavit-plus-30-capsules/Z3058C2F313DDA75557DCZ/p/?o=f82fddebb7fe0f4c',
       ),
     ],
-    references: catalogReference,
+    productFiles: catalogProductFiles,
     relatedSlugs: ['becalme', 'vitagen'],
     seo: {
       description: approved(
@@ -399,45 +399,6 @@ export const productCatalog: ProductCatalogItem[] = [
     slug: 'femavit',
     templateVersion: 'phase-2',
     title: text('Femavit Plus 30 Capsules', 'فيمافيت بلس 30 كبسولة'),
-  },
-  {
-    arabicName: 'فلورادايت مكمل غذائي 20 كبسولة',
-    definition: approved(
-      'Floradiet is a 20-capsule dietary supplement product in the Vitadiet catalog.',
-      'فلورادايت منتج مكمل غذائي بعبوة 20 كبسولة ضمن كتالوج فيتادايت.',
-    ),
-    englishName: 'Floradiet Dietary Supplement 20 Capsules',
-    images: [
-      productImage(
-        'floradit',
-        'floradit-supplement-front-view',
-        'Floradiet Dietary Supplement 20 Capsules - front package',
-        'فلورادايت مكمل غذائي 20 كبسولة - واجهة العبوة',
-      ),
-    ],
-    lastReviewed: REVIEW_DATE,
-    listingDescription: approved(
-      'European dietary supplement from Vitadiet with official price and buying options shown when available.',
-      'مكمل غذائي أوروبي من فيتادايت مع عرض السعر الرسمي وخيارات الشراء عند توفرها.',
-    ),
-    packSize: text('20 capsules', '20 كبسولة'),
-    price: officialPrice(78),
-    purchaseOptions: [
-      noonOption(
-        'floradit',
-        'https://www.noon.com/saudi-ar/floradiet-20-capsules/Z924896138C9EAB959880Z/p/?o=c2ffb29d5ff1618a',
-      ),
-    ],
-    seo: {
-      description: approved(
-        'Floradiet dietary supplement from Vitadiet with official price, product information, and verified buying options.',
-        'فلورادايت مكمل غذائي من فيتادايت مع السعر الرسمي ومعلومات المنتج وخيارات الشراء الموثقة.',
-      ),
-      title: approved('Floradiet Dietary Supplement 20 Capsules', 'فلورادايت مكمل غذائي 20 كبسولة'),
-    },
-    slug: 'floradit',
-    templateVersion: 'legacy',
-    title: text('Floradiet Dietary Supplement 20 Capsules', 'فلورادايت مكمل غذائي 20 كبسولة'),
   },
   {
     arabicName: 'جرين فارماسي جل تنظيف عشبي',
@@ -556,38 +517,5 @@ export const productCatalog: ProductCatalogItem[] = [
     slug: 'soluro',
     templateVersion: 'legacy',
     title: text('Soluro Dietary Supplement', 'سولورو مكمل غذائي'),
-  },
-  {
-    arabicName: 'فلوادايت مكمل غذائي',
-    definition: approved(
-      'Flowadite is a dietary supplement product in the Vitadiet catalog.',
-      'فلوادايت منتج مكمل غذائي ضمن كتالوج فيتادايت.',
-    ),
-    englishName: 'Flowadite Dietary Supplement',
-    images: [
-      productImage(
-        'flowadite',
-        'flowadite-supplement-front-view',
-        'Flowadite Dietary Supplement - front package',
-        'فلوادايت مكمل غذائي - واجهة العبوة',
-      ),
-    ],
-    lastReviewed: REVIEW_DATE,
-    listingDescription: approved(
-      'Vitadiet product information will show price and buying options when approved.',
-      'ستظهر معلومات السعر وخيارات الشراء لهذا المنتج من فيتادايت عند اعتمادها.',
-    ),
-    packSize: text('Coming soon', 'قريبا'),
-    purchaseOptions: [],
-    seo: {
-      description: approved(
-        'Flowadite dietary supplement from Vitadiet. Price and buying options will be shown when approved.',
-        'فلوادايت مكمل غذائي من فيتادايت. ستظهر معلومات السعر وخيارات الشراء عند اعتمادها.',
-      ),
-      title: approved('Flowadite Dietary Supplement', 'فلوادايت مكمل غذائي'),
-    },
-    slug: 'flowadite',
-    templateVersion: 'legacy',
-    title: text('Flowadite Dietary Supplement', 'فلوادايت مكمل غذائي'),
   },
 ]

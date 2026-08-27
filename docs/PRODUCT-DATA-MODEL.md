@@ -20,14 +20,16 @@ app/services/product-catalog.ts
 - `title`, `arabicName`, `englishName`: أسماء المنتج بالعربية والإنجليزية.
 - `seo.title`, `seo.description`: عنوان ووصف SEO مع حالة اعتماد.
 - `listingDescription`: وصف مختصر لبطاقات وقائمة المنتجات.
-- `positioning`, `definition`, `benefits`, `ingredients`, `usage`, `warnings`, `suitableFor`: أقسام اختيارية، ولا تظهر إلا إذا كانت حالتها `approved`.
+- `positioning`, `definition`, `benefits`, `ingredients`, `usage`, `warnings`, `suitableFor`, `manufacturer`, `compliance`, `faqs`, `productFiles`, `references`: أقسام اختيارية، ولا تظهر إلا إذا كانت بياناتها معتمدة وقابلة للعرض.
 - `price`: السعر الرسمي الموحد، ويظهر فقط عند `status: 'approved'`.
 - `packSize`: حجم العبوة (عدد الكبسولات أو الأقراص) بالعربية والإنجليزية، ويظهر في بطاقة المنتج وفي قسم تفاصيل المنتج.
 - `manufacturer`: قائمة `ProductFact` لبلد التصنيع واسم المصنع، كل حقل بحالة اعتماد مستقلة.
 - `compliance`: قائمة `ProductFact` لمعلومات التسجيل والامتثال، كل حقل بحالة اعتماد مستقلة.
 - `purchaseOptions`: منصات الشراء، حالة التوفر، ورابط المنتج نفسه، مع `logo` اختياري لشعار المنصة.
 - `images`: مسار الصورة، أبعادها، وAlt Text مختلف لكل صورة.
-- `faqs`, `references`, `relatedSlugs`, `lastReviewed`: حقول اختيارية لقالب صفحة المنتج.
+- `faqs`, `productFiles`, `references`, `relatedSlugs`, `lastReviewed`: حقول اختيارية لقالب صفحة المنتج.
+- `productFiles`: ملفات المنتج مثل الكتالوج أو ملف العبوة، وتظهر تحت قسم «ملفات المنتج» عند اعتمادها.
+- `references`: مراجع علمية حقيقية فقط، ولا يظهر قسم «المراجع العلمية» إلا إذا توفرت مراجع معتمدة. لا يوضع كتالوج المنتج داخل هذا الحقل.
 - `templateVersion`: المنتجات الثلاثة في هذه المرحلة تستخدم `phase-2`، وباقي المنتجات تبقى `legacy` إلى حين اعتمادها لاحقا.
 
 الأقسام المشتركة بين منتجات `phase-2` معرّفة مرة واحدة في الثابت `phase2Sections` داخل ملف البيانات، وكل منتج من الثلاثة ينشرها عبر `...phase2Sections`. تعديل قسم مشترك في مكان واحد يسري على المنتجات الثلاثة.
@@ -42,6 +44,7 @@ app/services/product-catalog.ts
 | المكونات والكميات         | `ingredients`  | بيانات ملصق العبوة تُسلَّم من فيتادايت |
 | بلد التصنيع واسم المصنع   | `manufacturer` | بيانات تصنيع تحتاج تأكيدا رسميا        |
 | معلومات التسجيل والامتثال | `compliance`   | أرقام التسجيل تحتاج تأكيدا رسميا       |
+| المراجع العلمية الحقيقية  | `references`   | مصادر علمية معتمدة، ولا تشمل الكتالوج  |
 
 أما `usage` و`warnings` و`suitableFor` فهي إرشادات ملصق عامة لا تحتوي أي Claim صحي، ولذلك حالتها `approved` وتظهر في الصفحة. عند تسليم بيانات المنتج النهائية يجب استبدال النص العام بالنص الخاص بكل منتج.
 
@@ -88,6 +91,7 @@ npm run test:catalog
 - كل ملف صورة أو شعار منصة أو ملف PDF مذكور في البيانات موجود فعلا على القرص.
 - Alt Text غير فارغ ومختلف لكل صورة داخل نفس المنتج، بالعربية والإنجليزية.
 - `purchaseOptions[].productSlug` يشير إلى منتج معروف، ورابط المنصة يبدأ بـ`https` وليس Localhost.
+- ملفات الكتالوج والـ PDF التشغيلية تبقى ضمن `productFiles`، ولا تُستخدم كـ`references` علمية.
 - لا تحتوي أي نصوص `approved` على العبارات المحظورة.
 - المنتجات الثلاثة تستخدم `templateVersion: 'phase-2'` وتنشر `...phase2Sections`، ولكل منها `definition` و`faqs` و`packSize` و`positioning` و`seo`.
 

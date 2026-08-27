@@ -24,15 +24,17 @@
             <SearchIcon class="h-icon-md w-icon-md text-ink-soft" aria-hidden="true" />
             <input
               id="product-search"
+              ref="searchInput"
               v-model="searchQuery"
               type="search"
-              class="min-w-0 bg-transparent py-control-y text-copy text-ink outline-none placeholder:text-ink-subtle"
+              class="product-search__input min-w-0 appearance-none bg-transparent py-control-y text-copy text-ink outline-none placeholder:text-ink-subtle"
               :placeholder="$t('productPage.search.placeholder')"
             >
             <BaseButton
               v-if="searchQuery"
               native-type="button"
               variant="icon"
+              class="h-11 w-11 shrink-0 text-ink-soft"
               :aria-label="$t('productPage.search.clear')"
               @click="clearSearch"
             >
@@ -127,6 +129,7 @@ const { productPath } = useProductPath()
 const { absoluteSiteUrl } = useSiteUrls()
 
 const searchQuery = ref('')
+const searchInput = ref<HTMLInputElement | null>(null)
 const selectedProduct = ref<HomeProduct | undefined>()
 
 // Resolved during SSR, so the grid is in the prerendered markup and the loading and
@@ -146,8 +149,10 @@ const filteredProducts = computed(() =>
   ),
 )
 
-const clearSearch = () => {
+const clearSearch = async () => {
   searchQuery.value = ''
+  await nextTick()
+  searchInput.value?.focus()
 }
 
 const openPurchaseModal = (product: HomeProduct) => {
@@ -171,3 +176,12 @@ usePageSeo({
   description: () => t('productPage.description'),
 })
 </script>
+
+<style scoped>
+.product-search__input::-webkit-search-cancel-button,
+.product-search__input::-webkit-search-decoration,
+.product-search__input::-webkit-search-results-button,
+.product-search__input::-webkit-search-results-decoration {
+  display: none;
+}
+</style>

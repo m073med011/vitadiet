@@ -77,7 +77,7 @@
                  add aria-current="page", which misannounces a jump link. -->
             <BaseButton href="#product-information" variant="secondary">
               <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-              {{ $t('productPage.productInfoCta') }}
+              {{ hasPurchaseOptions ? $t('productPage.productInfoCta') : $t('productPage.comingSoon') }}
             </BaseButton>
           </div>
         </div>
@@ -129,10 +129,12 @@
     <section id="product-information" class="section-block">
       <div
         class="content-container grid gap-gutter-lg lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)]"
+        :dir="detailLayoutDirection"
       >
         <!-- Pinned while the long detail column scrolls past it. Only from lg up: below
              that the columns stack, so sticking would trap the panel over the content. -->
         <aside
+          :dir="pageDirection"
           class="grid h-fit gap-page rounded-card border border-line bg-surface-raised p-card lg:sticky lg:top-28"
         >
           <h2 class="text-title font-bold text-ink">{{ $t('productPage.sections.identity') }}</h2>
@@ -148,16 +150,16 @@
           </dl>
         </aside>
 
-        <div class="grid gap-gutter">
-          <section v-if="definition" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+        <div :dir="pageDirection" class="product-detail-sections grid">
+          <section v-if="definition" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.definition') }}
             </h2>
             <p class="text-copy-lg leading-copy text-ink-soft">{{ definition }}</p>
           </section>
 
-          <section v-if="usesPhase2Template && approvedBenefits.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="approvedBenefits.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.benefits') }}
             </h2>
             <ul class="grid gap-page sm:grid-cols-2">
@@ -171,8 +173,8 @@
             </ul>
           </section>
 
-          <section v-if="usesPhase2Template && approvedIngredients.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="approvedIngredients.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.ingredients') }}
             </h2>
             <ul class="grid gap-control-y">
@@ -191,8 +193,8 @@
             </ul>
           </section>
 
-          <section v-if="usesPhase2Template && usage.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="usage.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.usage') }}
             </h2>
             <ul class="grid gap-control-y text-copy leading-copy text-ink-soft">
@@ -200,8 +202,8 @@
             </ul>
           </section>
 
-          <section v-if="usesPhase2Template && warnings.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="warnings.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.warnings') }}
             </h2>
             <ul class="grid gap-control-y text-copy leading-copy text-ink-soft">
@@ -209,8 +211,8 @@
             </ul>
           </section>
 
-          <section v-if="usesPhase2Template && suitableFor.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="suitableFor.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.suitableFor') }}
             </h2>
             <ul class="grid gap-control-y text-copy leading-copy text-ink-soft">
@@ -219,10 +221,10 @@
           </section>
 
           <section
-            v-if="usesPhase2Template && (manufacturerFacts.length || complianceFacts.length)"
-            class="grid gap-page"
+            v-if="manufacturerFacts.length || complianceFacts.length"
+            class="product-detail-section grid gap-page"
           >
-            <h2 class="text-heading font-bold leading-heading text-ink">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.manufacturing') }}
             </h2>
             <dl class="grid gap-page sm:grid-cols-2">
@@ -239,15 +241,15 @@
             </dl>
           </section>
 
-          <section id="where-to-buy" class="grid gap-page scroll-mt-28">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section id="where-to-buy" class="product-detail-section grid gap-page scroll-mt-28">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.purchase') }}
             </h2>
             <ProductPurchaseOptions :product="product" />
           </section>
 
-          <section v-if="usesPhase2Template && approvedFaqs.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="approvedFaqs.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.faq') }}
             </h2>
             <div class="grid gap-page">
@@ -264,8 +266,28 @@
             </div>
           </section>
 
-          <section v-if="usesPhase2Template && approvedReferences.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="approvedProductFiles.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
+              {{ $t('productPage.sections.productFiles') }}
+            </h2>
+            <ul class="grid gap-control-y">
+              <li v-for="file in approvedProductFiles" :key="file.label">
+                <a
+                  v-if="file.url"
+                  :href="file.url"
+                  class="font-semibold text-brand-primary underline-offset-4 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ file.label }}
+                </a>
+                <span v-else class="text-copy text-ink-soft">{{ file.label }}</span>
+              </li>
+            </ul>
+          </section>
+
+          <section v-if="approvedReferences.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.references') }}
             </h2>
             <ul class="grid gap-control-y">
@@ -284,8 +306,8 @@
             </ul>
           </section>
 
-          <section v-if="usesPhase2Template && relatedProducts.length" class="grid gap-page">
-            <h2 class="text-heading font-bold leading-heading text-ink">
+          <section v-if="relatedProducts.length" class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.related') }}
             </h2>
             <ul class="grid gap-page sm:grid-cols-2">
@@ -357,11 +379,13 @@ import {
 } from 'lucide-vue-next'
 import { CONTACT } from '#shared/brand'
 import { products } from '~/data/products'
-import type { HomeProduct, ProductFact, ProductReference } from '~/types'
+import type { HomeProduct, ProductFact } from '~/types'
 import {
   getApprovedCopies,
   getApprovedFacts,
   getApprovedIngredients,
+  getApprovedProductFiles,
+  getApprovedReferences,
   getProductAvailabilityLabelKey,
   getProductDescription,
   getProductImageAlt,
@@ -384,6 +408,7 @@ const { productPath } = useProductPath()
 
 const isRtl = computed(() => locale.value === 'ar')
 const pageDirection = computed(() => (isRtl.value ? 'rtl' : 'ltr'))
+const detailLayoutDirection = computed(() => (isRtl.value ? 'ltr' : 'rtl'))
 const isPurchaseModalOpen = ref(false)
 const selectedImageSrc = ref(getPrimaryImage(props.product).src)
 
@@ -396,7 +421,6 @@ watch(
 )
 
 const productTitle = computed(() => getProductTitle(props.product, locale.value))
-const usesPhase2Template = computed(() => props.product.templateVersion === 'phase-2')
 const definition = computed(() => localizeApprovedCopy(props.product.definition, locale.value))
 const positioning = computed(() => localizeApprovedCopy(props.product.positioning, locale.value))
 const heroCopy = computed(
@@ -458,14 +482,9 @@ const approvedFaqs = computed(() =>
     })),
 )
 
-const approvedReferences = computed(() =>
-  (props.product.references ?? [])
-    .filter((reference) => isApproved(reference.status))
-    .map((reference: ProductReference) => ({
-      label: localizeCopy(reference.label, locale.value),
-      url: reference.url,
-    })),
-)
+const approvedProductFiles = computed(() => getApprovedProductFiles(props.product, locale.value))
+
+const approvedReferences = computed(() => getApprovedReferences(props.product, locale.value))
 
 const relatedProducts = computed(() =>
   (props.product.relatedSlugs ?? []).flatMap(
@@ -473,3 +492,22 @@ const relatedProducts = computed(() =>
   ),
 )
 </script>
+
+<style scoped>
+.product-detail-sections {
+  row-gap: var(--spacing-gutter);
+}
+
+.product-detail-section:not(:last-child) {
+  padding-bottom: var(--spacing-gutter);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-brand-primary) 40%, transparent);
+}
+
+.product-detail-section__heading {
+  width: fit-content;
+  color: var(--color-brand-primary);
+  font-size: var(--text-heading);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+}
+</style>

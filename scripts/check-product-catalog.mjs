@@ -78,6 +78,14 @@ for (const [, url] of catalog.matchAll(/url: '(\/[^']+\.pdf)'/g)) {
   if (!existsSync(`public${url}`)) fail(`missing local asset: public${url}`)
 }
 
+if (/references:\s*catalogProductFiles/.test(catalog)) {
+  fail('product catalog files must use productFiles, not scientific references')
+}
+
+if (/references:\s*\[[\s\S]*?vitadiet-catalog\.pdf/.test(catalog)) {
+  fail('vitadiet-catalog.pdf is a product file, not a scientific reference')
+}
+
 // --- Purchase options point at their own product (بند 9) ---
 const noonCalls = [...catalog.matchAll(/noonOption\(\s*'([a-z0-9-]+)',\s*'([^']+)'/g)]
 for (const [, slug, url] of noonCalls) {

@@ -56,6 +56,38 @@ export const getApprovedIngredients = (
   ingredients: ProductIngredient[] | undefined,
 ): ProductIngredient[] => (ingredients ?? []).filter((ingredient) => isApproved(ingredient.status))
 
+type ProductResourceLink = {
+  label: LocalizedCopy
+  status: ApprovalStatus
+  url?: string
+}
+
+export type LocalizedProductResourceLink = {
+  label: string
+  url?: string
+}
+
+const getApprovedResourceLinks = (
+  items: ProductResourceLink[] | undefined,
+  locale: string,
+): LocalizedProductResourceLink[] =>
+  (items ?? [])
+    .filter((item) => isApproved(item.status))
+    .map((item) => ({
+      label: localizeCopy(item.label, locale),
+      url: item.url,
+    }))
+
+export const getApprovedProductFiles = (
+  product: ProductCatalogItem,
+  locale: string,
+): LocalizedProductResourceLink[] => getApprovedResourceLinks(product.productFiles, locale)
+
+export const getApprovedReferences = (
+  product: ProductCatalogItem,
+  locale: string,
+): LocalizedProductResourceLink[] => getApprovedResourceLinks(product.references, locale)
+
 export const getPrimaryImage = (product: ProductCatalogItem): ProductImageAsset => {
   const image = product.images[0]
   if (!image) {
