@@ -65,13 +65,13 @@ export interface ProductFaq {
   question: ApprovedCopy
 }
 
-export interface ProductReference {
-  label: LocalizedCopy
-  status: ApprovalStatus
-  url?: string
-}
-
-export interface ProductFile {
+/**
+ * One labelled, optionally linked resource attached to a product. Both `productFiles`
+ * (catalog and packaging PDFs) and `references` (real scientific sources) are lists of
+ * these: they carry the same shape and the same approval gate, and only the section
+ * they render under differs.
+ */
+export interface ProductResourceLink {
   label: LocalizedCopy
   status: ApprovalStatus
   url?: string
@@ -89,12 +89,12 @@ export interface ProductCatalogItem {
   lastReviewed?: string
   listingDescription: ApprovedCopy
   manufacturer?: ProductFact[]
-  packSize: LocalizedCopy
+  packSize?: LocalizedCopy
   positioning?: ApprovedCopy
   price?: ProductPrice
-  productFiles?: ProductFile[]
+  productFiles?: ProductResourceLink[]
   purchaseOptions?: ProductPurchaseOption[]
-  references?: ProductReference[]
+  references?: ProductResourceLink[]
   relatedSlugs?: ProductSlug[]
   seo: {
     description: ApprovedCopy

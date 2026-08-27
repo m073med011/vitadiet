@@ -222,7 +222,7 @@
     "eyebrow": "دليل المنتجات للمستهلك",
     "heading": "المنتجات",
     "description": "اكتشف مكملات غذائية أوروبية مختارة بعناية لدعم نمط الحياة اليومي.",
-    "comingSoon": "قريبًا",
+    "comingSoon": "قريباً",
     "productInfoCta": "معلومات المنتج",
     "search": {
       "label": "بحث المنتجات",
@@ -264,13 +264,13 @@
     "externalNotice": "سينتقل المستخدم إلى موقع خارجي عند اختيار منصة متاحة.",
     "goToPlatform": "الانتقال للمنصة",
     "close": "إغلاق خيارات الشراء",
-    "comingSoon": "قريبًا",
+    "comingSoon": "قريباً",
     "unavailable": "غير متوفر",
     "noOptions": "ستظهر خيارات الشراء هنا عند اعتمادها.",
     "status": {
       "inStock": "متوفر",
       "outOfStock": "غير متوفر",
-      "comingSoon": "قريبًا"
+      "comingSoon": "قريباً"
     }
   },
   "productDetails": {

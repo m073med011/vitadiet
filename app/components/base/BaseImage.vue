@@ -12,7 +12,7 @@
     :width="resolvedWidth"
     :height="resolvedHeight"
     :class="imageClasses"
-  >
+  />
   <NuxtImg
     v-else
     v-bind="$attrs"

@@ -22,6 +22,19 @@ RewriteEngine On
 RewriteRule ^\.well-known/ - [L]
 
 # ------------------------------------------------------------
+# WITHDRAWN PRODUCTS -> PRODUCTS LISTING — PRODUCTION HOSTS ONLY
+# floradit and flowadite were removed from the catalog on purpose.
+# Their URLs were indexed, so they keep a 301 to the listing in the
+# visitor's own language instead of falling through to 404.html.
+# The legacy /ar/ prefix is folded in here to keep it a single hop.
+# ------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^(?:www\.)?vitadiet\.sa$ [NC]
+RewriteRule ^(?:ar/)?en/product/(?:floradit|flowadite)/?$ https://www.vitadiet.sa/en/products/ [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^(?:www\.)?vitadiet\.sa$ [NC]
+RewriteRule ^(?:ar/)?product/(?:floradit|flowadite)/?$ https://www.vitadiet.sa/products/ [R=301,L]
+
+# ------------------------------------------------------------
 # LEGACY /ar/ REDIRECTS — PRODUCTION HOSTS ONLY
 # ------------------------------------------------------------
 RewriteCond %{HTTP_HOST} ^(?:www\.)?vitadiet\.sa$ [NC]

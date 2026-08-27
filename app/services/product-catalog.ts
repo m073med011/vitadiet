@@ -10,6 +10,7 @@ import type {
   ProductIngredient,
   ProductPrice,
   ProductPurchaseOption,
+  ProductResourceLink,
   PurchaseAvailability,
 } from '~/types'
 
@@ -55,12 +56,6 @@ export const getApprovedFacts = (items: ProductFact[] | undefined): ProductFact[
 export const getApprovedIngredients = (
   ingredients: ProductIngredient[] | undefined,
 ): ProductIngredient[] => (ingredients ?? []).filter((ingredient) => isApproved(ingredient.status))
-
-type ProductResourceLink = {
-  label: LocalizedCopy
-  status: ApprovalStatus
-  url?: string
-}
 
 export type LocalizedProductResourceLink = {
   label: string
@@ -109,6 +104,13 @@ export const getProductDescription = (product: ProductCatalogItem, locale: strin
 
 export const getProductImageAlt = (image: ProductImageAsset, locale: string): string =>
   localizeCopy(image.alt, locale)
+
+/**
+ * Undefined when the pack size has not been supplied yet. Callers hide the row rather
+ * than printing a placeholder, so an unconfirmed capsule count never reads as data.
+ */
+export const getPackSize = (product: ProductCatalogItem, locale: string): string | undefined =>
+  product.packSize ? localizeCopy(product.packSize, locale) : undefined
 
 export const getPurchaseOptions = (product: ProductCatalogItem): ProductPurchaseOption[] =>
   product.purchaseOptions ?? []

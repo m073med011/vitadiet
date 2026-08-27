@@ -505,7 +505,6 @@ export const productCatalog: ProductCatalogItem[] = [
       'Vitadiet product information will show price and buying options when approved.',
       'ستظهر معلومات السعر وخيارات الشراء لهذا المنتج من فيتادايت عند اعتمادها.',
     ),
-    packSize: text('Coming soon', 'قريبا'),
     purchaseOptions: [],
     seo: {
       description: approved(

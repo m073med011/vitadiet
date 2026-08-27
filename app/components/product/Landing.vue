@@ -77,7 +77,9 @@
                  add aria-current="page", which misannounces a jump link. -->
             <BaseButton href="#product-information" variant="secondary">
               <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-              {{ hasPurchaseOptions ? $t('productPage.productInfoCta') : $t('productPage.comingSoon') }}
+              {{
+                hasPurchaseOptions ? $t('productPage.productInfoCta') : $t('productPage.comingSoon')
+              }}
             </BaseButton>
           </div>
         </div>
@@ -385,6 +387,7 @@ import {
   getApprovedFacts,
   getApprovedIngredients,
   getApprovedProductFiles,
+  getPackSize,
   getApprovedReferences,
   getProductAvailabilityLabelKey,
   getProductDescription,
@@ -456,13 +459,12 @@ const localizeFacts = (facts: ProductFact[]) =>
     value: localizeCopy(fact.value, locale.value),
   }))
 
+const packSize = computed(() => getPackSize(props.product, locale.value))
+
 const identityFacts = computed(() => [
   { label: t('productPage.details.arabicName'), value: props.product.arabicName },
   { label: t('productPage.details.englishName'), value: props.product.englishName },
-  {
-    label: t('productPage.details.packSize'),
-    value: localizeCopy(props.product.packSize, locale.value),
-  },
+  ...(packSize.value ? [{ label: t('productPage.details.packSize'), value: packSize.value }] : []),
   ...(props.product.lastReviewed
     ? [{ label: t('productPage.details.lastReviewed'), value: props.product.lastReviewed }]
     : []),

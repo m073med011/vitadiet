@@ -18,8 +18,10 @@
           <label class="sr-only" for="product-search">
             {{ $t('productPage.search.label') }}
           </label>
+          <!-- The clear button's track is sized even while the button is absent, so the
+               field does not jump sideways on the first keystroke. -->
           <div
-            class="grid min-h-14 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-page rounded-card border border-line bg-surface-raised px-page shadow-card"
+            class="grid min-h-14 grid-cols-[auto_minmax(0,1fr)_2.75rem] items-center gap-page rounded-card border border-line bg-surface-raised px-page shadow-card"
           >
             <SearchIcon class="h-icon-md w-icon-md text-ink-soft" aria-hidden="true" />
             <input
@@ -29,7 +31,7 @@
               type="search"
               class="product-search__input min-w-0 appearance-none bg-transparent py-control-y text-copy text-ink outline-none placeholder:text-ink-subtle"
               :placeholder="$t('productPage.search.placeholder')"
-            >
+            />
             <BaseButton
               v-if="searchQuery"
               native-type="button"

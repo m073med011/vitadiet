@@ -19,23 +19,28 @@ const slugValue = computed(() => {
 })
 
 // Resolved through the adapter so a Dashboard-backed source can replace it without
-// touching this page. An unknown slug becomes a real 404 during SSR rather than an
-// exception thrown from inside a render pass.
-const { data } = await useAsyncData(
+// touching this page.
+const { data, error } = await useAsyncData(
   () => `product:${slugValue.value}`,
-  async () => {
-    const found = await getProductBySlug(slugValue.value)
-    if (!found) {
-      throw createError({
-        statusCode: 404,
-        statusMessage: t('error.notFound'),
-        fatal: true,
-      })
-    }
-    return found
-  },
+  () => getProductBySlug(slugValue.value),
   { watch: [slugValue] },
 )
+
+// The 404 is raised here rather than inside the handler above: useAsyncData captures a
+// handler throw into `error` and lets setup continue, so the SEO composables would go on
+// to dereference a product that was never found and turn a missing page into a 500.
+// A transport failure stays a 500 — only a resolved-but-absent product is a 404.
+if (error.value) {
+  throw error.value
+}
+
+if (!data.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: t('error.notFound'),
+    fatal: true,
+  })
+}
 
 const product = computed(() => data.value as HomeProduct)
 

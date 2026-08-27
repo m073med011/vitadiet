@@ -78,12 +78,39 @@ for (const [, url] of catalog.matchAll(/url: '(\/[^']+\.pdf)'/g)) {
   if (!existsSync(`public${url}`)) fail(`missing local asset: public${url}`)
 }
 
-if (/references:\s*catalogProductFiles/.test(catalog)) {
-  fail('product catalog files must use productFiles, not scientific references')
+// --- `references` holds scientific sources only, never operational PDFs ---
+// The «المراجع العلمية» heading is a claim about the content underneath it, so a catalog
+// or packaging PDF filed there mislabels itself. Each `references:` value is extracted by
+// matching its own brackets rather than scanning ahead with a lazy quantifier, which would
+// run past the end of one product and flag a PDF belonging to a later one.
+const readBracketedValue = (source, keyIndex) => {
+  const start = source.indexOf('[', keyIndex)
+  if (start === -1) return ''
+
+  let depth = 0
+  for (let index = start; index < source.length; index += 1) {
+    const char = source[index]
+    if (char === '[') depth += 1
+    else if (char === ']') {
+      depth -= 1
+      if (depth === 0) return source.slice(start, index + 1)
+    }
+  }
+  return source.slice(start)
 }
 
-if (/references:\s*\[[\s\S]*?vitadiet-catalog\.pdf/.test(catalog)) {
-  fail('vitadiet-catalog.pdf is a product file, not a scientific reference')
+for (const match of catalog.matchAll(/\breferences:\s*/g)) {
+  const rest = catalog.slice(match.index + match[0].length)
+  // Either `references: someConst` or `references: [ ... ]`.
+  const identifier = rest.match(/^([A-Za-z_$][\w$]*)/)
+  const value = identifier ? (identifier[1] ?? '') : readBracketedValue(catalog, match.index)
+
+  if (/productFile|catalog/i.test(value)) {
+    fail(`product files must be assigned to productFiles, not references: ${value.slice(0, 60)}`)
+  }
+  if (/\.pdf/i.test(value)) {
+    fail('references must cite scientific sources; PDFs belong in productFiles')
+  }
 }
 
 // --- Purchase options point at their own product (بند 9) ---

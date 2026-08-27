@@ -33,30 +33,20 @@
       </p>
 
       <div class="mt-auto grid gap-2 border-t border-line pt-2 sm:pt-3">
-        <div class="product-meta flex items-center justify-center gap-1.5">
-          <span v-if="showSingleComingSoonBadge" class="badge-pill bg-surface-muted text-ink-soft">
-            {{ $t('productCard.availability.soon') }}
+        <!-- "Available" is worth a badge; "coming soon" is not, because the action slot
+             below already says it and two identical pills read as a rendering bug. -->
+        <div v-if="hasMeta" class="product-meta flex items-center justify-center gap-1.5">
+          <span v-if="packSize" class="badge-pill bg-surface-raised text-ink-soft">
+            {{ packSize }}
           </span>
-          <template v-else>
-            <span class="badge-pill bg-surface-raised text-ink-soft">
-              {{ packSize }}
-            </span>
-            <span
-              class="badge-pill"
-              :class="
-                isAvailable
-                  ? 'bg-brand-primary-soft text-brand-primary'
-                  : 'bg-surface-muted text-ink-soft'
-              "
-            >
-              {{ $t(cardAvailabilityKey) }}
-            </span>
-            <ProductPriceBadge
-              v-if="hasApprovedPrice(product.price)"
-              class="product-meta__price"
-              :price="product.price"
-            />
-          </template>
+          <span v-if="isAvailable" class="badge-pill bg-brand-primary-soft text-brand-primary">
+            {{ $t('productCard.availability.available') }}
+          </span>
+          <ProductPriceBadge
+            v-if="hasApprovedPrice(product.price)"
+            class="product-meta__price"
+            :price="product.price"
+          />
         </div>
 
         <div class="product-actions grid gap-2">
@@ -98,13 +88,13 @@
 import { InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
 import type { HomeProduct } from '~/types'
 import {
+  getPackSize,
   getProductDescription,
   getProductImageAlt,
   getProductTitle,
   getPrimaryImage,
   hasApprovedPrice,
   hasBuyablePurchaseOptions,
-  localizeCopy,
 } from '~/services/product-catalog'
 
 const props = withDefaults(
@@ -128,12 +118,11 @@ const primaryImage = computed(() => getPrimaryImage(props.product))
 const productTitle = computed(() => getProductTitle(props.product, locale.value))
 const imageAlt = computed(() => getProductImageAlt(primaryImage.value, locale.value))
 const shortDescription = computed(() => getProductDescription(props.product, locale.value))
-const packSize = computed(() => localizeCopy(props.product.packSize, locale.value))
+const packSize = computed(() => getPackSize(props.product, locale.value))
 const isAvailable = computed(() => hasBuyablePurchaseOptions(props.product))
-const cardAvailabilityKey = computed(() =>
-  isAvailable.value ? 'productCard.availability.available' : 'productCard.availability.soon',
+const hasMeta = computed(
+  () => Boolean(packSize.value) || isAvailable.value || hasApprovedPrice(props.product.price),
 )
-const showSingleComingSoonBadge = computed(() => !isAvailable.value && !props.product.price)
 const productImageClasses = computed(() => [
   'object-cover transition-[filter,transform] duration-500 group-hover/card:scale-105',
   !isAvailable.value && 'grayscale group-hover/card:grayscale-0',
