@@ -27,5 +27,5 @@ export function useScrollState(threshold = 20) {
     }
   })
 
-  return { isScrolled, handleScroll }
+  return { isScrolled }
 }

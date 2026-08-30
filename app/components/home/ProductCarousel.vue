@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { products } from '~/data/products'
+const { data: products } = await useProductCatalog()
 </script>
 
 <style scoped>

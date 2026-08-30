@@ -3,7 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import type { HomeProduct } from '~/types'
 import { getProductBySlug } from '~/services/product-catalog'
 
 definePageMeta({
@@ -34,7 +33,8 @@ if (error.value) {
   throw error.value
 }
 
-if (!data.value) {
+const resolvedProduct = data.value
+if (!resolvedProduct) {
   throw createError({
     statusCode: 404,
     statusMessage: t('error.notFound'),
@@ -42,7 +42,9 @@ if (!data.value) {
   })
 }
 
-const product = computed(() => data.value as HomeProduct)
+// `data` stays the reactive source; `resolvedProduct` is only what proves to TypeScript
+// that the 404 above already ruled the undefined case out.
+const product = computed(() => data.value ?? resolvedProduct)
 
 const productSeo = useProductSeo(product)
 const { imageHeight, imageWidth, metaDescription, pageName, productImageAlt, productImageUrl } =

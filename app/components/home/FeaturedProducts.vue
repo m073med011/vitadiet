@@ -100,7 +100,6 @@
 
 <script setup lang="ts">
 import { InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
-import { products } from '~/data/products'
 import type { HomeProduct } from '~/types'
 import type { ProductSlug } from '#shared/products'
 import {
@@ -142,18 +141,22 @@ const featuredItems: FeaturedItem[] = [
   },
 ]
 
-const featuredProducts: FeaturedProduct[] = featuredItems.flatMap((item) => {
-  const product = products.find((candidate) => candidate.slug === item.slug)
-  if (!product) return []
-  return [{ ...product, benefitKey: item.benefitKey, introKey: item.introKey }]
-})
+const { data: catalog } = await useProductCatalog()
 
-const mainProduct = computed<FeaturedProduct | undefined>(() => featuredProducts[0])
+const featuredProducts = computed<FeaturedProduct[]>(() =>
+  featuredItems.flatMap((item) => {
+    const product = catalog.value.find((candidate) => candidate.slug === item.slug)
+    if (!product) return []
+    return [{ ...product, benefitKey: item.benefitKey, introKey: item.introKey }]
+  }),
+)
+
+const mainProduct = computed<FeaturedProduct | undefined>(() => featuredProducts.value[0])
 const mainImage = computed(() =>
   mainProduct.value ? getPrimaryImage(mainProduct.value) : undefined,
 )
 const secondaryCards = computed(() =>
-  featuredProducts.slice(1).map((product) => ({ image: getPrimaryImage(product), product })),
+  featuredProducts.value.slice(1).map((product) => ({ image: getPrimaryImage(product), product })),
 )
 </script>
 

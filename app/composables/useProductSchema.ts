@@ -2,9 +2,9 @@ import { SCHEMA_ID } from '#shared/site'
 import type { HomeProduct } from '~/types'
 import {
   canBuyFromOption,
+  getApprovedFaqs,
   getPurchaseOptions,
   hasApprovedPrice,
-  isApproved,
   localizeCopy,
 } from '~/services/product-catalog'
 
@@ -30,11 +30,9 @@ export function useProductSchema(product: HomeProduct, seo: ReturnType<typeof us
     }))
   })
 
-  // Only question/answer pairs where both halves are approved reach the markup, so the
-  // schema can never assert a claim the page itself withholds.
-  const approvedFaqs = (product.faqs ?? []).filter(
-    (faq) => isApproved(faq.question.status) && isApproved(faq.answer.status),
-  )
+  // Same approval gate the page itself renders through, so the schema can never assert
+  // a claim the page withholds.
+  const approvedFaqs = getApprovedFaqs(product)
 
   useSchemaOrg([
     // `schemaOrg: { defaults: false }` disables the automatic WebPage -> FAQPage

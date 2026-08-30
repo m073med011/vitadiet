@@ -41,15 +41,6 @@
     "availability": {
       "available": "Available",
       "soon": "Coming soon"
-    },
-    "packSize": {
-      "bestrong": "30 capsules",
-      "becalme": "30 capsules",
-      "vitagen": "30 capsules",
-      "femavit": "30 capsules",
-      "greenPharmacy": "Skin care pack",
-      "dplus": "60 tablets",
-      "soluro": "Coming soon"
     }
   },
   "featuredProducts": {
@@ -150,37 +141,7 @@
       "heading": "Products",
       "description": "Explore carefully selected European dietary supplements for everyday wellness, sleep, energy, immunity, digestion, and beauty care.",
       "viewAll": "View All Products",
-      "carouselLabel": "Vitadiet products",
-      "items": {
-        "bestrong": {
-          "title": "BeStrong Dietary Supplement 30 Capsules",
-          "price": "58.00"
-        },
-        "becalme": {
-          "title": "BeCalm Dietary Supplement 30 Capsules",
-          "price": "78.00"
-        },
-        "vitagen": {
-          "title": "Vitagen Dietary Supplement 30 Capsules",
-          "price": "98.00"
-        },
-        "femavit": {
-          "title": "Femavit Plus 30 Capsules",
-          "price": "110.00"
-        },
-        "greenPharmacy": {
-          "title": "Green Pharmacy Herbal Cleansing Gel",
-          "price": "50.00"
-        },
-        "dplus": {
-          "title": "D-Plus Zinc, D3, B6, C 60 Tablets",
-          "price": "48.00"
-        },
-        "soluro": {
-          "title": "Soluro Dietary Supplement",
-          "price": "Coming Soon"
-        }
-      }
+      "carouselLabel": "Vitadiet products"
     },
     "quality": {
       "heading": "Quality Control",
@@ -275,37 +236,25 @@
   },
   "productDetails": {
     "bestrong": {
-      "metaDescription": "European supplement for lasting natural energy, sharper focus, and stronger hair, skin, and nails. Suitable for men and women.",
-      "description": "Provides natural energy that lasts throughout the day.\nHelps improve focus, memory, mood, and cellular health.\nSupports skin radiance and stronger hair and nails.\nReduces fatigue, nervous stress, and muscle strain.\nSuitable for men and women."
+      "metaDescription": "European supplement for lasting natural energy, sharper focus, and stronger hair, skin, and nails. Suitable for men and women."
     },
     "becalme": {
-      "metaDescription": "European sleep-support formula that helps you fall asleep faster, calm the nerves, and enjoy deeper, more restful sleep.",
-      "description": "An integrated formula that helps you fall asleep faster and naturally improve sleep quality.\nHelps reduce stress and calm the nerves for peaceful, deep sleep.\nSupports muscle relaxation for comfortable, refreshed sleep."
+      "metaDescription": "European sleep-support formula that helps you fall asleep faster, calm the nerves, and enjoy deeper, more restful sleep."
     },
     "vitagen": {
-      "metaDescription": "Integrated European multivitamin for men and women that boosts daily energy, strengthens immunity, and supports heart and brain health.",
-      "description": "Improves physical and mental performance.\nAn integrated formula for men and women.\nBoosts energy and vitality throughout the day.\nStrengthens immunity and fights tiredness and fatigue.\nMaintains heart and brain health."
+      "metaDescription": "Integrated European multivitamin for men and women that boosts daily energy, strengthens immunity, and supports heart and brain health."
     },
     "femavit": {
-      "metaDescription": "Complete European supplement supporting women's health in pregnancy and breastfeeding, with iron, immunity, and bone support.",
-      "description": "Supports women's health during pregnancy and breastfeeding.\nBoosts immunity and daily energy.\nMaintains healthy bones and teeth.\nImproves iron absorption and helps prevent anemia.\nHelps the development of the fetus's brain and nervous system.\nA complete blend that supports your health."
+      "metaDescription": "Complete European supplement supporting women's health in pregnancy and breastfeeding, with iron, immunity, and bone support."
     },
     "greenPharmacy": {
-      "metaDescription": "Gentle herbal cleansing gel that deeply cleanses the skin, removes excess oil, and leaves it soothed, moisturized, and refreshed.",
-      "description": "Helps deeply cleanse the skin and remove impurities and excess oil.\nHelps soothe and moisturize the skin, giving it a healthy, refreshed appearance.\nA gentle herbal formula that supports skin softness and daily care."
+      "metaDescription": "Gentle herbal cleansing gel that deeply cleanses the skin, removes excess oil, and leaves it soothed, moisturized, and refreshed."
     },
     "dplus": {
-      "metaDescription": "Scientifically balanced daily formula with zinc and vitamins D3, C, and B6 for immunity, energy, and healthy bones, teeth, and skin.",
-      "description": "Complete daily immune and energy support, suitable for a healthy lifestyle with a scientifically balanced formula.\nPromotes healthy bones, teeth, and skin, and supports effective calcium absorption.\nA balanced formula with zinc and vitamins D3, C, and B6 to reduce fatigue and support overall health.",
-      "highlights": {
-        "zinc": "Zinc support",
-        "vitaminD": "Vitamin D3 formula",
-        "bComplex": "With B6 and C"
-      }
+      "metaDescription": "Scientifically balanced daily formula with zinc and vitamins D3, C, and B6 for immunity, energy, and healthy bones, teeth, and skin."
     },
     "soluro": {
-      "metaDescription": "European supplement that strengthens immunity, replenishes vitamin and mineral deficiencies, and supports hair, skin, and nails.",
-      "description": "Strengthens immunity and protects the body from fatigue and weakness.\nReplenishes vitamin and mineral deficiencies and provides energy.\nBeneficial for hair, skin, and nails and improves overall activity."
+      "metaDescription": "European supplement that strengthens immunity, replenishes vitamin and mineral deficiencies, and supports hair, skin, and nails."
     }
   },
   "footer": {

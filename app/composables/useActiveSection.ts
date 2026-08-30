@@ -143,8 +143,6 @@ export function useActiveSection(navItems: NavItem[]) {
 
   return {
     activeHash,
-    setupSectionObserver,
     scheduleActiveSectionUpdate,
-    homePath,
   }
 }

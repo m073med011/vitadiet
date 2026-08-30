@@ -108,16 +108,11 @@ export interface ProductCatalogItem {
   warnings?: ApprovedCopy[]
 }
 
-export interface HomeProduct extends ProductCatalogItem {
-  descriptionKey?: string
-  gallery?: string[]
-  highlights?: string[]
-  image: string
-  buyLink?: string
-  packSizeKey: string
-  titleKey: string
-  priceKey: string
-}
+/**
+ * Kept as a name so component prop types keep reading `HomeProduct`. The catalog item is
+ * the entire shape: the translation-key fields this used to add on top were never read.
+ */
+export type HomeProduct = ProductCatalogItem
 
 export interface NavItem {
   labelKey: string

@@ -24,31 +24,23 @@
 import { SaudiRiyalIcon } from 'lucide-vue-next'
 import type { ProductPrice } from '~/types'
 import { formatOfficialPrice, hasApprovedPrice } from '~/services/product-catalog'
-import { isNumericPrice } from '~/utils/price'
 
 const props = withDefaults(
   defineProps<{
     price?: ProductPrice
-    priceKey?: string
     size?: 'sm' | 'lg'
   }>(),
   {
     price: undefined,
-    priceKey: undefined,
     size: 'sm',
   },
 )
 
 const { t } = useI18n()
 
-const priceLabel = computed(() => {
-  if (hasApprovedPrice(props.price)) return formatOfficialPrice(props.price)
-  if (props.priceKey) return t(props.priceKey)
-  return t('productPage.comingSoon')
-})
+const priceLabel = computed(() =>
+  hasApprovedPrice(props.price) ? formatOfficialPrice(props.price) : t('productPage.comingSoon'),
+)
 
-const showsCurrency = computed(() => {
-  if (hasApprovedPrice(props.price)) return true
-  return isNumericPrice(priceLabel.value)
-})
+const showsCurrency = computed(() => hasApprovedPrice(props.price))
 </script>

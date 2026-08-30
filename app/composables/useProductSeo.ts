@@ -1,5 +1,5 @@
 import type { ComputedRef } from 'vue'
-import { BCP47_BY_LOCALE, type AppLocale } from '#shared/site'
+import { BCP47_BY_LOCALE, toAppLocale } from '#shared/site'
 import type { HomeProduct } from '~/types'
 import {
   formatOfficialPrice,
@@ -44,7 +44,7 @@ export function useProductSeo(product: ComputedRef<HomeProduct>) {
 
   const priceValidUntil = computed(() => product.value.price?.validUntil)
 
-  const schemaLanguage = computed(() => BCP47_BY_LOCALE[locale.value as AppLocale])
+  const schemaLanguage = computed(() => BCP47_BY_LOCALE[toAppLocale(locale.value)])
 
   return {
     imageHeight: primaryImage.value.height,

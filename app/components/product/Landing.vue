@@ -355,25 +355,7 @@
       </div>
     </section>
 
-    <section class="border-y border-line bg-surface-raised py-section-sm">
-      <div
-        class="content-container grid gap-page md:grid-cols-[minmax(0,1fr)_auto] md:items-center"
-      >
-        <div>
-          <p class="eyebrow-text">{{ $t('partnerSection.eyebrow') }}</p>
-          <h2 class="mt-1 text-heading font-bold leading-heading text-ink">
-            {{ $t('partnerSection.heading') }}
-          </h2>
-          <p class="mt-page max-w-copy text-copy leading-copy text-ink-soft">
-            {{ $t('partnerSection.description') }}
-          </p>
-        </div>
-        <BaseButton :href="`mailto:${CONTACT.email}`" variant="primary">
-          <MailIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-          {{ $t('partnerSection.cta') }}
-        </BaseButton>
-      </div>
-    </section>
+    <PartnerCta />
 
     <ProductPurchaseModal
       :open="isPurchaseModalOpen"
@@ -384,19 +366,12 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CheckCircleIcon,
-  ChevronRightIcon,
-  InfoIcon,
-  MailIcon,
-  ShoppingBagIcon,
-} from 'lucide-vue-next'
-import { CONTACT } from '#shared/brand'
-import { products } from '~/data/products'
+import { CheckCircleIcon, ChevronRightIcon, InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
 import type { HomeProduct, ProductFact } from '~/types'
 import {
   getApprovedCopies,
   getApprovedFacts,
+  getApprovedFaqs,
   getApprovedIngredients,
   getApprovedProductFiles,
   getPackSize,
@@ -408,7 +383,6 @@ import {
   getPrimaryImage,
   hasApprovedPrice,
   hasBuyablePurchaseOptions,
-  isApproved,
   localizeApprovedCopy,
   localizeCopy,
 } from '~/services/product-catalog'
@@ -487,21 +461,21 @@ const manufacturerFacts = computed(() =>
 const complianceFacts = computed(() => localizeFacts(getApprovedFacts(props.product.compliance)))
 
 const approvedFaqs = computed(() =>
-  (props.product.faqs ?? [])
-    .filter((faq) => isApproved(faq.question.status) && isApproved(faq.answer.status))
-    .map((faq) => ({
-      answer: localizeCopy(faq.answer.text, locale.value),
-      question: localizeCopy(faq.question.text, locale.value),
-    })),
+  getApprovedFaqs(props.product).map((faq) => ({
+    answer: localizeCopy(faq.answer.text, locale.value),
+    question: localizeCopy(faq.question.text, locale.value),
+  })),
 )
 
 const approvedProductFiles = computed(() => getApprovedProductFiles(props.product, locale.value))
 
 const approvedReferences = computed(() => getApprovedReferences(props.product, locale.value))
 
+const { data: catalog } = await useProductCatalog()
+
 const relatedProducts = computed(() =>
   (props.product.relatedSlugs ?? []).flatMap(
-    (slug) => products.find((product) => product.slug === slug) ?? [],
+    (slug) => catalog.value.find((product) => product.slug === slug) ?? [],
   ),
 )
 </script>

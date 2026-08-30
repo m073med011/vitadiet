@@ -1,4 +1,4 @@
-import type { AppLocale } from '#shared/site'
+import { toAppLocale } from '#shared/site'
 import type {
   ApprovalStatus,
   ApprovedCopy,
@@ -6,6 +6,7 @@ import type {
   LocalizedCopy,
   ProductCatalogItem,
   ProductFact,
+  ProductFaq,
   ProductImageAsset,
   ProductIngredient,
   ProductPrice,
@@ -32,10 +33,8 @@ export const getProductBySlug = async (slug: string): Promise<HomeProduct | unde
   return catalog.find((product) => product.slug === slug)
 }
 
-export const localizeCopy = (copy: LocalizedCopy, locale: string): string => {
-  const normalizedLocale: AppLocale = locale === 'ar' ? 'ar' : 'en'
-  return copy[normalizedLocale]
-}
+export const localizeCopy = (copy: LocalizedCopy, locale: string): string =>
+  copy[toAppLocale(locale)]
 
 export const localizeApprovedCopy = (
   copy: ApprovedCopy | undefined,
@@ -56,6 +55,16 @@ export const getApprovedFacts = (items: ProductFact[] | undefined): ProductFact[
 export const getApprovedIngredients = (
   ingredients: ProductIngredient[] | undefined,
 ): ProductIngredient[] => (ingredients ?? []).filter((ingredient) => isApproved(ingredient.status))
+
+/**
+ * The FAQ approval rule, defined once. A pair ships only when BOTH halves are approved:
+ * the rendered <details> list and the JSON-LD Question nodes have to apply the identical
+ * rule, or the markup asserts a claim the page itself withholds.
+ */
+export const getApprovedFaqs = (product: ProductCatalogItem): ProductFaq[] =>
+  (product.faqs ?? []).filter(
+    (faq) => isApproved(faq.question.status) && isApproved(faq.answer.status),
+  )
 
 export type LocalizedProductResourceLink = {
   label: string
@@ -127,8 +136,13 @@ export const getBuyablePurchaseOptions = (product: ProductCatalogItem): ProductP
 export const hasBuyablePurchaseOptions = (product: ProductCatalogItem): boolean =>
   getBuyablePurchaseOptions(product).length > 0
 
-export const getAvailabilityLabelKey = (availability: PurchaseAvailability): string => {
-  const keys: Record<PurchaseAvailability, string> = {
+export type AvailabilityLabelKey =
+  'purchase.status.comingSoon' | 'purchase.status.inStock' | 'purchase.status.outOfStock'
+
+export const getAvailabilityLabelKey = (
+  availability: PurchaseAvailability,
+): AvailabilityLabelKey => {
+  const keys: Record<PurchaseAvailability, AvailabilityLabelKey> = {
     coming_soon: 'purchase.status.comingSoon',
     in_stock: 'purchase.status.inStock',
     out_of_stock: 'purchase.status.outOfStock',
@@ -137,7 +151,9 @@ export const getAvailabilityLabelKey = (availability: PurchaseAvailability): str
   return keys[availability]
 }
 
-export const getProductAvailabilityLabelKey = (product: ProductCatalogItem): string =>
+export const getProductAvailabilityLabelKey = (
+  product: ProductCatalogItem,
+): AvailabilityLabelKey =>
   hasBuyablePurchaseOptions(product) ? 'purchase.status.inStock' : 'purchase.status.comingSoon'
 
 export const productMatchesSearch = (

@@ -73,7 +73,6 @@
 </template>
 
 <script setup lang="ts">
-import { products } from '~/data/products'
 import {
   getPrimaryImage,
   getProductTitle,
@@ -83,10 +82,12 @@ import {
 const { locale } = useI18n()
 const { productPath } = useProductPath()
 
+const { data: catalog } = await useProductCatalog()
+
 const availableProducts = computed(() =>
-  products.filter((product) => hasBuyablePurchaseOptions(product)),
+  catalog.value.filter((product) => hasBuyablePurchaseOptions(product)),
 )
 const comingSoonProducts = computed(() =>
-  products.filter((product) => !hasBuyablePurchaseOptions(product)),
+  catalog.value.filter((product) => !hasBuyablePurchaseOptions(product)),
 )
 </script>

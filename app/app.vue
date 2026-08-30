@@ -11,14 +11,14 @@ import {
   BRAND_NAME_LATIN,
   SCHEMA_ID,
   SITE_ORIGIN,
-  type AppLocale,
+  toAppLocale,
 } from '#shared/site'
 
 const { t, locale } = useI18n()
 const { absoluteSiteUrl, canonicalUrl, withNormalizedHref } = useSiteUrls()
 
 const logoUrl = computed(() => absoluteSiteUrl(ASSETS.logo))
-const schemaLanguage = computed<string>(() => BCP47_BY_LOCALE[locale.value as AppLocale])
+const schemaLanguage = computed<string>(() => BCP47_BY_LOCALE[toAppLocale(locale.value)])
 
 const i18nHead = useLocaleHead()
 
