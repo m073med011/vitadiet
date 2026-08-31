@@ -10,19 +10,30 @@
           {{ $t('partnerSection.description') }}
         </p>
       </div>
-      <BaseButton :href="`mailto:${CONTACT.email}`" variant="primary">
-        <MailIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-        {{ $t('partnerSection.cta') }}
-      </BaseButton>
+      <div class="flex flex-col gap-page sm:flex-row md:justify-end">
+        <!-- Routes to the partnership form, never to a bare mailto: a mail client is not
+             installed on most phones and the enquiry would be lost silently. The email
+             address is still offered on the form page for anyone who prefers it. -->
+        <BaseButton :to="localePath('/partners/')" variant="primary">
+          <HandshakeIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
+          {{ $t('partnerSection.cta') }}
+        </BaseButton>
+        <BaseButton :href="ASSETS.catalog" :download="$t('catalog.filename')" variant="secondary">
+          <FileDownIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
+          {{ $t('partnerSection.catalog') }}
+        </BaseButton>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { MailIcon } from 'lucide-vue-next'
-import { CONTACT } from '#shared/brand'
+import { FileDownIcon, HandshakeIcon } from 'lucide-vue-next'
+import { ASSETS } from '#shared/brand'
+
+const localePath = useLocalePath()
 
 // Callers position this block with a plain `class` on the tag; Vue merges it onto the
-// <section> root. HomePartners is deliberately NOT this component: same copy, but it
-// adds a catalog download and sits inside a panel card.
+// <section> root. HomePartners is deliberately NOT this component: same two actions, but
+// it is the full-width homepage section that closes the consumer journey.
 </script>

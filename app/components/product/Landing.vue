@@ -5,21 +5,9 @@
         class="content-container grid gap-gutter-lg py-section-sm lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.76fr)] lg:items-center lg:py-section"
       >
         <div class="min-w-0" data-aos="fade-up">
-          <nav
-            class="mb-page flex items-center gap-2 text-small font-semibold text-ink-soft"
-            :aria-label="$t('navigation')"
-          >
-            <NuxtLink :to="localePath('/')" class="hover:text-brand-primary">
-              {{ $t('home') }}
-            </NuxtLink>
-            <ChevronRightIcon
-              class="h-icon-sm w-icon-sm shrink-0 rtl:rotate-180"
-              aria-hidden="true"
-            />
-            <NuxtLink :to="localePath('/products/')" class="hover:text-brand-primary">
-              {{ $t('products') }}
-            </NuxtLink>
-          </nav>
+          <!-- Same component the other pages use, so the crumbs match the Breadcrumb
+               JSON-LD emitted by useProductSchema and every crumb keeps a 44px target. -->
+          <BaseBreadcrumb class="mb-page" :items="breadcrumbItems" />
 
           <p class="eyebrow-text">{{ product.englishName }}</p>
           <h1
@@ -255,6 +243,26 @@
             </dl>
           </section>
 
+          <!-- Always rendered, unlike the sections above it: the disclaimer and the
+               quality route must be reachable from every product page, including the ones
+               whose ingredient and compliance data is still awaiting approval. -->
+          <section class="product-detail-section grid gap-page">
+            <h2 class="product-detail-section__heading">
+              {{ $t('productPage.sections.transparency') }}
+            </h2>
+            <p class="text-copy leading-copy text-ink-soft">
+              {{ $t('productPage.transparencyNote') }}
+            </p>
+            <div class="flex flex-wrap gap-page">
+              <BaseButton :to="localePath('/quality/')" variant="secondary">
+                {{ $t('qualityPage.cta') }}
+              </BaseButton>
+              <BaseButton :to="localePath('/legal/medical-disclaimer/')" variant="secondary">
+                {{ $t('legal.medicalDisclaimer') }}
+              </BaseButton>
+            </div>
+          </section>
+
           <section id="where-to-buy" class="product-detail-section grid gap-page scroll-mt-28">
             <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.purchase') }}
@@ -366,7 +374,7 @@
 </template>
 
 <script setup lang="ts">
-import { CheckCircleIcon, ChevronRightIcon, InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
+import { CheckCircleIcon, InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
 import type { HomeProduct, ProductFact } from '~/types'
 import {
   getApprovedCopies,
@@ -410,6 +418,12 @@ watch(
 )
 
 const productTitle = computed(() => getProductTitle(props.product, locale.value))
+
+const breadcrumbItems = computed(() => [
+  { label: t('home'), to: localePath('/') },
+  { label: t('productPage.heading'), to: localePath('/products/') },
+  { label: productTitle.value, to: productPath(props.product.slug) },
+])
 const definition = computed(() => localizeApprovedCopy(props.product.definition, locale.value))
 const positioning = computed(() => localizeApprovedCopy(props.product.positioning, locale.value))
 const heroCopy = computed(

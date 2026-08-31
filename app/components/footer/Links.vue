@@ -1,9 +1,15 @@
 <template>
-  <nav data-aos="fade-up" data-aos-delay="100">
-    <FooterColumnHeading :label="$t('navigation')" />
+  <nav
+    v-for="(group, groupIndex) in footerLinkGroups"
+    :key="group.labelKey"
+    :aria-label="$t(group.labelKey)"
+    data-aos="fade-up"
+    :data-aos-delay="100 + groupIndex * 100"
+  >
+    <FooterColumnHeading :label="$t(group.labelKey)" />
     <ul class="space-y-control-y-sm mt-control-y-sm">
       <li
-        v-for="(link, index) in footerNavItems"
+        v-for="(link, index) in group.items"
         :key="link.labelKey"
         data-aos="fade-up"
         :data-aos-delay="index * AOS_STAGGER_MS"
@@ -23,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { footerNavItems } from '~/data/navigation'
+import { footerLinkGroups } from '~/data/navigation'
 import { AOS_STAGGER_MS } from '~/utils/motion'
 
 const { navPath } = useNavPath()

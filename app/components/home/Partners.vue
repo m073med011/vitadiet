@@ -1,4 +1,6 @@
 <template>
+  <!-- Placed after the whole consumer journey (products, quality, about, where to buy)
+       so the trade route is clearly separate and never competes with it. -->
   <section id="partners" class="section-block--tinted">
     <div class="content-container">
       <div
@@ -18,10 +20,12 @@
         </div>
 
         <div class="flex flex-col gap-page sm:flex-row lg:justify-end">
-          <BaseButton :href="`mailto:${CONTACT.email}`" variant="primary">
+          <BaseButton :to="localePath('/partners/')" variant="primary">
+            <HandshakeIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
             {{ $t('partnerSection.cta') }}
           </BaseButton>
           <BaseButton :href="ASSETS.catalog" :download="$t('catalog.filename')" variant="secondary">
+            <FileDownIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
             {{ $t('partnerSection.catalog') }}
           </BaseButton>
         </div>
@@ -31,5 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { ASSETS, CONTACT } from '#shared/brand'
+import { FileDownIcon, HandshakeIcon } from 'lucide-vue-next'
+import { ASSETS } from '#shared/brand'
+
+const localePath = useLocalePath()
 </script>

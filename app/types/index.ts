@@ -1,4 +1,5 @@
 import type { Component } from 'vue'
+import type { LegalSlug } from '#shared/legal'
 import type { ProductSlug } from '#shared/products'
 import type { AppLocale } from '#shared/site'
 
@@ -119,6 +120,11 @@ export interface NavItem {
   hash: string
   path?: string
   icon?: Component
+  /**
+   * Link to `hash` on the current page instead of the home page. Used by footer
+   * links whose target (the contact block) is rendered on every route.
+   */
+  anchor?: boolean
 }
 
 export interface FaqItem {
@@ -136,4 +142,73 @@ export interface SocialLink {
   stroke?: string
   strokeWidth?: number
   strokeLinejoin?: 'round' | 'inherit' | 'miter' | 'bevel'
+}
+
+/* ------------------------------------------------------------------------- *
+ * Phase 3 site content: quality and accreditation, legal documents, and the
+ * partnership form. Every changeable string lives in `app/data/site-content.ts`
+ * and reaches the UI through `app/services/site-content.ts`, so a future
+ * Dashboard can replace the source without touching a component or a URL.
+ * ------------------------------------------------------------------------- */
+
+/** Icon key resolved to a component by the consuming section, so data stays serialisable. */
+export type QualityIconKey = 'clipboard-check' | 'factory' | 'shield-check' | 'file-search' | 'eye'
+
+export interface QualityPillar {
+  description: ApprovedCopy
+  iconKey: QualityIconKey
+  id: string
+  /** Extra detail rendered on the quality page only; the home section shows the summary. */
+  points?: ApprovedCopy[]
+  title: ApprovedCopy
+}
+
+export type LegalDocumentSlug = LegalSlug
+
+export interface LegalSection {
+  body: ApprovedCopy[]
+  heading: ApprovedCopy
+  id: string
+}
+
+export interface LegalDocument {
+  intro: ApprovedCopy
+  lastReviewed: string
+  sections: LegalSection[]
+  seoDescription: ApprovedCopy
+  slug: LegalDocumentSlug
+  title: LocalizedCopy
+}
+
+export interface PartnerFormOption {
+  id: string
+  label: LocalizedCopy
+}
+
+export interface PartnerFormOptions {
+  facilityTypes: PartnerFormOption[]
+  partnershipTypes: PartnerFormOption[]
+  /** Product slugs offered as "products of interest" checkboxes. */
+  productSlugs: ProductSlug[]
+}
+
+export interface PartnerLead {
+  city: string
+  consent: boolean
+  email: string
+  facilityName: string
+  facilityType: string
+  interestedProducts: string[]
+  message: string
+  name: string
+  partnershipType: string
+  phone: string
+}
+
+export type PartnerSubmissionStatus =
+  'idle' | 'submitting' | 'success' | 'server_error' | 'network_error'
+
+export interface FooterLinkGroup {
+  items: NavItem[]
+  labelKey: string
 }

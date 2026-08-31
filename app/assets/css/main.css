@@ -173,3 +173,124 @@
     @apply rounded-pill px-page py-control-y-sm text-caption font-bold;
   }
 }
+
+@layer components {
+  /*
+   * Skip link. Visually hidden until focused, then pinned to the top-start corner so a
+   * keyboard visitor can jump past the header without tabbing the whole navigation.
+   */
+  .skip-link {
+    position: absolute;
+    inset-inline-start: var(--spacing-page);
+    inset-block-start: -100%;
+    z-index: 100;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border-radius: var(--radius-control);
+    background: var(--color-brand-primary);
+    padding-inline: var(--spacing-page);
+    color: var(--color-on-primary);
+    font-size: var(--text-small);
+    font-weight: 700;
+    transition: inset-block-start var(--motion-fast) var(--motion-ease-out);
+  }
+
+  .skip-link:focus-visible {
+    inset-block-start: var(--spacing-page);
+    outline: 2px solid var(--color-brand-accent);
+    outline-offset: 2px;
+  }
+
+  /*
+   * Form primitives. Every control is at least 2.75rem (44px) tall, carries a border
+   * that clears 3:1 against the surface, and shows a focus ring that does not rely on
+   * the border colour alone.
+   */
+  .field-label {
+    @apply mb-1 block text-small font-semibold text-ink;
+  }
+
+  .field-required {
+    @apply text-danger;
+  }
+
+  .field-control {
+    @apply min-h-11 w-full rounded-control border border-line-strong bg-surface px-page py-control-y-sm text-copy text-ink transition-colors;
+    @apply placeholder:text-ink-subtle;
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-accent;
+    @apply hover:border-brand-primary;
+    @apply disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-ink-soft;
+  }
+
+  .field-control--invalid {
+    @apply border-danger bg-danger-soft;
+  }
+
+  .field-hint {
+    @apply mt-1 block text-caption leading-copy text-ink-soft;
+  }
+
+  .field-error {
+    @apply mt-1 flex items-start gap-1.5 text-caption font-semibold leading-copy text-danger;
+  }
+
+  /* Status blocks pair a colour with an icon and a text label, never colour alone. */
+  .alert {
+    @apply flex items-start gap-page rounded-card border px-page py-page text-copy leading-copy;
+  }
+
+  .alert--success {
+    @apply border-success bg-success-soft text-ink;
+  }
+
+  .alert--error {
+    @apply border-danger bg-danger-soft text-ink;
+  }
+
+  .alert--notice {
+    @apply border-line bg-surface-raised text-ink-soft;
+  }
+}
+
+@layer components {
+  /*
+   * Checkbox row. The whole row is the label, so the 44px target covers the text as well
+   * as the box, and the focus ring is drawn on the row when the hidden-sized input inside
+   * it takes focus.
+   */
+  .choice-row {
+    @apply flex min-h-11 cursor-pointer items-start gap-2 rounded-control p-2 text-copy leading-copy text-ink transition-colors;
+  }
+
+  .choice-row:hover {
+    background: var(--color-brand-primary-soft);
+  }
+
+  .choice-row:has(:focus-visible) {
+    outline: 2px solid var(--color-brand-accent);
+    outline-offset: 2px;
+  }
+
+  .choice-box {
+    /* 24px is the WCAG 2.5.8 minimum for a target; the surrounding .choice-row label
+     * takes the whole row past 44px. */
+    @apply mt-0.5 h-6 w-6 shrink-0 accent-brand-primary;
+  }
+}
+
+@layer components {
+  /*
+   * Fallback notice inside <noscript>. No `display` is declared on purpose: the
+   * user-agent rule that hides <noscript> while scripting is enabled must keep winning,
+   * and an author `display` would override it and show the notice to everyone.
+   */
+  .noscript-notice {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    background: var(--color-surface-raised);
+    padding: var(--spacing-page);
+    color: var(--color-ink-soft);
+    line-height: var(--leading-copy);
+  }
+}

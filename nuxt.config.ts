@@ -1,8 +1,16 @@
 import tailwindcss from '@tailwindcss/vite'
 import { BRAND_NAME_LATIN, SITE_URL } from './shared/site'
+import { LEGAL_SLUGS } from './shared/legal'
 import { PRODUCT_SLUGS } from './shared/products'
 
-const paths = ['/', '/products', ...PRODUCT_SLUGS.map((slug) => `/product/${slug}`)]
+const paths = [
+  '/',
+  '/products',
+  '/quality',
+  '/partners',
+  ...PRODUCT_SLUGS.map((slug) => `/product/${slug}`),
+  ...LEGAL_SLUGS.map((slug) => `/legal/${slug}`),
+]
 const deploymentEnvironment = process.env.VITADIET_DEPLOY_ENV ?? 'production'
 if (!['development', 'production'].includes(deploymentEnvironment)) {
   throw new Error(
@@ -35,6 +43,20 @@ export default defineNuxtConfig({
   },
 
   modules: ['@nuxtjs/i18n', '@nuxt/image', '@nuxt/fonts', '@nuxtjs/seo', '@nuxt/eslint'],
+
+  runtimeConfig: {
+    public: {
+      /**
+       * Where the partnership form POSTs its JSON. Not hardcoded in the component so the
+       * enquiry can be re-pointed at a CRM webhook later without a code change - set
+       * NUXT_PUBLIC_PARTNER_FORM_ENDPOINT at build time.
+       *
+       * The default is the mail handler shipped in `public/api/partner-lead.php`, which
+       * is what the current Apache/cPanel hosting can execute. See docs/PARTNER-FORM.md.
+       */
+      partnerFormEndpoint: '/api/partner-lead.php',
+    },
+  },
 
   site: {
     url: SITE_URL,

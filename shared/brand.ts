@@ -1,7 +1,7 @@
 export const CONTACT = {
   phone: '+966508178161',
   whatsappUrl: 'https://wa.me/966508178161',
-  email: 'b2b@vitadiet.sa',
+  email: 'acc@vitadiet.sa',
   vatId: '302135132900003',
   address: {
     streetAddress:
@@ -11,13 +11,19 @@ export const CONTACT = {
   },
 } as const
 
-/** Canonical social profiles. Single source for footer links AND Organization.sameAs. */
+/**
+ * Canonical social profiles. Single source for footer links AND Organization.sameAs.
+ *
+ * These are written in the form the platform itself serves, so a click is one request
+ * and not a redirect chain. LinkedIn, Instagram, and Snapchat all normalise a handle to
+ * lower case and 301 anything else, which is why the capitalised spellings were replaced.
+ */
 export const SOCIAL_URLS = {
-  linkedin: 'https://www.linkedin.com/company/Vitadiet',
-  instagram: 'https://www.instagram.com/Vitadiet.sa',
+  linkedin: 'https://www.linkedin.com/company/vitadiet/',
+  instagram: 'https://www.instagram.com/vitadiet.sa/',
   tiktok: 'https://www.tiktok.com/@vitadiet.sa',
   x: 'https://x.com/Vitadiet_sa',
-  snapchat: 'https://www.snapchat.com/add/Vitadiet',
+  snapchat: 'https://www.snapchat.com/add/vitadiet',
 } as const
 
 export const ASSETS = {

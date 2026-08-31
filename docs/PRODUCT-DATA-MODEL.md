@@ -107,3 +107,9 @@ getProductBySlug(slug: string): Promise<HomeProduct | undefined>
 ```
 
 الصفحات تستدعيهما عبر `useAsyncData`، وتتعامل أصلا مع حالات Loading وError. لربط Dashboard لاحقا يكفي استبدال جسم هاتين الدالتين بـ`$fetch` إلى الAPI بشرط أن يعيد نفس شكل `ProductCatalogItem`، دون تعديل الصفحات أو المكونات أو الURLs. تبقى بقية دوال `app/services/product-catalog.ts` طبقة adapter للتحقق من الاعتماد والأسعار الموحدة وروابط الشراء قبل عرضها.
+
+## المحتوى غير الخاص بالمنتجات
+
+محتوى الجودة والاعتماد، والوثائق القانونية، وقوائم نموذج الشراكة ليست في هذا الملف. مصدرها
+`app/data/site-content.ts` وتُقرأ عبر `app/services/site-content.ts` بنفس القواعد والاعتمادات.
+الخريطة الكاملة لكل مصادر البيانات المتغيرة في `docs/CONTENT-DATA-MODEL.md`.

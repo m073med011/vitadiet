@@ -8,7 +8,9 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "logoAlt": "Vitadiet Logo",
-    "priceCurrency": "Saudi riyals"
+    "priceCurrency": "Saudi riyals",
+    "skipToContent": "Skip to main content",
+    "breadcrumb": "Breadcrumb"
   },
   "langSwitcher": {
     "short": "AR",
@@ -27,7 +29,7 @@
   "preferences": "Preferences",
   "home": "Home",
   "about": "About",
-  "services": "Quality",
+  "services": "Quality & Accreditation",
   "products": "Products",
   "findProducts": "Where to Buy",
   "contact": "Contact",
@@ -76,10 +78,10 @@
   },
   "partnerSection": {
     "eyebrow": "For pharmacies and distributors",
-    "heading": "Interested in carrying Vitadiet products?",
-    "description": "For pharmacy, distributor, and retail partnership inquiries, our team can share product information, documentation, and availability details separately from the consumer shopping journey.",
-    "cta": "Contact the team",
-    "catalog": "Company profile"
+    "heading": "Do you represent a pharmacy, a distributor, or a business?",
+    "description": "Explore the VITADIET portfolio and the partnership and distribution opportunities available in Saudi Arabia.",
+    "cta": "Start your partnership",
+    "catalog": "View company profile"
   },
   "homePage": {
     "hero": {
@@ -174,7 +176,7 @@
         },
         "files": {
           "question": "I am a pharmacy or distributor. How do I contact Vitadiet?",
-          "answer": "Use the dedicated pharmacies and distributors section near the bottom of the homepage to contact the Vitadiet team."
+          "answer": "Use the pharmacies and distributors page and send the partnership form, or write to the team directly at acc{'@'}vitadiet.sa."
         }
       }
     }
@@ -209,14 +211,16 @@
       "faq": "FAQ",
       "productFiles": "Product files",
       "references": "Scientific references",
-      "related": "Related products"
+      "related": "Related products",
+      "transparency": "Transparency and accreditation"
     },
     "details": {
       "arabicName": "Arabic name",
       "englishName": "English name",
       "packSize": "Pack size",
       "lastReviewed": "Last reviewed"
-    }
+    },
+    "transparencyNote": "Ingredients, usage, and warnings appear on this page as soon as Vitadiet approves them. The printed package label is always the reference for dose and composition."
   },
   "purchase": {
     "cta": "Where to buy",
@@ -261,9 +265,124 @@
     "quote": "European quality for a healthier everyday lifestyle in Saudi Arabia.",
     "contact": {
       "address": "Saudi Arabia - Jeddah - Palestine Street - Al Hamra District - Palestine Commercial Center - First Floor - Office No. 12",
-      "vat": "VAT# : 302135132900003"
+      "vat": "VAT# : 302135132900003",
+      "company": "Vitadiet Trading Company"
     },
     "copyright": "All rights reserved by VITADIET",
-    "developedBy": "Implementation and development by"
+    "developedBy": "Implementation and development by",
+    "groups": {
+      "explore": "Browse",
+      "legal": "Policies and terms"
+    },
+    "language": "Language"
+  },
+  "faq": "FAQ",
+  "contactUs": "Contact us",
+  "legal": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "cookiesPolicy": "Cookies Policy",
+    "medicalDisclaimer": "Medical Disclaimer",
+    "lastReviewed": "Last reviewed: {date}",
+    "related": "Other policies"
+  },
+  "qualityPage": {
+    "eyebrow": "Quality and accreditation",
+    "heading": "Quality and accreditation",
+    "description": "How we choose our products, how they are manufactured, how they are registered, and how we review information before publishing it.",
+    "teaserDescription": "Five clear steps come before any product or claim appears on this website.",
+    "cta": "Read about quality and accreditation",
+    "documentedOnly": "Only documented information is used.",
+    "contents": "On this page",
+    "productsCta": "Browse products",
+    "loading": "Loading the quality and accreditation content...",
+    "error": "The quality and accreditation content could not be shown. Please refresh the page.",
+    "disclaimer": "This page is general information about how we work, not medical advice. See also"
+  },
+  "partnerPage": {
+    "heading": "Partner with Vitadiet",
+    "description": "Send us your business details and the Vitadiet team will get back to you about supply, distribution, and product availability in Saudi Arabia.",
+    "formHeading": "Partnership form",
+    "loading": "Loading the form...",
+    "error": "The form cannot be loaded right now. Please write to us at {email}.",
+    "filesHeading": "Files and further information",
+    "filesDescription": "Download the company profile or read how we handle quality and accreditation before you get in touch.",
+    "channels": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "phone": "Phone"
+    }
+  },
+  "partnerForm": {
+    "submit": "Send enquiry",
+    "submitting": "Sending...",
+    "optional": "optional",
+    "requiredNote": "Fields marked with an asterisk are required.",
+    "requiredField": "required field",
+    "selectPlaceholder": "Choose an option",
+    "noscript": "Sending this form needs JavaScript enabled in your browser. You can write to us directly at {email} instead.",
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Full name"
+      },
+      "facilityName": {
+        "label": "Business name",
+        "placeholder": "Pharmacy or company name"
+      },
+      "facilityType": {
+        "label": "Business type"
+      },
+      "city": {
+        "label": "City",
+        "placeholder": "For example: Jeddah"
+      },
+      "email": {
+        "label": "Email address",
+        "placeholder": "name{'@'}company.com"
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "+9665XXXXXXXX",
+        "hint": "Give a number we can reach during business hours."
+      },
+      "partnershipType": {
+        "label": "Partnership type"
+      },
+      "interestedProducts": {
+        "label": "Products of interest",
+        "hint": "Pick one or more, or leave this empty."
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Tell us the expected volume, the areas you cover, and anything else that helps us reply.",
+        "hint": "Please do not send personal health information through this form."
+      },
+      "consent": {
+        "label": "I agree to my data being processed in line with the"
+      }
+    },
+    "errors": {
+      "summaryTitle": "Please correct {count} field(s) before sending.",
+      "required": "This field is required.",
+      "selectOne": "Please choose an option.",
+      "email": "Please enter a valid email address.",
+      "phone": "Please enter a valid phone number.",
+      "tooLong": "This text is longer than allowed.",
+      "consent": "You must accept the privacy policy before sending."
+    },
+    "success": {
+      "title": "Your enquiry has been received",
+      "description": "The Vitadiet team will get back to you shortly. You can also write to {email}.",
+      "again": "Send another enquiry"
+    },
+    "serverError": {
+      "title": "The enquiry could not be sent",
+      "description": "The server returned an error and the enquiry did not arrive. Try again, or write to us at {email}."
+    },
+    "networkError": {
+      "title": "No connection",
+      "description": "We could not reach the server. Check your connection and try again, or write to us at {email}."
+    }
   }
 }

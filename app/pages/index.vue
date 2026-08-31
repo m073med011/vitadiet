@@ -4,11 +4,14 @@
     <LazyHomeFeaturedProducts />
     <LazyHomeProducts />
     <LazyHomeFeatures />
+    <LazyHomeQualityTeaser />
     <LazyHomeWhoWeAre />
     <LazyHomeFindProducts />
     <LazyHomeEducationTeaser />
-    <LazyHomePartners />
     <LazyHomeFaq />
+    <!-- Last section before the footer: the consumer journey above is complete, so the
+         trade route can be offered without competing with it. -->
+    <LazyHomePartners />
   </div>
 </template>
 

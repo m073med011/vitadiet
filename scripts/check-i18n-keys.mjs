@@ -56,6 +56,10 @@ function collectFiles(path, files = []) {
 
 function isAllowedDynamicKey(key) {
   if (key.startsWith('homePage.whoWeAre.petals.')) return true
+  // The partnership form builds these from the field name and the validation error key,
+  // so the literal key never appears in a source file.
+  if (key.startsWith('partnerForm.fields.')) return true
+  if (key.startsWith('partnerForm.errors.')) return true
   return /^productDetails\.[^.]+\.metaDescription$/.test(key)
 }
 

@@ -12,15 +12,28 @@
 
   --color-surface: #fbfcff;
   --color-surface-raised: #f7f9fd;
-  --color-surface-muted: #d3d3d3;
+  /* Lightened from #d3d3d3 so --color-ink-soft clears 4.5:1 on top of it (was 4.03:1). */
+  --color-surface-muted: #e2e6ec;
   --color-ink: #10243f;
   --color-ink-soft: #52647d;
-  --color-ink-subtle: #8594a8;
+  /* Darkened from #8594a8 (3.01:1) so small print and placeholders clear WCAG AA. */
+  --color-ink-subtle: #5f6f85;
   --color-line: #d3d3d3;
-  --color-line-strong: #bdcad9;
+  /*
+   * Border for form controls and for any boundary that is the only thing marking an
+   * interactive element. WCAG 1.4.11 asks 3:1 against the adjacent surface; the
+   * decorative --color-line is 1.46:1 and must not be used for that job.
+   */
+  --color-line-strong: #828fa1;
   --color-overlay: #10243f;
-  --color-on-primary: #d3d3d3;
+  --color-on-primary: #fbfcff;
   --color-on-accent: #10243f;
+
+  /* Status colours. Never used alone - every state also carries an icon and text. */
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+  --color-success: #136c34;
+  --color-success-soft: #e8f3ec;
 
   --container-shell: 120rem;
   --container-content: 80rem;
