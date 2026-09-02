@@ -71,6 +71,33 @@ function headerSafe(string $value): string
     return str_replace(["\r", "\n"], ' ', $value);
 }
 
+/**
+ * A display name in an address header, made safe to put in front of an <address>.
+ *
+ * Two problems the raw value has:
+ *   - Header field bodies are ASCII (RFC 5322). An Arabic name written straight into
+ *     Reply-To is 8-bit and arrives as mojibake, or gets the message rejected by a strict
+ *     MTA. The subject is already RFC 2047 encoded; this gives the name the same
+ *     treatment.
+ *   - An unquoted name containing <, >, comma, semicolon or colon is address syntax. A
+ *     name of `x <someone@else>` would otherwise produce two addresses in one header and
+ *     send the reply somewhere the visitor chose.
+ */
+function headerDisplayName(string $value): string
+{
+    $value = headerSafe($value);
+
+    // Printable ASCII can stay readable - quoted, so specials are literal text.
+    if (preg_match('/^[\x20-\x7E]*$/', $value) === 1) {
+        return '"' . str_replace(['\\', '"'], ['\\\\', '\\"'], $value) . '"';
+    }
+
+    // mb_encode_mimeheader rather than a hand-built encoded-word: RFC 2047 caps an
+    // encoded-word at 75 characters, and a 120-character Arabic name base64s past that.
+    // This folds it into several words correctly.
+    return mb_encode_mimeheader($value, 'UTF-8', 'B', "\r\n");
+}
+
 $name = field($payload, 'name', MAX_FIELD_LENGTH);
 $facilityName = field($payload, 'facilityName', MAX_FIELD_LENGTH);
 $facilityType = field($payload, 'facilityType', MAX_FIELD_LENGTH);
@@ -90,6 +117,20 @@ if (isset($payload['interestedProducts']) && is_array($payload['interestedProduc
             $interested[] = $slug;
         }
     }
+}
+
+/*
+ * Honeypot. The form renders a `website` field that is hidden from sight, from assistive
+ * technology and from the tab order, so a person never fills it in; a bot that fills every
+ * input it finds does.
+ *
+ * The response is a normal success. Telling a bot it was rejected is an invitation to
+ * retune and try again, and the visitor-facing states are unaffected because no real
+ * submission can reach this branch.
+ */
+if (field($payload, 'website', MAX_FIELD_LENGTH) !== '') {
+    echo json_encode(['ok' => true], JSON_UNESCAPED_UNICODE);
+    exit;
 }
 
 $phoneDigits = preg_replace('/\D/', '', $phone) ?? '';
@@ -137,12 +178,14 @@ $headers = implode("\r\n", [
     // Envelope sender stays on our own domain so SPF/DKIM keep passing; the visitor's
     // address goes on Reply-To, where replying to the enquiry actually needs it.
     'From: Vitadiet Website <no-reply@' . SITE_HOST . '>',
-    'Reply-To: ' . headerSafe($name) . ' <' . headerSafe($email) . '>',
+    'Reply-To: ' . headerDisplayName($name) . ' <' . $email . '>',
 ]);
 
 $sent = @mail(
     RECIPIENT,
-    '=?UTF-8?B?' . base64_encode($subject) . '?=',
+    // Folded the same way as the Reply-To name: a business name long enough to push the
+    // encoded subject past the RFC 2047 75-character limit is ordinary, not an edge case.
+    mb_encode_mimeheader($subject, 'UTF-8', 'B', "\r\n"),
     implode("\r\n", $lines),
     $headers
 );

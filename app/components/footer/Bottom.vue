@@ -37,5 +37,16 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * The site is prerendered, so a year resolved during the build freezes into the markup and
+ * reads as stale from 1 January until someone rebuilds. The build year is still what gets
+ * server-rendered - it has to be, or the markup and the first client render disagree and
+ * hydration warns - and the real year is written in after hydration, which is a plain DOM
+ * update rather than a mismatch.
+ */
 const currentYear = useState('footer-current-year', () => new Date().getFullYear())
+
+onMounted(() => {
+  currentYear.value = new Date().getFullYear()
+})
 </script>

@@ -21,8 +21,22 @@ npm run generate
 | `test:schema`   | Canonical WebSite/Organization/Product/Breadcrumb |
 | `test:i18n`     | تطابق مفاتيح اللغتين، لا مفاتيح ميتة              |
 | `test:site-url` | تطابق النطاق بين الكود و`.htaccess`               |
-| `test:delivery` | Indexability وأبعاد الصور المولّدة                |
+| `test:delivery` | Indexability، أبعاد الصور، وعقد `.htaccess`       |
+| `build:404`     | بناء صفحة 404 ثابتة بمحتوى فعلي في الـHTML        |
 | `failOnError`   | لا صفحة مولّدة بخطأ 4xx/5xx أثناء الـPrerender    |
+
+### ما يفحصه `test:delivery` في `.htaccess`
+
+الفحص لا يكتفي بوجود النص، بل يتحقق من كل بند في العقد على حدة:
+
+- ترويسة `X-Robots-Tag` **مشروطة** بـ`env=noindex_non_production`. أي ترويسة noindex غير
+  مشروطة خارج كتلة `<FilesMatch>` تُفشل البناء، لأنها تحذف الموقع كله من الفهرسة.
+- وجود كل تحويل 301 معتمد: المنتجات المسحوبة، بادئة `/ar/` القديمة، الشرطة المائلة
+  النهائية، النطاق المجرد إلى `www`، وفرض HTTPS.
+- كتلة `<FilesMatch>` الخاصة بـ`partner-lead.php` مع `Cache-Control: no-store`.
+- تطابق `.output/public/.htaccess` مع `public/.htaccess` حرفاً بحرف، حتى لا يُرفع ملف
+  قواعد غير الذي تمت مراجعته.
+- وجود `<h1>` داخل `404.html`، أي أنها صفحة مولّدة فعلاً وليست قوقعة SPA فارغة.
 
 ## 2. الفحص اليدوي المطلوب
 

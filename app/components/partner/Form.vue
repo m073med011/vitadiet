@@ -42,6 +42,25 @@
         $t('partnerForm.noscript', { email: contactEmail })
       }}</noscript>
 
+      <!--
+        Honeypot. `hidden` keeps it out of the render, out of the accessibility tree and
+        out of the tab order in every browser, so no visitor can reach it by sight, by
+        keyboard or with a screen reader; a bot that fills every input in the form does.
+        The handler silently drops any submission that arrives with a value.
+
+        aria-hidden and tabindex are belt-and-braces for the case where a stylesheet ever
+        overrides the user-agent rule for [hidden].
+      -->
+      <input
+        v-model="honeypot"
+        type="text"
+        name="website"
+        hidden
+        aria-hidden="true"
+        tabindex="-1"
+        autocomplete="off"
+      />
+
       <!-- Error summary: focused after a failed submit so a screen reader and a keyboard
            visitor both land on the reason instead of hunting for red borders. -->
       <div
@@ -272,6 +291,8 @@ provide(PARTNER_FORM_ID, formId)
 const controlId = (field: PartnerLeadField) => `${formId}-${field}`
 
 const lead = reactive(createEmptyLead())
+/** Honeypot value. Never validated and never shown - see the hidden input above. */
+const honeypot = ref('')
 const errors = ref<PartnerLeadErrors>({})
 const status = ref<PartnerSubmissionStatus>('idle')
 const hasSubmitted = ref(false)
@@ -334,6 +355,7 @@ watch(
 
 function resetForm() {
   Object.assign(lead, createEmptyLead())
+  honeypot.value = ''
   errors.value = {}
   status.value = 'idle'
   hasSubmitted.value = false
@@ -361,6 +383,7 @@ async function onSubmit() {
     interestedProducts: [...lead.interestedProducts],
     locale: locale.value,
     sourceUrl: absoluteSiteUrl(route.fullPath),
+    website: honeypot.value,
   })
 
   status.value = outcome === 'success' ? 'success' : outcome

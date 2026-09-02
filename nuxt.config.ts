@@ -8,6 +8,9 @@ const paths = [
   '/products',
   '/quality',
   '/partners',
+  // Prerendered so `scripts/build-404.mjs` has a server-rendered page to copy over
+  // nitro's empty 404.html shell. Kept out of the sitemap and marked noindex.
+  '/404',
   ...PRODUCT_SLUGS.map((slug) => `/product/${slug}`),
   ...LEGAL_SLUGS.map((slug) => `/legal/${slug}`),
 ]
@@ -75,6 +78,10 @@ export default defineNuxtConfig({
 
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
+    // Prerendered routes are auto-discovered, so the error document and the sitemap
+    // module's own shell routes are excluded explicitly rather than relying on their
+    // noindex rules to keep them out.
+    exclude: ['/404', '/en/404', '/sitemap.xml', '/en/sitemap.xml'],
   },
 
   robots: {
@@ -106,15 +113,31 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    compressPublicAssets: true,
+    /**
+     * Off deliberately. The site is uploaded to Apache/cPanel, which does not serve a
+     * `.br`/`.gz` twin without content-negotiation rules that public/.htaccess does not
+     * carry - so every twin was dead weight in the deploy (including a second and third
+     * copy of the 3 MB catalog PDF, and `.htaccess.br`/`.htaccess.gz` copies of the
+     * server config next to the file itself). Turn this back on if the site ever moves
+     * to a Node/nitro host that reads them.
+     */
+    compressPublicAssets: false,
     prerender: {
       crawlLinks: true,
       failOnError: true,
-      routes: [
-        ...paths,
-        ...paths.map((path) => (path === '/' ? '/en' : `/en${path}`)),
-        '/404.html',
-      ],
+      /**
+       * The sitemap module registers `/sitemap.xml`, and the i18n prefix strategy turns
+       * that into an `/en/sitemap.xml` app route too. The English one used to prerender
+       * as a real, indexable HTML page with no <h1> and no content beyond the header and
+       * footer - a thin page bots find by probing the conventional path. Nothing links to
+       * it, so it is not generated at all; a request now falls through to the 404
+       * document. The Arabic `/sitemap.xml` stays: it is the redirect stub to
+       * /sitemap_index.xml that the conventional path is supposed to serve.
+       */
+      ignore: ['/en/sitemap.xml'],
+      // `/404.html` is not listed: nitro renders it as an empty SPA shell. The real error
+      // document is built from the prerendered `/404` route by scripts/build-404.mjs.
+      routes: [...paths, ...paths.map((path) => (path === '/' ? '/en' : `/en${path}`))],
     },
   },
 

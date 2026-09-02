@@ -119,6 +119,15 @@ export interface PartnerLeadPayload extends PartnerLead {
   locale: string
   /** Page the enquiry was sent from, for context in the received email. */
   sourceUrl: string
+  /**
+   * Honeypot. Hidden from sight, from assistive technology and from the tab order, so a
+   * person leaves it empty and a bot that fills every input does not. The handler drops
+   * any submission that carries a value.
+   *
+   * Transport-only: it is deliberately not part of `PartnerLead`, because it is not a
+   * field of the enquiry and must never appear in validation or in the error summary.
+   */
+  website: string
 }
 
 /**

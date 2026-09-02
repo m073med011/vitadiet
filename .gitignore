@@ -25,4 +25,6 @@ logs
 !.env.example
 # .zip files
 *.zip
+# md files
+*.md
 
