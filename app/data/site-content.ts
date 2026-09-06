@@ -1,5 +1,4 @@
 import { LEGAL_SLUGS } from '#shared/legal'
-import type { ProductSlug } from '#shared/products'
 import type {
   ApprovedCopy,
   LegalDocument,
@@ -169,23 +168,14 @@ const partnershipTypes: PartnerFormOption[] = [
 ]
 
 /**
- * Products offered as "products of interest" checkboxes. Kept as slugs so the labels
- * come from the product catalog and can never drift from the product pages.
+ * The "products of interest" checkboxes are not listed here: they are the live catalog,
+ * read straight from the Dashboard by the form. A curated subset would have to be kept in
+ * step with the API by hand, and a pharmacy cannot express interest in a product the
+ * checkbox list has not caught up with yet.
  */
-const interestProductSlugs: ProductSlug[] = [
-  'becalme',
-  'femavit',
-  'vitagen',
-  'bestrong',
-  'dplus',
-  'green-pharmacy',
-  'soluro',
-]
-
 export const partnerFormOptions: PartnerFormOptions = {
   facilityTypes,
   partnershipTypes,
-  productSlugs: interestProductSlugs,
 }
 
 /* -------------------------------------------------------------------------- *

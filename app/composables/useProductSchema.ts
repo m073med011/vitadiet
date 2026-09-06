@@ -1,5 +1,5 @@
 import { SCHEMA_ID } from '#shared/site'
-import type { HomeProduct } from '~/types'
+import type { Product } from '~/types'
 import {
   canBuyFromOption,
   getApprovedFaqs,
@@ -8,7 +8,7 @@ import {
   localizeCopy,
 } from '~/services/product-catalog'
 
-export function useProductSchema(product: HomeProduct, seo: ReturnType<typeof useProductSeo>) {
+export function useProductSchema(product: Product, seo: ReturnType<typeof useProductSeo>) {
   const { locale, t } = useI18n()
   const localePath = useLocalePath()
   const { productPath } = useProductPath()

@@ -43,19 +43,31 @@
               <XIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
             </BaseButton>
           </div>
+          <!-- The one place the wait is announced. The placeholder grid below is
+               `aria-hidden`, so without this a screen reader would hear the count drop to
+               zero and nothing else. -->
           <p class="text-center text-small font-semibold text-ink-soft" aria-live="polite">
-            {{ $t('productPage.search.results', { count: filteredProducts.length }) }}
+            {{
+              isLoading
+                ? $t('productPage.search.loading')
+                : $t('productPage.search.results', { count: filteredProducts.length })
+            }}
           </p>
         </div>
       </section>
 
       <section class="mt-gutter-lg" :aria-label="$t('products')">
-        <div
+        <!-- The same grid the cards use, so the placeholders give way to real cards in
+             place instead of reflowing the page under the reader. -->
+        <ul
           v-if="isLoading"
-          class="rounded-card border border-line bg-surface-raised px-page py-card text-center text-ink-soft"
+          class="grid grid-cols-1 gap-gutter sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          aria-hidden="true"
         >
-          {{ $t('productPage.search.loading') }}
-        </div>
+          <li v-for="index in SKELETON_CARD_COUNT" :key="index">
+            <ProductCardSkeleton />
+          </li>
+        </ul>
 
         <div
           v-else-if="catalogError"
@@ -82,45 +94,40 @@
 
         <ul v-else class="grid grid-cols-1 gap-gutter sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <li v-for="product in filteredProducts" :key="product.slug" data-aos="fade-up">
-            <ProductCard
-              :product="product"
-              purchase-mode="modal"
-              @show-purchase="openPurchaseModal"
-            />
+            <ProductCard :product="product" />
           </li>
         </ul>
       </section>
     </div>
 
     <PartnerCta class="mt-section" />
-
-    <ProductPurchaseModal
-      :open="Boolean(selectedProduct)"
-      :product="selectedProduct"
-      @close="selectedProduct = undefined"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { AlertCircleIcon, SearchIcon, SearchXIcon, XIcon } from 'lucide-vue-next'
-import type { HomeProduct } from '~/types'
 import { getProductTitle, productMatchesSearch } from '~/services/product-catalog'
 
 const { locale, t } = useI18n()
 const { productPath } = useProductPath()
 const { absoluteSiteUrl } = useSiteUrls()
 
+/**
+ * Placeholder cards rendered while the catalog is in flight - roughly two rows on a
+ * desktop grid. It only has to cover the wait, so it is a fixed count rather than the
+ * previous response's length: on a locale switch that length is the count for a catalog
+ * that is about to be replaced.
+ */
+const SKELETON_CARD_COUNT = 8
+
 const searchQuery = ref('')
 const searchInput = ref<HTMLInputElement | null>(null)
-const selectedProduct = ref<HomeProduct | undefined>()
 
-// Resolved during SSR, so the grid is in the prerendered markup and the loading and
-// error branches below are the same ones a Dashboard-backed source would take.
-const { data: catalog, error: catalogError, status } = await useProductCatalog()
+// Resolved during SSR, so the grid is in the prerendered markup; the loading and error
+// branches below cover a client-side refetch and an unreachable Dashboard.
+const { data: products, error: catalogError, status } = await useProductCatalog()
 
 const isLoading = computed(() => status.value === 'pending')
-const products = computed(() => catalog.value ?? [])
 
 const filteredProducts = computed(() =>
   products.value.filter((product) =>
@@ -132,10 +139,6 @@ const clearSearch = async () => {
   searchQuery.value = ''
   await nextTick()
   searchInput.value?.focus()
-}
-
-const openPurchaseModal = (product: HomeProduct) => {
-  selectedProduct.value = product
 }
 
 useSchemaOrg([

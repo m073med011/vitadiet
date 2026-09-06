@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { ExternalLinkIcon } from 'lucide-vue-next'
-import type { HomeProduct, PurchaseAvailability } from '~/types'
+import type { Product, PurchaseAvailability } from '~/types'
 import {
   canBuyFromOption,
   getAvailabilityLabelKey,
@@ -91,7 +91,7 @@ import {
 } from '~/services/product-catalog'
 
 const props = defineProps<{
-  product: HomeProduct
+  product: Product
 }>()
 
 const { locale } = useI18n()

@@ -60,7 +60,7 @@ function isAllowedDynamicKey(key) {
   // so the literal key never appears in a source file.
   if (key.startsWith('partnerForm.fields.')) return true
   if (key.startsWith('partnerForm.errors.')) return true
-  return /^productDetails\.[^.]+\.metaDescription$/.test(key)
+  return false
 }
 
 function difference(left, right) {

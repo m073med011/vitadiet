@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 import { BCP47_BY_LOCALE, toAppLocale } from '#shared/site'
-import type { HomeProduct } from '~/types'
+import type { Product } from '~/types'
 import {
   formatOfficialPrice,
   getProductDescription,
@@ -13,7 +13,7 @@ import {
 
 const META_DESCRIPTION_MAX = 160
 
-export function useProductSeo(product: ComputedRef<HomeProduct>) {
+export function useProductSeo(product: ComputedRef<Product>) {
   const { locale } = useI18n()
   const { absoluteSiteUrl } = useSiteUrls()
 

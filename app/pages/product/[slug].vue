@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { getProductBySlug } from '~/services/product-catalog'
-
 definePageMeta({
   headerSticky: false,
 })
@@ -17,19 +15,20 @@ const slugValue = computed(() => {
   return Array.isArray(value) ? (value[0] ?? '') : String(value)
 })
 
-// Resolved through the adapter so a Dashboard-backed source can replace it without
-// touching this page.
-const { data, error } = await useAsyncData(
-  () => `product:${slugValue.value}`,
-  () => getProductBySlug(slugValue.value),
-  { watch: [slugValue] },
-)
+// `GET /products/{slug}`, resolved during SSR so the page is fully in the prerendered
+// markup. The endpoint takes an id or a slug; the route only ever supplies a slug.
+const { data, error } = await useProduct(slugValue)
 
-// The 404 is raised here rather than inside the handler above: useAsyncData captures a
+// The failure is classified here rather than inside the handler: useAsyncData captures a
 // handler throw into `error` and lets setup continue, so the SEO composables would go on
 // to dereference a product that was never found and turn a missing page into a 500.
-// A transport failure stays a 500 — only a resolved-but-absent product is a 404.
-if (error.value) {
+//
+// A 404 from the Dashboard means the slug is not a product, which is this site's own 404
+// with this site's own copy. Anything else - a timeout, a 500, an unparseable body - is a
+// server error and must stay one, or an outage would quietly de-index every product.
+const requestStatus = computed(() => (error.value as { statusCode?: number } | null)?.statusCode)
+
+if (error.value && requestStatus.value !== 404) {
   throw error.value
 }
 

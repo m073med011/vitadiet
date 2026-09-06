@@ -38,12 +38,12 @@
 <script setup lang="ts">
 import { XIcon } from 'lucide-vue-next'
 import type { ComponentPublicInstance } from 'vue'
-import type { HomeProduct } from '~/types'
+import type { Product } from '~/types'
 import { getProductTitle } from '~/services/product-catalog'
 
 const props = defineProps<{
   open: boolean
-  product?: HomeProduct
+  product?: Product
 }>()
 
 const emit = defineEmits<{

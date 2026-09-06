@@ -168,7 +168,12 @@
         />
       </div>
 
-      <fieldset class="grid gap-page rounded-card border border-line bg-surface-raised p-page">
+      <!-- Withheld when the catalog is empty or unreachable: an optional question with no
+           answers to tick is noise in the middle of a form someone is filling in. -->
+      <fieldset
+        v-if="interestProducts.length"
+        class="grid gap-page rounded-card border border-line bg-surface-raised p-page"
+      >
         <legend class="field-label px-1">
           {{ $t('partnerForm.fields.interestedProducts.label') }}
           <span class="text-ink-soft">({{ $t('partnerForm.optional') }})</span>
@@ -317,12 +322,15 @@ const partnershipTypeOptions = computed(() =>
 
 const { data: catalog } = await useProductCatalog()
 
-/** Checkbox labels come from the catalog, so they can never drift from the product pages. */
+/**
+ * One checkbox per published product, labelled and ordered by the Dashboard, so the list
+ * can never drift from the product pages or omit a product that has just gone live.
+ */
 const interestProducts = computed(() =>
-  props.options.productSlugs.flatMap((slug) => {
-    const product = catalog.value.find((candidate) => candidate.slug === slug)
-    return product ? [{ slug, title: getProductTitle(product, locale.value) }] : []
-  }),
+  catalog.value.map((product) => ({
+    slug: product.slug,
+    title: getProductTitle(product, locale.value),
+  })),
 )
 
 const liveStatusMessage = computed(() => {

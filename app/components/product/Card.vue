@@ -36,9 +36,6 @@
         <!-- "Available" is worth a badge; "coming soon" is not, because the action slot
              below already says it and two identical pills read as a rendering bug. -->
         <div v-if="hasMeta" class="product-meta flex items-center justify-center gap-1.5">
-          <span v-if="packSize" class="badge-pill bg-surface-raised text-ink-soft">
-            {{ packSize }}
-          </span>
           <span v-if="isAvailable" class="badge-pill bg-brand-primary-soft text-brand-primary">
             {{ $t('productCard.availability.available') }}
           </span>
@@ -55,17 +52,11 @@
             {{ $t('productCard.learnMore') }}
             <span class="sr-only"> - {{ productTitle }}</span>
           </BaseButton>
+          <!-- Always the product page, never a modal opened from the grid: purchase
+               links only come back on the detail response, so a modal built from a list
+               row could only ever say "no options yet". -->
           <BaseButton
-            v-if="isAvailable && purchaseMode === 'modal'"
-            native-type="button"
-            variant="primary"
-            @click="$emit('showPurchase', product)"
-          >
-            <ShoppingBagIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-            {{ $t('productCard.whereBuy') }}
-          </BaseButton>
-          <BaseButton
-            v-else-if="isAvailable"
+            v-if="isAvailable"
             :to="`${productPath(product.slug)}#where-to-buy`"
             variant="primary"
           >
@@ -86,29 +77,18 @@
 
 <script setup lang="ts">
 import { InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
-import type { HomeProduct } from '~/types'
+import type { Product } from '~/types'
 import {
-  getPackSize,
   getProductDescription,
   getProductImageAlt,
   getProductTitle,
   getPrimaryImage,
   hasApprovedPrice,
-  hasBuyablePurchaseOptions,
+  isProductAvailable,
 } from '~/services/product-catalog'
 
-const props = withDefaults(
-  defineProps<{
-    product: HomeProduct
-    purchaseMode?: 'anchor' | 'modal'
-  }>(),
-  {
-    purchaseMode: 'anchor',
-  },
-)
-
-defineEmits<{
-  showPurchase: [product: HomeProduct]
+const props = defineProps<{
+  product: Product
 }>()
 
 const { locale } = useI18n()
@@ -118,11 +98,8 @@ const primaryImage = computed(() => getPrimaryImage(props.product))
 const productTitle = computed(() => getProductTitle(props.product, locale.value))
 const imageAlt = computed(() => getProductImageAlt(primaryImage.value, locale.value))
 const shortDescription = computed(() => getProductDescription(props.product, locale.value))
-const packSize = computed(() => getPackSize(props.product, locale.value))
-const isAvailable = computed(() => hasBuyablePurchaseOptions(props.product))
-const hasMeta = computed(
-  () => Boolean(packSize.value) || isAvailable.value || hasApprovedPrice(props.product.price),
-)
+const isAvailable = computed(() => isProductAvailable(props.product))
+const hasMeta = computed(() => isAvailable.value || hasApprovedPrice(props.product.price))
 const productImageClasses = computed(() => [
   'object-cover transition-[filter,transform] duration-500 group-hover/card:scale-105',
   !isAvailable.value && 'grayscale group-hover/card:grayscale-0',

@@ -9,7 +9,7 @@
                JSON-LD emitted by useProductSchema and every crumb keeps a 44px target. -->
           <BaseBreadcrumb class="mb-page" :items="breadcrumbItems" />
 
-          <p class="eyebrow-text">{{ product.englishName }}</p>
+          <p v-if="tagline" class="eyebrow-text">{{ tagline }}</p>
           <h1
             class="mt-control-y max-w-3xl text-heading-lg font-bold leading-heading text-ink lg:text-display"
           >
@@ -42,12 +42,12 @@
             <span
               class="badge-pill"
               :class="
-                hasPurchaseOptions
+                isAvailable
                   ? 'bg-brand-primary-soft text-brand-primary'
                   : 'bg-surface-muted text-ink-soft'
               "
             >
-              {{ $t(availabilityKey) }}
+              {{ availabilityLabel }}
             </span>
           </div>
 
@@ -65,9 +65,7 @@
                  add aria-current="page", which misannounces a jump link. -->
             <BaseButton href="#product-information" variant="secondary">
               <InfoIcon class="h-icon-sm w-icon-sm" aria-hidden="true" />
-              {{
-                hasPurchaseOptions ? $t('productPage.productInfoCta') : $t('productPage.comingSoon')
-              }}
+              {{ isAvailable ? $t('productPage.productInfoCta') : $t('productPage.comingSoon') }}
             </BaseButton>
           </div>
         </div>
@@ -136,6 +134,7 @@
         <!-- Pinned while the long detail column scrolls past it. Only from lg up: below
              that the columns stack, so sticking would trap the panel over the content. -->
         <aside
+          v-if="identityFacts.length"
           :dir="pageDirection"
           class="grid h-fit gap-page rounded-card border border-line bg-surface-raised p-card lg:sticky lg:top-28"
         >
@@ -175,26 +174,6 @@
             </ul>
           </section>
 
-          <section v-if="approvedIngredients.length" class="product-detail-section grid gap-page">
-            <h2 class="product-detail-section__heading">
-              {{ $t('productPage.sections.ingredients') }}
-            </h2>
-            <ul class="grid gap-control-y">
-              <li
-                v-for="ingredient in approvedIngredients"
-                :key="localizeCopy(ingredient.name, locale)"
-                class="grid gap-1 rounded-card border border-line bg-surface-raised px-page py-page sm:grid-cols-[minmax(0,1fr)_auto]"
-              >
-                <span class="font-semibold text-ink">{{
-                  localizeCopy(ingredient.name, locale)
-                }}</span>
-                <span v-if="ingredient.amount" class="text-small text-ink-soft">{{
-                  ingredient.amount
-                }}</span>
-              </li>
-            </ul>
-          </section>
-
           <section v-if="usage.length" class="product-detail-section grid gap-page">
             <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.usage') }}
@@ -222,30 +201,9 @@
             </ul>
           </section>
 
-          <section
-            v-if="manufacturerFacts.length || complianceFacts.length"
-            class="product-detail-section grid gap-page"
-          >
-            <h2 class="product-detail-section__heading">
-              {{ $t('productPage.sections.manufacturing') }}
-            </h2>
-            <dl class="grid gap-page sm:grid-cols-2">
-              <div
-                v-for="fact in [...manufacturerFacts, ...complianceFacts]"
-                :key="fact.label"
-                class="rounded-card border border-line bg-surface-raised px-page py-page"
-              >
-                <dt class="text-caption font-bold uppercase tracking-label text-ink-subtle">
-                  {{ fact.label }}
-                </dt>
-                <dd class="mt-1 text-copy font-semibold leading-copy text-ink">{{ fact.value }}</dd>
-              </div>
-            </dl>
-          </section>
-
           <!-- Always rendered, unlike the sections above it: the disclaimer and the
-               quality route must be reachable from every product page, including the ones
-               whose ingredient and compliance data is still awaiting approval. -->
+               quality route must be reachable from every product page, including one the
+               Dashboard has filled in only sparsely. -->
           <section class="product-detail-section grid gap-page">
             <h2 class="product-detail-section__heading">
               {{ $t('productPage.sections.transparency') }}
@@ -286,46 +244,6 @@
                 <p class="mt-page text-copy leading-copy text-ink-soft">{{ faq.answer }}</p>
               </details>
             </div>
-          </section>
-
-          <section v-if="approvedProductFiles.length" class="product-detail-section grid gap-page">
-            <h2 class="product-detail-section__heading">
-              {{ $t('productPage.sections.productFiles') }}
-            </h2>
-            <ul class="grid gap-control-y">
-              <li v-for="file in approvedProductFiles" :key="file.label">
-                <a
-                  v-if="file.url"
-                  :href="file.url"
-                  class="font-semibold text-brand-primary underline-offset-4 hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ file.label }}
-                </a>
-                <span v-else class="text-copy text-ink-soft">{{ file.label }}</span>
-              </li>
-            </ul>
-          </section>
-
-          <section v-if="approvedReferences.length" class="product-detail-section grid gap-page">
-            <h2 class="product-detail-section__heading">
-              {{ $t('productPage.sections.references') }}
-            </h2>
-            <ul class="grid gap-control-y">
-              <li v-for="reference in approvedReferences" :key="reference.label">
-                <a
-                  v-if="reference.url"
-                  :href="reference.url"
-                  class="font-semibold text-brand-primary underline-offset-4 hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {{ reference.label }}
-                </a>
-                <span v-else class="text-copy text-ink-soft">{{ reference.label }}</span>
-              </li>
-            </ul>
           </section>
 
           <section v-if="relatedProducts.length" class="product-detail-section grid gap-page">
@@ -375,28 +293,24 @@
 
 <script setup lang="ts">
 import { CheckCircleIcon, InfoIcon, ShoppingBagIcon } from 'lucide-vue-next'
-import type { HomeProduct, ProductFact } from '~/types'
+import type { Product } from '~/types'
 import {
   getApprovedCopies,
-  getApprovedFacts,
   getApprovedFaqs,
-  getApprovedIngredients,
-  getApprovedProductFiles,
-  getPackSize,
-  getApprovedReferences,
-  getProductAvailabilityLabelKey,
+  getProductAvailabilityLabel,
   getProductDescription,
   getProductImageAlt,
   getProductTitle,
   getPrimaryImage,
   hasApprovedPrice,
   hasBuyablePurchaseOptions,
+  isProductAvailable,
   localizeApprovedCopy,
   localizeCopy,
 } from '~/services/product-catalog'
 
 const props = defineProps<{
-  product: HomeProduct
+  product: Product
 }>()
 
 const { locale, t } = useI18n()
@@ -424,26 +338,37 @@ const breadcrumbItems = computed(() => [
   { label: t('productPage.heading'), to: localePath('/products/') },
   { label: productTitle.value, to: productPath(props.product.slug) },
 ])
+/**
+ * The subtitle, above the h1 rather than in the body: it is the product's one-line
+ * tagline ("قوتك تبدأ من الداخل"), and `heroCopy` below already carries the description.
+ */
+const tagline = computed(() => localizeApprovedCopy(props.product.listingDescription, locale.value))
 const definition = computed(() => localizeApprovedCopy(props.product.definition, locale.value))
-const positioning = computed(() => localizeApprovedCopy(props.product.positioning, locale.value))
 const heroCopy = computed(
-  () => positioning.value ?? definition.value ?? getProductDescription(props.product, locale.value),
+  () => definition.value ?? getProductDescription(props.product, locale.value),
 )
 const approvedBenefits = computed(() => getApprovedCopies(props.product.benefits, locale.value))
 const heroBenefits = computed(() => approvedBenefits.value.slice(0, 3))
-const approvedIngredients = computed(() => getApprovedIngredients(props.product.ingredients))
 const usage = computed(() => getApprovedCopies(props.product.usage, locale.value))
 const warnings = computed(() => getApprovedCopies(props.product.warnings, locale.value))
 const suitableFor = computed(() => getApprovedCopies(props.product.suitableFor, locale.value))
+
+/**
+ * Two different questions, deliberately kept apart. `isAvailable` is what the Dashboard
+ * says about the product and drives the badge, the greyscale treatment and the jump-link
+ * wording; `hasPurchaseOptions` is whether there is a platform button to press, and drives
+ * only the buy CTA. A product can be in stock while its purchase links are still empty.
+ */
+const isAvailable = computed(() => isProductAvailable(props.product))
 const hasPurchaseOptions = computed(() => hasBuyablePurchaseOptions(props.product))
-const availabilityKey = computed(() => getProductAvailabilityLabelKey(props.product))
+const availabilityLabel = computed(() => getProductAvailabilityLabel(props.product, t))
 const heroImageClasses = computed(() => [
   'transition-[filter] duration-500',
-  !hasPurchaseOptions.value && 'grayscale group-hover/product-image:grayscale-0',
+  !isAvailable.value && 'grayscale group-hover/product-image:grayscale-0',
 ])
 const thumbnailImageClasses = computed(() => [
   'transition-[filter] duration-300',
-  !hasPurchaseOptions.value && 'grayscale hover:grayscale-0',
+  !isAvailable.value && 'grayscale hover:grayscale-0',
 ])
 
 const activeImage = computed(
@@ -452,27 +377,22 @@ const activeImage = computed(
     getPrimaryImage(props.product),
 )
 
-const localizeFacts = (facts: ProductFact[]) =>
-  facts.map((fact) => ({
-    label: localizeCopy(fact.label, locale.value),
-    value: localizeCopy(fact.value, locale.value),
-  }))
-
-const packSize = computed(() => getPackSize(props.product, locale.value))
-
+/**
+ * The pinned panel, built from what the detail response actually carries. A stock count
+ * of zero is a fact worth stating, so the row is guarded on the field being present
+ * rather than on the number being truthy.
+ */
 const identityFacts = computed(() => [
-  { label: t('productPage.details.arabicName'), value: props.product.arabicName },
-  { label: t('productPage.details.englishName'), value: props.product.englishName },
-  ...(packSize.value ? [{ label: t('productPage.details.packSize'), value: packSize.value }] : []),
-  ...(props.product.lastReviewed
-    ? [{ label: t('productPage.details.lastReviewed'), value: props.product.lastReviewed }]
-    : []),
+  { label: t('productPage.details.availability'), value: availabilityLabel.value },
+  ...(props.product.stockCount === undefined
+    ? []
+    : [
+        {
+          label: t('productPage.details.stock'),
+          value: t('productPage.details.stockValue', { count: props.product.stockCount }),
+        },
+      ]),
 ])
-
-const manufacturerFacts = computed(() =>
-  localizeFacts(getApprovedFacts(props.product.manufacturer)),
-)
-const complianceFacts = computed(() => localizeFacts(getApprovedFacts(props.product.compliance)))
 
 const approvedFaqs = computed(() =>
   getApprovedFaqs(props.product).map((faq) => ({
@@ -481,17 +401,9 @@ const approvedFaqs = computed(() =>
   })),
 )
 
-const approvedProductFiles = computed(() => getApprovedProductFiles(props.product, locale.value))
-
-const approvedReferences = computed(() => getApprovedReferences(props.product, locale.value))
-
-const { data: catalog } = await useProductCatalog()
-
-const relatedProducts = computed(() =>
-  (props.product.relatedSlugs ?? []).flatMap(
-    (slug) => catalog.value.find((product) => product.slug === slug) ?? [],
-  ),
-)
+// Sent inline by the detail endpoint as whole records, so the related strip costs no
+// second request and cannot show a product the Dashboard has since unpublished.
+const relatedProducts = computed(() => props.product.relatedProducts ?? [])
 </script>
 
 <style scoped>

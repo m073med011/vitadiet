@@ -12,17 +12,20 @@
 
 | المحتوى                                                  | ملف البيانات المركزي             | طبقة القراءة                      |
 | -------------------------------------------------------- | -------------------------------- | --------------------------------- |
-| المنتجات، الأسعار، روابط الشراء، صور المنتجات            | `app/data/product-catalog.ts`    | `app/services/product-catalog.ts` |
+| المنتجات، الأسعار، روابط الشراء، صور المنتجات            | Dashboard API                    | `app/services/product-api.ts`     |
 | الجودة والاعتماد، الوثائق القانونية، قوائم نموذج الشراكة | `app/data/site-content.ts`       | `app/services/site-content.ts`    |
 | روابط الهيدر والفوتر                                     | `app/data/navigation.ts`         | `app/composables/useNavPath.ts`   |
 | الأسئلة الشائعة في الصفحة الرئيسية                       | `app/data/faq.ts`                | مفاتيح i18n                       |
 | روابط التواصل الاجتماعي وبيانات الشركة                   | `shared/brand.ts`                | استيراد مباشر                     |
-| معرّفات المنتجات (Slugs)                                 | `shared/products.ts`             | —                                 |
+| شكل استجابة الـ API (snake_case)                         | `shared/api.ts`                  | `app/services/product-api.ts`     |
 | معرّفات الصفحات القانونية (Slugs)                        | `shared/legal.ts`                | —                                 |
 | نصوص الواجهة الثابتة (أزرار، عناوين، رسائل)              | `app/locales/ar.json` و`en.json` | `$t()`                            |
 
-`shared/products.ts` و`shared/legal.ts` موجودان في `shared/` لأن `nuxt.config.ts` يحتاجهما
-لتوليد الصفحات مسبقاً (Prerender)، ولا يستطيع الاستيراد من `app/`.
+`shared/legal.ts` موجود في `shared/` لأن `nuxt.config.ts` يحتاجه لتوليد الصفحات مسبقاً
+(Prerender) ولا يستطيع الاستيراد من `app/`، و`shared/api.ts` موجود هناك لأن معالج خريطة
+الموقع في `server/` يقرأ النقاط نفسها التي يقرأها التطبيق. لم تعد هناك قائمة `slug` للمنتجات
+في المستودع: صفحاتها تُكتشف بالزحف من `/products/` المبنية من الـ API. التفاصيل في
+`docs/PRODUCT-DATA-MODEL.md`.
 
 ---
 
@@ -34,10 +37,6 @@
 الدوال التي يجب استبدال جسمها فقط عند ربط Dashboard:
 
 ```ts
-// app/services/product-catalog.ts
-getProducts(): Promise<HomeProduct[]>
-getProductBySlug(slug: string): Promise<HomeProduct | undefined>
-
 // app/services/site-content.ts
 getQualityPillars(): Promise<QualityPillar[]>
 getLegalDocuments(): Promise<LegalDocument[]>
@@ -46,7 +45,8 @@ getPartnerFormOptions(): Promise<PartnerFormOptions>
 ```
 
 استبدال `await import(...)` بـ`$fetch('/api/...')` كافٍ، بشرط أن يعيد الـAPI نفس الشكل
-المعرَّف في `app/types/index.ts`. **لا تتغير أي صفحة، ولا أي مكوّن، ولا أي رابط.**
+المعرَّف في `app/types/index.ts`. **لا تتغير أي صفحة، ولا أي مكوّن، ولا أي رابط.** هذا ما
+حدث فعلا مع المنتجات: مصدرها الآن Dashboard، ولم يتغير أي رابط.
 
 بقية دوال الخدمة (`localizeApprovedCopy`، `getBuyablePurchaseOptions`، `localizeLegalSections`،
 …) تبقى طبقة Adapter تطبق قاعدة الاعتماد والتعريب قبل العرض.
@@ -88,7 +88,7 @@ getPartnerFormOptions(): Promise<PartnerFormOptions>
 والأيقونة يتم في مكان واحد: `app/components/quality/PillarIcon.vue`.
 
 **ممنوع** وضع رقم تسجيل أو رقم شهادة أو نتيجة تدقيق هنا. هذه بيانات لكل منتج على حدة،
-ومكانها `compliance` داخل `app/data/product-catalog.ts` بحالة اعتماد مستقلة.
+ومكانها Dashboard، ولا تُنشر في صفحة المنتج إلا إذا أرسلتها الـ API.
 
 ### 4.2 الوثائق القانونية
 
@@ -110,8 +110,9 @@ Slug الصفحة هو URL منشور. حذفه أو تغييره يحتاج Red
 
 - `facilityTypes`: أنواع المنشآت.
 - `partnershipTypes`: أنواع الشراكة.
-- `productSlugs`: المنتجات المعروضة كخيارات اهتمام. تُخزَّن كـSlugs فقط، وتأتي أسماؤها من
-  كتالوج المنتجات، حتى لا تختلف عن أسماء صفحات المنتجات أبداً.
+أما «المنتجات محل الاهتمام» فليست قائمة هنا: النموذج يعرض الكتالوج الحي كما تُرسله الـ API،
+فلا تحتاج قائمة يدوية إلى مواكبتها، ولا يعجز موزّع عن اختيار منتج نُشر للتو. يُخفى القسم
+بالكامل إذا كان الكتالوج فارغاً أو تعذّر الوصول إليه.
 
 ---
 
@@ -138,7 +139,6 @@ npm run generate
 
 | الأمر                   | ما يفحصه                                                                       |
 | ----------------------- | ------------------------------------------------------------------------------ |
-| `npm run test:catalog`  | تكامل كتالوج المنتجات، الصور، Alt Text، روابط الشراء، العبارات المحظورة        |
 | `npm run test:content`  | المحاور الخمسة للجودة، تطابق Slugs القانونية، وحدة بريد B2B، العبارات المحظورة |
 | `npm run test:contrast` | تباين ألوان التصميم مقابل WCAG AA                                              |
 | `npm run test:urls`     | عدم تسرب `localhost` إلى الملفات المنشورة                                      |

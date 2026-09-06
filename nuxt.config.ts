@@ -1,8 +1,13 @@
 import tailwindcss from '@tailwindcss/vite'
 import { BRAND_NAME_LATIN, SITE_URL } from './shared/site'
 import { LEGAL_SLUGS } from './shared/legal'
-import { PRODUCT_SLUGS } from './shared/products'
 
+/**
+ * Routes whose paths this repository knows. `/product/<slug>/` is deliberately absent:
+ * the catalog lives in the Dashboard, and `prerender.crawlLinks` discovers every product
+ * page from the `/products/` index - which is itself rendered from the same API response
+ * - in both locales. A slug list here could only ever be a second, staler copy of it.
+ */
 const paths = [
   '/',
   '/products',
@@ -11,7 +16,6 @@ const paths = [
   // Prerendered so `scripts/build-404.mjs` has a server-rendered page to copy over
   // nitro's empty 404.html shell. Kept out of the sitemap and marked noindex.
   '/404',
-  ...PRODUCT_SLUGS.map((slug) => `/product/${slug}`),
   ...LEGAL_SLUGS.map((slug) => `/legal/${slug}`),
 ]
 const deploymentEnvironment = process.env.VITADIET_DEPLOY_ENV ?? 'production'
@@ -49,6 +53,14 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      /**
+       * Root of the Vitadiet Dashboard REST API, including the version segment. Every
+       * request made through `useApi()` resolves against it, so moving between the local
+       * Laravel instance and the hosted dashboard is one env var at build time:
+       * NUXT_PUBLIC_API_BASE_URL. A trailing slash is optional - the client joins paths.
+       */
+      apiBaseUrl: 'https://dashboard.vitadiet.sa/api/v1',
+
       /**
        * Where the partnership form POSTs its JSON. Not hardcoded in the component so the
        * enquiry can be re-pointed at a CRM webhook later without a code change - set

@@ -49,21 +49,7 @@
     "heading": "Featured Products",
     "description": "Start with the most prominent products for everyday wellness routines.",
     "learnMore": "Learn more",
-    "whereBuy": "Where to buy",
-    "items": {
-      "becalme": {
-        "intro": "A European formula supporting calm sleep and relaxation.",
-        "benefit": "Helps you fall asleep faster and naturally improve sleep quality."
-      },
-      "femavit": {
-        "intro": "Complete daily support for women's wellness.",
-        "benefit": "Supports women during pregnancy and breastfeeding, with iron, immunity, and bone support."
-      },
-      "vitagen": {
-        "intro": "An integrated multivitamin for men and women.",
-        "benefit": "Supports daily energy, immunity, heart health, and brain health."
-      }
-    }
+    "whereBuy": "Where to buy"
   },
   "findProductsSection": {
     "heading": "Where to Find Our Products",
@@ -201,26 +187,21 @@
     "sections": {
       "identity": "Product details",
       "definition": "Overview",
-      "benefits": "Approved benefits",
-      "ingredients": "Ingredients and amounts",
+      "benefits": "Benefits",
       "usage": "How to use",
       "warnings": "Warnings",
       "suitableFor": "Who is it for?",
-      "manufacturing": "Manufacturing and registration",
       "purchase": "Where to buy",
       "faq": "FAQ",
-      "productFiles": "Product files",
-      "references": "Scientific references",
       "related": "Related products",
       "transparency": "Transparency and accreditation"
     },
     "details": {
-      "arabicName": "Arabic name",
-      "englishName": "English name",
-      "packSize": "Pack size",
-      "lastReviewed": "Last reviewed"
+      "availability": "Availability",
+      "stock": "In stock",
+      "stockValue": "{count} units"
     },
-    "transparencyNote": "Ingredients, usage, and warnings appear on this page as soon as Vitadiet approves them. The printed package label is always the reference for dose and composition."
+    "transparencyNote": "Usage instructions and warnings appear on this page as Vitadiet approves them. The printed package label is always the reference for dose and composition."
   },
   "purchase": {
     "cta": "Where to buy",
@@ -236,29 +217,6 @@
       "inStock": "Available",
       "outOfStock": "Out of stock",
       "comingSoon": "Coming soon"
-    }
-  },
-  "productDetails": {
-    "bestrong": {
-      "metaDescription": "European supplement for lasting natural energy, sharper focus, and stronger hair, skin, and nails. Suitable for men and women."
-    },
-    "becalme": {
-      "metaDescription": "European sleep-support formula that helps you fall asleep faster, calm the nerves, and enjoy deeper, more restful sleep."
-    },
-    "vitagen": {
-      "metaDescription": "Integrated European multivitamin for men and women that boosts daily energy, strengthens immunity, and supports heart and brain health."
-    },
-    "femavit": {
-      "metaDescription": "Complete European supplement supporting women's health in pregnancy and breastfeeding, with iron, immunity, and bone support."
-    },
-    "greenPharmacy": {
-      "metaDescription": "Gentle herbal cleansing gel that deeply cleanses the skin, removes excess oil, and leaves it soothed, moisturized, and refreshed."
-    },
-    "dplus": {
-      "metaDescription": "Scientifically balanced daily formula with zinc and vitamins D3, C, and B6 for immunity, energy, and healthy bones, teeth, and skin."
-    },
-    "soluro": {
-      "metaDescription": "European supplement that strengthens immunity, replenishes vitamin and mineral deficiencies, and supports hair, skin, and nails."
     }
   },
   "footer": {

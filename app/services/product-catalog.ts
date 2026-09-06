@@ -2,36 +2,27 @@ import { toAppLocale } from '#shared/site'
 import type {
   ApprovalStatus,
   ApprovedCopy,
-  HomeProduct,
   LocalizedCopy,
-  ProductCatalogItem,
-  ProductFact,
+  Product,
   ProductFaq,
   ProductImageAsset,
-  ProductIngredient,
   ProductPrice,
   ProductPurchaseOption,
-  ProductResourceLink,
   PurchaseAvailability,
 } from '~/types'
 
-export const isApproved = (status?: ApprovalStatus): boolean => status === 'approved'
-
 /**
- * Single read path for the product list. Today it resolves the bundled catalog, so it
- * settles during SSR and the markup never waits on the client. Swapping the body for a
- * `$fetch` against the future Dashboard API needs no change in the pages, because they
- * already handle the pending and error branches this signature implies.
+ * Selectors over the product model. No data source: products are read from the Dashboard
+ * API through `useProductCatalog()` and `useProduct()`, and mapped by
+ * `~/services/product-api.ts`. Everything here is a pure function of a `Product`, so a
+ * component never has to know which endpoint filled it in.
+ *
+ * The approval helpers are shared with `~/services/site-content.ts`, which still carries
+ * draft copy through the same gate. API copy is published copy, so it always maps to
+ * `approved`.
  */
-export const getProducts = async (): Promise<HomeProduct[]> => {
-  const { products } = await import('~/data/products')
-  return products
-}
 
-export const getProductBySlug = async (slug: string): Promise<HomeProduct | undefined> => {
-  const catalog = await getProducts()
-  return catalog.find((product) => product.slug === slug)
-}
+export const isApproved = (status?: ApprovalStatus): boolean => status === 'approved'
 
 export const localizeCopy = (copy: LocalizedCopy, locale: string): string =>
   copy[toAppLocale(locale)]
@@ -49,50 +40,17 @@ export const getApprovedCopies = (items: ApprovedCopy[] | undefined, locale: str
     .filter((item) => isApproved(item.status))
     .map((item) => localizeCopy(item.text, locale))
 
-export const getApprovedFacts = (items: ProductFact[] | undefined): ProductFact[] =>
-  (items ?? []).filter((item) => isApproved(item.status))
-
-export const getApprovedIngredients = (
-  ingredients: ProductIngredient[] | undefined,
-): ProductIngredient[] => (ingredients ?? []).filter((ingredient) => isApproved(ingredient.status))
-
 /**
  * The FAQ approval rule, defined once. A pair ships only when BOTH halves are approved:
  * the rendered <details> list and the JSON-LD Question nodes have to apply the identical
  * rule, or the markup asserts a claim the page itself withholds.
  */
-export const getApprovedFaqs = (product: ProductCatalogItem): ProductFaq[] =>
+export const getApprovedFaqs = (product: Product): ProductFaq[] =>
   (product.faqs ?? []).filter(
     (faq) => isApproved(faq.question.status) && isApproved(faq.answer.status),
   )
 
-export type LocalizedProductResourceLink = {
-  label: string
-  url?: string
-}
-
-const getApprovedResourceLinks = (
-  items: ProductResourceLink[] | undefined,
-  locale: string,
-): LocalizedProductResourceLink[] =>
-  (items ?? [])
-    .filter((item) => isApproved(item.status))
-    .map((item) => ({
-      label: localizeCopy(item.label, locale),
-      url: item.url,
-    }))
-
-export const getApprovedProductFiles = (
-  product: ProductCatalogItem,
-  locale: string,
-): LocalizedProductResourceLink[] => getApprovedResourceLinks(product.productFiles, locale)
-
-export const getApprovedReferences = (
-  product: ProductCatalogItem,
-  locale: string,
-): LocalizedProductResourceLink[] => getApprovedResourceLinks(product.references, locale)
-
-export const getPrimaryImage = (product: ProductCatalogItem): ProductImageAsset => {
+export const getPrimaryImage = (product: Product): ProductImageAsset => {
   const image = product.images[0]
   if (!image) {
     throw new Error(`Missing product image for slug: ${product.slug}`)
@@ -105,36 +63,36 @@ export const hasApprovedPrice = (price?: ProductPrice): price is ProductPrice =>
 
 export const formatOfficialPrice = (price: ProductPrice): string => price.amount.toFixed(2)
 
-export const getProductTitle = (product: ProductCatalogItem, locale: string): string =>
+export const getProductTitle = (product: Product, locale: string): string =>
   localizeCopy(product.title, locale)
 
-export const getProductDescription = (product: ProductCatalogItem, locale: string): string =>
+export const getProductDescription = (product: Product, locale: string): string =>
   localizeApprovedCopy(product.listingDescription, locale) ?? getProductTitle(product, locale)
 
 export const getProductImageAlt = (image: ProductImageAsset, locale: string): string =>
   localizeCopy(image.alt, locale)
 
-/**
- * Undefined when the pack size has not been supplied yet. Callers hide the row rather
- * than printing a placeholder, so an unconfirmed capsule count never reads as data.
- */
-export const getPackSize = (product: ProductCatalogItem, locale: string): string | undefined =>
-  product.packSize ? localizeCopy(product.packSize, locale) : undefined
-
-export const getPurchaseOptions = (product: ProductCatalogItem): ProductPurchaseOption[] =>
+export const getPurchaseOptions = (product: Product): ProductPurchaseOption[] =>
   product.purchaseOptions ?? []
 
-export const canBuyFromOption = (
-  product: ProductCatalogItem,
-  option: ProductPurchaseOption,
-): boolean =>
+export const canBuyFromOption = (product: Product, option: ProductPurchaseOption): boolean =>
   option.availability === 'in_stock' && option.productSlug === product.slug && Boolean(option.url)
 
-export const getBuyablePurchaseOptions = (product: ProductCatalogItem): ProductPurchaseOption[] =>
+export const getBuyablePurchaseOptions = (product: Product): ProductPurchaseOption[] =>
   getPurchaseOptions(product).filter((option) => canBuyFromOption(product, option))
 
-export const hasBuyablePurchaseOptions = (product: ProductCatalogItem): boolean =>
+export const hasBuyablePurchaseOptions = (product: Product): boolean =>
   getBuyablePurchaseOptions(product).length > 0
+
+/**
+ * Whether the product is on sale, as the Dashboard states it.
+ *
+ * Deliberately independent of `purchaseOptions`: the list endpoint sends no purchase
+ * links at all, so a card that inferred availability from them would mark every product
+ * "coming soon". Where a platform button can actually be rendered is a separate
+ * question, answered by `hasBuyablePurchaseOptions()`.
+ */
+export const isProductAvailable = (product: Product): boolean => product.availability === 'in_stock'
 
 export type AvailabilityLabelKey =
   'purchase.status.comingSoon' | 'purchase.status.inStock' | 'purchase.status.outOfStock'
@@ -151,25 +109,23 @@ export const getAvailabilityLabelKey = (
   return keys[availability]
 }
 
-export const getProductAvailabilityLabelKey = (
-  product: ProductCatalogItem,
-): AvailabilityLabelKey =>
-  hasBuyablePurchaseOptions(product) ? 'purchase.status.inStock' : 'purchase.status.comingSoon'
+/**
+ * The availability wording for a product: `availability_label` when the detail endpoint
+ * sent one, so the page says what the Dashboard says, and the translated status label
+ * otherwise. List rows carry no label, which is why the fallback exists at all.
+ */
+export const getProductAvailabilityLabel = (
+  product: Product,
+  translate: (key: AvailabilityLabelKey) => string,
+): string => product.availabilityLabel ?? translate(getAvailabilityLabelKey(product.availability))
 
-export const productMatchesSearch = (
-  product: HomeProduct,
-  query: string,
-  locale: string,
-): boolean => {
+export const productMatchesSearch = (product: Product, query: string, locale: string): boolean => {
   const normalizedQuery = query.trim().toLocaleLowerCase()
   if (!normalizedQuery) return true
 
-  const values = [
-    getProductTitle(product, locale),
-    product.englishName,
-    product.arabicName,
-    product.slug,
-  ].map((value) => value.toLocaleLowerCase())
+  const values = [getProductTitle(product, locale), product.slug].map((value) =>
+    value.toLocaleLowerCase(),
+  )
 
   return values.some((value) => value.includes(normalizedQuery))
 }

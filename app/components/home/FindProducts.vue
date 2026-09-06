@@ -6,8 +6,35 @@
         :description="$t('findProductsSection.description')"
       />
 
-      <div class="grid gap-gutter lg:grid-cols-[1fr_0.8fr]">
-        <div class="panel-card bg-surface-raised">
+      <div v-if="isLoading" class="grid gap-gutter lg:grid-cols-[1fr_0.8fr]">
+        <p class="sr-only" aria-live="polite">{{ $t('productPage.search.loading') }}</p>
+
+        <!-- Both panels stand in, and each row keeps the real row's 4rem minimum height,
+             so the section holds its size across the wait. -->
+        <div
+          v-for="panel in SKELETON_PANELS"
+          :key="panel.rows"
+          :class="['panel-card', panel.raised && 'bg-surface-raised']"
+          aria-hidden="true"
+        >
+          <div class="skeleton-line mb-page h-5 w-1/2" />
+          <div :class="['grid gap-page', panel.columns]">
+            <div
+              v-for="row in panel.rows"
+              :key="row"
+              class="flex min-h-16 items-center gap-page rounded-card border border-line bg-surface px-page py-page"
+            >
+              <div class="skeleton-block h-action w-action shrink-0" />
+              <div class="skeleton-line w-2/3" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-else class="grid gap-gutter lg:grid-cols-[1fr_0.8fr]">
+        <!-- Each panel is a claim about a set of products, so an empty one is withheld
+             rather than rendered as a heading with nothing under it. -->
+        <div v-if="availableProducts.length" class="panel-card bg-surface-raised">
           <h3 class="mb-page text-title font-bold text-ink">
             {{ $t('findProductsSection.availableHeading') }}
           </h3>
@@ -39,7 +66,7 @@
           </div>
         </div>
 
-        <div class="panel-card">
+        <div v-if="comingSoonProducts.length" class="panel-card">
           <h3 class="mb-page text-title font-bold text-ink">
             {{ $t('findProductsSection.soonHeading') }}
           </h3>
@@ -73,21 +100,34 @@
 </template>
 
 <script setup lang="ts">
-import {
-  getPrimaryImage,
-  getProductTitle,
-  hasBuyablePurchaseOptions,
-} from '~/services/product-catalog'
+import { getPrimaryImage, getProductTitle, isProductAvailable } from '~/services/product-catalog'
 
 const { locale } = useI18n()
 const { productPath } = useProductPath()
 
-const { data: catalog } = await useProductCatalog()
+/**
+ * The shape of the two panels while the catalog is in flight: the "available" grid is two
+ * columns from `sm` up, the "coming soon" list is one. The row counts are a plausible
+ * split rather than the previous response's - on a locale switch that split describes a
+ * catalog that is about to be replaced.
+ */
+const SKELETON_PANELS = [
+  { columns: 'sm:grid-cols-2', raised: true, rows: 4 },
+  { columns: '', raised: false, rows: 3 },
+]
 
-const availableProducts = computed(() =>
-  catalog.value.filter((product) => hasBuyablePurchaseOptions(product)),
-)
+const { data: catalog, status } = await useProductCatalog()
+
+// Both panels are withheld when their list is empty, and a locale switch empties the
+// catalog for the length of the refetch - so without placeholders the whole section
+// vanishes and the page below it jumps up. See `dropStaleLocaleData()`.
+const isLoading = computed(() => status.value === 'pending')
+
+// Split on the availability the Dashboard states, not on whether a purchase platform can
+// be linked to: the list endpoint sends no purchase links, so that reading would file
+// every product under "coming soon".
+const availableProducts = computed(() => catalog.value.filter(isProductAvailable))
 const comingSoonProducts = computed(() =>
-  catalog.value.filter((product) => !hasBuyablePurchaseOptions(product)),
+  catalog.value.filter((product) => !isProductAvailable(product)),
 )
 </script>

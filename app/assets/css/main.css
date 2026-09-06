@@ -28,7 +28,7 @@
   .text-heading-lg,
   .text-display,
   .text-title {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-sans);
   }
 
   :root:lang(ar) h1,
@@ -292,5 +292,87 @@
     padding: var(--spacing-page);
     color: var(--color-ink-soft);
     line-height: var(--leading-copy);
+  }
+}
+
+@layer components {
+  /*
+   * Shimmer placeholders.
+   *
+   * `.skeleton` is the grey block; `.skeleton-line` and `.skeleton-block` are the two
+   * shapes everything else is built from - a line of text and a filled area. Sizes stay
+   * with the component so each skeleton can match the box it stands in for: a placeholder
+   * that reserves the wrong height moves the page when the real content lands, which is
+   * the layout shift the shimmer was there to prevent.
+   *
+   * The sweep is drawn on ::after rather than as an animated `background-position`, so it
+   * costs a compositor transform per frame instead of a repaint of the whole block.
+   */
+  .skeleton,
+  .skeleton-line,
+  .skeleton-block {
+    --skeleton-sweep-from: -100%;
+    --skeleton-sweep-to: 100%;
+
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface-muted);
+  }
+
+  /*
+   * `transform` is not mirrored by `dir`, so the sweep would run against the reading
+   * direction on the Arabic side unless the endpoints are swapped by hand.
+   */
+  [dir='rtl'] .skeleton,
+  [dir='rtl'] .skeleton-line,
+  [dir='rtl'] .skeleton-block {
+    --skeleton-sweep-from: 100%;
+    --skeleton-sweep-to: -100%;
+  }
+
+  .skeleton::after,
+  .skeleton-line::after,
+  .skeleton-block::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(var(--skeleton-sweep-from));
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--color-surface) 85%, transparent) 50%,
+      transparent 100%
+    );
+    animation: skeleton-sweep 1.4s var(--motion-ease-out) infinite;
+  }
+
+  .skeleton-line {
+    height: 0.75rem;
+    border-radius: var(--radius-pill);
+  }
+
+  .skeleton-block {
+    border-radius: var(--radius-card);
+  }
+
+  @keyframes skeleton-sweep {
+    to {
+      transform: translateX(var(--skeleton-sweep-to));
+    }
+  }
+
+  /*
+   * Still a placeholder, just a still one. The block keeps its size so nothing about the
+   * reserved layout changes; only the travelling highlight is withdrawn.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton::after,
+    .skeleton-line::after,
+    .skeleton-block::after {
+      animation: none;
+      transform: none;
+      background: none;
+    }
   }
 }

@@ -1,6 +1,5 @@
 import type { Component } from 'vue'
 import type { LegalSlug } from '#shared/legal'
-import type { ProductSlug } from '#shared/products'
 import type { AppLocale } from '#shared/site'
 
 export type ApprovalStatus = 'approved' | 'pending_approval' | 'rejected'
@@ -24,7 +23,6 @@ export interface ProductPrice {
   amount: number
   currency: 'SAR'
   status: ApprovalStatus
-  updatedAt: string
   validUntil?: string
 }
 
@@ -44,21 +42,8 @@ export interface ProductPurchaseOption {
   logo?: PlatformLogo
   logoText: string
   name: LocalizedCopy
-  productSlug: ProductSlug
-  updatedAt: string
+  productSlug: string
   url?: string
-}
-
-export interface ProductIngredient {
-  amount?: string
-  name: LocalizedCopy
-  status: ApprovalStatus
-}
-
-export interface ProductFact {
-  label: LocalizedCopy
-  value: LocalizedCopy
-  status: ApprovalStatus
 }
 
 export interface ProductFaq {
@@ -67,53 +52,42 @@ export interface ProductFaq {
 }
 
 /**
- * One labelled, optionally linked resource attached to a product. Both `productFiles`
- * (catalog and packaging PDFs) and `references` (real scientific sources) are lists of
- * these: they carry the same shape and the same approval gate, and only the section
- * they render under differs.
+ * A product as the app renders it, whichever endpoint it came from.
+ *
+ * The fields divide into two groups. `GET /products` (the list) fills the first: slug,
+ * title, listing description, price, availability and the front image - everything a card
+ * needs. `GET /products/{slug}` (the detail) adds the rest, so an optional field being
+ * absent means "this product was read from the list", not "the Dashboard has no value for
+ * it". Every section on the product page is guarded on its own field for that reason.
+ *
+ * `~/services/product-api.ts` is the only place that builds one of these; see
+ * docs/PRODUCT-DATA-MODEL.md.
  */
-export interface ProductResourceLink {
-  label: LocalizedCopy
-  status: ApprovalStatus
-  url?: string
-}
-
-export interface ProductCatalogItem {
-  arabicName: string
+export interface Product {
+  availability: PurchaseAvailability
+  /** Availability as the Dashboard words it ("متوفر"). Detail responses only. */
+  availabilityLabel?: string
   benefits?: ApprovedCopy[]
-  compliance?: ProductFact[]
   definition?: ApprovedCopy
-  englishName: string
   faqs?: ProductFaq[]
   images: ProductImageAsset[]
-  ingredients?: ProductIngredient[]
-  lastReviewed?: string
   listingDescription: ApprovedCopy
-  manufacturer?: ProductFact[]
-  packSize?: LocalizedCopy
-  positioning?: ApprovedCopy
   price?: ProductPrice
-  productFiles?: ProductResourceLink[]
   purchaseOptions?: ProductPurchaseOption[]
-  references?: ProductResourceLink[]
-  relatedSlugs?: ProductSlug[]
+  /** Read from the detail response, which sends whole list records rather than slugs. */
+  relatedProducts?: Product[]
   seo: {
     description: ApprovedCopy
     title: ApprovedCopy
   }
-  slug: ProductSlug
+  slug: string
+  /** Units on hand. Rendered as a fact, never used to override `availability`. */
+  stockCount?: number
   suitableFor?: ApprovedCopy[]
-  templateVersion: 'legacy' | 'phase-2'
   title: LocalizedCopy
   usage?: ApprovedCopy[]
   warnings?: ApprovedCopy[]
 }
-
-/**
- * Kept as a name so component prop types keep reading `HomeProduct`. The catalog item is
- * the entire shape: the translation-key fields this used to add on top were never read.
- */
-export type HomeProduct = ProductCatalogItem
 
 export interface NavItem {
   labelKey: string
@@ -188,8 +162,6 @@ export interface PartnerFormOption {
 export interface PartnerFormOptions {
   facilityTypes: PartnerFormOption[]
   partnershipTypes: PartnerFormOption[]
-  /** Product slugs offered as "products of interest" checkboxes. */
-  productSlugs: ProductSlug[]
 }
 
 export interface PartnerLead {

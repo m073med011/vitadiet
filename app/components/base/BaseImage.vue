@@ -69,12 +69,18 @@ const props = withDefaults(
  *   when that frame is blank (a fade-in) the output is a fully transparent image.
  *
  * These are served straight from /public instead.
+ *
+ * Absolute URLs join them. They are product images served by the Dashboard, and running
+ * them through ipx would make `nuxt generate` download and re-encode each one at
+ * build time - a static export that fails whenever the Dashboard is briefly unreachable.
+ * The remote host already serves optimised WebP.
  */
 const PASSTHROUGH_EXTENSIONS = ['.svg', '.gif', '.apng']
 const PASSTHROUGH_SOURCES = ['/images/do-distribution-logo-black.webp']
 
 const passthrough = computed(
   () =>
+    /^https?:\/\//i.test(props.src) ||
     PASSTHROUGH_EXTENSIONS.some((extension) => props.src.toLowerCase().endsWith(extension)) ||
     PASSTHROUGH_SOURCES.includes(props.src),
 )

@@ -4,12 +4,27 @@
     role="region"
     :aria-label="$t('homePage.products.carouselLabel')"
   >
-    <ProductCard v-for="product in products" :key="product.slug" :product="product" />
+    <template v-if="isLoading">
+      <p class="sr-only" aria-live="polite">{{ $t('productPage.search.loading') }}</p>
+      <ProductCardSkeleton v-for="index in SKELETON_CARD_COUNT" :key="index" />
+    </template>
+
+    <template v-else>
+      <ProductCard v-for="product in products" :key="product.slug" :product="product" />
+    </template>
   </div>
 </template>
 
 <script setup lang="ts">
-const { data: products } = await useProductCatalog()
+/** One full row of the desktop grid; the mobile track scrolls past the rest. */
+const SKELETON_CARD_COUNT = 4
+
+const { data: products, status } = await useProductCatalog()
+
+// Placeholders rather than an empty rail: a locale switch clears the catalog for the
+// length of the refetch, and a strip that collapses to nothing pulls the page up under
+// whoever is reading it.
+const isLoading = computed(() => status.value === 'pending')
 </script>
 
 <style scoped>
